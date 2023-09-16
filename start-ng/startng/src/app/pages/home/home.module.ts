@@ -44,6 +44,7 @@ import { InfoNotificationComponent } from './infoNotification/infoNotification.c
 import { ConfirmDialogComponent } from '../confirmDialog/confirmDialog.component';
 import { ReportdefComponent } from './reportdef/reportdef.component';
 import { GenericFinderService } from '../genericFinder/genericFinder.service';
+import { ToolbarModule} from 'primeng/toolbar';
 
 // Formatos customizados
 export const MY_MOMENT_FORMATS = {
@@ -58,7 +59,7 @@ export const MY_MOMENT_FORMATS = {
 
 @NgModule({
   imports: [
-    CommonModule,routing, FormsModule,
+    CommonModule,routing, FormsModule,ToolbarModule,
    DirectivesModule, NgbModule, ReactiveFormsModule,
     NgScrollbarModule,AngularEditorModule,DialogModule,MessagesModule,
     ToastrModule.forRoot(),

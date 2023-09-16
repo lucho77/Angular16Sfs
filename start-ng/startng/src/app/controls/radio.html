@@ -1,0 +1,20 @@
+<div [formGroup]="form" *ngIf="esambula===1" [ngClass]="'mr-2'">
+    <div class="form-row">
+        <label for="inputPassword4" class="tm-f-bugt pl-0">{{field.label}}:                    
+        </label>
+            <input [formControlName]="field.name" class="form-check" type="radio" id="inlineRadio1" value="option1" />
+      </div>
+</div>
+<div [formGroup]="form" *ngIf="esambula===0" [ngClass]="'mb-2'">
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <div class="input-group">
+            <label class="col-xs-4 col-sm-4 col-md-3 col-lg-3 col-xl-1 tm-f-bugt pl-0">{{field.label}}: 
+                </label>
+            <input [formControlName]="field.name" class="form-check tm-f-bugt" type="radio" id="inlineRadio1" value="option1" />
+        </div>
+    </div>
+    <!-- /input-group -->
+</div>
+<!-- /.col-lg-6 -->
+</div>

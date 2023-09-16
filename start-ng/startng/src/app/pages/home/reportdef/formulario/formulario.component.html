@@ -1,0 +1,235 @@
+<p-messages [(value)]="mensajeErrorPadre">
+
+</p-messages>
+<div class="row">
+    <div class="col-md-12 mb-4">
+
+        <div widget class="card border-0 box-shadow">
+            <div class="card-header transparent border-0 text-muted">
+                <div class="widget-controls">
+                    <a data-widgster="expand" href="#" class="transition"><i class="fa fa-chevron-down"></i></a>
+                    <a data-widgster="collapse" href="#" class="transition"><i class="fa fa-chevron-up"></i></a>
+                    <a data-widgster="fullscreen" href="#" class="transition"><i class="fa fa-expand"></i></a>
+                    <a data-widgster="restore" href="#" class="transition"><i class="fa fa-compress"></i></a>
+                </div>
+            </div>
+
+            <div class="card-body pt-0 widget-body" *ngIf="camposAgrupaEntero.length > 0 && !data.tabs">
+
+                <p-toolbar>
+                    <div class="ui-toolbar-group-left mr-2">
+                        <h5 class="mb-0 tm-f-16">
+                            {{labelForm}}
+                        </h5>
+                    </div>
+
+                    <div class="ui-toolbar-group-right">
+                        <button *ngIf="menu===false" pButton type="button" type="button" title="ver los filtros del Formulario" icon="fa fa-filter" class="ui-button-warning" (click)="verFiltros()"></button>
+                        <button *ngIf="menu===false" pButton type="button" type="button" title="volver pantalla anterior" icon="fa fa-arrow-left" (click)="backHistorico()" class="ui-button-danger"></button>
+                    </div>
+
+                </p-toolbar>
+
+                <form [formGroup]="form" class="form-vertical" (keydown.enter)="$event.preventDefault()">
+
+                    <form>
+                        <div class="form-row">
+
+                            <div *ngFor="let field of data.list; let i = index" [ngClass]="field.fecha ? pintarClaseDivFehaBuil(camposAgrupaEnteroDescompuesto[i]) : pintarClaseDivBuil(camposAgrupaEnteroDescompuesto[i])">
+                                <app-field-builder *ngIf="!field.buttom" [dataForm]="data.list" [field]="field" [esambula]="1" [form]="form" [elindex]=camposAgrupaEnteroDescompuesto[i]></app-field-builder>
+                            </div>
+
+                        </div>
+                    </form>
+
+                    <div class="row">
+                        <div *ngFor="let field of data.list">
+                            <app-button *ngIf="field.buttom && !field.buttomDTO.bottonVolver" [field]="field" [form]="form" (acciones)="processActions($event,false)"></app-button>
+                            <app-button-cancel *ngIf="field.buttomDTO.bottonVolver" [field]="field" [form]="form" (acciones)="processActions($event,false)"></app-button-cancel>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="card-body pt-0 widget-body" *ngIf="camposAgrupaEntero.length == 0 && !data.tabs">
+                <p-toolbar>
+                    <div class="ui-toolbar-group-left mr-2">
+                        <h5 class="mb-0 tm-f-16">
+                            {{labelForm}}
+                        </h5>
+                    </div>
+
+                    <div class="ui-toolbar-group-right">
+                        <button *ngIf="menu===false" pButton type="button" type="button" title="ver los filtros del Formulario" icon="fa fa-filter" class="ui-button-warning" (click)="verFiltros()"></button>
+                        <button *ngIf="menu===false" pButton type="button" type="button" title="volver pantalla anterior" icon="fa fa-arrow-left" (click)="backHistorico()" class="ui-button-danger"></button>
+                    </div>
+
+                </p-toolbar>
+                <form [formGroup]="form" class="form-horizontal pt-2" (keydown.enter)="$event.preventDefault()">
+
+                    <div *ngFor="let field of data.list">
+                        <app-field-builder *ngIf="!field.buttom" [dataForm]="data.list" (accionesDina)="processMethodDina($event)" [field]="field" [esambula]="0" [form]="form"></app-field-builder>
+                    </div>
+                    <div class="row">
+                        <div *ngFor="let field of data.list">
+                            <app-button *ngIf="field.buttom && !field.buttomDTO.bottonVolver && !field.buttomDTO.bottonVolverHistorico" [field]="field" [form]="form" (acciones)="processActions($event,false)"></app-button>
+                            <app-button-cancel *ngIf="field.buttomDTO.bottonVolver" [field]="field" [form]="form" (acciones)="processActions($event,false)"></app-button-cancel>
+                            <app-button-cancel *ngIf="field.buttomDTO.bottonVolverHistorico" [field]="field" [form]="form" (acciones)="processActions($event,false)"></app-button-cancel>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="card-body pt-0 widget-body" *ngIf="data.tabs">
+                <p-toolbar>
+                    <div class="ui-toolbar-group-left mr-2">
+                        <h5 class="mb-0 tm-f-16">
+                            {{labelForm}}
+                        </h5>
+                    </div>
+
+                    <div class="ui-toolbar-group-right">
+                        <button *ngIf="menu===false" pButton type="button" type="button" title="ver los filtros del Formulario" icon="fa fa-filter" class="ui-button-warning" (click)="verFiltros()"></button>
+                        <button *ngIf="menu===false" pButton type="button" type="button" title="volver pantalla anterior" icon="fa fa-arrow-left" (click)="backHistorico()" class="ui-button-danger"></button>
+                    </div>
+
+                </p-toolbar>
+                <form [formGroup]="form" class="form-horizontal" (keydown.enter)="$event.preventDefault()">
+
+                    <p-tabView>
+                        <p-tabPanel [header]="item.name" *ngFor="let item of data.fieldsTab; let i = index" [selected]="i == 0">
+                            <div *ngFor="let tabsContent of item.list">
+                                <div *ngFor="let field of data.list">
+                                    <app-field-builder *ngIf="!field.buttom && (field.name === tabsContent.campo)" [dataForm]="data.list" [field]="field" [esambula]="0" [form]="form"></app-field-builder>
+                                </div>
+                            </div>
+                        </p-tabPanel>
+                    </p-tabView>
+                    <div class="row">
+                        <div *ngFor="let field of data.list">
+                            <app-button *ngIf="field.buttom && !field.buttomDTO.bottonVolver" [field]="field" [form]="form" (acciones)="processActions($event,false)"></app-button>
+                            <app-button-cancel *ngIf="field.buttomDTO.bottonVolver" [field]="field" [form]="form" (acciones)="processActions($event,false)"></app-button-cancel>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+<div class="row" *ngIf="tieneHijos.es && !tieneHijos.alta && tieneHijos.tabular">
+    <div class="col-md-12 mb-4">
+
+        <div widget class="card border-0 box-shadow">
+            <div class="card-header transparent border-0 text-muted">
+                <div class="widget-controls">
+                    <a data-widgster="expand" href="#" class="transition"><i class="fa fa-chevron-down"></i></a>
+                    <a data-widgster="collapse" href="#" class="transition"><i class="fa fa-chevron-up"></i></a>
+                    <a data-widgster="fullscreen" href="#" class="transition"><i class="fa fa-expand"></i></a>
+                    <a data-widgster="restore" href="#" class="transition"><i class="fa fa-compress"></i></a>
+                </div>
+                <p-toolbar>
+                    <div class="ui-toolbar-group-left">
+                        <h5 class="mb-0">{{reporteHijos}}</h5>
+                    </div>
+
+                    <div class="ui-toolbar-group-right">
+                        <button *ngIf="dataHijos.permisoDTO.nueva" pButton type="button" title="Nuevo" icon="fa fa-plus" class="ui-button-" (click)="editarABMHijos(true)"></button>
+                    </div>
+                </p-toolbar>
+            </div>
+            <div class="card-body pt-0 widget-body">
+
+                <div class="table-responsive">
+                    <ng2-smart-table class="table table-hover" (userRowSelect)="onRowSelectHijo($event)" [settings]="settings" [source]="dataTabular" (edit)="onEditHijo($event)" (delete)="onDeleteHijo($event)">
+                    </ng2-smart-table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<p-messages [(value)]="mensajeErrorHijo"></p-messages>
+<div class="row" *ngIf="tieneHijos.es && !tieneHijos.alta && !tieneHijos.tabular">
+    <div class="col-md-12 mb-4">
+        <div widget class="card border-0 box-shadow">
+            <div class="card-header transparent border-0 text-muted">
+                <h5 class="mb-0">{{reporteHijos}}</h5>
+                <div class="widget-controls">
+                    <a data-widgster="expand" href="#" class="transition"><i class="fa fa-chevron-down"></i></a>
+                    <a data-widgster="collapse" href="#" class="transition"><i class="fa fa-chevron-up"></i></a>
+                    <a data-widgster="fullscreen" href="#" class="transition"><i class="fa fa-expand"></i></a>
+                    <a data-widgster="restore" href="#" class="transition"><i class="fa fa-compress"></i></a>
+                </div>
+            </div>
+            <div class="card-body pt-0 widget-body">
+
+                <form [formGroup]="formHijo" class="form-horizontal" (keydown.enter)="$event.preventDefault()">
+
+                    <div *ngFor="let fieldHijo of formRepordefHijos.list">
+                        <app-field-builder *ngIf="!fieldHijo.buttom" [dataForm]="formRepordefHijos.list" [esambula]='0' [field]="fieldHijo" [form]="formHijo"></app-field-builder>
+                    </div>
+                    <div class="row">
+                        <div *ngFor="let fieldHijo of formRepordefHijos.list">
+                            <app-button *ngIf="fieldHijo.buttom && !fieldHijo.buttomDTO.bottonVolver" [field]="fieldHijo" [form]="formHijo" (acciones)="processActions($event, true)"></app-button>
+                            <app-button-cancel *ngIf="fieldHijo.buttom && fieldHijo.buttomDTO.bottonVolver" [field]="fieldHijo" [form]="formHijo" (acciones)="processActions($event, true)"></app-button-cancel>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<p-dialog [(visible)]="mensajes.visible" header="Alertas" [modal]="true" [responsive]="true" [maximizable]="true" [baseZIndex]="10000">
+    <div class="col-xl-12">
+        <div class="card">
+
+            <div class="card-body">
+                <div innerHTML="{{mensajes.detalle}}"></div>
+            </div>
+        </div>
+    </div>
+    <p-footer>
+        <button type="button" pButton icon="pi pi-check" (click)="mensajes.visible=false" label="cerrar"></button>
+    </p-footer>
+</p-dialog>
+
+<p-dialog header="Firma Digital" [(visible)]="firma" [modal]="true" [responsive]="true" [style]="{width: '350px', minWidth: '200px'}" [minY]="70" 
+        [maximizable]="true" [baseZIndex]="10000">
+    <p>Ingrese la contraseña para firmar digitalmente el registro</p>
+    <input type="password" pPassword [(ngModel)]="password"/>
+        <p-footer>
+            <button type="button" pButton icon="pi pi-check" [disabled]="verificarPassword()"(click)="firmar()" label="firmar"></button>
+            <button type="button" pButton icon="pi pi-close" (click)="cancelarFirma()" label="cancelar" class="ui-button-secondary"></button>
+        </p-footer>
+</p-dialog>
+
+
+
+
+
+<button id="openModalButton" [hidden]="true" data-toggle="modal" data-target="#messageLinkModal">Open Modal</button>
+
+<div class="modal fade" id="messageLinkModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Detalle</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+            </div>
+            <div class="modal-body">
+                <p>Haga click en el siguiente enlace</p>
+                <a target="_blank\" style="cursor:pointer" [href]=urlResponse>Llamar videoconferencia</a>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

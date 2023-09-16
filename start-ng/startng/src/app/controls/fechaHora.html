@@ -1,0 +1,60 @@
+<div [formGroup]="form" *ngIf="esambula === 1" [ngClass]="'mr-2'">
+    <div class="form-row">
+                
+               <label class="input-group tm-f-bugt pl-0">{{field.label}}:
+                     <strong class="text-danger" *ngIf="field.require">*</strong>
+               </label>
+
+                        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-2 col-xl-2 d-inline-flex mb-2">                          
+                            <input 
+                             [owlDateTime]="dt2"
+                             class="form-control"
+                             placeholder="dd-mm-yyyy hh:mm"
+                             [id]="field.name" [name]="field.name" 
+                             [formControlName] = "field.name"
+                        >
+                        <span class="input-group-btn" [owlDateTimeTrigger]="dt2">
+                            <button class="btn btn-info" type="button">
+                                <i class="fa fa-calendar"></i> 
+                            </button>
+                        </span>
+
+                        <owl-date-time #dt2 ></owl-date-time>
+
+                        </div> 
+           </div>
+</div>
+<div [formGroup]="form" *ngIf="esambula === 0" [ngClass]="'mb-2'">
+<div class="row">
+    <div class="col">
+        <div class="form-group">
+            <div class="input-group">
+
+                <div class="col-xs-2 col-sm-3 col-md-3 col-lg-2 col-xl-1 tm-f-bugt">
+                    <label class="pl-0">{{field.label}}:
+                        <strong class="text-danger" *ngIf="field.require">*</strong>
+                    </label>
+                </div>
+                
+                 <input 
+                        [owlDateTime]="dt2"
+                        class="form-control col-xs-12 col-sm-3 col-md-3 col-lg-2 col-xl-1 tm-f-bugt"
+                        placeholder="dd-mm-yyyy hh:mm"
+                        [id]="field.name" [name]="field.name" 
+                        [formControlName] = "field.name"
+                    >
+                    <span class="input-group-btn" [owlDateTimeTrigger]="dt2">
+                        <button class="btn btn-info" type="button">
+                            <i class="fa fa-calendar"></i> 
+                        </button>
+                    </span>
+
+                    <owl-date-time #dt2 ></owl-date-time>
+
+            </div>
+        </div>
+    </div>
+    <!-- /input-group -->
+</div>
+<!-- /.col-lg-6 -->
+</div> 

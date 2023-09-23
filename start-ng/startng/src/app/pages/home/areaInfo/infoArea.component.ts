@@ -68,25 +68,29 @@ export class InfoAreaComponent   {
     }
 
     this.nameRef = this.nameGlobalService.nameChanged$.subscribe(() => {
-      this.data.name = this.nameGlobalService.getName();
-      let posicion = this.nameGlobalService.getDetalle() !== undefined?this.nameGlobalService.getDetalle().indexOf('FOTO:'):-1;
-      if (posicion!== -1) {
-        console.log('La variable contiene el texto "fofo"');
-        const dataArray = this.nameGlobalService.getDetalle().split('FOTO:');
-        const sanitize = this.domSanitizer.bypassSecurityTrustResourceUrl('data:image/jpeg;base64,' +dataArray[1]); 
-        this.mostrarFoto = true;
-        this.imgBase64 = sanitize;
-          console.log(this.imgBase64);
-
-          this.data.info =  dataArray[0];
-        } else {
-        console.log('La variable no contiene el texto "fofo"');
-        this.mostrarFoto = false;
-        this.data.info=this.nameGlobalService.getDetalle();
+      if(this.nameGlobalService.getName()!=="null"){
+        this.data.name = this.nameGlobalService.getName();
+      }
+      if(this.nameGlobalService.getDetalle()!=="null"){
+        let posicion = this.nameGlobalService.getDetalle() !== undefined?this.nameGlobalService.getDetalle().indexOf('FOTO:'):-1;
+        if (posicion!== -1) {
+          console.log('La variable contiene el texto "fofo"');
+          const dataArray = this.nameGlobalService.getDetalle().split('FOTO:');
+          const sanitize = this.domSanitizer.bypassSecurityTrustResourceUrl('data:image/jpeg;base64,' +dataArray[1]); 
+          this.mostrarFoto = true;
+          this.imgBase64 = sanitize;
+            console.log(this.imgBase64);
+  
+            this.data.info =  dataArray[0];
+          } else {
+          console.log('La variable no contiene el texto "fofo"');
+          this.mostrarFoto = false;
+          this.data.info=this.nameGlobalService.getDetalle();
+        }
+        this.data.dataSeleccion = true;
       }
 
       //this.data.info = this.nameGlobalService.getDetalle();
-      this.data.dataSeleccion = true;
     });
   }
 

@@ -165,7 +165,7 @@ export class BusquedaGenericaComponent {
                             this.field.busquedaGenericaDTO.parametrosLlamadaPostMetodo);
                     }
                 } else {
-                        this.genericFinderService.confirm('buscar  ' + this.field.label  , result, null, null, finder,
+                        this.genericFinderService.confirm('buscar  ' + this.field.label  , result, result['columns'], null, null, finder,
                         result['finderDTOs'], this.field.busquedaGenericaDTO.findStringEqual, this.form.controls[this.field.name].value)
                     .then((fila) => {
                         if (fila === false) {

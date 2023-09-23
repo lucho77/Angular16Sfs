@@ -1111,7 +1111,7 @@ private  convertDataURItoFile(data: string, fileName: string, fmt: boolean) {
        if (!unSoloRegistro) {
 
            this.genericFinderService.confirm('Seleccionar fuente de Impresion ',
-            result, null, null, null, null, false, '')
+            result,result['columns'], null, null, null, null, false, '')
        .then((fila) => {
 
         let i = 0;

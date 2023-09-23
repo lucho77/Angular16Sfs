@@ -45,6 +45,10 @@ import { ConfirmDialogComponent } from '../confirmDialog/confirmDialog.component
 import { ReportdefComponent } from './reportdef/reportdef.component';
 import { GenericFinderService } from '../genericFinder/genericFinder.service';
 import { ToolbarModule} from 'primeng/toolbar';
+import { BusquedaGenericaModule } from 'src/app/busquedaGenericaModule';
+import { ButtonModule } from 'primeng/button';
+import { EditorModule } from 'primeng/editor';
+import { AutoCompleteModule } from 'primeng/autocomplete';
 
 // Formatos customizados
 export const MY_MOMENT_FORMATS = {
@@ -59,14 +63,14 @@ export const MY_MOMENT_FORMATS = {
 
 @NgModule({
   imports: [
-    CommonModule,routing, FormsModule,ToolbarModule,
-   DirectivesModule, NgbModule, ReactiveFormsModule,
-    NgScrollbarModule,AngularEditorModule,DialogModule,MessagesModule,
+    CommonModule,routing, FormsModule,ToolbarModule,ButtonModule,
+   DirectivesModule, NgbModule, ReactiveFormsModule,BusquedaGenericaModule,
+    NgScrollbarModule,AngularEditorModule,DialogModule,MessagesModule,EditorModule,AutoCompleteModule,
     ToastrModule.forRoot(),
 
   ],
   declarations: [
-    HomeComponent,ReportdefComponent, AutocompleteComponent,BusquedaGenericaComponent,BusquedaGenericaTextComponent,ButtonComponent,FieldBuilderComponent,
+    HomeComponent,ReportdefComponent, AutocompleteComponent,BusquedaGenericaTextComponent,ButtonComponent,FieldBuilderComponent,
     ButtonCancelComponent,CardsComponent,CheckBoxComponent,ComboComponent,TabularABMFinderComponent,InfoAreaComponent,InfoNotificationComponent,
     FechaComponent,FechaHoraComponent,FechaCustomComponent,LabelComponent,LinkComponent,RadioComponent,
     TextAreaComponent,TextBoxComponent,ClockComponent,EditorComponent,FileUploaderComponent,LinkComponent,TabularComponent,FormularioComponent

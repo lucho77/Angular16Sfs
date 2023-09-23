@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AvisaSeteoService } from 'src/app/_services/avisaSeteoService';
 import { ToastrService } from 'ngx-toastr';
+import { Pagination } from 'src/app/_models/pagination';
 
 
 @Component({
@@ -20,6 +21,7 @@ export class GenericFinderComponent implements OnInit {
 
   @Input() title: string;
   @Input('data') data: any;
+  @Input('column') column: any;
   @Input('finder') finder: FinderParamsDTO;
   @Input('comboFinder') comboFinder: FinderGenericDTO;
   @Input('settings') settings: any;
@@ -28,8 +30,9 @@ export class GenericFinderComponent implements OnInit {
   @Input('value') value: string;
   @Input('findByEqual') findByEqual: boolean;
   @ViewChild('find') find: ElementRef;
-
+  pagination: Pagination;
   dataSeleccionada: any;
+
   se_expande = true;
   se_colapsa = false;
   se_expande_dos = true;
@@ -54,17 +57,41 @@ export class GenericFinderComponent implements OnInit {
     if (this.value) {
       this.finderTabular.busqueda = this.value;
     }
+    this.pagination = {} as Pagination;
+    this.pagination.activa = true;
+    this.pagination.page = 1;
+    this.pagination.cantidadRegistrosxPagina = 10;
+    this.pagination.previousPage = 1;
+    this.pagination.maxBotones = 1;
+    this.pagination.cantColVis = 0;
+   if (this.data.length <=  this.pagination.cantidadRegistrosxPagina ) {
+     this.pagination.activa = false;
+   } else {
+     this.pagination.maxBotones =  this.data.length / this.pagination.cantidadRegistrosxPagina;
+   }
     }
     // tslint:disable-next-line:use-life-cycle-interface
     ngAfterViewInit(): void {
       // console.log(this.find.nativeElement);
       // console.log(this.finder);
+
+      
       if (!this.finder.typeMethodFinder) {
         this.renderer.selectRootElement(this.find.nativeElement).focus();
       }
       // this.find.nativeElement.focus();
     }
-
+    uestraCantidadPorPaginayPagina(noPage, $event) {
+      let noRegistrosLoc = 0; // $event.target.value;
+        if ($event == null) {
+          noRegistrosLoc = this.data.length;
+        } else {
+          noRegistrosLoc = $event.target.value;
+        }
+      //this.pagination.listaPaginacion = listaPagLoc;
+      this.pagination.cantidadRegistrosxPagina =  noRegistrosLoc;
+      this.pagination.page =  noPage;
+    }
     // LEO-INICIA 11-04-2019 13:18
     buscarSeleccionado(eleSel) {
       if (this.data.length > 0) {
@@ -96,26 +123,27 @@ export class GenericFinderComponent implements OnInit {
     }
     onRowSelect(event) {
 
-    console.log('this.lastClickTime');
-    console.log(this.lastClickTime);
-    if (this.lastClickTime === 0) {
-      this.lastClickTime = new Date().getTime();
-      this.buscarSeleccionado(event.data);
-    } else {
-
-        const change = (new Date().getTime()) - this.lastClickTime;
-        console.log('change');
-        console.log(change);
-
-      if (change < 20000) {
-        console.log(event.data);
-
-       this.onDoubleClick(event.data);
-
+      console.log('this.lastClickTime');
+      console.log(this.lastClickTime);
+      if (this.lastClickTime === 0) {
+        this.lastClickTime = new Date().getTime();
+       this.dataSeleccionada = event;
+      //  this.buscarSeleccionado(event.data);
       } else {
-        this.lastClickTime = 0;
+  
+          const change = (new Date().getTime()) - this.lastClickTime;
+          console.log('change');
+          console.log(change);
+  
+        if (change < 20000) {
+          console.log(event);
+  
+         this.onDoubleClick(event);
+  
+        } else {
+          this.lastClickTime = 0;
+        }
       }
-    }
   }
 
   onDoubleClick(data) {

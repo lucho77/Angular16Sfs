@@ -12,7 +12,8 @@ import { inicializarFinder } from '../pages/genericFinder/utilFinder';
 
 @Component({
     selector: 'app-autocomplete',
-    templateUrl: './autoComplete.html'
+    templateUrl: './autoComplete.html',
+    styleUrls: ['./autoComplete.scss'],
 
 })
 export class AutocompleteComponent {

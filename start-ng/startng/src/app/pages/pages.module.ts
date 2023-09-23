@@ -20,12 +20,13 @@ import { ApplicationsComponent } from '../theme/components/applications/applicat
 import { NgxBootstrapMultiselectModule } from 'ngx-bootstrap-multiselect';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 import { DialogModule } from 'primeng/dialog';
+import { BusquedaGenericaModule } from '../busquedaGenericaModule';
 
 
 @NgModule({
   imports: [
     FormsModule,ReactiveFormsModule,CommonModule,DialogModule,
-    NgbModule,NgxBootstrapMultiselectModule,NgScrollbarModule,
+    NgbModule,NgxBootstrapMultiselectModule,NgScrollbarModule,BusquedaGenericaModule,
     routing
   ],
   declarations: [

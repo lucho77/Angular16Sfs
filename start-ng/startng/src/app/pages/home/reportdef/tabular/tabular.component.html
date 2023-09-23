@@ -47,12 +47,11 @@
             </div>
 
             <div class="ui-toolbar-group-right">
-                <app-graficos [headerGrafi]="header" [dataGrafi]="data" [tabularGrafi]="tabular"></app-graficos>
-                <button pButton type="button" title="exportar PDF" icon="fa fa-file-pdf-o" class="ui-button-warning" (click)="exportPDF($event)"></button>
-                <button pButton type="button" title="exportar Excel" icon="fa fa-file-excel-o" class="ui-button-success" (click)="exportExcel($event)"></button>
-                <button pButton type="button" title="Refrescar" icon="fa fa-refresh" class="ui-button-primary" (click)="refrescar($event)"></button>
-                <button *ngIf="menu===false" pButton type="button" type="button" title="ver los filtros del Tabular" icon="fa fa-filter" class="ui-button-warning" (click)="verFiltros()"></button>
-                <button *ngIf="menu===false" pButton type="button" type="button" title="volver pantalla anterior" icon="fa fa-arrow-left" (click)="backHistorico()" class="ui-button-danger"></button>
+                <p-button icon="pi pi-file-pdf" (click)="exportPDF($event)" styleClass="p-button-danger p-button-sm"></p-button>
+                <p-button icon="pi pi-file-excel"  (click)="exportExcel($event)" styleClass="p-button-success p-button-sm"></p-button>
+                <p-button icon="pi pi-refresh" title="Refrescar" (click)="refrescar($event)" styleClass="p-button-warning p-button-sm"></p-button>
+                <p-button *ngIf="menu===false" title="ver los filtros del Tabular" icon="pi pi-filter" title="Refrescar" (click)="verFiltros()" styleClass="p-button-help p-button-sm"></p-button>
+                <p-button *ngIf="menu===false" icon="pi pi-chevron-left" title="volver pantalla anterior" (click)="backHistorico()" styleClass="p-button-danger p-button-sm"></p-button>
             </div>
 
             <div class="ui-toolbar-group-right">

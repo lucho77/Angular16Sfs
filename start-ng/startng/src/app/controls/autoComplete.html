@@ -1,28 +1,7 @@
-<div [formGroup]="form">
+<h6>{{field.label}}</h6>
+<div [formGroup]="form" >
 
-    <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-            <div class="input-group">
-                <label class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-1 tm-f-bugt pl-0">{{field.label}}: 
-                    <strong class="text-danger" *ngIf="field.require">*</strong>
-                </label>
-                <div class="ng-autocomplete">
-                    <ng-autocomplete [data]="results" notFoundText="No se encontraron resultados" minQueryLength="3" placeholder="ingrese un texto a buscar 2..." [formControlName]="field.name" [searchKeyword]="name" (selected)='onSelect($event)' (inputChanged)='buscar($event)'
-                        [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate">
-                    </ng-autocomplete>
-
-                    <ng-template #itemTemplate let-item>
-                        <a [innerHTML]="item"></a>
-                    </ng-template>
-
-                    <ng-template #notFoundTemplate let-notFound>
-                        <div [innerHTML]="notFound"></div>
-                    </ng-template>
-                </div>
-
-            </div>
-            <!-- /input-group -->
-        </div>
-    </div>
-    <!-- /.col-lg-6 -->
+<span class="p-fluid">
+    <p-autoComplete  [style]="{'height':'40px'}" [inputStyle]="{'height':'40px'}"  minLength="3" [formControlName]="field.name"  (onSelect)='onSelect($event)' forceSelection="true" [suggestions]="results" (completeMethod)="buscar($event)"></p-autoComplete>
+</span>
 </div>

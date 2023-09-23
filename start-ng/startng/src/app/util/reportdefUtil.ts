@@ -152,8 +152,9 @@ export function prepararParametrosApasar(repordefData: ReportdefData, metadata: 
     export function prepararRequestABMedit( metadata: MetodoDTO) {
     }
     export function devolverProyecto () {
-        const api = 'api/framework/dina';
-        return api;
+      //const api = 'api/framework/dina';
+      const api = '../api/framework/dina';
+      return api;
     }
 
     export function buscarParametro( parametro:  string, historicos: LinkedList<Historico>, globales: FormdataReportdef[] ) {

@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgModule } from '@angular/core';
+import { NgModule, isDevMode } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
@@ -30,6 +30,7 @@ import { NgbDateCustomParserFormatter } from './util/datePicker/datePicker';
 import { CommonModule } from '@angular/common';
 import { JwtInterceptor } from './_helpers/jwt.interceptor';
 import { ErrorInterceptor } from './_helpers/error.interceptor';
+import { ServiceWorkerModule } from '@angular/service-worker';
  
 
 @NgModule({  
@@ -52,6 +53,12 @@ import { ErrorInterceptor } from './_helpers/error.interceptor';
         useFactory: HttpLoaderFactory,
         deps: [HttpClient]
       }
+    }),
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: !isDevMode(),
+      // Register the ServiceWorker as soon as the application is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
     })
   ],
   declarations: [

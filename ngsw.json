@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1696088297384,
+  "timestamp": 1696088541764,
   "index": "/Angular16Sfs/index.html",
   "assetGroups": [
     {
@@ -15,7 +15,7 @@
         "/Angular16Sfs/755.99d8a9fc36c2ed6f.js",
         "/Angular16Sfs/favicon.ico",
         "/Angular16Sfs/index.html",
-        "/Angular16Sfs/main.96f31e97f5c2dc16.js",
+        "/Angular16Sfs/main.b109ecee8848170b.js",
         "/Angular16Sfs/manifest.webmanifest",
         "/Angular16Sfs/polyfills.5d4a9581169ef06c.js",
         "/Angular16Sfs/runtime.2fe99e1f119b71e6.js",
@@ -202,10 +202,10 @@
     "/Angular16Sfs/fontawesome-webfont.da909aa098b0ee2d.svg": "98a8aa5cf7d62c2eff5f07ede8d844b874ef06ed",
     "/Angular16Sfs/fontawesome-webfont.e9955780856cf8aa.woff2": "d6f48cba7d076fb6f2fd6ba993a75b9dc1ecbf0c",
     "/Angular16Sfs/hue.8b1818380241e6ac.png": "f81ae627637a684614aa726e206c73ce099a01fd",
-    "/Angular16Sfs/index.html": "17c8c37d4396b09ee28990e9bd4ab8479c7ed857",
+    "/Angular16Sfs/index.html": "fd1cf17f9adee788e5965c69471555f8c924c37a",
     "/Angular16Sfs/layers-2x.d422e06cfb4d5ffa.png": "34239130c3aea22f21455746284d5a266435fa39",
     "/Angular16Sfs/layers.4d939edc421e1801.png": "0dbc42bf6f9b7166196dd88bdbb45a11307ec8a5",
-    "/Angular16Sfs/main.96f31e97f5c2dc16.js": "04c3f5953638d523488136838f2266505d665d86",
+    "/Angular16Sfs/main.b109ecee8848170b.js": "a60475afb9305088dc386ff2e509a85ceb4bfd1b",
     "/Angular16Sfs/manifest.webmanifest": "301f16628dd56484974f3da5c88755aab7b7787f",
     "/Angular16Sfs/moonhouse.4226f5234e83506d.ttf": "81010b760b4e4f58e5be3ce8cbc8f6cf14ca5ed9",
     "/Angular16Sfs/polyfills.5d4a9581169ef06c.js": "301fddce1c3745fec78a23ff4da980c2d6b09d0a",

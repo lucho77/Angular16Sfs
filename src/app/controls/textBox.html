@@ -1,0 +1,27 @@
+<div [formGroup]="form" *ngIf="esambula === 1" [ngClass]="'mr-2'">
+    <div class="form-row">
+        <label class="input-group tm-f-bugt pl-0">{{field.label}}: 
+            <strong class="text-danger" *ngIf="field.require">*</strong>
+               </label>
+        <input type="text" class="form-control" [id]="field.name" [name]="field.name" [formControlName]="field.name">
+    </div>
+</div>
+<div [formGroup]="form" *ngIf="esambula===0" [ngClass]="'mb-2'">
+    <div *ngIf="!field.disable" class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <div class="input-group">
+                <label class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-1 tm-f-bugt pl-0">{{field.label}}: 
+                        <strong class="text-danger" *ngIf="field.require">*</strong>
+                </label>
+                <input type="text" class="form-control tm-f-bugt" [id]="field.name" [name]="field.name" [formControlName]="field.name">
+            </div>
+        </div>
+        <!-- /input-group -->
+    </div>
+    <ol *ngIf="field.disable" class="breadcrumb col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <li class="breadcrumb-item">
+            <p><b>{{field.label}}</b>:{{field.valueNew}}</p>
+        </li>
+    </ol>
+    <!-- /.col-lg-6 -->
+</div>

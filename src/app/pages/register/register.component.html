@@ -1,0 +1,180 @@
+<div class="animationload" *ngIf="loadSpinner">
+    <div class="osahanloading"></div>
+</div>
+
+
+<div class="row">
+    <div class="col-lg-12 mb-4">
+        <div widget class="card border-0 box-shadow">
+            <div class="card-header transparent border-0 text-muted">
+                <h5 class="mb-0">Regístrese</h5>
+                <div class="widget-controls">
+                    <a data-widgster="expand" href="#" class="transition"><i class="fa fa-chevron-down"></i></a>
+                    <a data-widgster="collapse" href="#" class="transition"><i class="fa fa-chevron-up"></i></a>
+                    <a data-widgster="close" href="#" class="transition"><i class="fa fa-times"></i></a>
+                </div>
+            </div>
+            <div class="card-body pt-0 widget-body">
+                <a *ngIf="registrase" routerLink="/login" class="transition">Ya tiene una cuenta? Ingrese!</a>
+
+                <div *ngIf="!registrase">
+                    <form [formGroup]="formValida" (ngSubmit)="onSubmit()" autocomplete="off" class="text-left mt-4">
+
+                        <div class="card mb-2">
+                            <div class="card-body">
+                                <p class="card-text">se ha enviado un mensaje de texto con el codigo de validacion, asi como tambien un correo electronico a su casilla de correo. (en caso de no recibir el codigo de validacion en su celular o su correo, por favor pulse "solicitar
+                                    nuevo codigo")</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <label class="maliz-15">Usuario 
+                                </label>
+                            </div>
+                            <input [formControl]="userName2" autocomplete="off" class="form-control validation-field" type="text" disabled>
+                        </div>
+
+                        <div class="col-xs-12">
+                            <label class="maliz-15">Codigo Validacion 
+                                            <strong class="text-danger">*</strong>
+                                    </label>
+                        </div>
+
+                        <input [formControl]="semilla" autocomplete="off" class="form-control validation-field" type="text">
+                        <small class="text-danger" *ngIf="formValida.get('semilla').touched">
+                                    <span *ngIf="formValida.get('semilla').hasError('required')">codigo validacion requerido</span>
+                                </small>
+                        <br>
+                        <br>
+                        <div class="form-group">
+                            <button [disabled]="(!formValida.valid || clickValida )" class="btn btn-info" type="submit">validar</button> <br>
+                            <button [disabled]="(!formValida.valid || clickValida )" (click)="solicitarNuevoCodigo()" class="btn btn-warning" type="submit">solicitar nuevo codigo</button>
+                        </div>
+                        <div *ngIf="errorLogin" class="alert alert-danger" role="alert">
+                            {{error}}
+                        </div>
+                    </form>
+                </div>
+
+                <div *ngIf="registrase">
+
+                    <form [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="off" class="text-left mt-4">
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <label class="maliz-15">Nombre completo 
+                                            <strong class="text-danger">*</strong>
+                                    </label>
+                            </div>
+                            
+                            <input [formControl]="name" autocomplete="off" class="col-lg-8 form-control validation-field" type="text">
+                            <small class="text-danger" *ngIf="form.get('name').touched">
+                                    <span *ngIf="form.get('name').hasError('required')">Nombre completo es requerido</span>
+                                    <span *ngIf="form.get('name').hasError('minlength')">minimo 3 caracteres</span>
+                                </small>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <label class="maliz-15">Email 
+                                </label>
+                            </div>
+                            <input [formControl]="email" autocomplete="off" class="col-lg-8 form-control validation-field" type="text">
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <label class="maliz-15">Celular Sin el 0 ni el 15
+                                        </label>
+                            </div>
+                            <input [formControl]="phone" id="phone-number" class="col-lg-8 form-control" type="text" OnlyNumber="true">
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <label class="maliz-15">DNI 
+                                                    <strong class="text-danger">*</strong>
+                                                </label>
+                            </div>
+
+                            <input [formControl]="dni" autocomplete="off" class="col-lg-8 form-control validation-field" type="text">
+                            <small class="text-danger" *ngIf="form.get('dni').touched">
+                                    <span *ngIf="form.get('dni').hasError('required')">DNI es requerido</span>
+                                </small>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <label class="maliz-15">Fecha de Nacimiento 
+                                                    <strong class="text-danger">*</strong>
+                                                </label>
+                            </div>
+
+                            <div class="input-group">
+
+                                <input class="col-lg-6 form-control" placeholder="dd-mm-yyyy" [minDate]="{year: 1910, month: 1, day: 1}" [formControl]="fecnac" ngbDatepicker #p="ngbDatepicker">
+                                <span class="input-group-btn">
+                                        <button class="btn btn-info" type="button" (click)="p.toggle()">
+                                            <i class="fa fa-calendar"></i> 
+                                        </button>
+                                    </span>
+                            </div>
+                            <small class="text-danger" *ngIf="form.get('fecnac').touched">
+                                <span *ngIf="form.get('fecnac').hasError('required')">Fecha de Nacimiento es requerido</span>
+                                <span *ngIf="form.get('fecnac').hasError('ngbDate')">Formato Fecha Incorrecto, Ingrese DD-MM-AAAA</span>
+                            </small>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <label class="maliz-15">Nombre Usuario 
+                                                    <strong class="text-danger">*</strong>
+                                                </label>
+                            </div>
+
+                            <input [formControl]="userName" autocomplete="off" class="col-lg-8 form-control validation-field" type="text">
+                            <small class="text-danger" *ngIf="form.get('userName').touched">
+                                    <span *ngIf="form.get('userName').hasError('required')">Nombre de usuario es requerido</span>
+                                    <span *ngIf="form.get('userName').hasError('whitespace')">no puede tener espacios en blanco el nombre de usuario</span>
+
+                                </small>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <label class="maliz-15">Contraseña 
+                                                    <strong class="text-danger">*</strong>
+                                                </label>
+                            </div>
+
+                            <input [formControl]="password" autocomplete="new-password" class="col-lg-8 form-control validation-field" type="password" minlength="5">
+                            <small class="text-danger" *ngIf="form.get('password').touched">
+                                    <span *ngIf="form.get('password').hasError('required')">Contraseña es requerido</span>
+                                    <span *ngIf="form.get('password').hasError('minlength')">Contraseña demasiado corta, 5 caracteres como minimo</span>
+                                </small>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <label class="maliz-15">Reingrese contraseña 
+                                            <strong class="text-danger">*</strong>
+                                    </label>
+                            </div>
+
+                            <input [formControl]="confirmPassword" autocomplete="off" class="col-lg-8 form-control validation-field" type="password">
+                            <small class="text-danger" *ngIf="form.get('confirmPassword').touched">
+                                    <span *ngIf="form.get('confirmPassword').hasError('required')">Confirmación de contraseña es requerido</span>
+                                    <span *ngIf="form.get('confirmPassword').hasError('mismatchedPasswords')">No coinciden las contraseñas</span>
+                                </small>
+                        </div>
+
+                        <div class="form-group">
+                            <button [disabled]="(!form.valid || click )" class="btn btn-info" type="submit">Regístrate</button>
+                        </div>
+                        <div *ngIf="errorLogin" class="alert alert-danger" role="alert">
+                            {{error}}
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="card-footer text-muted">
+                {{version}}
+            </div>
+
+        </div>
+    </div>
+</div>

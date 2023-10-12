@@ -52,3 +52,7 @@
         transform: rotate(360deg);
     }
 }
+.btn-list-row{
+    display: grid;
+    grid-template-columns: 1fr;
+}

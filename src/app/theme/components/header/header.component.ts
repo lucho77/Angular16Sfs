@@ -43,9 +43,6 @@ export class HeaderComponent implements OnInit {
     if(window.innerWidth <= 768) 
     this.showHorizontalMenu = false;
     // this.nameGlobalService.setearNameGlobal('SIN SELECCION', 'no hay informacion que mostrar');
-    if (window.innerWidth <= 768) {
-      this.showHorizontalMenu = false;
-    }
     const user = <User>JSON.parse(localStorage.getItem('currentUser'));
 
     this.usuarioMesa = user.usuarioMesa;
@@ -61,7 +58,6 @@ export class HeaderComponent implements OnInit {
       console.log('this.info');
       console.log(this.data.info);
     }); */
-
   }
 
 

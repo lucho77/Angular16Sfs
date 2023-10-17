@@ -2,10 +2,12 @@ import { Component, Input, EventEmitter, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { AvisaSeteoService } from '../_services/avisaSeteoService';
 import { Subscription } from 'rxjs';
+import { environment } from 'src/environments/environment.development';
 
 @Component({
     selector: 'app-button',
-    templateUrl: './button.html'
+    templateUrl: './button.html',
+    styleUrls:['./button.scss']
 
 })
 export class ButtonComponent {
@@ -15,6 +17,7 @@ export class ButtonComponent {
 
     @Input() flecha = false;
     private suscRef: Subscription = null;
+    public mobile = environment.mobile;
 
     public data: DatoVisible = {
         flechaBotonSetear: false,

@@ -55,7 +55,7 @@
                 <p-button *ngIf="menu===false" icon="pi pi-chevron-left" title="volver pantalla anterior" (click)="backHistorico()" styleClass="p-button-danger p-button-sm"></p-button>
             </div>
 
-            <div class="ui-toolbar-group-right">
+            <div *ngIf="!mobile" class="ui-toolbar-group-right">
                 <div *ngIf="tabular.botones" class="card-body pt-0 widget-body">
                     <div class="row d-blockA">
                         <div *ngFor="let field of tabular.botones">
@@ -63,7 +63,15 @@
                         </div>
                     </div>
                 </div>
-
+            </div>
+            <div *ngIf="mobile" class="container-fluid">
+                <div *ngIf="tabular.botones" class="grid-r-1fr">
+                    <div class="row grid-r-1fr">
+                        <div class="grid-r-1fr" *ngFor="let field of tabular.botones">
+                            <app-button [field]="field" (acciones)="processActions($event)"></app-button>
+                        </div>
+                    </div>
+                </div>
             </div>
 
         </p-toolbar>

@@ -117,13 +117,8 @@
     padding: 0;
     font-size:27px;
     display: inline-block;
-    width: $sidebar-width;  
-    &:hover, &:focus{
-        text-decoration: none;
-        color: initial;
-    }
-    .span-logo{
-        color: #fff !important; // ------------------------- logo font
+    img{
+        width: 55px;
     }
 }
 

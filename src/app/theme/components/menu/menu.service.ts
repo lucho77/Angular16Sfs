@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { TipoReporte } from '../../../_models/tipoReporte';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { AppSettings } from 'src/app/app.settings';
+import { Settings } from 'src/app/app.settings.model';
 
 
 
@@ -12,11 +14,12 @@ export class MenuService {
   private horizontalMenuItems: any;
   private reportdef: string;
   private tipoReporte: TipoReporte;
+
 constructor(private location: Location,
               private renderer2: Renderer2,
               private router: Router,
-              private http: HttpClient
-            ) { }
+              private http: HttpClient,
+            ) {}
 
   public getVerticalMenuItems(): any {
       return this.verticalMenuItems;

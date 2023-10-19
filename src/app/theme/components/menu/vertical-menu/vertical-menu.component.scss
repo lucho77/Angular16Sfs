@@ -1,22 +1,25 @@
 //@import "../../../../theme/styles/mixins";
 
-.menu-wrapper{
+.menu-wrapper {
     height: 100%;
-    .card{
-        border:0;
+    .card {
+        border: 0;
         border-radius: 0;
         background: transparent;
-        a{
+
+        a {
             cursor: pointer;
             padding: 10px 0;
+            padding-left: 1vh;
             font-size: 14px;
             display: inline-block;
             width: 100%;
             outline: none;
-            i{
+            i {
                 padding: 0 12px;
             }
-            b{
+
+            b {
                 float: right;
                 margin-right: 15px;
                 margin-top: 4px;
@@ -26,22 +29,23 @@
                 -o-transition: -o-transform 0.2s linear;
                 transition: transform 0.2s linear;
             }
-            &.collapsed b{
+
+            &.collapsed b {
                 -webkit-transform: rotate(-180deg);
                 -moz-transform: rotate(-180deg);
                 -ms-transform: rotate(-180deg);
                 -o-transform: rotate(-180deg);
                 transform: rotate(-180deg);
             }
-        }   
+        }
     }
+
     .collapsing {
         -webkit-transition: height .25s ease;
         -o-transition: height .25s ease;
         transition: height .25s ease;
     }
 }
-
 // .sidebar-outer.compact{
 //     a.menu-item-link{
 //         padding-left: 0 !important;

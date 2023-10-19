@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { TipoReporte } from '../../../_models/tipoReporte';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { AppSettings } from 'src/app/app.settings';
+import { Settings } from 'src/app/app.settings.model';
 
 
 
@@ -12,11 +14,12 @@ export class MenuService {
   private horizontalMenuItems: any;
   private reportdef: string;
   private tipoReporte: TipoReporte;
+
 constructor(private location: Location,
               private renderer2: Renderer2,
               private router: Router,
-              private http: HttpClient
-            ) { }
+              private http: HttpClient,
+            ) {}
 
   public getVerticalMenuItems(): any {
       return this.verticalMenuItems;
@@ -71,10 +74,10 @@ public setReportdef(reportdef: string) {
     this.renderer2.setAttribute(link, 'data-animation', 'false');
     this.renderer2.setAttribute(link, 'data-container', '.vertical-menu-tooltip-place');
     this.renderer2.setAttribute(link, 'data-original-title', menuItem.descripcion);
-    const icon = this.renderer2.createElement('i');
-    this.renderer2.addClass(icon, 'fa');
-    this.renderer2.addClass(icon, 'fa-file-text-o');
-    this.renderer2.appendChild(link, icon);
+    // const icon = this.renderer2.createElement('i');
+    // this.renderer2.addClass(icon, 'fa');
+    // this.renderer2.addClass(icon, 'fa-file-text-o');
+    // this.renderer2.appendChild(link, icon);
     const span = this.renderer2.createElement('span');
     this.renderer2.addClass(span, 'menu-title');
     this.renderer2.appendChild(link, span);

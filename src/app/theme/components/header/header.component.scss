@@ -117,10 +117,8 @@
     padding: 0;
     font-size:27px;
     display: inline-block;
-    width: $sidebar-width;  
-    &:hover, &:focus{
-        text-decoration: none;
-        color: initial;
+    img{
+        width: 55px;
     }
 }
 

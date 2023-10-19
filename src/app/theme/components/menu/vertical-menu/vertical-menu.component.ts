@@ -20,19 +20,15 @@ export class VerticalMenuComponent implements OnInit {
               private elementRef:ElementRef) {
 
       this.settings = this.appSettings.settings;
-    /*
+    
       this.router.events.subscribe(event => {
           if (event instanceof NavigationEnd) {
-              window.scrollTo(0, 0);
-              //const activeLink = this.menuService.getActiveLink(this.menuItems);
-              //this.menuService.setActiveLink(this.menuItems, activeLink);
-              jQuery('.tooltip').tooltip('hide');
               if (window.innerWidth <= 768) {
                 this.settings.theme.showMenu = false;
               }
           }
       });
-      */
+
   }
 
   ngOnInit() {

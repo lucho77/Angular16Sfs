@@ -10,17 +10,12 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { ParametrosExecuteMethodRequestDTO } from '../_models/parametrosExecuteMethodRequestDTO';
 import { ToastrService } from 'ngx-toastr';
+import { environment } from 'src/environments/environment.development';
 
 @Component({
     selector: 'app-busquedagenerica',
     templateUrl: './busquedaGenerica.html',
-    styles: [
-        `
-        .breadcrumb{
-            background-color:#ffffff;
-        }
-        `
-      ],
+    styleUrls: ['./busquedaGenerica.scss'],
 
 })
 export class BusquedaGenericaComponent {
@@ -29,6 +24,7 @@ export class BusquedaGenericaComponent {
     @Input() elindex: any;
     @Input() esambula: number;
     @Input() dataForm: FormdataReportdef[];
+    public mobile = environment.mobile;
 
     get isValid() { return this.form.controls[this.field.name].valid; }
     get isDirty() { return this.form.controls[this.field.name].dirty; }

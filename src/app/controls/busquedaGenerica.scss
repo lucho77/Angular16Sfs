@@ -1,0 +1,26 @@
+.breadcrumb{
+    background-color:#ffffff;
+}
+.input-group-mobile{
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    $margen-elementos:1.5vw;
+    gap: $margen-elementos;
+    margin-bottom: $margen-elementos;
+    label{
+        grid-column: 1/3;
+    }
+    span{
+        grid-column: 2/3;
+    }
+    .input-1{
+        width: 100%;
+        grid-column: 1/2;
+    }
+    .input-2{
+        width: 100%;
+        grid-column: 1/3;
+        background: #0000000c;
+        pointer-events: none;
+    }
+}

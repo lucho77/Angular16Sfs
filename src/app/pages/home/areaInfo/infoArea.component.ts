@@ -64,7 +64,7 @@ export class InfoAreaComponent   {
       console.log('seteo el globalSerice');
     } else {
       this.data.name = 'SIN SELECCION';
-      this.data.info = 'no hay informacion que mostrar';
+      this.data.info = 'No hay informacion que mostrar';
     }
 
     this.nameRef = this.nameGlobalService.nameChanged$.subscribe(() => {

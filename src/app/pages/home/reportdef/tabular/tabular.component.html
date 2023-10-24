@@ -27,7 +27,7 @@
     </p-footer>
 </p-dialog>
 
-<!-- --------------- card Si NO es mobile-----------------  -->
+<!-- --------------- card si NO es mobile-----------------  -->
 <div *ngIf="!mobile" widget class="card border-0 box-shadow">
     <div class="card-header transparent border-0 text-muted">
 
@@ -234,7 +234,7 @@
     </div>
 </div>
 
-<!-- --------------- card Si ES mobile--------------------  -->
+<!-- --------------- card si ES mobile--------------------  -->
 <div *ngIf="mobile"  widget class="card border-0 box-shadow">
     <div class="card-header transparent border-0 text-muted">
 
@@ -256,7 +256,7 @@
                 </h5>
             </div>
             <div class="ui-toolbar-group-right">
-                <p-button *ngIf="menu===false" icon="pi pi-chevron-left" title="volver pantalla anterior" (click)="backHistorico()" styleClass="p-button-danger p-button-sm"></p-button>
+                <p-button *ngIf="menu===false" title="volver pantalla anterior" (click)="backHistorico()" styleClass="p-button-info p-button-sm">Ir Atrás</p-button>
             </div>
             <div class="container-fluid">
                 <div *ngIf="tabular.botones" class="grid-r-1fr">
@@ -307,15 +307,53 @@
 
         <div [ngClass]="tabular.responsive !==null && tabular.responsive !== '' ? 'containerX d-none d-sm-block' : 'containerX'">
             <div class="row">
-                <div [ngClass]="tabular.tabularDescriptivo == true ? 'table-responsive col-xl-7 col-lg-7 col-md-7 col-sm-7 col-xs-12' : 'table-responsive'">
+                <div class="table-responsive col-xl-7 col-lg-7 col-md-7 col-sm-7 col-xs-12">
 
-                    <!-- <div class="container">
+                    <div class="contenedor">
+                        <!-- Cards hardcodeadas--------------------- -->
                         <div class="card">
-                            <h2>CARD</h2>
+                            <h2>Sebastian Vega (230566)</h2>
+                            <span class="separador"></span>
+                            <div class="contenedor-text">
+                                <div><span style="font-weight: 600;">Fecha: </span> <span>20/06/23</span></div>
+                                <div><span style="font-weight: 600;">Problema: </span><span>FIEBRE Y DOLOR CORPORAL</span></div>
+                                <div><span style="font-weight: 600;">Firmado: </span><span>Si</span></div>
+                            </div>
+                                <div class="btns" *ngIf="this.pagination.listaPaginacion.length !== 0">
+                                    <button *ngIf="this.tabularABM && this.tabular.permisoDTO.edit" class="btn-edit">Editar</button>
+                                    <button *ngIf="this.tabularABM && this.tabular.permisoDTO.delete" class="btn-eliminar">Eliminar</button>
+                                </div>
                         </div>
-                    </div> -->
+                        <div class="card">
+                            <h2>Lavatiatta Gustavo</h2>
+                            <span class="separador"></span>
+                            <div class="contenedor-text">
+                                <div><span style="font-weight: 600;">DNI: </span> <span>17007461</span></div>
+                                <div><span style="font-weight: 600;">Localidad: </span><span>Ciudad de Mexico</span></div>
+                            </div>
+                            <div class="btns" *ngIf="this.pagination.listaPaginacion.length !== 0">
+                                <button *ngIf="this.tabularABM && this.tabular.permisoDTO.edit" class="btn-edit">Editar</button>
+                                <button *ngIf="this.tabularABM && this.tabular.permisoDTO.delete" class="btn-eliminar">Eliminar</button>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <h2>Informe</h2>
+                            <span class="separador"></span>
+                            <div class="contenedor-text">
+                                <div><span style="font-weight: 600;">Diagnóstico: </span> <span>Dolor abdominal</span></div>
+                                <div><span style="font-weight: 600;">Problema: </span><span>Le dolia la panza</span></div>
+                                <div><span style="font-weight: 600;">Fecha: </span><span>20/10/23</span></div>
+                                <div><span style="font-weight: 600;">Prestador: </span><span>Sebastían Vega</span></div>
+                            </div>
+                            <div class="btns" *ngIf="this.pagination.listaPaginacion.length !== 0">
+                                <button *ngIf="this.tabularABM && this.tabular.permisoDTO.edit" class="btn-edit">Editar</button>
+                                <button *ngIf="this.tabularABM && this.tabular.permisoDTO.delete" class="btn-eliminar">Eliminar</button>
+                            </div>
+                        </div>
+                        <button *ngIf="tabularABM===true && tabular.permisoDTO.nueva" pButton type="button" title="Nuevo" class="btn-agregar" (click)="nuevoAbm()">+</button>
+                    </div>
 
-                    <div class='table-cont' id='table-cont' (scroll)="desplazaScrollVertical($event)" [ngStyle]="{ 'height.px': altoVentana/2.5,'position':'relative'}">
+                    <!-- <div class='table-cont' id='table-cont' (scroll)="desplazaScrollVertical($event)" [ngStyle]="{ 'height.px': altoVentana/2.5,'position':'relative'}">
                         <table class="table table-responsive table-striped table-hover" [ngStyle]="this.pagination.listaPaginacion.length == 0 ? {'display':'inline-table'}:{'display':''}">
                             <thead id="idTh1">
                                 <tr [ngStyle]="{'background-color':'#f3f3f3','color':'black'}">
@@ -394,7 +432,7 @@
                             </tfoot>
 
                         </table>
-                    </div>
+                    </div> -->
 
                 </div>
 
@@ -403,7 +441,7 @@
                         <div class="card-header ">
                             <b>Por favor seleccione un registro para ver más detalles</b>
                         </div>
-                        <div class="card-body " #dataContainer [ngStyle]="{ 'height': 'auto', 'overflow': 'auto', 'white-space': 'pre-line'} "></div>
+                        <div class="card-body" #dataContainer [ngStyle]="{ 'height': 'auto', 'overflow': 'auto', 'white-space': 'pre-line'} "></div>
                     </div>
                 </div>
             </div>

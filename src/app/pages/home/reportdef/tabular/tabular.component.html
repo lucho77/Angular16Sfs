@@ -26,7 +26,9 @@
         <button type="button" pButton icon="pi pi-check" (click)="filtros=false" label="cerrar"></button>
     </p-footer>
 </p-dialog>
-<div widget class="card border-0 box-shadow">
+
+<!-- --------------- card Si NO es mobile-----------------  -->
+<div *ngIf="!mobile" widget class="card border-0 box-shadow">
     <div class="card-header transparent border-0 text-muted">
 
         <div class="widget-controls">
@@ -46,7 +48,6 @@
                     {{tituloReporte}}
                 </h5>
             </div>
-
             <div class="ui-toolbar-group-right">
                 <p-button icon="pi pi-file-pdf" (click)="exportPDF($event)" styleClass="p-button-danger p-button-sm"></p-button>
                 <p-button icon="pi pi-file-excel"  (click)="exportExcel($event)" styleClass="p-button-success p-button-sm"></p-button>
@@ -55,7 +56,7 @@
                 <p-button *ngIf="menu===false" icon="pi pi-chevron-left" title="volver pantalla anterior" (click)="backHistorico()" styleClass="p-button-danger p-button-sm"></p-button>
             </div>
 
-            <div *ngIf="!mobile" class="ui-toolbar-group-right">
+            <div class="ui-toolbar-group-right">
                 <div *ngIf="tabular.botones" class="card-body pt-0 widget-body">
                     <div class="row d-blockA">
                         <div *ngFor="let field of tabular.botones">
@@ -64,16 +65,6 @@
                     </div>
                 </div>
             </div>
-            <div *ngIf="mobile" class="container-fluid">
-                <div *ngIf="tabular.botones" class="grid-r-1fr">
-                    <div class="row grid-r-1fr">
-                        <div class="grid-r-1fr" *ngFor="let field of tabular.botones">
-                            <app-button [field]="field" (acciones)="processActions($event)"></app-button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
         </p-toolbar>
 
         <br>
@@ -227,6 +218,183 @@
                             </select>registros
                         </div>
                     </form>
+
+                </div>
+
+                <div id="cuadro-con-der" class="col-xl-5 col-lg-5 col-md-5 col-sm-5 col-xs-12 pt-4" *ngIf="tabular.tabularDescriptivo">
+                    <div class="card" [ngStyle]="{ 'height.px': altoVentana/2.5}">
+                        <div class="card-header ">
+                            <b>Por favor seleccione un registro para ver más detalles</b>
+                        </div>
+                        <div class="card-body " #dataContainer [ngStyle]="{ 'height': 'auto', 'overflow': 'auto', 'white-space': 'pre-line'} "></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- --------------- card Si ES mobile--------------------  -->
+<div *ngIf="mobile"  widget class="card border-0 box-shadow">
+    <div class="card-header transparent border-0 text-muted">
+
+        <div class="widget-controls">
+            <a data-widgster="expand" href="#" class="transition"><i class="fa fa-chevron-down"></i></a>
+            <a data-widgster="collapse" href="#" class="transition"><i class="fa fa-chevron-up"></i></a>
+            <a data-widgster="fullscreen" href="#" class="transition"><i class="fa fa-expand"></i></a>
+            <a data-widgster="restore" href="#" class="transition"><i class="fa fa-compress"></i></a>
+        </div>
+
+        
+    </div>
+    <div class="card-body widget-body">
+
+        <p-toolbar>
+            <div class="ui-toolbar-group-left mr-2">
+                <h5 class="mb-0 tm-f-16">
+                    {{tituloReporte}}
+                </h5>
+            </div>
+            <div class="ui-toolbar-group-right">
+                <p-button *ngIf="menu===false" icon="pi pi-chevron-left" title="volver pantalla anterior" (click)="backHistorico()" styleClass="p-button-danger p-button-sm"></p-button>
+            </div>
+            <div class="container-fluid">
+                <div *ngIf="tabular.botones" class="grid-r-1fr">
+                    <div class="row grid-r-1fr">
+                        <div class="grid-r-1fr" *ngFor="let field of tabular.botones">
+                            <app-button [field]="field" (acciones)="processActions($event)"></app-button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </p-toolbar>
+
+        <br>
+
+        <div *ngIf="tabular.responsive !== null && tabular.responsive !== ''" class="containerX  d-block d-sm-none">
+            <div id="accordion-1" role="tablist" aria-multiselectable="true">
+                <div *ngFor="let fil of pagination.listaPaginacion; let io = index">
+                    <div class="card">
+                        <div class="card-header" role="tab" id="headingOne">
+                            <h5 class="mb-0">
+                                <a data-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                                  Registro # {{io +1}}
+                                </a>
+                            </h5>
+                        </div>
+                        <div id="collapseOne" class="collapse show" data-parent="#accordion-1" role="tabpanel" aria-labelledby="hea1dingOne">
+                            <div class="card-body">
+                                <ul>
+                                    <li *ngIf="this.tabularABM && this.tabular.permisoDTO.edit" [ngClass]="1==1  ? 'btn-outline-primary cl-decora-link cl-hijo-celda' : ''" style="cursor: pointer;" (click)="onEdit(fil)">Editar</li>
+                                    <li *ngIf="this.tabularABM && this.tabular.permisoDTO.delete" [ngClass]="1==1  ? 'btn-outline-primary cl-decora-link cl-hijo-celda' : ''" style="cursor: pointer;" (click)="onDelete(fil)">Eliminar</li>
+                                    <li *ngIf="tabular.tabularDescriptivo" (click)="mostrarDetalle(fil)" [ngClass]="1==1  ? 'btn-outline-primary cl-decora-link cl-hijo-celda' : ''" data-toggle="modal" data-target="#messageModal">ver detalle</li>
+                                </ul>
+
+                                <div [ngStyle]="col.visible == false ? {'display':'none'}:{'display':'','cursor':'pointer','left':'io.px','position':'relative'}" *ngFor="let col of header; let ioh = index">
+                                    <ul>
+                                        <li [ngClass]="col.link===true  ? 'btn-outline-primary cl-decora-link cl-hijo-celda' : ''" (click)="clickLinkTabular($event,col,fil)">{{col.title}}</li>
+                                        <p *ngIf="!col.link"> {{fil[col.name]}}</p>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+        <div [ngClass]="tabular.responsive !==null && tabular.responsive !== '' ? 'containerX d-none d-sm-block' : 'containerX'">
+            <div class="row">
+                <div [ngClass]="tabular.tabularDescriptivo == true ? 'table-responsive col-xl-7 col-lg-7 col-md-7 col-sm-7 col-xs-12' : 'table-responsive'">
+
+                    <!-- <div class="container">
+                        <div class="card">
+                            <h2>CARD</h2>
+                        </div>
+                    </div> -->
+
+                    <div class='table-cont' id='table-cont' (scroll)="desplazaScrollVertical($event)" [ngStyle]="{ 'height.px': altoVentana/2.5,'position':'relative'}">
+                        <table class="table table-responsive table-striped table-hover" [ngStyle]="this.pagination.listaPaginacion.length == 0 ? {'display':'inline-table'}:{'display':''}">
+                            <thead id="idTh1">
+                                <tr [ngStyle]="{'background-color':'#f3f3f3','color':'black'}">
+                                    <button *ngIf="tabularABM===true && tabular.permisoDTO.nueva" pButton type="button" title="Nuevo" icon="fa fa-plus" class="mt-6 dl6deanpx ui-button-" (click)="nuevoAbm()"></button>
+                                    <th *ngIf="tabular.seleccionMultiple">
+                                        <input type="checkbox" [checked]="estaActivo" name="chbTodo" id="chbTodo" (click)="chequeaTodo(estaActivo)" [ngStyle]="{'cursor':'pointer'}">
+                                    </th>
+                                    <div class="clflex d-inline-flex" *ngIf="this.pagination.listaPaginacion.length !== 0">
+                                        <div *ngIf="this.tabularABM && this.tabular.permisoDTO.edit" class="cldib1"></div>
+                                        <div *ngIf="this.tabularABM && this.tabular.permisoDTO.delete" class="cldib2"></div>
+                                    </div>
+                                    <th [ngStyle]="col.visible == false ? {'display':'none'}:{'display':'','cursor':'pointer','left':'io.px','position':'relative'}" (click)="pagination.sortType = col.title; pagination.sortReverse = !pagination.sortReverse; muestraRombos($event); ordenarColumna($event,col.title,pagination.page,pagination.sortReverse,pagination.listaPaginacion[0],io);"
+                                        *ngFor="let col of header; let io = index" class="clindas{{io}}">
+                                        {{col.title}}
+                                        <img id="idnumim{{io}}" [ngClass]="'cl-muestra-th'" src="assets/img/tabla/orden_ambos.png" alt="orden de ambos">
+
+                                        <img id="idserim{{io}}" *ngIf="pagination.sortType === col.title && !pagination.sortReverse" src="assets/img/tabla/orden_asc.png" alt="orden ascendente">
+                                        <img id="idgerim{{io}}" *ngIf="pagination.sortType === col.title && pagination.sortReverse" src="assets/img/tabla/orden_desc.png" alt="orden descendente">
+                                    </th>
+                                </tr>
+                                <tr *ngIf="mostrarFiltro" [ngStyle]="{'background-color':'#f3f3f3','color':'black'}">
+                                    <div class="clflex d-inline-flex" *ngIf="this.pagination.listaPaginacion.length !== 0">
+                                        <div *ngIf="this.tabularABM && this.tabular.permisoDTO.edit" class="cldib1"></div>
+                                        <div *ngIf="this.tabularABM && this.tabular.permisoDTO.delete" class="cldib2"></div>
+                                    </div>
+                                    <th [ngStyle]="col.visible == false ? {'display':'none'}:{'display':'','cursor':'pointer'}" (click)="pagination.sortType = col.title; pagination.sortReverse = !pagination.sortReverse; ordenarColumna($event,col.title,pagination.page,pagination.sortReverse,pagination.listaPaginacion[0],io);"
+                                        *ngFor="let col of header; let io = index" [ngClass]="'pt-0'">
+                                        <input id="idcomli{{io}}" type="text" [ngStyle]="{'width':'100%','height':'50%'}" [ngClass]="'form-control'" (click)="desapareceRombo($event)" (keyup)="buscaDentroTabla($event)" type="text">
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let fil of pagination.listaPaginacion"  [ngClass]="'cl-filsese'" (click)="clickFilaTabular2($event,fil)">
+                                    <td *ngIf="tabular.seleccionMultiple">
+                                        <input type="checkbox" name="chbTodo" id="chbTodo" (click)=chequeaFila(fil,false) [checked]="fil.chequeado" [ngStyle]="{'cursor':'pointer'}">
+                                    </td>
+                                    <div class="clflexSegundo">
+                                        <div *ngIf="this.tabularABM && this.tabular.permisoDTO.edit" style="text-align: center;cursor: pointer;" class="cldib1" (click)="onEdit(fil)"><span class="tm-f-150 fa fa-edit fa-lg btn-outline-success" aria-hidden="true" title="modificar registro" alt="modificar registro"></span></div>
+                                        <div *ngIf="this.tabularABM && this.tabular.permisoDTO.delete" style="text-align: center;cursor: pointer;" class="cldib2" (click)="onDelete(fil)"><span class="tm-f-150 fa fa-trash fa-lg btn-outline-danger" aria-hidden="true" title="eliminar registro" alt="eliminar registro"></span></div>
+                                    </div>
+                                    <td [ngStyle]="col.visible == false ? {'display':'none'}:{'display':''}" [title]="col.comentario" [ngClass]="col.link || col.linkDina  == true ? 'btn-outline-primary' : ''" (click)="clickLinkTabular($event,col,fil)"
+                                        *ngFor="let col of header; index as i">
+                                        <b *ngIf="col.download==true && fil[col.name]">                                                
+                                                            
+                                                            <i class="fa fa-download" style="text-align: center;cursor: pointer;" title="download archivo" alt="download archivo" aria-hidden="true" (click) = "downloadFile(col, fil)"></i>
+                                                        </b>
+                                        <b *ngIf="col.download == false && !col.fontAwesoneIcono && !col.linkOtherTab">{{fil[col.name]}}</b>
+                                        <b *ngIf="col.download==false && col.fontAwesoneIcono && col.link==true ">
+                                                        <i class="tm-f-150 {{col.fontAwesoneIcono}}"></i>
+                                        </b>
+
+                                        <b *ngIf="col.linkOtherTab==true">
+                                              <div *ngIf='fil[col.name]'>
+                                                                    
+                                                <button type="button" class="btn btn-xs btn-primary" data-toggle="modal" data-target=".bd-example-modal-xl" (click)="abreelModal(fil[col.name])">
+                                                      <i class="tm-f-150 {{col.fontAwesoneIcono}}" aria-hidden="true"></i>
+                                                </button>
+                                                                 
+                                                </div>
+                                              </b>
+                                    </td>
+                                </tr>
+                            </tbody>
+
+                            <tfoot id="idTF1 " *ngIf="tabular.footer ">
+                                <tr>
+                                    <td>
+                                        Totales:
+                                    </td>
+
+                                    <td *ngFor="let coluu of header; " [ngStyle]="coluu.visible==false ? { 'display': 'none'}:{ 'display': '', 'cursor': 'pointer'} ">
+                                        {{coluu.total}}
+                                    </td>
+
+                                </tr>
+                            </tfoot>
+
+                        </table>
+                    </div>
 
                 </div>
 

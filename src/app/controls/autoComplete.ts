@@ -63,7 +63,7 @@ export class AutocompleteComponent {
                       paramContenido.name = 'P1';
                       paramContenido.text = true;
                       paramContenido.type = FrontEndConstants.JAVA_LANG_STRING;
-                      const value = event;
+                      const value = event.query;
                       paramContenido.valueNew = value ? value : '';
                       finder.finderGenericDTO.parametrosFinderMetodo.push(paramContenido);
                     } else {
@@ -100,16 +100,16 @@ export class AutocompleteComponent {
         }
         finder.nameParam = this.field.name;
         finder.globalParam = this.field.busquedaGenericaDTO.globalParam;
-        if (event !== null && event !== '' ) {
+        if (event !== null && event.query !== null && event.query !== '' ) {
             finder.finderGenericDTO.atribute = this.field.busquedaGenericaDTO.typeFindBy;
             finder.finderGenericDTO.type = this.field.busquedaGenericaDTO.typeFindByType;
             if (finder.finderGenericDTO.type === FrontEndConstants.JAVA_LANG_LONG) {
-                finder.finderGenericDTO.value = event;
+                finder.finderGenericDTO.value = event.query;
             } else {
                     if (this.field.busquedaGenericaDTO.findStringEqual) {
-                        finder.finderGenericDTO.value = event;
+                        finder.finderGenericDTO.value = event.query;
                     } else {
-                        finder.finderGenericDTO.value = '%' + event + '%';
+                        finder.finderGenericDTO.value = '%' + event.query + '%';
                     }
             }
         } else {

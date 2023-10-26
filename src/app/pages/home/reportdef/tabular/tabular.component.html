@@ -180,7 +180,7 @@
                                                 </button>
                                                                  
                                                 </div>
-                                              </b>
+                                        </b>
                                     </td>
                                 </tr>
                             </tbody>
@@ -310,130 +310,24 @@
                 <div class="table-responsive col-xl-7 col-lg-7 col-md-7 col-sm-7 col-xs-12">
 
                     <div class="contenedor">
-                        <!-- Cards hardcodeadas--------------------- -->
-                        <div class="card">
-                            <h2>Sebastian Vega (230566)</h2>
+                        <!-- Cards mobile--------------------- -->
+                        <div *ngFor="let fil of pagination.listaPaginacion" class="card">
+                            <!-- <h2>Sebastian Vega (230566)</h2> -->
                             <span class="separador"></span>
                             <div class="contenedor-text">
-                                <div><span style="font-weight: 600;">Fecha: </span> <span>20/06/23</span></div>
-                                <div><span style="font-weight: 600;">Problema: </span><span>FIEBRE Y DOLOR CORPORAL</span></div>
-                                <div><span style="font-weight: 600;">Firmado: </span><span>Si</span></div>
-                            </div>
-                                <div class="btns" *ngIf="this.pagination.listaPaginacion.length !== 0">
-                                    <button *ngIf="this.tabularABM && this.tabular.permisoDTO.edit" class="btn-edit">Editar</button>
-                                    <button *ngIf="this.tabularABM && this.tabular.permisoDTO.delete" class="btn-eliminar">Eliminar</button>
+                                <div [ngStyle]="col.visible == false ? {'display':'none'}:{'display':''}" *ngFor="let col of header; let io = index">
+                                    <span style="font-weight: 600;">{{col.title}}: </span> <span *ngIf="col.download == false && !col.fontAwesoneIcono && !col.linkOtherTab">{{fil[col.name]}}</span>
                                 </div>
-                        </div>
-                        <div class="card">
-                            <h2>Lavatiatta Gustavo</h2>
-                            <span class="separador"></span>
-                            <div class="contenedor-text">
-                                <div><span style="font-weight: 600;">DNI: </span> <span>17007461</span></div>
-                                <div><span style="font-weight: 600;">Localidad: </span><span>Ciudad de Mexico</span></div>
                             </div>
                             <div class="btns" *ngIf="this.pagination.listaPaginacion.length !== 0">
-                                <button *ngIf="this.tabularABM && this.tabular.permisoDTO.edit" class="btn-edit">Editar</button>
-                                <button *ngIf="this.tabularABM && this.tabular.permisoDTO.delete" class="btn-eliminar">Eliminar</button>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <h2>Informe</h2>
-                            <span class="separador"></span>
-                            <div class="contenedor-text">
-                                <div><span style="font-weight: 600;">Diagnóstico: </span> <span>Dolor abdominal</span></div>
-                                <div><span style="font-weight: 600;">Problema: </span><span>Le dolia la panza</span></div>
-                                <div><span style="font-weight: 600;">Fecha: </span><span>20/10/23</span></div>
-                                <div><span style="font-weight: 600;">Prestador: </span><span>Sebastían Vega</span></div>
-                            </div>
-                            <div class="btns" *ngIf="this.pagination.listaPaginacion.length !== 0">
-                                <button *ngIf="this.tabularABM && this.tabular.permisoDTO.edit" class="btn-edit">Editar</button>
-                                <button *ngIf="this.tabularABM && this.tabular.permisoDTO.delete" class="btn-eliminar">Eliminar</button>
+                                <button *ngIf="this.tabular.tabularDescriptivo" class="btn-extra" (click)="clickLinkTabularMobile($event,header,fil)">Ver</button>
+                                <button *ngIf="this.tabularABM && this.tabular.permisoDTO.edit"  class="btn-edit" (click)="onEdit(fil)">Editar</button>
+                                <button *ngIf="this.tabularABM && this.tabular.permisoDTO.delete" class="btn-eliminar" (click)="onDelete(fil)">Eliminar</button>
+                                <!-- <button  class="btn-extra2" (click)="clickLinkTabularMobile($event,header,fil)">Ver alerta</button> -->
                             </div>
                         </div>
                         <button *ngIf="tabularABM===true && tabular.permisoDTO.nueva" pButton type="button" title="Nuevo" class="btn-agregar" (click)="nuevoAbm()">+</button>
                     </div>
-
-                    <!-- <div class='table-cont' id='table-cont' (scroll)="desplazaScrollVertical($event)" [ngStyle]="{ 'height.px': altoVentana/2.5,'position':'relative'}">
-                        <table class="table table-responsive table-striped table-hover" [ngStyle]="this.pagination.listaPaginacion.length == 0 ? {'display':'inline-table'}:{'display':''}">
-                            <thead id="idTh1">
-                                <tr [ngStyle]="{'background-color':'#f3f3f3','color':'black'}">
-                                    <button *ngIf="tabularABM===true && tabular.permisoDTO.nueva" pButton type="button" title="Nuevo" icon="fa fa-plus" class="mt-6 dl6deanpx ui-button-" (click)="nuevoAbm()"></button>
-                                    <th *ngIf="tabular.seleccionMultiple">
-                                        <input type="checkbox" [checked]="estaActivo" name="chbTodo" id="chbTodo" (click)="chequeaTodo(estaActivo)" [ngStyle]="{'cursor':'pointer'}">
-                                    </th>
-                                    <div class="clflex d-inline-flex" *ngIf="this.pagination.listaPaginacion.length !== 0">
-                                        <div *ngIf="this.tabularABM && this.tabular.permisoDTO.edit" class="cldib1"></div>
-                                        <div *ngIf="this.tabularABM && this.tabular.permisoDTO.delete" class="cldib2"></div>
-                                    </div>
-                                    <th [ngStyle]="col.visible == false ? {'display':'none'}:{'display':'','cursor':'pointer','left':'io.px','position':'relative'}" (click)="pagination.sortType = col.title; pagination.sortReverse = !pagination.sortReverse; muestraRombos($event); ordenarColumna($event,col.title,pagination.page,pagination.sortReverse,pagination.listaPaginacion[0],io);"
-                                        *ngFor="let col of header; let io = index" class="clindas{{io}}">
-                                        {{col.title}}
-                                        <img id="idnumim{{io}}" [ngClass]="'cl-muestra-th'" src="assets/img/tabla/orden_ambos.png" alt="orden de ambos">
-
-                                        <img id="idserim{{io}}" *ngIf="pagination.sortType === col.title && !pagination.sortReverse" src="assets/img/tabla/orden_asc.png" alt="orden ascendente">
-                                        <img id="idgerim{{io}}" *ngIf="pagination.sortType === col.title && pagination.sortReverse" src="assets/img/tabla/orden_desc.png" alt="orden descendente">
-                                    </th>
-                                </tr>
-                                <tr *ngIf="mostrarFiltro" [ngStyle]="{'background-color':'#f3f3f3','color':'black'}">
-                                    <div class="clflex d-inline-flex" *ngIf="this.pagination.listaPaginacion.length !== 0">
-                                        <div *ngIf="this.tabularABM && this.tabular.permisoDTO.edit" class="cldib1"></div>
-                                        <div *ngIf="this.tabularABM && this.tabular.permisoDTO.delete" class="cldib2"></div>
-                                    </div>
-                                    <th [ngStyle]="col.visible == false ? {'display':'none'}:{'display':'','cursor':'pointer'}" (click)="pagination.sortType = col.title; pagination.sortReverse = !pagination.sortReverse; ordenarColumna($event,col.title,pagination.page,pagination.sortReverse,pagination.listaPaginacion[0],io);"
-                                        *ngFor="let col of header; let io = index" [ngClass]="'pt-0'">
-                                        <input id="idcomli{{io}}" type="text" [ngStyle]="{'width':'100%','height':'50%'}" [ngClass]="'form-control'" (click)="desapareceRombo($event)" (keyup)="buscaDentroTabla($event)" type="text">
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let fil of pagination.listaPaginacion"  [ngClass]="'cl-filsese'" (click)="clickFilaTabular2($event,fil)">
-                                    <td *ngIf="tabular.seleccionMultiple">
-                                        <input type="checkbox" name="chbTodo" id="chbTodo" (click)=chequeaFila(fil,false) [checked]="fil.chequeado" [ngStyle]="{'cursor':'pointer'}">
-                                    </td>
-                                    <div class="clflexSegundo">
-                                        <div *ngIf="this.tabularABM && this.tabular.permisoDTO.edit" style="text-align: center;cursor: pointer;" class="cldib1" (click)="onEdit(fil)"><span class="tm-f-150 fa fa-edit fa-lg btn-outline-success" aria-hidden="true" title="modificar registro" alt="modificar registro"></span></div>
-                                        <div *ngIf="this.tabularABM && this.tabular.permisoDTO.delete" style="text-align: center;cursor: pointer;" class="cldib2" (click)="onDelete(fil)"><span class="tm-f-150 fa fa-trash fa-lg btn-outline-danger" aria-hidden="true" title="eliminar registro" alt="eliminar registro"></span></div>
-                                    </div>
-                                    <td [ngStyle]="col.visible == false ? {'display':'none'}:{'display':''}" [title]="col.comentario" [ngClass]="col.link || col.linkDina  == true ? 'btn-outline-primary' : ''" (click)="clickLinkTabular($event,col,fil)"
-                                        *ngFor="let col of header; index as i">
-                                        <b *ngIf="col.download==true && fil[col.name]">                                                
-                                                            
-                                                            <i class="fa fa-download" style="text-align: center;cursor: pointer;" title="download archivo" alt="download archivo" aria-hidden="true" (click) = "downloadFile(col, fil)"></i>
-                                                        </b>
-                                        <b *ngIf="col.download == false && !col.fontAwesoneIcono && !col.linkOtherTab">{{fil[col.name]}}</b>
-                                        <b *ngIf="col.download==false && col.fontAwesoneIcono && col.link==true ">
-                                                        <i class="tm-f-150 {{col.fontAwesoneIcono}}"></i>
-                                        </b>
-
-                                        <b *ngIf="col.linkOtherTab==true">
-                                              <div *ngIf='fil[col.name]'>
-                                                                    
-                                                <button type="button" class="btn btn-xs btn-primary" data-toggle="modal" data-target=".bd-example-modal-xl" (click)="abreelModal(fil[col.name])">
-                                                      <i class="tm-f-150 {{col.fontAwesoneIcono}}" aria-hidden="true"></i>
-                                                </button>
-                                                                 
-                                                </div>
-                                              </b>
-                                    </td>
-                                </tr>
-                            </tbody>
-
-                            <tfoot id="idTF1 " *ngIf="tabular.footer ">
-                                <tr>
-                                    <td>
-                                        Totales:
-                                    </td>
-
-                                    <td *ngFor="let coluu of header; " [ngStyle]="coluu.visible==false ? { 'display': 'none'}:{ 'display': '', 'cursor': 'pointer'} ">
-                                        {{coluu.total}}
-                                    </td>
-
-                                </tr>
-                            </tfoot>
-
-                        </table>
-                    </div> -->
-
                 </div>
 
                 <div id="cuadro-con-der" class="col-xl-5 col-lg-5 col-md-5 col-sm-5 col-xs-12 pt-4" *ngIf="tabular.tabularDescriptivo">
@@ -444,6 +338,8 @@
                         <div class="card-body" #dataContainer [ngStyle]="{ 'height': 'auto', 'overflow': 'auto', 'white-space': 'pre-line'} "></div>
                     </div>
                 </div>
+
+
             </div>
         </div>
     </div>

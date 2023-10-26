@@ -38,7 +38,7 @@
         .btns {
             display: flex;
             width: 100%;
-            gap: 2vw;
+            gap: 3vw;
             justify-content: center;
             align-items: center;
             margin-top: 5vw;
@@ -48,11 +48,15 @@
                 max-width: 50vw;
                 border-radius: 8px;
                 background: transparent;
-
-                // &:first-child {
-                //     border: 2px solid #5978E8;
-                //     color: #5978E8;
-                // }
+            }
+            .btn-extra{
+                border: 2px solid #5978E8;
+                color: #5978E8;
+            }
+            .btn-extra2{
+                border: 2px solid #e78a55;
+                color: #e78a55;
+                grid-column: 1/4
             }
             .btn-edit{
                 border: 2px solid #5EA545;

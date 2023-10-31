@@ -3,10 +3,8 @@
         <label class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-1 tm-f-bugt pl-0">{{field.label}}: 
             <strong class=" text-danger " *ngIf="field.require ">*</strong>
        </label>
-       <div class="card flex justify-content-center">
-        <p-autoComplete size="75" [style]="{'height':'35px','border-radius':'0px'}" [inputStyle]="{'height':'35px','border-radius':'0px'}"  minLength="3" [formControlName]="field.name"  (onSelect)='onSelect($event)' forceSelection="true" [suggestions]="results" (completeMethod)="buscar($event)"></p-autoComplete>
+       <div>
+        <p-autoComplete [style]="{'height':'35px','border-radius':'0px', 'width':'100%'}" [inputStyle]="{'height':'35px','border-radius':'0px','width':'100%'}"  minLength="3" [formControlName]="field.name"  (onSelect)='onSelect($event)' forceSelection="true" [suggestions]="results" (completeMethod)="buscar($event)"></p-autoComplete>
         </div>
-
     </div>
-
 </div>

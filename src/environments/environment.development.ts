@@ -1,3 +1,3 @@
 export const environment = {
-    mobile:false
+    mobile:true
 };

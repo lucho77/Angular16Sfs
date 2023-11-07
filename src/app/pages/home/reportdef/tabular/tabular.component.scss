@@ -1,4 +1,96 @@
-.cl-d-pag-tab {}
+.contenedor {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: 100%;
+
+    .card {
+        display: inherit;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border-radius: 2vw;
+        padding: 4vw;
+        width: 100%;
+        filter: drop-shadow(3px 3px 5px rgba(0, 0, 0, 0.25));
+        margin-bottom: 2.5vw;
+        h2{
+            width: 100%;
+            max-width: 60vw;
+            text-align: center;
+            font-size: 6vw;
+        }
+
+        .separador {
+            display: flex;
+            width: 80%;
+            height: 0.6vw;
+            border-radius: 0.5vw;
+            background: #B7D4FF;
+            margin-bottom: 5vw;
+        }
+
+        .contenedor-text {
+            justify-self: start;
+            align-self: flex-start;
+        }
+
+        .btns {
+            display: flex;
+            width: 100%;
+            gap: 3vw;
+            justify-content: center;
+            align-items: center;
+            margin-top: 5vw;
+
+            button {
+                width: 100%;
+                max-width: 50vw;
+                border-radius: 8px;
+                background: transparent;
+            }
+            .btn-extra{
+                border: 2px solid #5978E8;
+                color: #5978E8;
+            }
+            .btn-extra2{
+                border: 2px solid #e78a55;
+                color: #e78a55;
+                grid-column: 1/4
+            }
+            .btn-edit{
+                border: 2px solid #5EA545;
+                color: #5EA545;
+            }
+            .btn-eliminar{
+                border: 2px solid #C81919;
+                background:#C81919;
+                color: #fff;
+            }
+        }
+
+    }
+    .btn-agregar{
+        display: flex;
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        border-radius: 50%;
+        background: #5EA545;
+        border: none;
+        width: 55px;
+        height: 55px;
+        color: #fff;
+        font-size: 35px;
+        font-weight: 600;
+        z-index: 999;
+    }
+}
+
+// .cl-d-pag-tab {}
 
 .pagination {
     margin-left: 0%;
@@ -71,7 +163,7 @@ tfoot {
     border-top: 1px solid #dee2e6;
 }
 
-#idTh1 {}
+// #idTh1 {}
 
 .cl-hijo-celda {
     cursor: pointer;
@@ -86,7 +178,7 @@ tfoot {
     margin-left: -15px;
 }
 
-.tm-f-16 {}
+// .tm-f-16 {}
 
 // Extra small devices (portrait phones, less than 576px)
 @media (max-width: 575.98px) {
@@ -116,12 +208,14 @@ tfoot {
         word-break: break-all;
     }
 }
-.wid100{
+
+.wid100 {
     display: flex;
     width: 100%;
     padding: 0;
 }
-.grid-r-1fr{
+
+.grid-r-1fr {
     display: grid;
     grid-template-rows: 1fr;
 }

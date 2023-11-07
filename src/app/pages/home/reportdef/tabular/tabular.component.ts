@@ -581,6 +581,85 @@ ngOnDestroy(): void {
         }
       }
     }
+
+  
+  clickLinkTabularMobile($event, col, fila){
+
+    if (col.linkDina) {
+      alert('es una columna link dinamica');
+      return;
+    }
+    
+    let nameParamArray = [];
+    if (this.tabular.tabularDescriptivo) {
+      console.log('this.tabular.tabularDescriptivo');
+      if (this.tabular.campoDescriptivo.includes('METHOD')) {
+        this.obtenerDescripcionTabular(this.tabular.campoDescriptivo, fila);
+
+      } else {
+        const des = fila[this.tabular.campoDescriptivo];
+        this.dataContainer.nativeElement.innerHTML = des;
+      }
+    }
+     if (!col['columnaAdicional'] && !col['link']) {
+       return;
+     }
+
+    const listDestination: FormdataReportdef[] = [];
+
+    if (this.tabular.destination !== null && this.tabular.destination !== undefined) {
+      // tengo que buscar el parametro
+      const paramRequest: ParamAllRequestDTO  = this.buscarParamDestination(fila).name;
+        console.log('paramRequest');
+        console.log(paramRequest);
+        const user = JSON.parse(localStorage.getItem('currentUser'));
+        this.reportdefService.consultarAllParamByName(user, paramRequest).subscribe(
+          result => {
+             nameParamArray  = this.buscarParamDestination(fila).all;
+
+            for (const f of result) {
+              for (const p of nameParamArray) {
+              if (p.name === f.name ) {
+                f.valueNew = p.id;
+                listDestination.push(f);
+                break;
+              }
+            }
+          }
+          this.generarDatosClickTabularColumna(col, listDestination);
+          }, (err: HttpErrorResponse) => {
+            this.checkError(err);
+          }
+         );
+    }
+    for (const columna of this.tabular.accionesColumna) {
+      if (columna.columna === col['title']) {
+          if (col['columnaAdicional']) {
+              // tengo que pasar el id de la columna!
+              const pos = this.tabular.pkColIndex;
+              let i = 0;
+              let id = 0;
+              // tslint:disable-next-line:forin
+              for (const prop in fila) {
+                if ( i === pos) {
+                  id = fila[prop];
+                  break;
+                }
+                i++;
+              }
+
+              this.llenarParametrosClickLinkTabular(columna, id).then(
+                (resp) =>
+                this.acciones.emit(columna.metadata)
+             ).catch( error =>
+               this.checkError(error)
+               );
+          }
+        }
+
+    }
+
+  }
   clickLinkTabular($event, col, fila) {
 
 

@@ -312,10 +312,9 @@
                     <div class="contenedor">
                         <!-- Cards mobile--------------------- -->
                         <div *ngFor="let fil of pagination.listaPaginacion" class="card">
-                            <!-- <h2>Sebastian Vega (230566)</h2> -->
                             <span class="separador"></span>
                             <div class="contenedor-text">
-                                <div [ngStyle]="col.visible == false ? {'display':'none'}:{'display':''}" *ngFor="let col of header; let io = index">
+                                <div [ngStyle]="col.visibleMovil == false ? {'display':'none'}:{'display':''}" *ngFor="let col of header; let io = index">
                                     <span style="font-weight: 600;">{{col.title}}: </span> <span *ngIf="col.download == false && !col.fontAwesoneIcono && !col.linkOtherTab">{{fil[col.name]}}</span>
                                 </div>
                             </div>
@@ -323,7 +322,6 @@
                                 <button *ngIf="this.tabular.tabularDescriptivo" class="btn-extra" (click)="clickLinkTabularMobile($event,header,fil)">Ver</button>
                                 <button *ngIf="this.tabularABM && this.tabular.permisoDTO.edit"  class="btn-edit" (click)="onEdit(fil)">Editar</button>
                                 <button *ngIf="this.tabularABM && this.tabular.permisoDTO.delete" class="btn-eliminar" (click)="onDelete(fil)">Eliminar</button>
-                                <!-- <button  class="btn-extra2" (click)="clickLinkTabularMobile($event,header,fil)">Ver alerta</button> -->
                             </div>
                         </div>
                         <button *ngIf="tabularABM===true && tabular.permisoDTO.nueva" pButton type="button" title="Nuevo" class="btn-agregar" (click)="nuevoAbm()">+</button>

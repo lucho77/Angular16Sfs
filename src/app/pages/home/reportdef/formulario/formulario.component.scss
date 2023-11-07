@@ -44,15 +44,24 @@
     0% {
         transform: rotate(0deg);
     }
+
     50% {
         background: #85d6de none repeat scroll 0 0;
         transform: rotate(180deg);
     }
+
     100% {
         transform: rotate(360deg);
     }
 }
-.btn-list-row{
+
+.btn-list-row {
     display: grid;
     grid-template-columns: 1fr;
+}
+
+.pt-2 {
+    display: flex;
+    flex-direction: column;
+    gap:15px;
 }

@@ -2,7 +2,7 @@ import { Component, Input, EventEmitter, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { AvisaSeteoService } from '../_services/avisaSeteoService';
 import { Subscription } from 'rxjs';
-import { environment } from 'src/environments/environment.development';
+import { isMobile, isTablet } from 'mobile-device-detect';
 
 @Component({
     selector: 'app-button',
@@ -17,7 +17,8 @@ export class ButtonComponent {
 
     @Input() flecha = false;
     private suscRef: Subscription = null;
-    public mobile = environment.mobile;
+    mobile = isMobile;
+    tablet = screen.width > 600;
 
     public data: DatoVisible = {
         flechaBotonSetear: false,

@@ -1,5 +1,5 @@
 <div [formGroup]="form">
-    <div class="row" *ngIf="!mobile">
+    <div class="row" *ngIf="!mobile || tablet">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
 
             <div class="input-group">
@@ -22,7 +22,7 @@
         <!-- /input-group -->
     </div>
     <!-- /.col-lg-6 -->
-    <div class="row" *ngIf="mobile">
+    <div class="row" *ngIf="mobile && !tablet">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
 
             <div class="input-group input-group-mobile">

@@ -8,6 +8,7 @@ import { FrontEndConstants } from '../constans/frontEndConstants';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import { inicializarFinder } from '../pages/genericFinder/utilFinder';
+import { isMobile, isTablet } from 'mobile-device-detect';
 
 
 @Component({
@@ -26,6 +27,8 @@ export class AutocompleteComponent {
     @Output()spinner = new EventEmitter<any>();
     results: any[];
     name: string;
+    mobile = isMobile;
+    tablet = isTablet;
     get isValid() { return this.form.controls[this.field.name].valid; }
     get isDirty() { return this.form.controls[this.field.name].dirty; }
     constructor(

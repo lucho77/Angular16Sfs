@@ -85,7 +85,7 @@
                             (accionesDina)="processMethodDina($event)" [field]="field" [esambula]="0"
                             [form]="form"></app-field-builder>
                     </div>
-                    <div class="row" *ngIf="!mobile">
+                    <div class="row" *ngIf="!mobile || tablet">
                         <div *ngFor="let field of data.list">
                             <app-button
                                 *ngIf="field.buttom && !field.buttomDTO.bottonVolver && !field.buttomDTO.bottonVolverHistorico"
@@ -96,7 +96,7 @@
                                 [form]="form" (acciones)="processActions($event,false)"></app-button-cancel>
                         </div>
                     </div>
-                    <div class="btn-list-row" *ngIf="mobile">
+                    <div class="btn-list-row" *ngIf="mobile && !tablet">
                         <div *ngFor="let field of data.list">
                             <app-button
                                 *ngIf="field.buttom && !field.buttomDTO.bottonVolver && !field.buttomDTO.bottonVolverHistorico"

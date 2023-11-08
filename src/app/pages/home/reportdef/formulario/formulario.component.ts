@@ -32,7 +32,7 @@ import { isNumber, toInteger } from 'src/app/util/datePicker/util';
 import { consultarParametroByParam, crearParametro, ejecutarMetodo, seteoParamGlobal } from 'src/app/util/reportdefUtil';
 import { Message } from 'primeng/api';
 import { CommonModule } from '@angular/common';
-import { environment } from 'src/environments/environment.development';
+import { isMobile, isTablet } from 'mobile-device-detect';
 declare function mapa(usuario: string, latitud: number, longitud: number, info: string): any;
 
 @Component({
@@ -56,7 +56,8 @@ export class FormularioComponent  implements OnInit {
   @Output()backHistory = new EventEmitter<any>();
   @Input('settings') settings: any;
   @Input('tipoReporte') tipoReporte: ReportdefData;
-  public mobile = environment.mobile;
+  mobile = isMobile;
+  tablet = screen.width > 600;
 
   firma = false;
   tieneHijos = {

@@ -10,7 +10,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { ParametrosExecuteMethodRequestDTO } from '../_models/parametrosExecuteMethodRequestDTO';
 import { ToastrService } from 'ngx-toastr';
-import { environment } from 'src/environments/environment.development';
+import { isMobile, isTablet } from 'mobile-device-detect';
 
 @Component({
     selector: 'app-busquedagenerica',
@@ -24,7 +24,8 @@ export class BusquedaGenericaComponent {
     @Input() elindex: any;
     @Input() esambula: number;
     @Input() dataForm: FormdataReportdef[];
-    public mobile = environment.mobile;
+    mobile = isMobile;
+    tablet = screen.width > 600;
 
     get isValid() { return this.form.controls[this.field.name].valid; }
     get isDirty() { return this.form.controls[this.field.name].dirty; }

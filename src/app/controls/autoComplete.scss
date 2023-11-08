@@ -45,9 +45,27 @@
     // width : 350px !important;
     height: 30px !important;
 }
-.autocomp{
+:host ::ng-deep .autocomplete .autocomplete-input{
     display: flex;
-    justify-content: start;
-    align-items: center;
-    width: 100%;
+    border-radius: 0;
+    height: 34px;
+    width: 35vw;
+    &:hover{
+        border: 1px solid #ced4da;
+    }
+    &:focus{
+        border: 1px solid #333;
+    }
+}
+:host ::ng-deep .autocomplete-mobile .autocomplete-input-mobile{
+    display: flex;
+    border-radius: 0;
+    height: 34px;
+    width: 50vw;
+    &:hover{
+        border: 1px solid #ced4da;
+    }
+    &:focus{
+        border: 1px solid #333;
+    }
 }

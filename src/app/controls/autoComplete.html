@@ -3,6 +3,11 @@
         <label class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-1 tm-f-bugt pl-0">{{field.label}}: 
             <strong class=" text-danger " *ngIf="field.require ">*</strong>
        </label>
-        <p-autoComplete size="70" [style]="{'height':'35px','border-radius':'0px'}" [inputStyle]="{'height':'35px','border-radius':'0px'}"  minLength="3" [formControlName]="field.name"  (onSelect)='onSelect($event)' forceSelection="true" [suggestions]="results" (completeMethod)="buscar($event)"></p-autoComplete>
+        <div *ngIf="!mobile">
+            <p-autoComplete styleClass="autocomplete" inputStyleClass="autocomplete-input" minLength="3" [formControlName]="field.name"  (onSelect)='onSelect($event)' forceSelection="true" [suggestions]="results" (completeMethod)="buscar($event)"></p-autoComplete>
+        </div>
+        <div *ngIf="mobile">
+            <p-autoComplete styleClass="autocomplete-mobile" inputStyleClass="autocomplete-input-mobile" minLength="3" [formControlName]="field.name"  (onSelect)='onSelect($event)' forceSelection="true" [suggestions]="results" (completeMethod)="buscar($event)"></p-autoComplete>
+        </div>
     </div>
 </div>

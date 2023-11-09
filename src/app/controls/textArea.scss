@@ -7,7 +7,8 @@ textarea{
     border: 1px solid #ced4da;
     padding: 5px 10px;
     outline: none;
-    margin-bottom: $field-margin-bottom;        
+    margin-bottom: $field-margin-bottom;    
+    resize: both;    
     &:focus, :active{
         border: 1px solid #333;
         outline: none;

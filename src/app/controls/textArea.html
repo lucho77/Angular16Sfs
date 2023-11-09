@@ -1,11 +1,11 @@
 <div [formGroup]="form" (keydown.enter)="$event.stopPropagation()">
     <div class="row">
         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
-            <div class="input-group txtArea">
-                <label class="col-1  tm-f-bugt pl-0">{{field.label}}: 
+            <div class="input-group">
+                <label class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-1 tm-f-bugt pl-0">{{field.label}}: 
                  <strong class="text-danger" *ngIf="field.require">*</strong>
              </label>
-                <textarea autosize [formControlName]="field.name" [id]="field.name" cols="50"></textarea>
+                <textarea autosize [formControlName]="field.name" [id]="field.name" cols="50">Some text</textarea>
             </div>
         </div>
         <!-- /input-group -->

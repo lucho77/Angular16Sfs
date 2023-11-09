@@ -1,0 +1,15 @@
+@import "../theme/styles/variables";
+textarea{
+    height: 35px;
+    min-height: 35px;
+    width: $field-width;
+    border-radius: 4px;
+    border: 1px solid #ced4da;
+    padding: 5px 10px;
+    outline: none;
+    margin-bottom: $field-margin-bottom;        
+    &:focus, :active{
+        border: 1px solid #333;
+        outline: none;
+    }
+}

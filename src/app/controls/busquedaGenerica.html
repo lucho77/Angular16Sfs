@@ -2,21 +2,22 @@
     <div class="row" *ngIf="!mobile || tablet">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
 
-            <div class="input-group">
-                <label class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-1 tm-f-bugt pl-0">{{field.label}}: 
+            <div class="ig">
+                <label class="d-flex col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-1 tm-f-bugt pl-0">{{field.label}}:
                     <strong class=" text-danger " *ngIf="field.require ">*</strong>
-               </label>
-                <input type="text " class="form-control cl-dtx-tl " [id]="field.name " [name]="field.name " [formControlName]="field.name " (keydown.enter)="buscar($event) ">
-                <span class="input-group-btn mr-3 ">
-                    <button class="btn btn-info " type="button " (click)="buscar($event) ">
-                        <i class="fa fa-search "></i> 
-                    </button>
-                    <button class="btn btn-danger " type="button " (click)="borrar($event) ">
-                        <i class="fa fa-eraser "></i> 
-                    </button>
-                </span>
-                <input type="text " class="form-control cl-dtx-tl mr-3 " id="field.nameRes " placeholder [formControlName]="field.nameRes ">
-
+                </label>
+                    <input type="text " class="input-1" [id]="field.name " [name]="field.name "
+                        [formControlName]="field.name " (keydown.enter)="buscar($event) ">
+                    <span class="input-group-btn d-flex">
+                        <button class="btn btn-info  d-flex" type="button" style="border-radius: 0 4px 4px 0;" (click)="buscar($event) ">
+                            <i class="fa fa-search " style="margin-right: 3px;"></i> Buscar
+                        </button>
+                        <button class="btn btn-outline-secondary d-flex" style="margin-left: 5px; border-radius: 4px 0 0 4px;" type="button "
+                            (click)="borrar($event) ">
+                            <i class="fa fa-eraser" style="margin-right: 3px;"></i> Borrar
+                        </button>
+                    </span>
+                    <input type="text" class="input-2" id="field.nameRes " [formControlName]="field.nameRes ">
             </div>
         </div>
         <!-- /input-group -->
@@ -26,19 +27,21 @@
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
 
             <div class="input-group input-group-mobile">
-                <label class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-1 tm-f-bugt pl-0">{{field.label}}: 
+                <label class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-1 tm-f-bugt pl-0">{{field.label}}:
                     <strong class=" text-danger " *ngIf="field.require ">*</strong>
-               </label>
-                <input type="text " class="form-control cl-dtx-tl input-1" [id]="field.name " [name]="field.name " [formControlName]="field.name " (keydown.enter)="buscar($event) ">
+                </label>
+                <input type="text " class="form-control cl-dtx-tl input-1" [id]="field.name " [name]="field.name "
+                    [formControlName]="field.name " (keydown.enter)="buscar($event) ">
                 <span class="input-group-btn mr-3 ">
                     <button class="btn btn-info " type="button " (click)="buscar($event) ">
-                        <i class="fa fa-search "></i> 
+                        <i class="fa fa-search "></i>
                     </button>
                     <button class="btn btn-danger " type="button " (click)="borrar($event) ">
-                        <i class="fa fa-eraser "></i> 
+                        <i class="fa fa-eraser "></i>
                     </button>
                 </span>
-                <input type="text " class="form-control cl-dtx-tl mr-3 input-2" id="field.nameRes " placeholder [formControlName]="field.nameRes ">
+                <input type="text " class="form-control cl-dtx-tl mr-3 input-2" id="field.nameRes " placeholder
+                    [formControlName]="field.nameRes ">
             </div>
         </div>
         <!-- /input-group -->

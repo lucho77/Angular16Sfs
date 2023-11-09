@@ -37,17 +37,13 @@
 
                 <form [formGroup]="form" class="form-vertical" (keydown.enter)="$event.preventDefault()">
 
-                    <form>
-                        <div class="form-row">
-
+                    <form  class="form-horizontal pt-2" >
                             <div *ngFor="let field of data.list; let i = index"
                                 [ngClass]="field.fecha ? pintarClaseDivFehaBuil(camposAgrupaEnteroDescompuesto[i]) : pintarClaseDivBuil(camposAgrupaEnteroDescompuesto[i])">
                                 <app-field-builder *ngIf="!field.buttom" [dataForm]="data.list" [field]="field"
                                     [esambula]="1" [form]="form"
                                     [elindex]=camposAgrupaEnteroDescompuesto[i]></app-field-builder>
                             </div>
-
-                        </div>
                     </form>
                     <div class="row">
                         <div *ngFor="let field of data.list">

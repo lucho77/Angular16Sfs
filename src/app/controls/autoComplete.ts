@@ -28,7 +28,7 @@ export class AutocompleteComponent {
     results: any[];
     name: string;
     mobile = isMobile;
-    tablet = isTablet;
+    tablet = screen.width > 600;
     get isValid() { return this.form.controls[this.field.name].valid; }
     get isDirty() { return this.form.controls[this.field.name].dirty; }
     constructor(

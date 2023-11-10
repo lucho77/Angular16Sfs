@@ -1,3 +1,4 @@
+@import "../theme/styles/_variables.scss";
 .popup {
     z-index: 900;
 }
@@ -8,4 +9,18 @@
 
 .datepicker {
     z-index: 999 !important;
+}
+.inp-fecha{
+    margin-left: $field-margin-correct-left;
+    border-radius: 4px 0 0 4px !important;
+    height: $field-height;
+}
+.spn-fecha{
+    button{
+        border-radius: 0 4px 4px 0;
+        height: $field-height;
+    }
+}
+.row{
+    @include padArribaAbajo;
 }

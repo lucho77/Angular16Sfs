@@ -1,54 +1,19 @@
 <div [formGroup]="form">
-    <div class="row" *ngIf="!mobile || tablet">
+    <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
 
-            <div class="ig">
-                <label class="d-flex col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-1 tm-f-bugt pl-0">{{field.label}}:
-                    <strong class=" text-danger " *ngIf="field.require ">*</strong>
+            <div [ngClass]="mobile && !tablet ? 'ig ig-mobile':'ig'">
+                <label class="d-flex flex-nowrap col-1 float-right tm-f-bugt pl-0">{{field.label}}:<strong class=" text-danger " *ngIf="field.require ">*</strong>
                 </label>
-                    <input type="text " class="input-1" [id]="field.name " [name]="field.name "
-                        [formControlName]="field.name " (keydown.enter)="buscar($event) ">
-                    <span class="input-group-btn d-flex">
-                        <button class="btn btn-info  d-flex" type="button" style="border-radius: 0 4px 4px 0;" (click)="buscar($event) ">
-                            <i class="fa fa-search " style="margin-right: 3px;"></i> Buscar
-                        </button>
-                        <button class="btn btn-outline-secondary d-flex" style="margin-left: 5px; border-radius: 4px 0 0 4px;" type="button "
-                            (click)="borrar($event) ">
-                            <i class="fa fa-eraser" style="margin-right: 3px;"></i> Borrar
-                        </button>
-                    </span>
-                    <input type="text" class="input-2" id="field.nameRes " [formControlName]="field.nameRes ">
+                <input *ngIf="!this.form.controls[this.field.nameRes].value || !mobile && tablet" type="text" class="input-1" [id]="field.name" [name]="field.name" [formControlName]="field.name " (keydown.enter)="buscar($event) ">
+                <button *ngIf="!this.form.controls[this.field.nameRes].value || !mobile && tablet" class="btn btn-info btn-1 d-flex" type="button" style="border-radius: 0 4px 4px 0;" (click)="buscar($event) ">
+                    <i class="fa fa-search "></i> <span *ngIf="!mobile || tablet">Buscar</span>
+                </button>
+                <button *ngIf="this.form.controls[this.field.nameRes].value" class="btn btn-outline-secondary btn-2 d-flex" style="border-radius: 4px 0 0 4px;" type="button " (click)="borrar($event) ">
+                    <i class="fa fa-eraser"></i> <span *ngIf="!mobile || tablet">Borrar</span>
+                </button>
+                <input *ngIf="this.form.controls[this.field.nameRes].value" type="text" class="input-2"
+                    id="field.nameRes " [formControlName]="field.nameRes ">
             </div>
         </div>
-        <!-- /input-group -->
     </div>
-    <!-- /.col-lg-6 -->
-    <div class="row" *ngIf="mobile && !tablet">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-
-            <div class="input-group input-group-mobile">
-                <label class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-1 tm-f-bugt pl-0">{{field.label}}:
-                    <strong class=" text-danger " *ngIf="field.require ">*</strong>
-                </label>
-                <input type="text " class="form-control cl-dtx-tl input-1" [id]="field.name " [name]="field.name "
-                    [formControlName]="field.name " (keydown.enter)="buscar($event) ">
-                <span class="input-group-btn mr-3 ">
-                    <button class="btn btn-info " type="button " (click)="buscar($event) ">
-                        <i class="fa fa-search "></i>
-                    </button>
-                    <button class="btn btn-danger " type="button " (click)="borrar($event) ">
-                        <i class="fa fa-eraser "></i>
-                    </button>
-                </span>
-                <input type="text " class="form-control cl-dtx-tl mr-3 input-2" id="field.nameRes " placeholder
-                    [formControlName]="field.nameRes ">
-            </div>
-        </div>
-        <!-- /input-group -->
-    </div>
-</div>
-<!-- /.row -->
-
-
-<!-- /.col-lg-6 -->
-<!-- /.row -->

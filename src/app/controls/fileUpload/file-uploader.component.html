@@ -1,7 +1,7 @@
 <div [formGroup]="form">
-   <div class="row" *ngIf="!mobile || tablet">
+   <div class="row">
       <div class="col-12">
-         <div class="input-group file-upload">
+         <div [ngClass]="mobile && !tablet ? 'input-group file-upload fu-mobile': 'input-group file-upload'">
             <label class="col-xs-2 col-sm-2 col-md-4 col-lg-2 col-xl-1 tm-f-bugt pl-0">{{field.label}}:
                <strong class="text-danger" *ngIf="field.require">*</strong>
             </label>
@@ -15,9 +15,10 @@
             </div>
          </div>
       </div>
-      <!-- /input-group -->
    </div>
-   <div class="row" *ngIf="mobile && !tablet">
+
+   <!-- -------MOBILE--------- -->
+   <!-- <div class="row" *ngIf="mobile && !tablet">
       <div class="col-12">
          <div class="input-group file-upload fu-mobile">
             <label class="col-xs-2 col-sm-2 col-md-4 col-lg-2 col-xl-1 tm-f-bugt pl-0">{{field.label}}:
@@ -33,7 +34,5 @@
             </div>
          </div>
       </div>
-      <!-- /input-group -->
    </div>
-   <!-- /.col-lg-6 -->
-</div>
+</div> -->

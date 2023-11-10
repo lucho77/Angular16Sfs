@@ -38,7 +38,6 @@
 @mixin autocomp($width){
     display: flex;
     border-radius: 4px;
-    margin-bottom: $field-margin-bottom;
     height: 34px;
     width: $width;
     &:hover{

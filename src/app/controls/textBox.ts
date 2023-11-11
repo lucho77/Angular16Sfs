@@ -4,7 +4,8 @@ import { FormGroup } from '@angular/forms';
 
 @Component({
     selector: 'app-textbox',
-    templateUrl: './textBox.html'
+    templateUrl: './textBox.html',
+    styleUrls:[ './textBox.scss']
 
 })
 export class TextBoxComponent {

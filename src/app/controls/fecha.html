@@ -19,7 +19,7 @@
     <div class="row">
         <div class="col">
                 <div class="input-group">
-                    <label class="d-flex flex-nowrap input-group col-1 tm-f-bugt pl-0">{{field.label}}:<strong class="text-danger" *ngIf="field.require">*</strong>
+                    <label class="d-flex flex-nowrap input-group col-xs-2 col-sm-2 col-md-4 col-lg-2 col-xl-1 tm-f-bugt pl-0">{{field.label}}:<strong class="text-danger" *ngIf="field.require">*</strong>
                     </label>
                     
                     <input [minDate]="{year: 1920, month: 1, day: 1}" class="form-control inp-fecha col-xs-12 col-sm-3 col-md-3 col-lg-2 col-xl-1 tm-f-bugt" placeholder="dd-mm-yyyy" [id]="field.name" [name]="field.name" placement="top" [formControlName]="field.name" ngbDatepicker #p="ngbDatepicker">

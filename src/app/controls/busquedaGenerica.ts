@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FinderParamsDTO } from '../_models/finderParamsDTO';
 import { inicializarFinder } from '../pages/genericFinder/utilFinder';

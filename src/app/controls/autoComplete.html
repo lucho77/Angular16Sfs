@@ -1,10 +1,10 @@
 <div [formGroup]="form">
     <div *ngIf="!mobile || tablet">
         <div class="ig">
-            <label class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-1 tm-f-bugt pl-0">{{field.label}}:
+            <label class="d-flex flex-nowrap col-xs-2 col-sm-2 col-md-4 col-lg-2 col-xl-1 tm-f-bugt pl-0">{{field.label}}:
                 <strong class=" text-danger " *ngIf="field.require ">*</strong>
             </label>
-                <p-autoComplete styleClass="autocomplete" inputStyleClass="autocomplete-input" minLength="3"
+                <p-autoComplete styleClass="autocomplete" inputStyleClass="autocomplete-input" panelStyleClass="panelAutocomplete" minLength="3"
                     [formControlName]="field.name" (onSelect)='onSelect($event)' forceSelection="true"
                     [suggestions]="results" (completeMethod)="buscar($event)"></p-autoComplete>
         </div>
@@ -14,7 +14,7 @@
         <label class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-1 tm-f-bugt pl-0">{{field.label}}:
             <strong class=" text-danger " *ngIf="field.require ">*</strong>
         </label>
-        <p-autoComplete styleClass="autocomplete-mobile" inputStyleClass="autocomplete-input-mobile" minLength="3"
+        <p-autoComplete styleClass="autocomplete-mobile" inputStyleClass="autocomplete-input-mobile" panelStyleClass="panelAutocomplete" minLength="3"
             [formControlName]="field.name" (onSelect)='onSelect($event)' forceSelection="true" [suggestions]="results"
             (completeMethod)="buscar($event)"></p-autoComplete>
     </div>

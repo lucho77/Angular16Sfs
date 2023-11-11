@@ -11,6 +11,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { AvisaSeteoService } from 'src/app/_services/avisaSeteoService';
 import { ToastrService } from 'ngx-toastr';
 import { Pagination } from 'src/app/_models/pagination';
+import { isMobile } from 'mobile-device-detect';
 
 
 @Component({
@@ -32,6 +33,8 @@ export class GenericFinderComponent implements OnInit {
   @ViewChild('find') find: ElementRef;
   pagination: Pagination;
   dataSeleccionada: any;
+  mobile = isMobile;
+  tablet = screen.width > 600;
 
   se_expande = true;
   se_colapsa = false;
@@ -76,7 +79,7 @@ export class GenericFinderComponent implements OnInit {
       // console.log(this.finder);
 
       
-      if (!this.finder.typeMethodFinder) {
+      if (!this.finder.typeMethodFinder && !this.mobile || this.tablet) {
         this.renderer.selectRootElement(this.find.nativeElement).focus();
       }
       // this.find.nativeElement.focus();

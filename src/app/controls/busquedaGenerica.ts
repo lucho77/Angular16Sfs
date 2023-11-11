@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FinderParamsDTO } from '../_models/finderParamsDTO';
 import { inicializarFinder } from '../pages/genericFinder/utilFinder';
@@ -40,7 +40,7 @@ export class BusquedaGenericaComponent {
             const v = this.form.controls[this.field.name].value !== null?this.form.controls[this.field.name].value.trim() : '';
             if(this.field.minLength > v.length ){
                 console.log("No puedo buscar el min length es mayor a la cantidad de caracteres ingresados");
-                this.toastrService.error(' debe ingresar al menos ' + this.field.minLength + " caracteres para poder buscar " );
+                this.toastrService.error(' Debe ingresar al menos ' + this.field.minLength + " caracteres para poder buscar " );
                 return;
             }
 
@@ -203,6 +203,9 @@ export class BusquedaGenericaComponent {
     public borrar(event) {
     // elimina el valor del componente
         this.form.controls[this.field.nameRes].setValue('');
+        this.form.controls[this.field.name].setValue('');
+        let input = document.getElementById(this.field.name) as HTMLElement;
+        input.focus();
         this.field.valueNew = null;
         this.field.busquedaGenericaDTO.mostrarToStringLupa = '';
 

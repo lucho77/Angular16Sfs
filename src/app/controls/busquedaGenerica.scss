@@ -69,14 +69,18 @@
 .ig-mobile {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
-    row-gap: 10px;
+    width: 85vw;
+    .lab{
+        width: 15vw;
+        text-wrap: nowrap;
+    }
     .input-1, .input-2 {
         width: 100%;
         grid-column: 1/10;
         margin-left: 0;
     }
     .btn-1, .btn-2{
-        width: 100%;
+        width: 13vw;
         grid-column: 10/13;
     }
 }

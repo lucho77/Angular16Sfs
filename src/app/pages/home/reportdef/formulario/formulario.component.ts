@@ -56,8 +56,8 @@ export class FormularioComponent  implements OnInit {
   @Output()backHistory = new EventEmitter<any>();
   @Input('settings') settings: any;
   @Input('tipoReporte') tipoReporte: ReportdefData;
-  mobile = isMobile;
-  tablet = screen.width > 600;
+  mobile: boolean = isMobile;
+  tablet: boolean = screen.width > 600;
 
   firma = false;
   tieneHijos = {

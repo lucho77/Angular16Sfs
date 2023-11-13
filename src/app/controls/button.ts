@@ -3,6 +3,8 @@ import { FormGroup } from '@angular/forms';
 import { AvisaSeteoService } from '../_services/avisaSeteoService';
 import { Subscription } from 'rxjs';
 import { isMobile, isTablet } from 'mobile-device-detect';
+import { BusquedaGenericaComponent } from './busquedaGenerica';
+import { BusquedaGenericaModule } from '../busquedaGenericaModule';
 
 @Component({
     selector: 'app-button',
@@ -17,8 +19,9 @@ export class ButtonComponent {
 
     @Input() flecha = false;
     private suscRef: Subscription = null;
-    mobile = isMobile;
-    tablet = screen.width > 600;
+    mobile: boolean = isMobile;
+    tablet: boolean = screen.width > 600;
+    visible: boolean;
 
     public data: DatoVisible = {
         flechaBotonSetear: false,

@@ -13,8 +13,8 @@ export class FileUploaderComponent {
     public file: any;
     @Input() form: FormGroup;
     @Input() field: FormdataReportdef;
-    mobile = isMobile;
-    tablet = screen.width > 600;
+    mobile: boolean = isMobile;
+    tablet: boolean = screen.width > 600;
 
 
     fileChange(input) {

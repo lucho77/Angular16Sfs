@@ -48,6 +48,7 @@
     </div>
     <div widget class="card border-0 box-shadow">
         <div class="card-header transparent border-0 text-muted">
+            <div class="container"><p>*Doble click para seleccionar</p></div>
             <div class="widget-controls">Registros
                 <a *ngIf="se_expande_dos" data-widgster="expand" (click)="seExpandeDos()" [ngStyle]="{'cursor':'pointer'}" class="transition"><i class="fa fa-chevron-down"></i></a>
                 <a *ngIf="se_colapsa_dos" data-widgster="collapse" (click)="seColapsaDos()" [ngStyle]="{'cursor':'pointer'}" class="transition"><i class="fa fa-chevron-up"></i></a>
@@ -70,7 +71,7 @@
                         <td>
                             <i class="ti-check text-success m-r-10 pointer"></i> 
                          </td> 
-                        <td [ngStyle]="col.visible == false ? {'display':'none'}:{'display':''}" (click)="onRowSelect(fil)"
+                        <td [ngStyle]="col.visible == false ? {'display':'none'}:{'display':'', 'cursor':'pointer'}" (click)="onRowSelect(fil)"
                             *ngFor="let col of column; index as i">
                             {{fil[col.name]}}
     

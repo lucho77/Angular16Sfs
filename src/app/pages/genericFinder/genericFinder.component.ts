@@ -33,8 +33,8 @@ export class GenericFinderComponent implements OnInit {
   @ViewChild('find') find: ElementRef;
   pagination: Pagination;
   dataSeleccionada: any;
-  mobile = isMobile;
-  tablet = screen.width > 600;
+  mobile: boolean = isMobile;
+  tablet: boolean = screen.width > 600;
 
   se_expande = true;
   se_colapsa = false;

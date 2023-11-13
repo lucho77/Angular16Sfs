@@ -27,8 +27,8 @@ export class AutocompleteComponent {
     @Output()spinner = new EventEmitter<any>();
     results: any[];
     name: string;
-    mobile = isMobile;
-    tablet = screen.width > 600;
+    mobile: boolean = isMobile;
+    tablet: boolean = screen.width > 600;
     get isValid() { return this.form.controls[this.field.name].valid; }
     get isDirty() { return this.form.controls[this.field.name].dirty; }
     constructor(

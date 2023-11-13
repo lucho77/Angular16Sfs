@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { isMobile } from 'mobile-device-detect';
 
 
 @Component({
@@ -14,7 +15,8 @@ export class TextBoxComponent {
     @Input() elindex: any;
     @Input() esambula: number; 
 
-    constructor() {
+    mobile: boolean = isMobile;
+    tablet = screen.width > 600 ;
 
-    }
+    constructor() {}
 }

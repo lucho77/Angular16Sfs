@@ -56,7 +56,7 @@
     flex-direction: column;
 }
 :host ::ng-deep .autocomplete-mobile .autocomplete-input-mobile{
-    @include autocomp(50vw);
+    @include autocomp($field-mobile-width - 26vw);
     
 }
 :host ::ng-deep .panelAutocomplete{

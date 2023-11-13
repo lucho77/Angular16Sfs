@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { isMobile } from 'mobile-device-detect';
 
 @Component({
     selector: 'app-textarea',
@@ -12,7 +13,8 @@ export class TextAreaComponent {
     @Input() form: FormGroup;
     @Input() elindex: any;
     @Input() esambula: number;
-
+    mobile: boolean = isMobile;
+    tablet: boolean = screen.width > 600;
     constructor() {
 
     }

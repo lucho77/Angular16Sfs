@@ -1,9 +1,8 @@
 <div [formGroup]="form">
     <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pr-0">
             <div [ngClass]="mobile && !tablet ? 'ig ig-mobile':'ig alternativo'">
-                <label class="d-flex flex-nowrap col-xs-2 col-sm-2 col-md-4 col-lg-2 col-xl-1 float-right tm-f-bugt pl-0">{{field.label}}:<strong class="text-danger " *ngIf="field.require ">*</strong></label>
+                <label class="d-flex flex-nowrap input-group col-xs-2 col-sm-2 col-md-4 col-lg-2 col-xl-1 lab tm-f-bugt pl-0">{{field.label}}:<strong class="text-danger " *ngIf="field.require ">*</strong></label>
                 <input *ngIf="!this.form.controls[this.field.nameRes].value || !mobile && tablet" type="text" class="input-1" [id]="field.name" [name]="field.name" [formControlName]="field.name " (keydown.enter)="buscar($event) ">
                 <button *ngIf="!this.form.controls[this.field.nameRes].value || !mobile && tablet" class="btn btn-info btn-1 d-flex" type="button" style="border-radius: 0 4px 4px 0;" (click)="buscar($event) ">
                     <i class="fa fa-search "></i> <span *ngIf="!mobile || tablet">Buscar</span>

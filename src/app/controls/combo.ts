@@ -14,9 +14,8 @@ import { toInteger } from '../util/datePicker/util';
 
 @Component({
     selector: 'app-combo',
-    templateUrl: './combo.html'
-
-
+    templateUrl: './combo.html',
+    styleUrls: ['./combo.scss']
 })
 export class ComboComponent {
     @Input() field: any = {};

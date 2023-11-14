@@ -1,7 +1,4 @@
-<div *ngIf="!mobile || tablet" class="btn-wrapper">
+<div [ngClass]="mobile && !tablet ? 'btn-wrapper-mobile' : 'btn-wrapper'">
     <button type="submit" (click)="executeAction()" class="btn btn-outline-info btn-xs btn-sm btn-md btn-lg">{{field.buttomDTO.metodoDTO.labelButtom}}</button>
     <!-- <i *ngIf="data.flechaBotonSetear && data.cantidadBotones == 1" class="fa-2x fa fa-long-arrow-left text-danger" id="arrow"></i>  -->
-</div>
-<div *ngIf="mobile && !tablet" class="btn-wrapper-mobile">
-    <button type="submit" (click)="executeAction()" class="btn btn-outline-info btn-xs btn-sm btn-md btn-lg">{{field.buttomDTO.metodoDTO.labelButtom}}</button>
 </div>

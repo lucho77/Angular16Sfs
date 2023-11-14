@@ -54,7 +54,18 @@
         transform: rotate(360deg);
     }
 }
-
+.buttons{
+    div{
+        display: flex;
+        app-button-cancel{
+            order:1;
+        }
+        app-button{
+            order: 2;
+        }
+    }
+    
+}
 .btn-list-row {
     display: grid;
     grid-template-columns: 1fr;

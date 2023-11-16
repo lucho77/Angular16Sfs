@@ -21,6 +21,7 @@ import { NgxBootstrapMultiselectModule } from 'ngx-bootstrap-multiselect';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 import { DialogModule } from 'primeng/dialog';
 import { BusquedaGenericaModule } from '../busquedaGenericaModule';
+import { ListboxComponent } from './listbox/listbox.component';
 
 
 @NgModule({
@@ -42,7 +43,7 @@ import { BusquedaGenericaModule } from '../busquedaGenericaModule';
     UserMenuComponent,
     FullScreenComponent,
     ApplicationsComponent,
-    MessagesComponent, FooterComponent,
+    MessagesComponent, FooterComponent, ListboxComponent,
   ],
   providers: [
   ],

@@ -1,0 +1,48 @@
+<div class="modal-header">
+    <h6 class="modal-title">{{ title }}</h6>
+    <button type="button" class="close" aria-label="Close" (click)="dismiss()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+</div>
+<div class="modal-body">
+
+    <div *ngIf="!finderTabular.modoMetodo" class="card border-0 box-shadow">
+        <div widget class="card border-0 box-shadow">
+            <div class="card-body widget-body">
+                <div class="row d-flex align-items-center">
+                    <div class="col-sm-3">
+                        <div class="d-flex form-group" style="gap: 10px;">
+                            <input type="text" class="form-control" name="busqueda" id="find" #find [(ngModel)]="finderTabular.busqueda" name="busqueda" placeholder="Texto a buscar">
+                            <button type="submit" class="btn btn-outline-info" (click)="buscar()">Buscar</button>
+                        </div>
+                    </div>
+                    <!-- <div class="col-sm-3">
+                        <div class="d-flex justify-content-around form-group">
+                            <button type="button" class="btn btn-primary" (click)="accept()">Aceptar</button>
+                            <button type="button" class="btn btn-danger" (click)="decline()">Cancelar</button>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div widget class="card border-0 box-shadow">
+        <div class="col-12" style="text-align: center; color: #8f8f8f; padding: 0; margin-bottom: 15px;">
+            <span  *ngIf="data.length > 0">*Doble tap para seleccionar</span>
+            <span  *ngIf="data.length == 0"> No se ha encontrado ningún registro</span>
+        </div>
+        <div class="card-body pt-0 widget-body">
+            <div class="table-responsive">
+                <div class="fila-item" *ngFor="let fil of data" (click)="onRowSelect(fil)">
+                    <div class="tittle">
+                        <h3 [ngStyle]="col.visibleMovil == false ? {'display':'none'}:{'display':''}"  *ngFor="let col of column">
+                            {{fil[col.title]}}
+                        </h3>
+                    </div>
+                   <div class="subtittle">
+                   </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

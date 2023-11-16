@@ -5,22 +5,20 @@ import { FinderParamsDTO } from '../../_models/finderParamsDTO';
 import { FinderGenericDTO } from 'src/app/_models/finderGenericDTO';
 import { FrontEndConstants } from 'src/app/constans/frontEndConstants';
 import { AbmService } from 'src/app/_services/abmService';
-import { getData } from './utilFinder';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AvisaSeteoService } from 'src/app/_services/avisaSeteoService';
 import { ToastrService } from 'ngx-toastr';
 import { Pagination } from 'src/app/_models/pagination';
 import { isMobile } from 'mobile-device-detect';
-
+import { getData } from '../genericFinder/utilFinder';
 
 @Component({
-  selector: 'app-generic-finder',
-  templateUrl: './genericFinder.component.html',
+  selector: 'app-listbox',
+  templateUrl: './listbox.component.html',
+  styleUrls: ['./listbox.component.scss']
 })
-
-export class GenericFinderComponent implements OnInit {
-
+export class ListboxComponent {
   @Input() title: string;
   @Input('data') data: any;
   @Input('column') column: any;
@@ -32,16 +30,9 @@ export class GenericFinderComponent implements OnInit {
   @Input('value') value: string;
   @Input('findByEqual') findByEqual: boolean;
   @ViewChild('find') find: ElementRef;
-  pagination: Pagination;
   dataSeleccionada: any;
   mobile: boolean = isMobile;
   tablet: boolean = screen.width > 600;
-
-  se_expande = true;
-  se_colapsa = false;
-  se_expande_dos = true;
-  se_colapsa_dos = false;
-
   finderTabular = {
     busqueda: '',
     campoBusqueda: null,
@@ -49,7 +40,7 @@ export class GenericFinderComponent implements OnInit {
   };
   lastClickTime = 0;
   rowSelected: any;
-  constructor(private activeModal: NgbActiveModal, private renderer: Renderer2, private avisaSeteo: AvisaSeteoService,
+  constructor(private activeModal: NgbActiveModal, private avisaSeteo: AvisaSeteoService,
     private abmservice: AbmService, public toastrService: ToastrService, private router: Router
     ) { }
 
@@ -61,69 +52,6 @@ export class GenericFinderComponent implements OnInit {
     if (this.value) {
       this.finderTabular.busqueda = this.value;
     }
-    this.pagination = {} as Pagination;
-    this.pagination.activa = true;
-    this.pagination.page = 1;
-    this.pagination.cantidadRegistrosxPagina = 10;
-    this.pagination.previousPage = 1;
-    this.pagination.maxBotones = 1;
-    this.pagination.cantColVis = 0;
-   if (this.data.length <=  this.pagination.cantidadRegistrosxPagina ) {
-     this.pagination.activa = false;
-   } else {
-     this.pagination.maxBotones =  this.data.length / this.pagination.cantidadRegistrosxPagina;
-   }
-    }
-    // tslint:disable-next-line:use-life-cycle-interface
-    ngAfterViewInit(): void {
-      // console.log(this.find.nativeElement);
-      // console.log(this.finder);
-
-      
-      if (!this.finder.typeMethodFinder && !this.mobile || this.tablet) {
-        this.renderer.selectRootElement(this.find.nativeElement).focus();
-      }
-      // this.find.nativeElement.focus();
-    }
-    uestraCantidadPorPaginayPagina(noPage, $event) {
-      let noRegistrosLoc = 0; // $event.target.value;
-        if ($event == null) {
-          noRegistrosLoc = this.data.length;
-        } else {
-          noRegistrosLoc = $event.target.value;
-        }
-      //this.pagination.listaPaginacion = listaPagLoc;
-      this.pagination.cantidadRegistrosxPagina =  noRegistrosLoc;
-      this.pagination.page =  noPage;
-    }
-    // LEO-INICIA 11-04-2019 13:18
-    buscarSeleccionado(eleSel) {
-      if (this.data.length > 0) {
-        this.data.forEach(element => {
-          if (eleSel === element) {
-            this.dataSeleccionada = element;
-          }
-        });
-      }
-    }
-    // LEO-TERMINA 11-04-2019 13:18
-
-    seExpande() {
-      this.se_expande = false;
-      this.se_colapsa = true;
-    }
-    seColapsa() {
-      this.se_expande = true;
-      this.se_colapsa = false;
-    }
-
-    seExpandeDos() {
-      this.se_expande_dos = false;
-      this.se_colapsa_dos = true;
-    }
-    seColapsaDos() {
-      this.se_expande_dos = true;
-      this.se_colapsa_dos = false;
     }
     onRowSelect(event) {
 
@@ -165,31 +93,9 @@ export class GenericFinderComponent implements OnInit {
     this.activeModal.close(data);
     // this.activeModal.close(true);
   }
-  public decline() {
-    this.activeModal.close(false);
-  }
-
-  public accept() {
-    if (this.dataSeleccionada.length >= 1 ) {
-      this.avisaSeteo.setVisivilidad(true);
-    } else {
-      this.avisaSeteo.setVisivilidad(false);
-    }
-
-   // this.avisaSeteo.getVisivilidad();
-    this.activeModal.close(this.dataSeleccionada);
-  }
 
   public dismiss() {
     this.activeModal.dismiss(false);
-  }
-
-  public sinSeleccion(event) {
-    // tslint:disable-next-line:prefer-const
-    let data = {
-       sinSeleccion: true,
-    };
-    this.activeModal.close(data);
   }
   public buscar(event) {
 

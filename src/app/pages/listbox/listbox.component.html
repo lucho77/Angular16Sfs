@@ -35,11 +35,12 @@
             <div class="table-responsive">
                 <div class="fila-item" *ngFor="let fil of data" (click)="onRowSelect(fil)">
                     <div class="tittle">
-                        <h3 [ngStyle]="col.visibleMovil == false ? {'display':'none'}:{'display':''}"  *ngFor="let col of column">
-                            {{fil[col.title]}}
+                        <h3 [ngStyle]="!col.visibleMovil ? {'display':'none'}:{'display':''}"  *ngFor="let col of column">
+                            {{fil[col.name]}}
                         </h3>
                     </div>
                    <div class="subtittle">
+                    <!-- <p>Sub titulo</p> -->
                    </div>
                 </div>
             </div>

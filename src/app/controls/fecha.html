@@ -1,20 +1,3 @@
-<div [formGroup]="form" *ngIf="esambula===3" [ngClass]="'mr-2'">
-    <div class="row">
-
-        <label class="input-group tm-f-bugt pl-0">{{field.label}}: 
-                     <strong class="text-danger" *ngIf="field.require">*</strong>
-        </label>
-
-        <div class="col-xs-10 col-sm-5 col-md-10 col-lg-8 col-xl-6 d-inline-flex">
-            <input class="form-control" [minDate]="{year: 1920, month: 1, day: 1}" placeholder="dd-mm-yyyy" [id]="field.name" [name]="field.name" [formControlName]="field.name" ngbDatepicker #p="ngbDatepicker">
-            <span class="input-group-btn">
-                <button class="btn btn-info" type="button" (click)="p.toggle()">
-                  <i class="fa fa-calendar"></i> 
-                </button>
-            </span>
-        </div>
-    </div>
-</div>
 <div [formGroup]="form" [ngClass]="'mb-2'">
     <div class="row">
         <div class="col">

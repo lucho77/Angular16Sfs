@@ -26,7 +26,6 @@ export class BusquedaGenericaComponent {
     @Input() dataForm: FormdataReportdef[];
     mobile: boolean = isMobile;
     tablet: boolean = screen.width > 600;
-    nameRes: boolean
 
     get isValid() { return this.form.controls[this.field.name].valid; }
     get isDirty() { return this.form.controls[this.field.name].dirty; }
@@ -60,11 +59,11 @@ export class BusquedaGenericaComponent {
             finder.methodName = this.field.busquedaGenericaDTO.metodoNombre;
             if (this.field.busquedaGenericaDTO.parametrosLlamadaMetodo &&
                 this.field.busquedaGenericaDTO.parametrosLlamadaMetodo.length > 0 ) {
-                    console.log('busco los parametros');
-                    console.log(this.dataForm);
+
+                    console.log('busco los parametros',this.dataForm);
                 for (const s of  this.field.busquedaGenericaDTO.parametrosLlamadaMetodo) {
-                    console.log('s');
-                    console.log(s);
+
+                    console.log('s',s);
                     if (s.toUpperCase() ===  FrontEndConstants.PARENT) {
                         // esto es hay que buscar el parametro padre
                         const pParent = JSON.parse(localStorage.getItem('paramParent')) as FormdataReportdef;
@@ -155,7 +154,6 @@ export class BusquedaGenericaComponent {
                     unSoloRegistro = true;
                     const stringLabel = this.devuelveStringLabelFila(result, result['data']);
                     this.form.controls[this.field.nameRes].setValue(stringLabel);
-                    this.nameRes = true;
                     this.field.busquedaGenericaDTO.mostrarToStringLupa = stringLabel;
                      const pos = result['pkColIndex'];
                     this.field.valueNew = result['data'][0][pos].value;
@@ -177,7 +175,6 @@ export class BusquedaGenericaComponent {
                       }
                         const stringLabel = this.devuelveStringLabelFilaTabla(result, fila);
                         this.form.controls[this.field.nameRes].setValue(stringLabel);
-                        this.nameRes = true;
                         this.field.busquedaGenericaDTO.mostrarToStringLupa = stringLabel;
                         const pos = result['pkColIndex'];
                         let j = 0;
@@ -206,7 +203,6 @@ export class BusquedaGenericaComponent {
     public borrar(event) {
     // elimina el valor del componente
         this.form.controls[this.field.nameRes].setValue('');
-        this.nameRes = false;
         this.form.controls[this.field.name].setValue('');
         let input = document.getElementById(this.field.name) as HTMLElement;
         input.focus();
@@ -290,7 +286,7 @@ export class BusquedaGenericaComponent {
                       // tslint:disable-next-line:radix
                         // tslint:disable-next-line:radix
                         if (pos === pos2) {
-                            label = label + ' ' +  fila[h];
+                            label = fila[h] != null ? label + ' ' +  fila[h]: label;
                             // console.log('retorna');
                             console.log('encontrado value:  ' + fila[h] );
                       }

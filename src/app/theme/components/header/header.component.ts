@@ -36,6 +36,7 @@ export class HeaderComponent implements OnInit {
   loading = false;
   usuarioMesa = false;
   submitted = false;
+  usuario = JSON.parse(localStorage.getItem('currentUser'));
 
   consultaForm: FormGroup;
 

@@ -1,0 +1,22 @@
+@import "../theme/styles/variables";
+.row{
+    @include padArribaAbajo;
+}
+textarea{
+    height: 35px;
+    min-height: 35px;
+    width: $field-width;
+    min-width: $field-width;
+    border-radius: 4px;
+    border: 1px solid #ced4da;
+    padding: 5px 10px;
+    resize: both;
+    margin-left: $field-margin-correct-left;
+    &:focus, :active{
+        border: 1px solid #333;
+        outline: none;
+    }
+}
+.mobile{
+    width: $field-mobile-width;
+}

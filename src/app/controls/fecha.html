@@ -1,42 +1,17 @@
-<div [formGroup]="form" *ngIf="esambula===1" [ngClass]="'mr-2'">
-    <div class="form-row">
-
-        <label class="input-group tm-f-bugt pl-0">{{field.label}}: 
-                     <strong class="text-danger" *ngIf="field.require">*</strong>
-               </label>
-
-        <div class="col-xs-10 col-sm-5 col-md-10 col-lg-8 col-xl-6 d-inline-flex">
-            <input class="form-control" [minDate]="{year: 1920, month: 1, day: 1}" placeholder="dd-mm-yyyy" [id]="field.name" [name]="field.name" [formControlName]="field.name" ngbDatepicker #p="ngbDatepicker">
-            <span class="input-group-btn">
-                                <button class="btn btn-info" type="button" (click)="p.toggle()">
-                                    <i class="fa fa-calendar"></i> 
-                                </button>
-                            </span>
-        </div>
-    </div>
-</div>
-<div [formGroup]="form" *ngIf="esambula===0" [ngClass]="'mb-2'">
+<div [formGroup]="form" [ngClass]="'mb-2'">
     <div class="row">
         <div class="col">
-            <div class="form-group">
                 <div class="input-group">
-
-                    <div class="col-xs-2 col-sm-3 col-md-3 col-lg-2 col-xl-1 tm-f-bugt">
-                        <label class="maliz-15">{{field.label}}: 
-                        <strong class="text-danger" *ngIf="field.require">*</strong>
+                    <label class="d-flex flex-nowrap input-group col-xs-2 col-sm-2 col-md-4 col-lg-2 col-xl-1 tm-f-bugt pl-0">{{field.label}}:<strong class="text-danger" *ngIf="field.require">*</strong>
                     </label>
-                    </div>
-                    <input [minDate]="{year: 1920, month: 1, day: 1}" class="form-control col-xs-12 col-sm-3 col-md-3 col-lg-2 col-xl-1 tm-f-bugt" placeholder="dd-mm-yyyy" [id]="field.name" [name]="field.name" placement="top" [formControlName]="field.name" ngbDatepicker #p="ngbDatepicker">
-                    <span class="input-group-btn">
+                    
+                    <input [minDate]="{year: 1920, month: 1, day: 1}" class="form-control inp-fecha col-xs-12 col-sm-3 col-md-3 col-lg-2 col-xl-1 tm-f-bugt" placeholder="dd-mm-yyyy" [id]="field.name" [name]="field.name" placement="top" [formControlName]="field.name" ngbDatepicker #p="ngbDatepicker">
+                    <span class="input-group-btn spn-fecha">
                         <button class="btn btn-info" type="button" (click)="p.toggle()">
                             <i class="fa fa-calendar"></i> 
                         </button>
                     </span>
-
                 </div>
-            </div>
         </div>
-        <!-- /input-group -->
     </div>
-    <!-- /.col-lg-6 -->
 </div>

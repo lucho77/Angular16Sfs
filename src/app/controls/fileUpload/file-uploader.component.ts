@@ -1,5 +1,6 @@
 import { Component, ViewEncapsulation, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { isMobile } from 'mobile-device-detect';
 import { FormdataReportdef } from 'src/app/_models/formdata';
 
 @Component({
@@ -12,6 +13,10 @@ export class FileUploaderComponent {
     public file: any;
     @Input() form: FormGroup;
     @Input() field: FormdataReportdef;
+    mobile: boolean = isMobile;
+    tablet: boolean = screen.width > 600;
+
+
     fileChange(input) {
         // tslint:disable-next-line:prefer-const
         let s =  this.field;

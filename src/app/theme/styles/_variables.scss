@@ -19,3 +19,11 @@ $chat-window-footer-height: 46px;
 
 $footer-height: 28px;
 
+$field-width:24.3vw;
+$field-mobile-width: 100vw;
+$field-height:35px;
+@mixin padArribaAbajo(){
+    padding: 10px;
+    padding-left: 0;
+}
+$field-margin-correct-left:0px; //-4vw

@@ -3,6 +3,8 @@ import { Subscription } from 'rxjs';
 import { NameGlobalService } from '../../../_services/nameGlobalService';
 import { FormdataReportdef } from '../../../_models/formdata';
 import { DomSanitizer } from '@angular/platform-browser';
+import { isMobile } from 'mobile-device-detect';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-infoarea',
@@ -10,6 +12,8 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class InfoAreaComponent   {
   imgBase64 = null;
+  mobile: boolean = isMobile;
+  tablet: boolean = screen.width > 600;
 
   public data: DataUsuario = {
     name: 'Sin Seleccion',
@@ -19,7 +23,7 @@ export class InfoAreaComponent   {
   };
   private nameRef: Subscription = null;
   mostrarFoto = false;
-  constructor(private nameGlobalService: NameGlobalService, private domSanitizer:DomSanitizer) {
+  constructor(private nameGlobalService: NameGlobalService, private domSanitizer:DomSanitizer, public router : Router) {
     }
 
     // tslint:disable-next-line:use-life-cycle-interface
@@ -63,7 +67,7 @@ export class InfoAreaComponent   {
 
       console.log('seteo el globalSerice');
     } else {
-      this.data.name = 'SIN SELECCION';
+      this.data.name = 'SIN SELECCIÓN';
       this.data.info = 'No hay informacion que mostrar';
     }
 

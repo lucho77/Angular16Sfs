@@ -30,7 +30,7 @@ import { AccionColumna } from '../../../../_models/accionColumna';
 import { PreMethodDTO } from '../../../../_models/preMethodDTO';
 import { crearParametro, ejecutarMetodo, seteoParamGlobal } from 'src/app/util/reportdefUtil';
 import { ToastrService } from 'ngx-toastr';
-import { environment } from 'src/environments/environment.development';
+import { isMobile, isTablet } from 'mobile-device-detect';
 
 @Component({
   selector: 'app-tabular',
@@ -73,7 +73,9 @@ export class TabularComponent  implements OnInit, OnChanges {
   private nameRef: Subscription = null;
   menovillan: any;
   descripcion = false;
-  mobile=environment.mobile;
+  mobile=isMobile;
+  tablet= screen.width > 600;
+
 
  mensaje = '';
   constructor(private confirmationDialogService: ConfirmationDialogService,

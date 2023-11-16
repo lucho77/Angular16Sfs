@@ -2,13 +2,14 @@
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
             <label for="inputPassword4" class="pl-0">{{field.label}}:
-                        <strong class="text-danger" *ngIf="field.require">*</strong>
-                </label>
+                <strong class="text-danger" *ngIf="field.require">*</strong>
+            </label>
             <div class="input-group">
+                <select [class.mobile]="mobile && !tablet" class="combo cl-dtx-tl" (change)="onChange($event)" [id]="field.name" [formControlName]="field.name">
 
-                <select class="form-control cl-dtx-tl" (change)="onChange($event)" [id]="field.name" [formControlName]="field.name">
-                            <option *ngFor="let opt of field.comboDTO.comboBoxDTO" [value]="opt.id">{{opt.value}}</option>
-                        </select>
+                    <option value="" disabled selected hidden>Seleccione una opción</option> 
+                    <option *ngFor="let opt of field.comboDTO.comboBoxDTO" [value]="opt.id">{{opt.value}}</option>
+                </select>
             </div>
         </div>
     </div>
@@ -16,17 +17,15 @@
 <div [formGroup]="form" *ngIf="esambula===0" [ngClass]="'mb-2'">
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 tm-f-bugt">
-
             <div class="input-group">
-                <label class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-1 tm-f-bugt pl-0">{{field.label}}: 
-                         <strong class="text-danger" *ngIf="field.require">*</strong>
-                    </label>
-                <select class="form-control tm-f-bugt" (change)="onChange($event)" [id]="field.name" [formControlName]="field.name">
-                           <option *ngFor="let opt of field.comboDTO.comboBoxDTO" [value]="opt.id">{{opt.value}}</option>
-                    </select>
+                <label class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-1 tm-f-bugt pl-0">{{field.label}}:
+                    <strong class="text-danger" *ngIf="field.require">*</strong>
+                </label>
+                <select [class.mobile]="mobile && !tablet" class="combo tm-f-bugt" (change)="onChange($event)" [id]="field.name" [formControlName]="field.name">
+                    <option value="" disabled selected hidden>Seleccione una opción</option> 
+                    <option *ngFor="let opt of field.comboDTO.comboBoxDTO" [value]="opt.id">{{opt.value}}</option>
+                </select>
             </div>
         </div>
-        <!-- /input-group -->
     </div>
-    <!-- /.col-lg-6 -->
 </div>

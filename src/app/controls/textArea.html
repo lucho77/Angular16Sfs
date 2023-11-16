@@ -2,13 +2,11 @@
     <div class="row">
         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
             <div class="input-group">
-                <label class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-1 tm-f-bugt pl-0">{{field.label}}: 
+                <label class="d-flex flex-nowrap col-xs-2 col-sm-2 col-md-4 col-lg-2 col-xl-1 tm-f-bugt pl-0">{{field.label}}: 
                  <strong class="text-danger" *ngIf="field.require">*</strong>
              </label>
-                <textarea autosize [formControlName]="field.name" [id]="field.name" cols="50">Some text</textarea>
+                <textarea [class.mobile]="mobile && !tablet" [formControlName]="field.name" [id]="field.name"></textarea>
             </div>
         </div>
-        <!-- /input-group -->
     </div>
-    <!-- /.col-lg-6 -->
 </div>

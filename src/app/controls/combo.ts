@@ -10,13 +10,13 @@ import { ParametrosExecuteMethodRequestDTO } from '../_models/parametrosExecuteM
 import * as moment from 'moment'; // add this 1 of 4
 import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
 import { toInteger } from '../util/datePicker/util';
+import { isMobile } from 'mobile-device-detect';
 
 
 @Component({
     selector: 'app-combo',
-    templateUrl: './combo.html'
-
-
+    templateUrl: './combo.html',
+    styleUrls: ['./combo.scss']
 })
 export class ComboComponent {
     @Input() field: any = {};
@@ -24,7 +24,8 @@ export class ComboComponent {
     @Input() elindex: any;
     @Input() esambula: number;
     @Input() dataForm: FormdataReportdef[];
-
+    mobile: boolean = isMobile;
+    tablet: boolean = screen.width > 600;
     constructor(private abmService: AbmService) {
     }
 

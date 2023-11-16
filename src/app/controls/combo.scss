@@ -1,0 +1,25 @@
+@import "../theme/styles/_variables.scss";
+
+.row{
+    @include padArribaAbajo;
+}
+.combo{
+    height: $field-height;
+    min-height: $field-height;
+    width: $field-width;
+    min-width: $field-width;
+    border-radius: 4px;
+    border: 1px solid #ced4da;
+    padding: 5px 10px;
+    margin-left: $field-margin-correct-left;
+    background: white;
+    color: #333;
+    cursor: pointer;
+    &:focus, :active{
+        border: 1px solid #333;
+        outline: none;
+    }
+}
+.mobile{
+    width: $field-mobile-width;
+}

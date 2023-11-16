@@ -37,19 +37,14 @@
 
                 <form [formGroup]="form" class="form-vertical" (keydown.enter)="$event.preventDefault()">
 
-                    <form>
-                        <div class="form-row">
-
-                            <div *ngFor="let field of data.list; let i = index"
-                                [ngClass]="field.fecha ? pintarClaseDivFehaBuil(camposAgrupaEnteroDescompuesto[i]) : pintarClaseDivBuil(camposAgrupaEnteroDescompuesto[i])">
+                    <form  class="form-horizontal pt-2" >
+                            <div *ngFor="let field of data.list; let i = index">
                                 <app-field-builder *ngIf="!field.buttom" [dataForm]="data.list" [field]="field"
                                     [esambula]="1" [form]="form"
                                     [elindex]=camposAgrupaEnteroDescompuesto[i]></app-field-builder>
                             </div>
-
-                        </div>
                     </form>
-                    <div class="row">
+                    <div [ngClass]="mobile && !tablet ? 'btn-list-row' : 'row buttons'">
                         <div *ngFor="let field of data.list">
                             <app-button *ngIf="field.buttom && !field.buttomDTO.bottonVolver" [field]="field"
                                 [form]="form" (acciones)="processActions($event,false)"></app-button>
@@ -85,18 +80,7 @@
                             (accionesDina)="processMethodDina($event)" [field]="field" [esambula]="0"
                             [form]="form"></app-field-builder>
                     </div>
-                    <div class="row" *ngIf="!mobile">
-                        <div *ngFor="let field of data.list">
-                            <app-button
-                                *ngIf="field.buttom && !field.buttomDTO.bottonVolver && !field.buttomDTO.bottonVolverHistorico"
-                                [field]="field" [form]="form" (acciones)="processActions($event,false)"></app-button>
-                            <app-button-cancel *ngIf="field.buttomDTO.bottonVolver" [field]="field" [form]="form"
-                                (acciones)="processActions($event,false)"></app-button-cancel>
-                            <app-button-cancel *ngIf="field.buttomDTO.bottonVolverHistorico" [field]="field"
-                                [form]="form" (acciones)="processActions($event,false)"></app-button-cancel>
-                        </div>
-                    </div>
-                    <div class="btn-list-row" *ngIf="mobile">
+                    <div [ngClass]="mobile && !tablet ? 'btn-list-row' : 'row'">
                         <div *ngFor="let field of data.list">
                             <app-button
                                 *ngIf="field.buttom && !field.buttomDTO.bottonVolver && !field.buttomDTO.bottonVolverHistorico"
@@ -142,7 +126,7 @@
                             </div>
                         </p-tabPanel>
                     </p-tabView>
-                    <div class="row">
+                    <div [ngClass]="mobile && !tablet ? 'btn-list-row' : 'row'">
                         <div *ngFor="let field of data.list">
                             <app-button *ngIf="field.buttom && !field.buttomDTO.bottonVolver" [field]="field"
                                 [form]="form" (acciones)="processActions($event,false)"></app-button>
@@ -214,7 +198,7 @@
                         <app-field-builder *ngIf="!fieldHijo.buttom" [dataForm]="formRepordefHijos.list" [esambula]='0'
                             [field]="fieldHijo" [form]="formHijo"></app-field-builder>
                     </div>
-                    <div class="row">
+                    <div [ngClass]="mobile && !tablet ? 'btn-list-row' : 'row'">
                         <div *ngFor="let fieldHijo of formRepordefHijos.list">
                             <app-button *ngIf="fieldHijo.buttom && !fieldHijo.buttomDTO.bottonVolver"
                                 [field]="fieldHijo" [form]="formHijo"

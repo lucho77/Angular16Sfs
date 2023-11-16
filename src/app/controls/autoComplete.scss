@@ -1,4 +1,6 @@
+@import "../theme/styles/variables";
 :host ::ng-deep .custom-spinner .p-progress-spinner-circle {
+    align-self: center;
     animation: custom-progress-spinner-dash 1.5s ease-in-out infinite, custom-progress-spinner-color 6s ease-in-out infinite;
 }
 
@@ -33,16 +35,31 @@
         stroke-dashoffset: -124px;
     }
 }
-.ui-autocomplete {
-    height: 30px;
-  }
-  .ui-autocomplete-panel {
-    max-height: 150px; /* Ajusta la altura a la que desees */
-    overflow-y: auto;
-  }
-  input.ui-inputfield
-{
-    width : 50px !important;
-    height: 30px !important;
-
+@mixin autocomp($width){
+    display: flex;
+    border-radius: 4px;
+    height: 34px;
+    width: $width;
+    &:hover{
+        border: 1px solid #ced4da;
+    }
+    &:focus{
+        border: 1px solid #333;
+    }
+}
+.ig{
+    display: flex;
+    width: 100%;
+}
+:host ::ng-deep .autocomplete .autocomplete-input{
+    @include autocomp($field-width);
+    flex-direction: column;
+}
+:host ::ng-deep .autocomplete-mobile .autocomplete-input-mobile{
+    @include autocomp($field-mobile-width - 26vw);
+    
+}
+:host ::ng-deep .panelAutocomplete{
+    border-radius: 4px;
+    border: 1px solid #333;
 }

@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FinderParamsDTO } from '../_models/finderParamsDTO';
 import { inicializarFinder } from '../pages/genericFinder/utilFinder';
@@ -10,7 +10,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { ParametrosExecuteMethodRequestDTO } from '../_models/parametrosExecuteMethodRequestDTO';
 import { ToastrService } from 'ngx-toastr';
-import { environment } from 'src/environments/environment.development';
+import { isMobile, isTablet } from 'mobile-device-detect';
 
 @Component({
     selector: 'app-busquedagenerica',
@@ -24,7 +24,8 @@ export class BusquedaGenericaComponent {
     @Input() elindex: any;
     @Input() esambula: number;
     @Input() dataForm: FormdataReportdef[];
-    public mobile = environment.mobile;
+    mobile: boolean = isMobile;
+    tablet: boolean = screen.width > 600;
 
     get isValid() { return this.form.controls[this.field.name].valid; }
     get isDirty() { return this.form.controls[this.field.name].dirty; }
@@ -39,7 +40,7 @@ export class BusquedaGenericaComponent {
             const v = this.form.controls[this.field.name].value !== null?this.form.controls[this.field.name].value.trim() : '';
             if(this.field.minLength > v.length ){
                 console.log("No puedo buscar el min length es mayor a la cantidad de caracteres ingresados");
-                this.toastrService.error(' debe ingresar al menos ' + this.field.minLength + " caracteres para poder buscar " );
+                this.toastrService.error(' Debe ingresar al menos ' + this.field.minLength + " caracteres para poder buscar " );
                 return;
             }
 
@@ -58,11 +59,11 @@ export class BusquedaGenericaComponent {
             finder.methodName = this.field.busquedaGenericaDTO.metodoNombre;
             if (this.field.busquedaGenericaDTO.parametrosLlamadaMetodo &&
                 this.field.busquedaGenericaDTO.parametrosLlamadaMetodo.length > 0 ) {
-                    console.log('busco los parametros');
-                    console.log(this.dataForm);
+
+                    console.log('busco los parametros',this.dataForm);
                 for (const s of  this.field.busquedaGenericaDTO.parametrosLlamadaMetodo) {
-                    console.log('s');
-                    console.log(s);
+
+                    console.log('s',s);
                     if (s.toUpperCase() ===  FrontEndConstants.PARENT) {
                         // esto es hay que buscar el parametro padre
                         const pParent = JSON.parse(localStorage.getItem('paramParent')) as FormdataReportdef;
@@ -202,6 +203,9 @@ export class BusquedaGenericaComponent {
     public borrar(event) {
     // elimina el valor del componente
         this.form.controls[this.field.nameRes].setValue('');
+        this.form.controls[this.field.name].setValue('');
+        let input = document.getElementById(this.field.name) as HTMLElement;
+        input.focus();
         this.field.valueNew = null;
         this.field.busquedaGenericaDTO.mostrarToStringLupa = '';
 
@@ -282,7 +286,7 @@ export class BusquedaGenericaComponent {
                       // tslint:disable-next-line:radix
                         // tslint:disable-next-line:radix
                         if (pos === pos2) {
-                            label = label + ' ' +  fila[h];
+                            label = fila[h] != null ? label + ' ' +  fila[h]: label;
                             // console.log('retorna');
                             console.log('encontrado value:  ' + fila[h] );
                       }

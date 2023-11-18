@@ -34,8 +34,6 @@
         <div class="widget-controls">
             <a data-widgster="expand" href="#" class="transition"><i class="fa fa-chevron-down"></i></a>
             <a data-widgster="collapse" href="#" class="transition"><i class="fa fa-chevron-up"></i></a>
-            <a data-widgster="fullscreen" href="#" class="transition"><i class="fa fa-expand"></i></a>
-            <a data-widgster="restore" href="#" class="transition"><i class="fa fa-compress"></i></a>
         </div>
 
         
@@ -241,8 +239,6 @@
         <div class="widget-controls">
             <a data-widgster="expand" href="#" class="transition"><i class="fa fa-chevron-down"></i></a>
             <a data-widgster="collapse" href="#" class="transition"><i class="fa fa-chevron-up"></i></a>
-            <a data-widgster="fullscreen" href="#" class="transition"><i class="fa fa-expand"></i></a>
-            <a data-widgster="restore" href="#" class="transition"><i class="fa fa-compress"></i></a>
         </div>
 
         
@@ -312,32 +308,23 @@
                     <div class="contenedor">
                         <!-- Cards mobile--------------------- -->
                         <div *ngFor="let fil of pagination.listaPaginacion" class="card">
+                            <h2>{{fil[header[1].name]}}</h2>
                             <span class="separador"></span>
                             <div class="contenedor-text">
-                                <div [ngStyle]="col.visibleMovil == false ? {'display':'none'}:{'display':''}" *ngFor="let col of header; let io = index">
+                                <div [ngStyle]="!col.visibleMovil ? {'display':'none'}:{'display':''}" *ngFor="let col of header; let io = index">
                                     <span style="font-weight: 600;">{{col.title}}: </span> <span *ngIf="col.download == false && !col.fontAwesoneIcono && !col.linkOtherTab">{{fil[col.name]}}</span>
                                 </div>
                             </div>
                             <div class="btns" *ngIf="this.pagination.listaPaginacion.length !== 0">
                                 <button *ngIf="this.tabular.tabularDescriptivo" class="btn-extra" (click)="clickLinkTabularMobile($event,header,fil)">Ver</button>
+                                <!-- <button *ngIf="fil[col.link]" class="btn-extra" (click)="clickLinkTabularMobile($event,col,fil)">Seleccionar</button> -->
                                 <button *ngIf="this.tabularABM && this.tabular.permisoDTO.edit"  class="btn-edit" (click)="onEdit(fil)">Editar</button>
                                 <button *ngIf="this.tabularABM && this.tabular.permisoDTO.delete" class="btn-eliminar" (click)="onDelete(fil)">Eliminar</button>
                             </div>
                         </div>
-                        <button *ngIf="tabularABM===true && tabular.permisoDTO.nueva" pButton type="button" title="Nuevo" class="btn-agregar" (click)="nuevoAbm()">+</button>
+                        <button *ngIf="tabularABM===true && tabular.permisoDTO.nueva" type="button" title="Nuevo" class="btn-agregar" (click)="nuevoAbm()"><span *ngIf="!loader">+</span><span *ngIf="loader" class="loader"></span></button>
                     </div>
                 </div>
-
-                <div id="cuadro-con-der" class="col-xl-5 col-lg-5 col-md-5 col-sm-5 col-xs-12 pt-4" *ngIf="tabular.tabularDescriptivo">
-                    <div class="card" [ngStyle]="{ 'height.px': altoVentana/2.5}">
-                        <div class="card-header ">
-                            <b>Por favor seleccione un registro para ver más detalles</b>
-                        </div>
-                        <div class="card-body" #dataContainer [ngStyle]="{ 'height': 'auto', 'overflow': 'auto', 'white-space': 'pre-line'} "></div>
-                    </div>
-                </div>
-
-
             </div>
         </div>
     </div>

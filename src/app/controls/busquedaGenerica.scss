@@ -1,5 +1,6 @@
 @import "../theme/styles/variables";
 
+@include loader();
 .breadcrumb {
     background-color: #ffffff;
 }
@@ -15,6 +16,12 @@
         align-items: center;
         text-align: center;
         height: 35px;
+        &:active{
+            box-shadow: none;
+        }
+        &:hover,&:focus{
+            box-shadow: none;
+        }
     }
 
     .input-1,

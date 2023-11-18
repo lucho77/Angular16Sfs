@@ -35,12 +35,12 @@
             <div class="table-responsive">
                 <div class="fila-item" *ngFor="let fil of data" (click)="onRowSelect(fil)">
                     <div class="tittle">
-                        <h3 [ngStyle]="!col.visibleMovil ? {'display':'none'}:{'display':''}"  *ngFor="let col of column">
-                            {{fil[col.name]}}
+                        <h3>
+                            {{fil[column[1].name]}}
                         </h3>
                     </div>
-                   <div class="subtittle">
-                    <p>Sub titulo</p>
+                   <div class="subtittle" *ngIf="fil[column[2]?.name] != null">
+                    <p><span>{{column[2]?.title}}: </span>{{fil[column[2]?.name]}}</p>
                    </div>
                 </div>
             </div>

@@ -41,7 +41,7 @@ import { FinderDTO } from '../../../../_models/finderDTO';
 
       }
      }
-    this.input.nativeElement.focus();
+    // this.input.nativeElement.focus();
   }
 
       buscar() {

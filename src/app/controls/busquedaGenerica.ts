@@ -26,6 +26,7 @@ export class BusquedaGenericaComponent {
     @Input() dataForm: FormdataReportdef[];
     mobile: boolean = isMobile;
     tablet: boolean = screen.width > 600;
+    loader: boolean = false;
 
     get isValid() { return this.form.controls[this.field.name].valid; }
     get isDirty() { return this.form.controls[this.field.name].dirty; }
@@ -36,11 +37,13 @@ export class BusquedaGenericaComponent {
     }
     public buscar(event) {
         console.log('buscar');
+        this.loader = true;
          if(this.field.minLength && this.field.minLength > 0 ){
             const v = this.form.controls[this.field.name].value !== null?this.form.controls[this.field.name].value.trim() : '';
             if(this.field.minLength > v.length ){
                 console.log("No puedo buscar el min length es mayor a la cantidad de caracteres ingresados");
                 this.toastrService.error(' Debe ingresar al menos ' + this.field.minLength + " caracteres para poder buscar " );
+                this.loader = false;
                 return;
             }
 
@@ -49,7 +52,6 @@ export class BusquedaGenericaComponent {
 
         let unSoloRegistro = false;
         const user = JSON.parse(localStorage.getItem('currentUser'));
-        // console.log(this.form.controls[this.field.name].value.trim());
         const finder = {} as FinderParamsDTO;
         inicializarFinder(finder);
         finder.entityClass = this.field.type;
@@ -147,7 +149,7 @@ export class BusquedaGenericaComponent {
         }
         this.abmservice.consultarAbmGeneric(user, finder).subscribe(
             result => {
-                // this.loadSpinner.hide();
+                this.loader = false;
 
 
                 if (result['data'] && result['data'].length === 1) {
@@ -195,7 +197,7 @@ export class BusquedaGenericaComponent {
                 }
         },
         (err: HttpErrorResponse) => {
-
+            this.loader = false;
             this.checkError(err);
       }
         );

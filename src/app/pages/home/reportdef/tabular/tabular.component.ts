@@ -73,8 +73,9 @@ export class TabularComponent  implements OnInit, OnChanges {
   private nameRef: Subscription = null;
   menovillan: any;
   descripcion = false;
-  mobile=isMobile;
-  tablet= screen.width > 600;
+  mobile: boolean = isMobile;
+  tablet: boolean =  screen.width > 600;
+  loader: boolean = false;
 
 
  mensaje = '';
@@ -1262,6 +1263,8 @@ private  convertDataURItoFile(data: string, fileName: string, fmt: boolean) {
       this.filtros = true;
   }
   nuevoAbm() {
+
+    this.loader = true;
     const data = {alta: true, id: this.idSeleccionado, reporte: this.reporte, vista: this.tabular.vista};
     // debo ver si hay algun agregarsi
     console.log('this.tabular.agregarSi');

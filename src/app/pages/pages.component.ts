@@ -2,6 +2,7 @@ import { Component, OnInit, ViewEncapsulation, HostListener } from '@angular/cor
 import { Router } from '@angular/router';
 import { AppSettings } from '../app.settings';
 import { Settings } from '../app.settings.model';
+import { isMobile } from 'mobile-device-detect';
 
 
 @Component({
@@ -17,6 +18,8 @@ export class PagesComponent implements OnInit {
     public menuOption:string;
     public menuTypes = ['default', 'compact', 'mini'];
     public menuTypeOption:string;
+    mobile: boolean = isMobile;
+    tablet: boolean = screen.width > 600;
     
     public settings: Settings;
     constructor(public appSettings:AppSettings, public router:Router){        
@@ -65,6 +68,11 @@ export class PagesComponent implements OnInit {
         const preloader = document.getElementById('preloader');
         if (preloader) {
             preloader.classList.add('hide');
+        }
+    }
+    cerrarMenu(){
+        if (this.mobile && !this.tablet) {
+            this.settings.theme.showMenu = false;
         }
     }
 

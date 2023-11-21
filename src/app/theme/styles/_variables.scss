@@ -31,14 +31,15 @@ $field-margin-correct-left:0px; //-4vw
 @mixin loader(
               $width : 15px, 
               $height : 15px,
-              $border-bold: 2px
+              $border-bold: 2px,
+              $color:#fff
               ){
     .loader {
         width: $width;
         height: $height;
         border-radius: 50%;
         display: inline-block;
-        border-top: $border-bold solid #fff;
+        border-top: $border-bold solid $color;
         border-right: $border-bold solid transparent;
         box-sizing: border-box;
         animation: rotation 1s linear infinite;
@@ -52,7 +53,7 @@ $field-margin-correct-left:0px; //-4vw
         width: $width;
         height: $height;
         border-radius: 50%;
-        border-left: $border-bold solid #fff;
+        border-left: $border-bold solid $color;
         border-bottom: $border-bold solid transparent;
         animation: rotation 0.5s linear infinite reverse;
       }

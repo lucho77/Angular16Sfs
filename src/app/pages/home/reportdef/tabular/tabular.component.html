@@ -301,13 +301,13 @@
         </div>
 
 
-        <div [ngClass]="tabular.responsive !==null && tabular.responsive !== '' ? 'containerX d-none d-sm-block' : 'containerX'">
+        <div (click)="setPopupfalse()" [ngClass]="tabular.responsive !==null && tabular.responsive !== '' ? 'containerX d-none d-sm-block' : 'containerX'">
             <div class="row">
                 <div class="table-responsive col-xl-7 col-lg-7 col-md-7 col-sm-7 col-xs-12">
 
                     <div class="contenedor">
                         <!-- Cards mobile--------------------- -->
-                        <div *ngFor="let fil of pagination.listaPaginacion" class="card">
+                        <div *ngFor="let fil of pagination.listaPaginacion; index as i" class="card">
                             <h2>{{fil[header[1].name]}}</h2>
                             <span class="separador"></span>
                             <div class="contenedor-text">
@@ -316,7 +316,7 @@
                                 </div>
                             </div>
                             <div class="btns" *ngIf="this.pagination.listaPaginacion.length !== 0">
-                                <button *ngIf="this.tabular.tabularDescriptivo" class="btn-extra" (click)="clickLinkTabularMobile($event,header,fil)">Ver</button>
+                                <button *ngIf="this.tabular.tabularDescriptivo" class="btn-extra" (click)="loaderBtn(i); clickLinkTabularMobile($event,header,fil,i)"><span id="ver{{i}}" class="ver">Ver</span><span id="load{{i}}" style="display: none;" class="loader load"></span></button>
                                 <!-- <button *ngIf="fil[col.link]" class="btn-extra" (click)="clickLinkTabularMobile($event,col,fil)">Seleccionar</button> -->
                                 <button *ngIf="this.tabularABM && this.tabular.permisoDTO.edit"  class="btn-edit" (click)="onEdit(fil)">Editar</button>
                                 <button *ngIf="this.tabularABM && this.tabular.permisoDTO.delete" class="btn-eliminar" (click)="onDelete(fil)">Eliminar</button>
@@ -327,6 +327,10 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div [ngClass]="popup ? 'popupContainer popupShow' : 'popupContainer'">
+            <label type="button"(click)="setPopupfalse()">x</label>
+        <div class="popup" #dataContainerMobile></div>
     </div>
 </div>
 <p-dialog [(visible)]="mensajes" header="Alertas" [modal]="true" [responsive]="true" [maximizable]="true" [baseZIndex]="10000">

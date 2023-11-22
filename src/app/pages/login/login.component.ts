@@ -24,7 +24,6 @@ export class LoginComponent implements OnInit, AfterViewInit {
     error = '';
     loadSpinner = false;
     getParamToken = false;
-    isMOvil = false;
     tokenCel = '';
     context: any;
     tokenAndroid: string;
@@ -97,10 +96,8 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
         this.loading = true;
         const user  = await this.login();
-        console.log('this.isMOvil');
-        console.log(this.isMOvil);
-        this.loadSpinner = false;
         this.router.navigate(['/pages']);
+        this.loadSpinner = false;
 
     }
     login() {

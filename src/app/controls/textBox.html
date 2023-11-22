@@ -1,16 +1,4 @@
-<div [formGroup]="form" *ngIf="esambula === 1" [ngClass]="'mb-2'">
-    <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-            <div class="input-group">
-                <label class="d-flex flex-nowrap col-xs-2 col-sm-2 col-md-4 col-lg-2 col-xl-1 tm-f-bugt pl-0">{{field.label}}: 
-                    <strong class="text-danger" *ngIf="field.require">*</strong>
-                </label>
-                <input type="text" [ngClass]="mobile && !tablet ? 'textBox mobile' : 'textBox'" [id]="field.name" [name]="field.name" [formControlName]="field.name">
-            </div>
-        </div>
-    </div>
-</div>
-<div [formGroup]="form" *ngIf="esambula===0" [ngClass]="'mb-2'">
+<div [formGroup]="form" [ngClass]="'mb-2'">
     <div *ngIf="!field.disable" class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
             <div class="input-group">

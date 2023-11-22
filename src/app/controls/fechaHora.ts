@@ -11,7 +11,6 @@ export class FechaHoraComponent implements OnInit {
     @Input() field: any = {};
     @Input() form: FormGroup;
     @Input() elindex: any;
-    @Input() esambula: number;
     public fecha_Seleccionada: Date;
     constructor() {
         console.log('Variable de SL : ');

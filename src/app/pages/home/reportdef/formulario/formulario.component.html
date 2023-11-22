@@ -38,7 +38,7 @@
                     <form  class="form-horizontal pt-2" >
                             <div *ngFor="let field of data.list; let i = index">
                                 <app-field-builder *ngIf="!field.buttom" [dataForm]="data.list" [field]="field"
-                                    [esambula]="1" [form]="form"
+                                    [form]="form"
                                     [elindex]=camposAgrupaEnteroDescompuesto[i]></app-field-builder>
                             </div>
                     </form>
@@ -75,7 +75,7 @@
 
                     <div *ngFor="let field of data.list">
                         <app-field-builder *ngIf="!field.buttom" [dataForm]="data.list"
-                            (accionesDina)="processMethodDina($event)" [field]="field" [esambula]="0"
+                            (accionesDina)="processMethodDina($event)" [field]="field" 
                             [form]="form"></app-field-builder>
                     </div>
                     <div [ngClass]="mobile && !tablet ? 'btn-list-row' : 'row'">
@@ -118,7 +118,7 @@
                             <div *ngFor="let tabsContent of item.list">
                                 <div *ngFor="let field of data.list">
                                     <app-field-builder *ngIf="!field.buttom && (field.name === tabsContent.campo)"
-                                        [dataForm]="data.list" [field]="field" [esambula]="0"
+                                        [dataForm]="data.list" [field]="field"
                                         [form]="form"></app-field-builder>
                                 </div>
                             </div>
@@ -189,7 +189,7 @@
                 <form [formGroup]="formHijo" class="form-horizontal" (keydown.enter)="$event.preventDefault()">
 
                     <div *ngFor="let fieldHijo of formRepordefHijos.list">
-                        <app-field-builder *ngIf="!fieldHijo.buttom" [dataForm]="formRepordefHijos.list" [esambula]='0'
+                        <app-field-builder *ngIf="!fieldHijo.buttom" [dataForm]="formRepordefHijos.list"
                             [field]="fieldHijo" [form]="formHijo"></app-field-builder>
                     </div>
                     <div [ngClass]="mobile && !tablet ? 'btn-list-row' : 'row'">

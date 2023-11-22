@@ -13,7 +13,6 @@ export class TextBoxComponent {
     @Input() field: any = {};
     @Input() form: FormGroup;
     @Input() elindex: any;
-    @Input() esambula: number; 
 
     mobile: boolean = isMobile;
     tablet = screen.width > 600 ;

@@ -38,7 +38,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     BrowserModule,CommonModule,
     BrowserAnimationsModule,
     FormsModule,ReactiveFormsModule,
-    NgbModule, 
+    NgbModule,
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory

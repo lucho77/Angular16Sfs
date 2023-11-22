@@ -13,7 +13,6 @@ export class FieldBuilderComponent implements OnInit {
   @Input() field: any;
   @Input() form: any;
   @Input() elindex: any;
-  @Input() esambula: number;
   @Output()accionesDina = new EventEmitter<any>();
 
   @Input() dataForm: FormdataReportdef[];

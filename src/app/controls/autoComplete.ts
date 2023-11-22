@@ -22,7 +22,6 @@ export class AutocompleteComponent {
     @Input() field: FormdataReportdef;
     @Input() form: FormGroup;
     @Input() elindex: any;
-    @Input() esambula: number;
     @Input() dataForm: FormdataReportdef[];
     @Output()spinner = new EventEmitter<any>();
     results: any[];

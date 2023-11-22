@@ -12,7 +12,6 @@ export class TextAreaComponent {
     @Input() field: any = {};
     @Input() form: FormGroup;
     @Input() elindex: any;
-    @Input() esambula: number;
     mobile: boolean = isMobile;
     tablet: boolean = screen.width > 600;
     constructor() {

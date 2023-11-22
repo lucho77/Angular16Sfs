@@ -11,5 +11,4 @@ export class CheckBoxComponent {
     @Input() field: any = {};
     @Input() form: FormGroup;
     @Input() elindex: any;
-    @Input() esambula: number;
 }

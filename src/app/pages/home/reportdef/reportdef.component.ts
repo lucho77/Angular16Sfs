@@ -82,8 +82,7 @@ export class ReportdefComponent  implements OnInit {
     formHijo: false,
     menu: false,
     cargando: false,
-    mostrarInfoArea: false,
-    responsive: false
+    mostrarInfoArea: false
   };
   abmParams: AbmParams;
   dataReportdef: ReportdefData;
@@ -185,10 +184,6 @@ export class ReportdefComponent  implements OnInit {
 
 });
 */
-this.android = false;
-  if (this.isAndroid) {
-      this.android = true;
-  }
     this.notifi.deploying = false;
 
 
@@ -469,7 +464,7 @@ private async generarTabularAbm(menu: boolean, metadata: MetodoDTO, finder: Find
        // this.dataReportdefAux.cargando = false;
        this.dataReportdefAux.menu = menu;
        const dataReportdef = new ReportdefData(false, false, true, false, false, false, menu, false,
-          user.mostrarInfoArea, this.dataReportdefAux.responsive);
+          user.mostrarInfoArea);
        this.dataReportdef = dataReportdef;
        if (!backHistorico || menu) {
          this.setearHistorico(menu, metadata, null, null, finder, dataReportdef, data.list);
@@ -504,7 +499,7 @@ private async generarTabularAbm(menu: boolean, metadata: MetodoDTO, finder: Find
       }
 
       this.limpiarreporte();
-      const dataReportdef = new ReportdefData(false, true, false, false, false, false, menu, false , user.mostrarInfoArea, false);
+      const dataReportdef = new ReportdefData(false, true, false, false, false, false, menu, false , user.mostrarInfoArea);
       this.dataReportdef = dataReportdef;
       this.dataReportdefAux.menu = menu;
       if (!backHistory && !menu) {
@@ -530,13 +525,6 @@ private async generarTabularAbm(menu: boolean, metadata: MetodoDTO, finder: Find
  });
   }
 
-  private isAndroid() {
-    console.log('metodo que chequea si el dispositivo es android');
-    console.log(navigator.userAgent);
-    console.log(/MisTurnos\/[0-9\.]+$/.test(navigator.userAgent));
-      return /MisTurnos\/[0-9\.]+$/.test(navigator.userAgent);
-  }
-
   private generarTabular(menu: boolean, metadata: MetodoDTO, listRequest: FormdataReportdef[], backHistory: boolean ) {
     // this.loadSpinner.show();
     const user = JSON.parse(localStorage.getItem('currentUser'));
@@ -547,34 +535,18 @@ private async generarTabularAbm(menu: boolean, metadata: MetodoDTO, finder: Find
     // console.log('this.listRequest');
     // console.log(this.listRequest);
 
-    if (this.isAndroid()) {
-      console.log('*************************es android******************************************');
-      const context = JSON.parse(applicacionContext());
-      console.log('********************************context****************************************');
-      // console.log(context);
-      for ( const p of listRequest) {
-        if ( p.metodo !== null && p.propiedad !== null) {
-            const value = context.location[p.propiedad];
-            p.valueNew = value;
-        }
-      }
-    }
     if (metadata.tipoMetodo.toUpperCase() === FrontEndConstants.TABULAR_METHOD.toUpperCase()) {
       this.generarTabularMetodo(menu, metadata, listRequest, backHistory, data);
       return;
     }
-    let responsive = false;
     this.reportdefService.getObtenerTabular(data).subscribe
     ((m: any) => {
       // this.loadSpinner.hide();
       if (menu) {
        this.limpiarHistorico();
       }
-      if (m.responsive !== null) {
-        responsive = true ;
-      }
       this.limpiarreporte();
-      const dataReportdef = new ReportdefData(false, true, false, false, false, false, menu, false , user.mostrarInfoArea, responsive);
+      const dataReportdef = new ReportdefData(false, true, false, false, false, false, menu, false , user.mostrarInfoArea);
       this.dataReportdef = dataReportdef;
       this.dataReportdefAux.menu = menu;
       if (m.etiqueta !== null) {
@@ -664,7 +636,7 @@ consultarPropiedadFormTipoClase(reporte: string, user: User) {
 
 callForm(user: any, menu: boolean, m: FormReportdef, metadata: MetodoDTO, listRequest: FormdataReportdef[]) {
   // this.loadSpinner.hide();
-  const dataReportdef = new ReportdefData(true, false, false, false, false, false, menu, false, user.mostrarInfoArea, false);
+  const dataReportdef = new ReportdefData(true, false, false, false, false, false, menu, false, user.mostrarInfoArea);
   this.dataReportdef = dataReportdef;
   this.dataReportdefAux.form = true;
   this.dataReportdefAux.menu = menu;
@@ -727,7 +699,7 @@ callForm(user: any, menu: boolean, m: FormReportdef, metadata: MetodoDTO, listRe
   }
     } else {
       this.dataReportdefAux.cargando = true;
-      const dataReportdef = new ReportdefData(true, false, false, false, false, false, menu, false, user.mostrarInfoArea, false);
+      const dataReportdef = new ReportdefData(true, false, false, false, false, false, menu, false, user.mostrarInfoArea);
       this.dataReportdef = dataReportdef;
       this.dataReportdefAux.menu = menu;
       const historico = this.stack.tail as Historico;
@@ -1407,25 +1379,6 @@ const hola = 'hola';
           // this.loadSpinner.hide();
           console.log('retorno del  formmetodo');
           console.log(m);
-          if (this.isAndroid()) {
-            console.log('*************************es android******************************************');
-            const context = JSON.parse(applicacionContext());
-            console.log('********************************context****************************************');
-            console.log(context);
-            for ( const p of m.list) {
-              console.log('***************p.name*********************');
-              console.log(p.name);
-              console.log(p.metodo);
-              console.log('p.propiedad');
-              console.log(p.propiedad);
-              if ( p.metodo !== null && p.propiedad !== null) {
-                  const value = context.location[p.propiedad];
-                  console.log('****************value***************');
-                  console.log(value);
-                  p.valueNew = value;
-              }
-            }
-          }
           if (m.metodoDTOs !== null && m.metodoDTOs.length > 0 && m.parametro !== null && !m.dinamycForm ) {
             // se va a otro lado
             const list = [] as FormdataReportdef[];
@@ -1456,7 +1409,7 @@ const hola = 'hola';
           } else if (m.metodoDTOs !== null && m.metodoDTOs.length > 0 && m.parametro !== null && m.dinamycForm) {
 
             this.reloadTree();
-            const dataReportdef = new ReportdefData(true, false, false, false, false, false, false, false, user.mostrarInfoArea, false);
+            const dataReportdef = new ReportdefData(true, false, false, false, false, false, false, false, user.mostrarInfoArea);
             this.dataReportdef = dataReportdef;
             this.dataReportdefAux.form = true;
             this.dataReportdefAux.menu = false;
@@ -1470,7 +1423,7 @@ const hola = 'hola';
 
           } else {
             this.reloadTree();
-            const dataReportdef = new ReportdefData(true, false, false, false, false, false, false, false, user.mostrarInfoArea, false);
+            const dataReportdef = new ReportdefData(true, false, false, false, false, false, false, false, user.mostrarInfoArea);
             this.dataReportdef = dataReportdef;
             this.dataReportdefAux.form = true;
             this.dataReportdefAux.menu = false;
@@ -1506,22 +1459,11 @@ const hola = 'hola';
         // console.log('result');
         // console.log(result);
         if (pdf) {
-          if (this.isAndroid()) {
-            console.log('/SFS2FwWsServerWEB/FwWsFileServlet?P_FILE_NAME=' + result.valor + '&P_FILE_CTYPE=pdf');
-            downloadFile('application/pdf', '/SFS2FwWsServerWEB/FwWsFileServlet?P_FILE_NAME=' + result.valor + '&P_FILE_CTYPE=pdf' );
-            // window.open('/SFS2FwWsServerWEB/FwWsFileServlet?P_FILE_NAME=' + result.valor + '&P_FILE_CTYPE=pdf');
-
-
-          } else {
-            window.open('/SFS2FwWsServerWEB/FwWsFileServlet?P_FILE_NAME=' + result.valor + '&P_FILE_CTYPE=pdf');
-
-          }
+          window.open('/SFS2FwWsServerWEB/FwWsFileServlet?P_FILE_NAME=' + result.valor + '&P_FILE_CTYPE=pdf');
          this.toastrService.success('Archivo PDF generado con exito');
         } else {
           this.toastrService.success('Accion ejecuta exitosamente');
         }
-        // console.log('metadata');
-        // console.log(metadata);
 
         if ( metadata.tipoMetodo ===  FrontEndConstants.SETEXTERNALPARAMGLOBAL) {
           // seteo el parametro global
@@ -1891,7 +1833,7 @@ this.reportdefService.getNewEditAbm(user, abmEdit).subscribe
    let tieneHijo = false;
    m.id = data.id;
    const dataReportdef = new ReportdefData(false, false, false, data.alta, !data.alta, tieneHijo, false, false,
-     user.mostrarInfoArea, false);
+     user.mostrarInfoArea);
    this.dataReportdef = dataReportdef;
    this.dataReportdefAux.formAbmNew = data.alta;
    this.dataReportdefAux.formAbmEdit = !data.alta;

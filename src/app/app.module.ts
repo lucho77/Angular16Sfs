@@ -31,7 +31,6 @@ import { CommonModule } from '@angular/common';
 import { JwtInterceptor } from './_helpers/jwt.interceptor';
 import { ErrorInterceptor } from './_helpers/error.interceptor';
 import { ServiceWorkerModule } from '@angular/service-worker';
- 
 
 @NgModule({  
   imports: [

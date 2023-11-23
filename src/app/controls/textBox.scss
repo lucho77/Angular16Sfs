@@ -3,6 +3,7 @@
     @include padArribaAbajo;
 }
 .textBox{
+    display: inline-block;
     height: 35px;
     min-height: 35px;
     width: $field-width;

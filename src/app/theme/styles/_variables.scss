@@ -27,3 +27,42 @@ $field-height:35px;
     padding-left: 0;
 }
 $field-margin-correct-left:0px; //-4vw
+
+@mixin loader(
+              $width : 15px, 
+              $height : 15px,
+              $border-bold: 2px,
+              $color:#fff
+              ){
+    .loader {
+        width: $width;
+        height: $height;
+        border-radius: 50%;
+        display: inline-block;
+        border-top: $border-bold solid $color;
+        border-right: $border-bold solid transparent;
+        box-sizing: border-box;
+        animation: rotation 1s linear infinite;
+      }
+      .loader::after {
+        content: '';  
+        box-sizing: border-box;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: $width;
+        height: $height;
+        border-radius: 50%;
+        border-left: $border-bold solid $color;
+        border-bottom: $border-bold solid transparent;
+        animation: rotation 0.5s linear infinite reverse;
+      }
+      @keyframes rotation {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      } 
+}

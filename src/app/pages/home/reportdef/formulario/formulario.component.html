@@ -9,8 +9,6 @@
                 <div class="widget-controls">
                     <a data-widgster="expand" href="#" class="transition"><i class="fa fa-chevron-down"></i></a>
                     <a data-widgster="collapse" href="#" class="transition"><i class="fa fa-chevron-up"></i></a>
-                    <a data-widgster="fullscreen" href="#" class="transition"><i class="fa fa-expand"></i></a>
-                    <a data-widgster="restore" href="#" class="transition"><i class="fa fa-compress"></i></a>
                 </div>
             </div>
 
@@ -40,7 +38,7 @@
                     <form  class="form-horizontal pt-2" >
                             <div *ngFor="let field of data.list; let i = index">
                                 <app-field-builder *ngIf="!field.buttom" [dataForm]="data.list" [field]="field"
-                                    [esambula]="1" [form]="form"
+                                    [form]="form"
                                     [elindex]=camposAgrupaEnteroDescompuesto[i]></app-field-builder>
                             </div>
                     </form>
@@ -77,7 +75,7 @@
 
                     <div *ngFor="let field of data.list">
                         <app-field-builder *ngIf="!field.buttom" [dataForm]="data.list"
-                            (accionesDina)="processMethodDina($event)" [field]="field" [esambula]="0"
+                            (accionesDina)="processMethodDina($event)" [field]="field" 
                             [form]="form"></app-field-builder>
                     </div>
                     <div [ngClass]="mobile && !tablet ? 'btn-list-row' : 'row'">
@@ -120,7 +118,7 @@
                             <div *ngFor="let tabsContent of item.list">
                                 <div *ngFor="let field of data.list">
                                     <app-field-builder *ngIf="!field.buttom && (field.name === tabsContent.campo)"
-                                        [dataForm]="data.list" [field]="field" [esambula]="0"
+                                        [dataForm]="data.list" [field]="field"
                                         [form]="form"></app-field-builder>
                                 </div>
                             </div>
@@ -150,8 +148,6 @@
                 <div class="widget-controls">
                     <a data-widgster="expand" href="#" class="transition"><i class="fa fa-chevron-down"></i></a>
                     <a data-widgster="collapse" href="#" class="transition"><i class="fa fa-chevron-up"></i></a>
-                    <a data-widgster="fullscreen" href="#" class="transition"><i class="fa fa-expand"></i></a>
-                    <a data-widgster="restore" href="#" class="transition"><i class="fa fa-compress"></i></a>
                 </div>
                 <p-toolbar>
                     <div class="ui-toolbar-group-left">
@@ -186,8 +182,6 @@
                 <div class="widget-controls">
                     <a data-widgster="expand" href="#" class="transition"><i class="fa fa-chevron-down"></i></a>
                     <a data-widgster="collapse" href="#" class="transition"><i class="fa fa-chevron-up"></i></a>
-                    <a data-widgster="fullscreen" href="#" class="transition"><i class="fa fa-expand"></i></a>
-                    <a data-widgster="restore" href="#" class="transition"><i class="fa fa-compress"></i></a>
                 </div>
             </div>
             <div class="card-body pt-0 widget-body">
@@ -195,7 +189,7 @@
                 <form [formGroup]="formHijo" class="form-horizontal" (keydown.enter)="$event.preventDefault()">
 
                     <div *ngFor="let fieldHijo of formRepordefHijos.list">
-                        <app-field-builder *ngIf="!fieldHijo.buttom" [dataForm]="formRepordefHijos.list" [esambula]='0'
+                        <app-field-builder *ngIf="!fieldHijo.buttom" [dataForm]="formRepordefHijos.list"
                             [field]="fieldHijo" [form]="formHijo"></app-field-builder>
                     </div>
                     <div [ngClass]="mobile && !tablet ? 'btn-list-row' : 'row'">

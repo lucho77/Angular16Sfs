@@ -5,7 +5,12 @@
                 <label class="d-flex flex-nowrap col-xs-2 col-sm-2 col-md-4 col-lg-2 col-xl-1 tm-f-bugt pl-0">{{field.label}}: 
                  <strong class="text-danger" *ngIf="field.require">*</strong>
              </label>
-                <textarea [class.mobile]="mobile && !tablet" [formControlName]="field.name" [id]="field.name"></textarea>
+                <textarea   cdkTextareaAutosize
+                            #autosize="cdkTextareaAutosize"
+                            [class.mobile]="mobile && !tablet" 
+                            [formControlName]="field.name" 
+                            [id]="field.name">
+                </textarea>
             </div>
         </div>
     </div>

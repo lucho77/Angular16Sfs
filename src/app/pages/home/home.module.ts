@@ -7,6 +7,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgbModule, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
+import {TextFieldModule} from '@angular/cdk/text-field';
 // Calendarios y fechas
 
 import { JwtInterceptor } from '../../_helpers/jwt.interceptor';
@@ -65,7 +66,7 @@ export const MY_MOMENT_FORMATS = {
   imports: [
     CommonModule,routing, FormsModule,ToolbarModule,ButtonModule,
    DirectivesModule, NgbModule, ReactiveFormsModule,BusquedaGenericaModule,
-    NgScrollbarModule,AngularEditorModule,DialogModule,MessagesModule,EditorModule,AutoCompleteModule,
+    NgScrollbarModule,AngularEditorModule,DialogModule,MessagesModule,EditorModule,AutoCompleteModule,TextFieldModule,
     ToastrModule.forRoot(),
 
   ],

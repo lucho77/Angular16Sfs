@@ -1,14 +1,4 @@
-<div [formGroup]="form" *ngIf="esambula===1" [ngClass]="'mr-2'">
-    <div class="form-row">
-        <label class="input-group tm-f-bugt pl-0">{{field.label}}: 
-                     <strong class="text-danger" *ngIf="field.require">*</strong>
-               </label>
-        <div class="col-xs-10 col-sm-5 col-md-10 col-lg-8 col-xl-6 d-inline-flex">
-            <p-calendar [inline]="true" [formControlName]="field.name" [disabledDates]="invalidDates" [locale]="en" (onMonthChange)="changeMonth($event)" (onSelect)="select($event)"></p-calendar>
-        </div>
-    </div>
-</div>
-<div [formGroup]="form" *ngIf="esambula===0" [ngClass]="'mb-2'">
+<div [formGroup]="form" [ngClass]="'mb-2'">
     <div class="row">
         <div class="col">
             <div class="form-group">

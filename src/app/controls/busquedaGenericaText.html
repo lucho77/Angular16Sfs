@@ -1,14 +1,4 @@
-<div [formGroup]="form" *ngIf="esambula === 1" [ngClass]="'mr-2'">
-
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item">
-            <p><b>{{field.label}}:</b> {{field.busquedaGenericaDTO.mostrarToStringLupa}}</p>
-        </li>
-    </ol>
-
-</div>
-
-<div [formGroup]="form" *ngIf="esambula === 0" [ngClass]="'mb-1'">
+<div [formGroup]="form" [ngClass]="'mb-1'">
 
     <ol class="breadcrumb">
         <li class="breadcrumb-item">

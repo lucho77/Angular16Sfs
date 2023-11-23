@@ -22,7 +22,6 @@ export class ComboComponent {
     @Input() field: any = {};
     @Input() form: FormGroup;
     @Input() elindex: any;
-    @Input() esambula: number;
     @Input() dataForm: FormdataReportdef[];
     mobile: boolean = isMobile;
     tablet: boolean = screen.width > 600;

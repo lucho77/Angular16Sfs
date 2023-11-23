@@ -41,6 +41,7 @@ edicionHorizontal: boolean;
 paginar: boolean;
 responsive: string;
 actualizar: boolean;
+allFieldMobile: boolean;
 showRow: number;
 duplicarRegistro:boolean;
 }

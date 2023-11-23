@@ -9,10 +9,8 @@ export class ReportdefData {
    menu: boolean;
    cargando: boolean;
    mostrarInfoArea: boolean;
-   responsive: boolean;
    constructor(form: boolean, tabular: boolean, tabularAbm: boolean,
-      formAbmNew: boolean, formAbmEdit: boolean, formHijo: boolean,  menu: boolean, cargando: boolean, mostrarInfoArea: boolean,
-       responsive: boolean) {
+      formAbmNew: boolean, formAbmEdit: boolean, formHijo: boolean,  menu: boolean, cargando: boolean, mostrarInfoArea: boolean) {
        this.form = form;
        this.tabular = tabular;
        this.tabularAbm = tabularAbm;
@@ -22,6 +20,5 @@ export class ReportdefData {
        this.menu = menu;
        this.cargando = cargando;
        this.mostrarInfoArea = mostrarInfoArea;
-       this.responsive = responsive;
    }
 }

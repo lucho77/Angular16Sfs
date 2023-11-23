@@ -1,4 +1,5 @@
-$custom-file-text: (); // --> Warning: 1 rules skipped due to selector errors: .custom-file-input:lang(en) ~ .custom-file-label -> unmatched pseudo-class :lang
+$custom-file-text: (
+); // --> Warning: 1 rules skipped due to selector errors: .custom-file-input:lang(en) ~ .custom-file-label -> unmatched pseudo-class :lang
 $icon-font-path: "../node_modules/bootstrap-sass/assets/fonts/bootstrap/";
 @import "../node_modules/bootstrap/scss/bootstrap";
 // $fa-font-path: "../node_modules/font-awesome/fonts";
@@ -6,96 +7,112 @@ $icon-font-path: "../node_modules/bootstrap-sass/assets/fonts/bootstrap/";
 @import "../node_modules/font-awesome/css/font-awesome.css";
 @import "../node_modules/dragula/dist/dragula.min.css";
 @import "../node_modules/ngx-toastr/toastr.css";
-@import "../node_modules/leaflet/dist/leaflet.css"; 
+@import "../node_modules/leaflet/dist/leaflet.css";
 @import "../node_modules/@swimlane/ngx-datatable/themes/material.css";
-@import "../node_modules/@swimlane/ngx-datatable/assets/icons.css"; 
+@import "../node_modules/@swimlane/ngx-datatable/assets/icons.css";
 @import "../node_modules/angular-calendar/css/angular-calendar.css";
+@import "~ng-pick-datetime/assets/style/picker.min.css";
 
 @font-face {
-    font-family: 'MoonHouse';
-    src: url('./assets/fonts/moonhouse.eot');
-    src: url('./assets/fonts/moonhouse.eot?#iefix') format('embedded-opentype'),
-         url('./assets/fonts/moonhouse.ttf') format('truetype');
+  font-family: 'MoonHouse';
+  src: url('./assets/fonts/moonhouse.eot');
+  src: url('./assets/fonts/moonhouse.eot?#iefix') format('embedded-opentype'),
+    url('./assets/fonts/moonhouse.ttf') format('truetype');
 }
 
 @import "app/theme/styles/variables";
-@import "app/theme/styles/mixins";  
+@import "app/theme/styles/mixins";
 @import "app/theme/styles/libs-override";
 @import "app/theme/styles/base";
 
-@-webkit-keyframes trans1{ 
-  from { 
-    transform : translate3d(53px,0,0);
+@-webkit-keyframes trans1 {
+  from {
+    transform: translate3d(53px, 0, 0);
   }
-  to { 
 
-    transform : translate3d(-250px,0,0);
-  }
-}
-@-moz-keyframes trans1{ 
-  from { 
-    transform : translate3d(53px,0,0);
-  }
-  to { 
-    transform : translate3d(-250px,0,0);
-  }
-}
-@keyframes trans1{ 
-  from { 
-    transform : translate3d(53px,0,0);
-  }
-  to { 
-    transform : translate3d(-250px,0,0);
+  to {
+
+    transform: translate3d(-250px, 0, 0);
   }
 }
 
-@-webkit-keyframes trans2{ 
-  from { 
-    transform : translate3d(-160px,0,0);
+@-moz-keyframes trans1 {
+  from {
+    transform: translate3d(53px, 0, 0);
   }
-  to { 
-    transform : translate3d(53px,0,0);
-  }
-}
-@-moz-keyframes trans2{ 
-  from { 
-    transform : translate3d(-160px,0,0);
-  }
-  to { 
-    transform : translate3d(53px,0,0);
-  }
-}
-@keyframes trans2{ 
-  from { 
-    transform : translate3d(-160px,0,0);
-  }
-  to { 
-    transform : translate3d(53px,0,0);
+
+  to {
+    transform: translate3d(-250px, 0, 0);
   }
 }
 
-@-webkit-keyframes trans3{ 
-  from { 
-    transform : translate3d(53px,0,0);
+@keyframes trans1 {
+  from {
+    transform: translate3d(53px, 0, 0);
   }
-  to { 
-    transform : translate3d(-220px,0,0);
-  }
-}
-@-moz-keyframes trans3{ 
-  from { 
-    transform : translate3d(53px,0,0);
-  }
-  to { 
-    transform : translate3d(-220px,0,0);
+
+  to {
+    transform: translate3d(-250px, 0, 0);
   }
 }
-@keyframes trans3{ 
-  from { 
-    transform : translate3d(53px,0,0);
+
+@-webkit-keyframes trans2 {
+  from {
+    transform: translate3d(-160px, 0, 0);
   }
-  to { 
-    transform : translate3d(-220px,0,0);
+
+  to {
+    transform: translate3d(53px, 0, 0);
+  }
+}
+
+@-moz-keyframes trans2 {
+  from {
+    transform: translate3d(-160px, 0, 0);
+  }
+
+  to {
+    transform: translate3d(53px, 0, 0);
+  }
+}
+
+@keyframes trans2 {
+  from {
+    transform: translate3d(-160px, 0, 0);
+  }
+
+  to {
+    transform: translate3d(53px, 0, 0);
+  }
+}
+
+@-webkit-keyframes trans3 {
+  from {
+    transform: translate3d(53px, 0, 0);
+  }
+
+  to {
+    transform: translate3d(-220px, 0, 0);
+  }
+}
+
+@-moz-keyframes trans3 {
+  from {
+    transform: translate3d(53px, 0, 0);
+  }
+
+  to {
+    transform: translate3d(-220px, 0, 0);
+  }
+}
+
+@keyframes trans3 {
+  from {
+    transform: translate3d(53px, 0, 0);
+  }
+
+  to {
+    transform: translate3d(-220px, 0, 0);
   }
 }
 
@@ -198,37 +215,55 @@ $icon-font-path: "../node_modules/bootstrap-sass/assets/fonts/bootstrap/";
         }           
     }
 }
+.contload {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  gap: 20px;
+  @include loader ($width: 100px, $height: 100px, $border-bold: 5px, $color: #5B96BB);
+}
 
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
+
 ::-webkit-scrollbar-button {
   width: 0px;
   height: 0px;
 }
+
 ::-webkit-scrollbar-thumb {
-    background: #e1e1e1;
-    border: 0px none #ffffff;
-    border-radius: 0px;
-    &:hover{
-        background: #cccccc;
-    }
-    &:active{
-        background: #888888; 
-    }
+  background: #e1e1e1;
+  border: 0px none #ffffff;
+  border-radius: 0px;
+
+  &:hover {
+    background: #cccccc;
+  }
+
+  &:active {
+    background: #888888;
+  }
 }
+
 ::-webkit-scrollbar-track {
+  background: #666666;
+  border: 0px none #ffffff;
+  border-radius: 0px;
+
+  &:hover {
     background: #666666;
-    border: 0px none #ffffff;
-    border-radius: 0px;
-    &:hover{
-        background: #666666;
-    }
-    &:active{
-        background: #333333; 
-    }
+  }
+
+  &:active {
+    background: #333333;
+  }
 }
+
 ::-webkit-scrollbar-corner {
-    background: transparent;
-} 
+  background: transparent;
+}

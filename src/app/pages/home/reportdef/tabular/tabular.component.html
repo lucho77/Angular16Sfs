@@ -210,10 +210,10 @@
                     <div class="contenedor">
                         <!-- Cards mobile--------------------- -->
                         <div *ngFor="let fil of pagination.listaPaginacion; index as i" class="card">
-                            <h2>{{fil[header[1].name]}}</h2>
+                            <h2 [style.display]="col.peso == 10 ? '' : 'none'" *ngFor="let col of header">{{fil[col.name]}}</h2>
                             <span class="separador"></span>
                             <div class="contenedor-text">
-                                <div [ngStyle]="!col.visibleMovil ? {'display':'none'}:{'display':''}" *ngFor="let col of header; let io = index">
+                                <div [style.display]="col.visibleMovil && !(col.peso == 10) ? '':'none'" *ngFor="let col of header; let io = index">
                                     <span style="font-weight: 600;">{{col.title}}: </span> <span *ngIf="col.download == false && !col.fontAwesoneIcono && !col.linkOtherTab">{{fil[col.name]}}</span>
                                 </div>
                             </div>

@@ -211,17 +211,17 @@
                         <!-- Cards mobile--------------------- -->
                         <div *ngFor="let fil of pagination.listaPaginacion; index as i" class="card">
                             <ng-container *ngFor="let col of header">
-                                <h2 *ngIf="col.peso == 10" >{{fil[col.name]}}</h2>
+                                <h2 *ngIf="col.peso == 10">{{fil[col.name]}}</h2>
                             </ng-container>
                             
                             <span class="separador"></span>
 
                             <div class="contenedor-text">
-                            <ng-container *ngFor="let col of header; let io = index">
-                                <div *ngIf="col.visibleMovil && (fil[col.name] != null) && col.peso != 10" >
-                                    <span style="font-weight: 600;">{{col.title}}: </span> <span *ngIf="col.download == false && !col.fontAwesoneIcono && !col.linkOtherTab">{{fil[col.name]}}</span>
-                                </div>
-                            </ng-container>
+                                <ng-container *ngFor="let col of header; let io = index">
+                                    <div *ngIf="col.visibleMovil && (fil[col.name] != null) && (fil[col.name] != ' ') && col.peso != 10 && col.download == false && !col.fontAwesoneIcono && !col.linkOtherTab" >
+                                        <span style="font-weight: 600;">{{col.title}}: </span> <span>{{fil[col.name]}}</span>
+                                    </div>
+                                </ng-container>
                             </div>
                             <div class="btns" *ngIf="this.pagination.listaPaginacion.length !== 0">
                                 <button *ngIf="this.tabular.tabularDescriptivo" class="btn-extra" (click)="loaderBtn(i); clickLinkTabularMobile($event,header,fil,i)"><span id="ver{{i}}" class="ver">Ver</span><span id="load{{i}}" style="display: none;" class="loader load"></span></button>

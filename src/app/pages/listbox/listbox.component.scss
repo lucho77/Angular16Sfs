@@ -1,3 +1,11 @@
+.modal-header{
+    display: flex;
+    position: sticky;
+    width: auto;
+    background: #fff;
+    top: 0;
+    z-index: 999;
+}
 .fila-item {
     display: flex;
     flex-direction: column;

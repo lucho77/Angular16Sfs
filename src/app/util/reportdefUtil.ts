@@ -14,6 +14,7 @@ import { NameParamDTO } from "../_models/nameParamDTO";
 import { HttpErrorResponse } from "@angular/common/http";
 import { ReportMethodResponseDTO } from "../_models/reportMethodResponseDTO";
 import { ParamRequestDTO } from "../_models/paramRequestDTO";
+import { environment } from "src/environments/environment";
 
 export function inicializarHistorico(historico: Historico, metadata: MetodoDTO,
     repordef: ReportdefData, listRequest: FormdataReportdef[], listParamOwner: FormdataReportdef[], menu: boolean,
@@ -152,9 +153,8 @@ export function prepararParametrosApasar(repordefData: ReportdefData, metadata: 
     export function prepararRequestABMedit( metadata: MetodoDTO) {
     }
     export function devolverProyecto () {
-      //const api = 'api/framework/dina';
-      const api = '../api/framework/dina';
-      return api;
+     
+      return environment.api;
     }
 
     export function buscarParametro( parametro:  string, historicos: LinkedList<Historico>, globales: FormdataReportdef[] ) {

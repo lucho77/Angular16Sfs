@@ -1,3 +1,4 @@
 export const environment = {
-    forceMobile:true
+    forceMobile:true,
+    api:   'api/framework/dina'
 };

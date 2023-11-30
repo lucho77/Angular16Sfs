@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --proxy-config proxy.conf.json --host 0.0.0.0",
-    "build": "ng build",
+    "build": "ng build --base-href=/SFSFrameworkRest/",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },

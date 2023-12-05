@@ -100,7 +100,6 @@ public setReportdef(reportdef: string) {
           if (menuItem.ejecutar == null) {
             return;
           }
-          this.appSettings.settings.theme.loadscreen = true;
           this.router.navigate([url, menuItem.ejecutar]);
 
         });

@@ -445,6 +445,7 @@ private async generarTabularAbm(menu: boolean, metadata: MetodoDTO, finder: Find
 
    ejecutarTabularABM(data: TabularAbmRequestDTO, menu: boolean, busquedaFinder: boolean,
      backHistorico: boolean, metadata: MetodoDTO,  finder: FinderRequestDTO, actualizar: boolean) {
+      this.appSetting.settings.theme.loadscreen = true;
       return new Promise<boolean>(resolve => {
         this.reporte = data.reportdef;
     const user = JSON.parse(localStorage.getItem('currentUser'));
@@ -534,6 +535,8 @@ private async generarTabularAbm(menu: boolean, metadata: MetodoDTO, finder: Find
   }
 
   private generarTabular(menu: boolean, metadata: MetodoDTO, listRequest: FormdataReportdef[], backHistory: boolean ) {
+    
+    this.appSetting.settings.theme.loadscreen = true;
     // this.loadSpinner.show();
     const user = JSON.parse(localStorage.getItem('currentUser'));
     const data = {} as TabularRequestDTO;
@@ -669,6 +672,8 @@ callForm(user: any, menu: boolean, m: FormReportdef, metadata: MetodoDTO, listRe
 }
   async  generarForm(menu: boolean, metadata: MetodoDTO, backHistorico: boolean,
     listRequest: FormdataReportdef[]) {
+      
+      this.appSetting.settings.theme.loadscreen = true;
     // console.log('recupera form');
     // this.setearToStringEntidad(listRequest);
     const formdataGlobales = <FormdataReportdef[]>JSON.parse(localStorage.getItem('paramGlobal'));
@@ -1723,7 +1728,7 @@ const hola = 'hola';
 }
   private checkError(error: any ) {
     // this.loadSpinner.hide();
-
+    this.appSetting.settings.theme.loadscreen = false;
     // console.log('esto es un error');
     // console.log(error);
     if (error !== undefined && error !== null) {

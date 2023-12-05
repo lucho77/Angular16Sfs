@@ -33,6 +33,7 @@ import { consultarParametroByParam, crearParametro, ejecutarMetodo, seteoParamGl
 import { Message } from 'primeng/api';
 import { CommonModule } from '@angular/common';
 import { isMobile, isTablet } from 'mobile-device-detect';
+import { AppSettings } from 'src/app/app.settings';
 declare function mapa(usuario: string, latitud: number, longitud: number, info: string): any;
 
 @Component({
@@ -93,7 +94,8 @@ export class FormularioComponent  implements OnInit {
   constructor(private confirmationDialogService: ConfirmationDialogService,
     private abmservice: AbmService, public toastrService: ToastrService, private reportdefService: ReportdefService,
     private nameService: NameGlobalService, private nameAvisoSeteo: AvisaSeteoService, private paramService: ParamDataHijoService,
-    private router: Router ) {}
+    private router: Router,
+    public appSettings: AppSettings ) {}
     // tslint:disable-next-line:use-life-cycle-interface
   ngOnInit() {
     // tslint:disable-next-line:prefer-const
@@ -1267,6 +1269,7 @@ private getData(datos: any, columns: HeaderDTO[]) {
   }
   backHistorico() {
     this.backHistory.emit(event);
+    this.appSettings.settings.theme.loadscreen=false;
   }
 
   verFiltros() {

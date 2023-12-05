@@ -155,7 +155,6 @@ export class TabularComponent implements OnInit, OnChanges {
     }
   }
   loaderBtn(index : number) {
-    console.log('entro loaderbtn')
     let id = new Number(index);
     let loader = document.getElementById('load'+id.toString()) as HTMLElement;
     let ver = document.getElementById('ver'+id.toString()) as HTMLElement;

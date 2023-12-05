@@ -41,6 +41,7 @@ import { ExitService } from '../../../_services/exitService';
 import { ToastrService } from 'ngx-toastr';
 import { buscarParametro, buscarParametrosEnHistoricos, consultarParametroByClase, crearParametro, inicializarHistorico, prepararParametrosApasar } from 'src/app/util/reportdefUtil';
 import { ConfirmationDialogService } from '../../confirmDialog/confirmDialog.service';
+import { AppSettings } from 'src/app/app.settings';
 
 declare function applicacionContext(): any;
 declare function downloadFile(mime: string, url: string): any;
@@ -109,11 +110,17 @@ export class ReportdefComponent  implements OnInit {
   firstHeartbeat = true;
 
   constructor(
-    private router: Router, public toastrService: ToastrService,
-    private rutaActiva: ActivatedRoute, private reportdefService: ReportdefService,
-    private paramService: ParamDataHijoService, private descriptionService: DescriptionService, private nameService: NameGlobalService,
-    private confirmationDialogService: ConfirmationDialogService, private changeDetector: ChangeDetectorRef,
+    private router: Router,
+    public toastrService: ToastrService,
+    private rutaActiva: ActivatedRoute,
+    private reportdefService: ReportdefService,
+    private paramService: ParamDataHijoService,
+    private descriptionService: DescriptionService,
+    private nameService: NameGlobalService,
+    private confirmationDialogService: ConfirmationDialogService,
+    private changeDetector: ChangeDetectorRef,
     private exitService: ExitService,
+    public appSetting: AppSettings
   ) {
 
    }
@@ -438,6 +445,7 @@ private async generarTabularAbm(menu: boolean, metadata: MetodoDTO, finder: Find
 
    ejecutarTabularABM(data: TabularAbmRequestDTO, menu: boolean, busquedaFinder: boolean,
      backHistorico: boolean, metadata: MetodoDTO,  finder: FinderRequestDTO, actualizar: boolean) {
+      this.appSetting.settings.theme.loadscreen = true;
       return new Promise<boolean>(resolve => {
         this.reporte = data.reportdef;
     const user = JSON.parse(localStorage.getItem('currentUser'));
@@ -478,6 +486,7 @@ private async generarTabularAbm(menu: boolean, metadata: MetodoDTO, finder: Find
      this.generarDatosPaginacion();
      this.cargadoABM = true;
      this.vista = this.tabular.vista;
+     this.appSetting.settings.theme.loadscreen=false;
       resolve(m.actualizar);
         },
      (err: HttpErrorResponse) => {
@@ -526,6 +535,8 @@ private async generarTabularAbm(menu: boolean, metadata: MetodoDTO, finder: Find
   }
 
   private generarTabular(menu: boolean, metadata: MetodoDTO, listRequest: FormdataReportdef[], backHistory: boolean ) {
+    
+    this.appSetting.settings.theme.loadscreen = true;
     // this.loadSpinner.show();
     const user = JSON.parse(localStorage.getItem('currentUser'));
     const data = {} as TabularRequestDTO;
@@ -565,7 +576,8 @@ private async generarTabularAbm(menu: boolean, metadata: MetodoDTO, finder: Find
 
      this.vista = this.tabular.vista;
      this.dataReportdefAux.tabular = true;
-
+      
+     this.appSetting.settings.theme.loadscreen=false;
      // this.tabular = m;
         // console.log('la tabla tiene ' + this.tabular);
         },
@@ -660,6 +672,8 @@ callForm(user: any, menu: boolean, m: FormReportdef, metadata: MetodoDTO, listRe
 }
   async  generarForm(menu: boolean, metadata: MetodoDTO, backHistorico: boolean,
     listRequest: FormdataReportdef[]) {
+      
+      this.appSetting.settings.theme.loadscreen = true;
     // console.log('recupera form');
     // this.setearToStringEntidad(listRequest);
     const formdataGlobales = <FormdataReportdef[]>JSON.parse(localStorage.getItem('paramGlobal'));
@@ -684,6 +698,8 @@ callForm(user: any, menu: boolean, m: FormReportdef, metadata: MetodoDTO, listRe
           ((m: any) => {
             console.log('form de tipo clase');
             this.callForm(user, menu, m, metadata, listRequest);
+            
+     this.appSetting.settings.theme.loadscreen=false;
               },
           (err: HttpErrorResponse) => {
             this.checkError(err);
@@ -691,6 +707,8 @@ callForm(user: any, menu: boolean, m: FormReportdef, metadata: MetodoDTO, listRe
      } else {
       this.reportdefService.getObtenerForm(user, metadata.methodName, formdataGlobales, listRequest).subscribe
       ((m: any) => {
+        
+     this.appSetting.settings.theme.loadscreen=false;
         this.callForm(user, menu, m, metadata, listRequest);
       },
         (err: HttpErrorResponse) => {
@@ -1710,7 +1728,7 @@ const hola = 'hola';
 }
   private checkError(error: any ) {
     // this.loadSpinner.hide();
-
+    this.appSetting.settings.theme.loadscreen = false;
     // console.log('esto es un error');
     // console.log(error);
     if (error !== undefined && error !== null) {

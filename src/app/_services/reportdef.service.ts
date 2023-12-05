@@ -25,10 +25,11 @@ import { DataHijoDTO } from '../_models/dataHijoDTO';
 import { ReportMethodResponseDTO } from '../_models/reportMethodResponseDTO';
 import { FormReportdef } from '../_models/form';
 import { devolverProyecto } from '../util/reportdefUtil';
+import { AppSettings } from '../app.settings';
 
 @Injectable({ providedIn: 'root' })
 export class ReportdefService {
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient,public appSettings: AppSettings) { }
 
     determinarTipoReportdef(reportdef: string) {
         const user = JSON.parse(localStorage.getItem('currentUser'));

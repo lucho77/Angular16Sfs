@@ -19,6 +19,7 @@ constructor(private location: Location,
               private renderer2: Renderer2,
               private router: Router,
               private http: HttpClient,
+              public appSettings: AppSettings
             ) {}
 
   public getVerticalMenuItems(): any {
@@ -99,6 +100,7 @@ public setReportdef(reportdef: string) {
           if (menuItem.ejecutar == null) {
             return;
           }
+          this.appSettings.settings.theme.loadscreen = true;
           this.router.navigate([url, menuItem.ejecutar]);
 
         });

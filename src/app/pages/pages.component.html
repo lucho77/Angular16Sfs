@@ -1,3 +1,4 @@
+<app-loadscreen *ngIf="appSettings.settings.theme.loadscreen && mobile && !tablet" />
 <div class="wrapper-inner" [ngClass]="{ 'vertical-menu-tooltip-place': (settings.theme.menuType == 'mini' && settings.theme.menu == 'vertical'),
                                         'horizontal-menu-tooltip-place': (settings.theme.menuType == 'mini' && settings.theme.menu == 'horizontal') }">
     

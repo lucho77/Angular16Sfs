@@ -10,6 +10,7 @@ export class Settings {
                     sidebarIsFixed: boolean,
                     showSideChat: boolean,
                     sideChatIsHoverable: boolean,
+                    loadscreen: boolean,
                     skin:string
                 }) { }
 }

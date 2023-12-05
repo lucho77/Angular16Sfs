@@ -22,6 +22,7 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
 import { DialogModule } from 'primeng/dialog';
 import { BusquedaGenericaModule } from '../busquedaGenericaModule';
 import { ListboxComponent } from './listbox/listbox.component';
+import { LoadscreenComponent } from '../theme/components/loadscreen/loadscreen.component';
 @NgModule({
   imports: [
     FormsModule,ReactiveFormsModule,CommonModule,DialogModule,
@@ -31,6 +32,7 @@ import { ListboxComponent } from './listbox/listbox.component';
   declarations: [
     PagesComponent,
     MessagesComponent,
+    LoadscreenComponent,
     HeaderComponent,
     FooterComponent,
     SidebarComponent,

@@ -41,6 +41,7 @@ import { ExitService } from '../../../_services/exitService';
 import { ToastrService } from 'ngx-toastr';
 import { buscarParametro, buscarParametrosEnHistoricos, consultarParametroByClase, crearParametro, inicializarHistorico, prepararParametrosApasar } from 'src/app/util/reportdefUtil';
 import { ConfirmationDialogService } from '../../confirmDialog/confirmDialog.service';
+import { AppSettings } from 'src/app/app.settings';
 
 declare function applicacionContext(): any;
 declare function downloadFile(mime: string, url: string): any;
@@ -109,11 +110,17 @@ export class ReportdefComponent  implements OnInit {
   firstHeartbeat = true;
 
   constructor(
-    private router: Router, public toastrService: ToastrService,
-    private rutaActiva: ActivatedRoute, private reportdefService: ReportdefService,
-    private paramService: ParamDataHijoService, private descriptionService: DescriptionService, private nameService: NameGlobalService,
-    private confirmationDialogService: ConfirmationDialogService, private changeDetector: ChangeDetectorRef,
+    private router: Router,
+    public toastrService: ToastrService,
+    private rutaActiva: ActivatedRoute,
+    private reportdefService: ReportdefService,
+    private paramService: ParamDataHijoService,
+    private descriptionService: DescriptionService,
+    private nameService: NameGlobalService,
+    private confirmationDialogService: ConfirmationDialogService,
+    private changeDetector: ChangeDetectorRef,
     private exitService: ExitService,
+    public appSetting: AppSettings
   ) {
 
    }
@@ -478,6 +485,7 @@ private async generarTabularAbm(menu: boolean, metadata: MetodoDTO, finder: Find
      this.generarDatosPaginacion();
      this.cargadoABM = true;
      this.vista = this.tabular.vista;
+     this.appSetting.settings.theme.loadscreen=false;
       resolve(m.actualizar);
         },
      (err: HttpErrorResponse) => {
@@ -565,7 +573,8 @@ private async generarTabularAbm(menu: boolean, metadata: MetodoDTO, finder: Find
 
      this.vista = this.tabular.vista;
      this.dataReportdefAux.tabular = true;
-
+      
+     this.appSetting.settings.theme.loadscreen=false;
      // this.tabular = m;
         // console.log('la tabla tiene ' + this.tabular);
         },
@@ -684,6 +693,8 @@ callForm(user: any, menu: boolean, m: FormReportdef, metadata: MetodoDTO, listRe
           ((m: any) => {
             console.log('form de tipo clase');
             this.callForm(user, menu, m, metadata, listRequest);
+            
+     this.appSetting.settings.theme.loadscreen=false;
               },
           (err: HttpErrorResponse) => {
             this.checkError(err);
@@ -691,6 +702,8 @@ callForm(user: any, menu: boolean, m: FormReportdef, metadata: MetodoDTO, listRe
      } else {
       this.reportdefService.getObtenerForm(user, metadata.methodName, formdataGlobales, listRequest).subscribe
       ((m: any) => {
+        
+     this.appSetting.settings.theme.loadscreen=false;
         this.callForm(user, menu, m, metadata, listRequest);
       },
         (err: HttpErrorResponse) => {

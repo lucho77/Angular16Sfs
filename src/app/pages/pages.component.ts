@@ -36,7 +36,7 @@ export class PagesComponent implements OnInit {
         }
         this.showMenu = this.settings.theme.showMenu;
         this.menuOption = this.settings.theme.menu;
-        this.menuTypeOption = this.settings.theme.menuType;           
+        this.menuTypeOption = this.settings.theme.menuType;
     }
 
     public chooseMenu(menu: string){

@@ -209,27 +209,35 @@
 
                     <div class="contenedor">
                         <!-- Cards mobile--------------------- -->
-                        <div *ngFor="let fil of pagination.listaPaginacion; index as i" class="card">
-                            <ng-container *ngFor="let col of header">
-                                <h2 *ngIf="col.peso == 10">{{fil[col.name]}}</h2>
-                            </ng-container>
-                            
-                            <span class="separador"></span>
-
-                            <div class="contenedor-text">
-                                <ng-container *ngFor="let col of header; let io = index">
-                                    <div *ngIf="col.visibleMovil && (fil[col.name] != null) && (fil[col.name] != ' ') && col.peso != 10 && col.download == false && !col.fontAwesoneIcono && !col.linkOtherTab" >
-                                        <span style="font-weight: 600;">{{col.title}}: </span> <span>{{fil[col.name]}}</span>
-                                    </div>
-                                </ng-container>
-                            </div>
-                            <div class="btns" *ngIf="this.pagination.listaPaginacion.length !== 0">
-                                <button *ngIf="this.tabular.tabularDescriptivo" class="btn-extra" (click)="loaderBtn(i); clickLinkTabularMobile($event,header,fil,i)"><span id="ver{{i}}" class="ver">Ver</span><span id="load{{i}}" style="display: none;" class="loader load"></span></button>
-                                <!-- <button *ngIf="fil[col.link]" class="btn-extra" (click)="clickLinkTabularMobile($event,col,fil)">Seleccionar</button> -->
-                                <button *ngIf="this.tabularABM && this.tabular.permisoDTO.edit"  class="btn-edit" (click)="onEdit(fil)">Editar</button>
-                                <button *ngIf="this.tabularABM && this.tabular.permisoDTO.delete" class="btn-eliminar" (click)="onDelete(fil)">Eliminar</button>
-                            </div>
+                        <div *ngIf="pagination.listaPaginacion == ''" class="noReg">
+                            <span>*No se encontraron registros</span>
                         </div>
+                        <div *ngFor="let fil of pagination.listaPaginacion; index as i" class="card">
+                                <ng-container *ngFor="let col of header">
+                                    <h2 *ngIf="col.peso == 10">{{fil[col.name]}}</h2>
+                                </ng-container>
+
+                                <span class="separador"></span>
+
+                                <div class="contenedor-text">
+                                    <ng-container *ngFor="let col of header; let io = index">
+                                        <div *ngIf="col.visibleMovil && (fil[col.name] != null) && (fil[col.name] != ' ') && col.peso != 10 && col.download == false && !col.fontAwesoneIcono && !col.linkOtherTab" >
+                                            <span style="font-weight: 600;">{{col.title}}: </span> <span>{{fil[col.name]}}</span>
+                                        </div>
+                                    </ng-container>
+                                </div>
+                                <div class="btns" *ngIf="this.pagination.listaPaginacion.length !== 0">
+                                    <button *ngIf="this.tabular.tabularDescriptivo" class="btn-extra" (click)="loaderBtn(i); clickLinkTabularMobile($event,header,fil,i)"><span id="ver{{i}}" class="ver">Ver</span><span id="load{{i}}" style="display: none;" class="loader load"></span></button>
+                                    <button *ngIf="this.tabularABM && this.tabular.permisoDTO.edit"  class="btn-edit" (click)="onEdit(fil)">Editar</button>
+                                    <button *ngIf="this.tabularABM && this.tabular.permisoDTO.delete" class="btn-eliminar" (click)="onDelete(fil)">Eliminar</button>
+                                    <ng-container *ngFor="let col of header">
+                                        <button *ngIf="col.link && col.visibleMovil" class="btn-extra" title="{{fil[col.comentario]}}" (click)="clickLinkTabularMobile($event,col,fil)">{{fil[col.name]}}</button>
+                                    </ng-container>
+                                </div>
+                        </div>
+                       
+
+                       
                         <button *ngIf="tabularABM===true && tabular.permisoDTO.nueva" type="button" title="Nuevo" class="btn-agregar" (click)="nuevoAbm()"><span *ngIf="!loader">+</span><span *ngIf="loader" class="loader"></span></button>
                     </div>
                 </div>

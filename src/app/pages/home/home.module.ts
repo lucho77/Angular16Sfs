@@ -50,6 +50,7 @@ import { BusquedaGenericaModule } from 'src/app/busquedaGenericaModule';
 import { ButtonModule } from 'primeng/button';
 import { EditorModule } from 'primeng/editor';
 import { AutoCompleteModule } from 'primeng/autocomplete';
+import { MenuMobileComponent } from './menu-mobile/menu-mobile.component';
 
 // Formatos customizados
 export const MY_MOMENT_FORMATS = {
@@ -74,7 +75,7 @@ export const MY_MOMENT_FORMATS = {
     HomeComponent,ReportdefComponent, AutocompleteComponent,BusquedaGenericaTextComponent,ButtonComponent,FieldBuilderComponent,
     ButtonCancelComponent,CardsComponent,CheckBoxComponent,ComboComponent,TabularABMFinderComponent,InfoAreaComponent,InfoNotificationComponent,
     FechaComponent,FechaHoraComponent,FechaCustomComponent,LabelComponent,LinkComponent,RadioComponent,
-    TextAreaComponent,TextBoxComponent,ClockComponent,EditorComponent,FileUploaderComponent,LinkComponent,TabularComponent,FormularioComponent
+    TextAreaComponent,TextBoxComponent,ClockComponent,EditorComponent,FileUploaderComponent,LinkComponent,TabularComponent,FormularioComponent, MenuMobileComponent
  
 
   ],

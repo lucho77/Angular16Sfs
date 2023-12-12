@@ -1,30 +1,28 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { isMobile } from 'mobile-device-detect';
 
 @Component({templateUrl: 'home.component.html'})
 
 export class HomeComponent implements OnInit {
     prueba: boolean;
+    tablet: boolean = screen.width > 600;
     constructor(private router: Router) {}
 
     ngOnInit() {
         this.prueba = false;
-        console.log('hOME iNICIALIZADO');
         const reporte = localStorage.getItem('reporte');
         localStorage.removeItem('reporte');
-        console.log(reporte);
         const url = '/pages/home/reportdef';
         if (reporte && reporte!=='null' && reporte!=='undefined' ) {
-            // console.log('entro a la opcion de ' + menuItem.ejecutar);
-            // console.log('Router URL ' + this.router.url);
             this.router.navigate([url, reporte]);
-        } else {
-            this.router.navigate([url, 'nothing']);
+        } else if (isMobile && !this.tablet){
+            this.router.navigate(['/pages/home/menu-mobile']);
 
+        } else{
+            this.router.navigate([url, 'nothing']);
         }
     }
-
-
         // si viene esta variable significa que tiene que cargar un reporte;
     }
 

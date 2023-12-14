@@ -1,7 +1,7 @@
 <div class="contenedor">
-    <div class="card-menu" *ngFor="let items of menu">
-        <div *ngIf="items.idMenuPadre == 0" class="card">
-            <h2 (click)="getRouter(items.ejecutar)">{{items.descripcion}}</h2>
+    <ng-container *ngFor="let items of menu">
+        <div *ngIf="items.idMenuPadre == 0" class="card card-menu">
+            <h3 (click)="getRouter(items.ejecutar)">{{items.descripcion}}</h3>
             <ng-container *ngIf="items.submenu">
                 <div *ngFor="let submenuItem of menu">
                     <ng-container *ngIf="submenuItem.idMenuPadre === items.idMenu">
@@ -9,7 +9,6 @@
                     </ng-container>
                 </div>
             </ng-container>
-
         </div>
-    </div>
+    </ng-container>
 </div>

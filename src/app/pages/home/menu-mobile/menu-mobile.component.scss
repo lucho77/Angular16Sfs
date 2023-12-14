@@ -1,0 +1,27 @@
+.contenedor{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 10px;
+    row-gap: 10px;
+
+    .card-menu{
+        display: flex;
+        flex-direction: column;
+        padding: 10px;
+        border-radius: 8px;
+        background-color: #5b96bb;
+        justify-content: center;
+        h3{
+            color: #fff;
+            font-weight: 600;
+            font-size: 5vw;
+            text-align: center;
+        }
+        p{
+            color:#fff;
+            margin: 5px 0;
+            font-size: 3.5vw;
+            border-bottom: dashed 1px #ffffff3f;
+        }
+    }
+}

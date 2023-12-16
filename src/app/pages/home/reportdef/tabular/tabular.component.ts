@@ -33,6 +33,7 @@ import { PreMethodDTO } from '../../../../_models/preMethodDTO';
 import { crearParametro, ejecutarMetodo, seteoParamGlobal } from 'src/app/util/reportdefUtil';
 import { ToastrService } from 'ngx-toastr';
 import { isMobile, isTablet } from 'mobile-device-detect';
+import { AppSettings } from 'src/app/app.settings';
 
 @Component({
   selector: 'app-tabular',
@@ -88,7 +89,8 @@ export class TabularComponent implements OnInit, OnChanges {
     , private genericFinderService: GenericFinderService,
     private reportdefService: ReportdefService, private nameService: NameGlobalService,
     private descriptionService: DescriptionService,
-    private nameAvisoSeteo: AvisaSeteoService, private sanitizer: DomSanitizer) {
+    private nameAvisoSeteo: AvisaSeteoService, private sanitizer: DomSanitizer,
+    public appSettings: AppSettings) {
     // this.safeSrc =  this.sanitizer.bypassSecurityTrustResourceUrl("https://www.youtube.com/embed/c9F5kMUfFKk");
     // this.safeSrc =  this.sanitizer.bypassSecurityTrustResourceUrl(this.laurl);
   }
@@ -1297,6 +1299,7 @@ export class TabularComponent implements OnInit, OnChanges {
   }
   backHistorico() {
     this.backHistory.emit(event);
+    this.appSettings.settings.theme.loadscreen=false;
   }
   verFiltros() {
     this.filtros = true;

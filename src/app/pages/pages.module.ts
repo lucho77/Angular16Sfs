@@ -23,10 +23,11 @@ import { DialogModule } from 'primeng/dialog';
 import { BusquedaGenericaModule } from '../busquedaGenericaModule';
 import { ListboxComponent } from './listbox/listbox.component';
 import { LoadscreenComponent } from '../theme/components/loadscreen/loadscreen.component';
+import { PipesModule } from '../theme/pipes/pipes.module';
 @NgModule({
   imports: [
     FormsModule,ReactiveFormsModule,CommonModule,DialogModule,
-    NgbModule,NgxBootstrapMultiselectModule,NgScrollbarModule,BusquedaGenericaModule,
+    NgbModule,NgxBootstrapMultiselectModule,NgScrollbarModule,BusquedaGenericaModule,PipesModule,
     routing
   ],
   declarations: [
@@ -45,7 +46,7 @@ import { LoadscreenComponent } from '../theme/components/loadscreen/loadscreen.c
     ApplicationsComponent,
     MessagesComponent,
     FooterComponent,
-    ListboxComponent,
+    ListboxComponent
   ],
   providers: [
   ],

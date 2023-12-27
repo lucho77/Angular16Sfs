@@ -13,7 +13,7 @@
                     <a class="nav-link transition" data-toggle="tab" href="#meetings"><i class="fa fa-bell-o" aria-hidden="true"></i></a>
                 </li>       
                 <li class="nav-item">
-                    <a class="nav-link transition" data-toggle="tab" href="#userOnline"><i class="fa fa-user-o" aria-hidden="true"></i></a>
+                    <a class="nav-link transition" data-toggle="tab" href="#userOnline">{{usuariosOn.length}} <i class="fa fa-user-o" aria-hidden="true"></i></a>
                 </li>                                          
             </ul>
         </div>
@@ -21,12 +21,16 @@
             <div class="tab-content">
                 <div class="tab-pane active" id="comments">
                     <div class="list">
-                        <a *ngFor="let message of messages" href="javascript:void(0);" class="transition">
-                            <div class="list-content" (click)="abrirModal(message.idSession, message.name)">
-                                <h3>{{message.name}} <span class="pull-right"><i class="fa fa-clock-o"></i> {{message.time}}</span></h3>
-                                <p>{{message.text}}</p>
-                            </div>
-                        </a>
+                        <ng-container *ngFor="let mens of messages | sortByTime">
+                            <a (click)="abrirModal(mens.idSession, mens.name)" class="transition" *ngIf="!mens.enviado">
+                                <div class="list-content">
+                                    <h2>{{mens.name}} </h2>
+                                    <p>{{acortarText(mens.text)}}</p>
+                                    <span><i class="fa fa-clock-o"></i> Recibido hace {{mens.time}} min</span>
+                                </div>
+                            </a>
+                        </ng-container>
+                        
                     </div> 
                 </div>
                 <div class="tab-pane" id="meetings">
@@ -45,8 +49,8 @@
                 </div>
                 <div class="tab-pane" id="userOnline">
                     <div class="list">
-                        <a *ngFor="let message of messages" href="javascript:void(0);" class="transition">
-                            <h3><i class="fa fa-user"></i> {{message.name}}</h3>
+                        <a *ngFor="let user of usuariosOn" (click)="abrirModal(user.idSession, user.name)" class="transition">
+                            <h3><i class="fa fa-user"></i> {{user.name}}</h3>
                         </a>
                     </div>
                 </div>

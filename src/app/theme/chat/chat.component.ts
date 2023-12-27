@@ -4,7 +4,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
-  styleUrls: ['./chat.component.scss']
+  styleUrls: ['./chat.component.scss'],
 })
 export class ChatComponent {
   @Input() idSession: Number;
@@ -15,5 +15,9 @@ export class ChatComponent {
 
   
   constructor(private activeModal: NgbActiveModal){}
+
+  cerrarChat(): void {
+    this.activeModal.close();
+  }
 
 }

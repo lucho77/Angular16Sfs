@@ -32,6 +32,7 @@ import { JwtInterceptor } from './_helpers/jwt.interceptor';
 import { ErrorInterceptor } from './_helpers/error.interceptor';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { ChatComponent } from './theme/chat/chat.component';
+import { SortByTimePipe } from './theme/pipes/sort/sort-by-time.pipe';
 
 @NgModule({  
   imports: [

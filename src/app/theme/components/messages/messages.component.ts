@@ -15,11 +15,11 @@ export class MessagesComponent implements OnInit {
   public files: Array<any>;
   public meetings: Array<any>;  
   public msjsEnviados: Array<any>;  
+  public usuariosOn: Array<any>;  
   constructor(private messagesService:MessagesService, private modalService: NgbModal) { 
     this.messages = messagesService.getMessages();
-    this.files = messagesService.getFiles();
     this.meetings = messagesService.getMeetings();
-    this.msjsEnviados = messagesService.getMensajesEnviados();
+    this.usuariosOn = messagesService.getUsuarios();
 
     
   }
@@ -28,11 +28,13 @@ export class MessagesComponent implements OnInit {
     jQuery('#messagesTabs').on('click', '.nav-item a', function(){        
         setTimeout(() => jQuery(this).closest('.dropdown').addClass('show')); 
     })
+
+
   }
 
   abrirModal(idSession: number, nombre: string){
 
-    let modalChat = this.modalService.open(ChatComponent);
+    let modalChat = this.modalService.open(ChatComponent,{size: 'lg', centered: true});
     modalChat.componentInstance.idSession = idSession;
     modalChat.componentInstance.nombre = nombre;
     modalChat.componentInstance.messages = this.messages;
@@ -41,6 +43,9 @@ export class MessagesComponent implements OnInit {
 
     return modalChat;
 
+  }
+  acortarText(texto:string): string{
+    return texto.slice(0,51) + '...';
   }
 
 }

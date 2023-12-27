@@ -68,9 +68,9 @@
                 <span class="d-none d-sm-inline-block">
                     <app-messages></app-messages>
                 </span>               
-                <span class="d-none d-sm-inline-block pl-2 pr-2" (click)="settings.theme.showSideChat = !settings.theme.showSideChat">
+                <!-- <span class="d-none d-sm-inline-block pl-2 pr-2" (click)="settings.theme.showSideChat = !settings.theme.showSideChat">
                     <i class="fa fa-commenting-o" aria-hidden="true"></i>
-                </span> 
+                </span>  -->
                 <span *ngIf="!settings.theme.showMenu || !mobile || tablet">
                     <div style="color: #fff; margin: 0 10px 0 10px;"><i class="fa fa-user"></i> {{usuario.username}}</div>
                     <!-- <app-user-menu></app-user-menu> -->

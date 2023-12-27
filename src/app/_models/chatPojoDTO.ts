@@ -8,7 +8,7 @@ export interface ChatPojoDTO {
     image: string;
     fecha: Date;
     alias: string;
-    leido: false;
+    leido: boolean;
     caputar: string;
     mensaje: string;
     tomadaPorMi: boolean;

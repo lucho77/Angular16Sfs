@@ -1,0 +1,17 @@
+<div class="contenedor">
+    <div class="header">
+        <h2>{{nombre}}</h2> <span>x</span>
+    </div>
+    <div class="contenedorHistorial">
+        <ng-container *ngFor="let mensajes of messages">
+            <div class="mensRecivido" *ngIf="mensajes.idSession === idSession">{{mensajes.text}}</div>
+        </ng-container>
+        <ng-container *ngFor="let mensajes of msjsEnviados">
+            <div class="mensRecivido" *ngIf="mensajes.idSession === idSession">{{mensajes.text}}</div>
+        </ng-container>
+    </div>
+    <div class="chatEnviar">
+        <input type="text">
+        <button>Enviar</button>
+    </div>
+</div>

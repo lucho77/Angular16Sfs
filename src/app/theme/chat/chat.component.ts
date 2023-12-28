@@ -11,13 +11,19 @@ export class ChatComponent {
   @Input() nombre: Number;
   @Input() messages: any;
   @Input() msjsEnviados: any;
-
+  public toggleMenuChat: boolean = false;
 
   
   constructor(private activeModal: NgbActiveModal){}
 
   cerrarChat(): void {
     this.activeModal.close();
+  }
+  abrirMenuChat(): void{
+    this.toggleMenuChat = !this.toggleMenuChat;
+  }
+  cerrarMenuChat():void {
+    this.toggleMenuChat = false;
   }
 
 }

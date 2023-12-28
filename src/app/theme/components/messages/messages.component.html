@@ -22,7 +22,7 @@
                 <div class="tab-pane active" id="comments">
                     <div class="list">
                         <ng-container *ngFor="let mens of messages | sortByTime">
-                            <a (click)="abrirModal(mens.idSession, mens.name)" class="transition" *ngIf="!mens.enviado">
+                            <a (click)="abrirChat(mens.idSession, mens.name)" class="transition" *ngIf="!mens.enviado">
                                 <div class="list-content">
                                     <h2>{{mens.name}} </h2>
                                     <p>{{acortarText(mens.text)}}</p>
@@ -36,10 +36,10 @@
                 <div class="tab-pane" id="meetings">
                     <div class="list">
                         <a *ngFor="let meeting of meetings" href="javascript:void(0);" class="transition">
-                            <div class="meeting-day bg-{{meeting.color}} pull-left">
+                            <!-- <div class="meeting-day bg-{{meeting.color}} pull-left">
                                 <span>{{meeting.day}}</span>
                                 <span>{{meeting.month}}</span>
-                            </div>                   
+                            </div>                    -->
                             <div class="list-content">
                                 <h2>{{meeting.title}}</h2>
                                 <p>{{meeting.text}}</p>
@@ -48,13 +48,20 @@
                     </div> 
                 </div>
                 <div class="tab-pane" id="userOnline">
+                    <div class="clearfix inner-clearfix" >            
+                        <ul id="messagesTabs-input" class="nav nav-tabs nav-justified border-0">
+                            <li class="nav-item">
+                                <a class="nav-link transition" (click)="clickClassEvent()"><i class="fa fa-plus"> Abrir nuevo chat</i></a>
+                                <a [class.show-input]="toggleClassInput" class="nav-link nav-link-input transition" (keydown.enter)="abrirChat(0, userSearch); clickClassEvent()"><input [(ngModel)]="userSearch" class="input-clearfix" type="text"><button (click)="abrirChat(0, userSearch); clickClassEvent()"><i class="fa fa-plus"></i></button></a>
+                            </li>                                        
+                        </ul>
+                    </div>
                     <div class="list">
-                        <a *ngFor="let user of usuariosOn" (click)="abrirModal(user.idSession, user.name)" class="transition">
+                        <a *ngFor="let user of usuariosOn" (click)="abrirChat(user.idSession, user.name)" class="transition">
                             <h3><i class="fa fa-user"></i> {{user.name}}</h3>
                         </a>
                     </div>
                 </div>
-                
             </div> 
         </ng-scrollbar>
     

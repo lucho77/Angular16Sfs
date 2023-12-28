@@ -1,8 +1,18 @@
 <div class="contenedor">
     <div class="header">
-        <h2>Chat con {{nombre}}</h2> <span (click)="cerrarChat()">x</span>
+        <div class="head">
+            <h2>Chat con {{nombre}}</h2> <div class="options-square"><span (click)="abrirMenuChat()"><i class="fa fa-gear"></i></span><span (click)="cerrarChat()"><i class="fa fa-times"></i></span></div>
+        </div>
+        <div class="opcionesMenu" [class.show-menu-chat]="toggleMenuChat">
+            <ul>
+                <li>Eliminar historial</li>
+                <li>Enviar archivo ¿?</li>
+                <li>Otras opciones</li>
+            </ul>
+        </div>
     </div>
-    <div class="contenedorHistorial">
+
+    <div class="contenedorHistorial" (click)="cerrarMenuChat()">
         <ng-container *ngFor="let mensajes of messages | sortByTime">
 
             <div class="mensRecibido" *ngIf="mensajes.idSession === idSession && !mensajes.enviado">
@@ -17,7 +27,7 @@
             </div>
         </ng-container>
     </div>
-    <div class="chatEnviar">
+    <div class="chatEnviar" (click)="cerrarMenuChat()">
         <input type="text">
         <button><i class="fa fa-send"></i>Enviar</button>
     </div>

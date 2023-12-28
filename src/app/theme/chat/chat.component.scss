@@ -10,19 +10,79 @@ $padd: 0.5vw 1vw;
     position: relative;
     padding: $padd;
     .header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin: -0.5vw -1vw;
-        margin-bottom: 1vw;
-        padding: $padd;
-        background-color: $sidebar-bg-color;
-        color: #fff;
-        span {
-            font-size: 1.5vw;
-            &:hover {
-                cursor: pointer;
+        .head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: -0.5vw -1vw;
+            margin-bottom: 1vw;
+            padding: $padd;
+            background-color: $sidebar-bg-color;
+            color: #fff;
+            text-align: center;
+            h2{
+                user-select: none;
             }
+            span {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 1.5vw;
+                z-index: 999999;
+                &:hover {
+                    cursor: pointer;
+                }
+            }
+            .options-square {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 1vw;
+                height: 100%;
+                i {
+                    // padding-top: 3px;
+                    font-size: 1vw;
+                }
+            }
+        }
+
+        .opcionesMenu {
+            display: flex;
+            position: absolute;
+            background-color: #505050;
+            width: 10vw;
+            max-height: 0;
+            opacity: 0;
+            visibility: hidden;
+            border-radius: 10px 0 10px 10px;
+            right: 3.5vw;
+            top: 2vw;
+            z-index: 999999999;
+            transition: all 0.3s ease-out;
+            overflow: hidden;
+            user-select: none;
+            ul {
+                width: 100%;
+                li {
+                    list-style: none;
+                    width: 100%;
+                    color: #fff;
+                    padding: 0.5vw;
+                    &:hover {
+                        background-color: #8a8989;
+                        cursor: pointer;
+                    }
+                    &:active{
+                        scale: .99;
+                    }
+                }
+            }
+        }
+        .show-menu-chat {
+            max-height: 500px;
+            opacity: 1;
+            visibility: visible;
+            transition: all 0.3s ease-out;
         }
     }
     .contenedorHistorial {
@@ -77,11 +137,11 @@ $padd: 0.5vw 1vw;
             align-self: flex-end;
         }
     }
-    .chatEnviar{
+    .chatEnviar {
         display: flex;
         margin: 1vw 0;
         width: 100%;
-        input{
+        input {
             height: 35px;
             min-height: 35px;
             width: 100%;
@@ -89,18 +149,19 @@ $padd: 0.5vw 1vw;
             border: 1px solid #ced4da;
             padding: 5px 10px;
             resize: vertical;
-            &:focus, :active{
+            &:focus,
+            :active {
                 border: 1px solid #ced4da;
                 outline: none;
             }
         }
-        button{
+        button {
             display: flex;
             border-radius: 0 4px 4px 0;
             border: none;
             padding: 10px;
             height: 35px;
-            color: #FFF;
+            color: #fff;
             width: 10vw;
             align-items: center;
             justify-content: center;
@@ -108,14 +169,17 @@ $padd: 0.5vw 1vw;
             font-size: 1vw;
             font-weight: 500;
             gap: 5px;
-            i{
+            i {
                 font-size: 1vw;
             }
-    
+
             &:focus,
             :active {
-                border: 1px solid #333;
+                border: none;
                 outline: none;
+            }
+            &:active{
+                scale: .99;
             }
         }
     }

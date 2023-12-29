@@ -55,6 +55,10 @@ export class MessagesService {
         {
             name: 'Gustavo S',
             idSession: 1141
+        },
+        {
+            name: 'Nicolas',
+            idSession: 1142
         }
     ]
     private messages = [
@@ -197,6 +201,13 @@ export class MessagesService {
             time: 1,
             enviado:false,
             idSession: 1122
+        },
+        {
+            name: 'Nicolas',
+            text: 'Terminame la web daleeeee',
+            time: 55,
+            enviado:false,
+            idSession: 1142
         }
     ];
 

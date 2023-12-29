@@ -48,14 +48,14 @@
                     </div> 
                 </div>
                 <div class="tab-pane" id="userOnline">
-                    <div class="clearfix inner-clearfix" >            
-                        <ul id="messagesTabs-input" class="nav nav-tabs nav-justified border-0">
-                            <li class="nav-item">
-                                <a class="nav-link transition" style="user-select: none;" (click)="clickClassEvent();setListaUsuariosOriginal()"><i class="fa fa-plus"> Abrir nuevo chat</i></a>
-                                <a [class.show-input]="toggleClassInput" class="nav-link nav-link-input transition" (keydown.enter)="abrirChat(getIdSessionByName(userSearch)); clickClassEvent()"><input #buscarNombre [(ngModel)]="userSearch" class="input-clearfix" type="text"><button (click)="abrirChat(getIdSessionByName(userSearch)); clickClassEvent()"><i class="fa fa-plus"></i></button></a>
-                            </li>                                        
-                        </ul>
-                    </div>
+                        <div class="clearfix inner-clearfix">            
+                            <ul id="messagesTabs-input" class="nav nav-tabs nav-justified border-0" >
+                                <li class="nav-item">
+                                    <a class="nav-link transition" style="user-select: none;" (click)="clickClassEvent();setListaUsuariosOriginal()"><i class="fa fa-plus" style="margin-right: 5px;"></i>Abrir nuevo chat</a>
+                                    <a [class.show-input]="toggleClassInput" class="nav-link nav-link-input transition" (keydown.enter)="abrirChat(getIdSessionByName(userSearch)); clickClassEvent()"><input #buscarNombre [(ngModel)]="userSearch" class="input-clearfix" type="text"><button (click)="abrirChat(getIdSessionByName(userSearch)); clickClassEvent()"><i class="fa fa-search"></i></button></a>
+                                </li>                                    
+                            </ul>
+                        </div>
                     <div class="list">
                         <a *ngFor="let user of usuariosOn | sortByAbecedario : 'name'" (click)="abrirChat(user.idSession)" class="transition">
                             <h3><i class="fa fa-user"></i> {{user.name}}</h3>

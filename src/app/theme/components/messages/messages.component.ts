@@ -16,7 +16,7 @@ export class MessagesComponent implements OnInit {
   public files: Array<any>;
   public meetings: Array<any>;
   public usuariosOn: Array<any>;
-  private usuariosArr: Array<any>;
+  public usuariosArr: Array<any>;
   public userSearch: string;
   public toggleClassInput: boolean = false;
   public usersFiltrados: Array<any> = [];
@@ -33,14 +33,9 @@ export class MessagesComponent implements OnInit {
   }
 
   ngOnInit() {
-    jQuery('#messagesTabs').on('click', '.nav-item a', function () {
+    jQuery('#messagesTabs, #messagesTabs-input').on('click', '.nav-item a', function () {
       setTimeout(() => jQuery(this).closest('.dropdown').addClass('show'));
     })
-    jQuery('#messagesTabs-input').on('click', '.nav-item a', function () {
-      setTimeout(() => jQuery(this).closest('.dropdown').addClass('show'));
-    })
-
-
   }
 
   abrirChat(idSession: number) {
@@ -79,7 +74,10 @@ export class MessagesComponent implements OnInit {
   }
 
   acortarText(texto: string): string {
-    return texto.slice(0, 51) + '...';
+    if (texto.length > 50) {
+      return texto.slice(0, 51) + '...';
+    }
+    return texto;
   }
 
 
@@ -94,39 +92,34 @@ export class MessagesComponent implements OnInit {
     if (this.toggleClassInput) {
       setTimeout(() => {
         this.inputBuscarNombre.nativeElement.focus();
-      }, 500);
+      }, 300);
     }
   }
 
   buscaUsers(nombre: string): string {
+    this.usersFiltrados = [];
     if (!nombre) {
       this.setListaUsuariosOriginal();
       this.userEncontrado = true;
-    } else {
-      let nom = nombre.toUpperCase();
-      this.usuariosArr.forEach(user => {
-        let nomU = user.name.toUpperCase();
-        if (nomU.includes(nom)) {
-          this.usersFiltrados.push(user);
-        }
-      });
+      return
+    }
 
-      if (this.usersFiltrados.length == 1) {
-        let userEncontrado = this.usersFiltrados[0].name;
-        this.usersFiltrados = [];
-        this.userEncontrado = true;
-        return userEncontrado;
-      }
-      else if (this.usersFiltrados.length > 1) {
-        this.usuariosOn = this.usersFiltrados;
-        this.usersFiltrados = [];
-        this.userEncontrado = true;
-      }
-      else {
-        this.userEncontrado = false;
-      }
+    let nom = nombre.toUpperCase();
+    this.usersFiltrados = this.usuariosArr.filter(user => user.name.toUpperCase().includes(nom))
+
+    if (this.usersFiltrados.length === 1) {
+      this.userEncontrado = true;
+      return this.usersFiltrados[0].name;
+    }
+    else if (this.usersFiltrados.length > 1) {
+      this.usuariosOn = this.usersFiltrados;
+      this.userEncontrado = true;
+    }
+    else {
+      this.userEncontrado = false;
     }
   }
+
   setListaUsuariosOriginal(): void {
     this.usuariosOn = this.usuariosArr;
   }

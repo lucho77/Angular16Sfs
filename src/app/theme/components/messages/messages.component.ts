@@ -3,6 +3,8 @@ import { MessagesService } from './messages.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ChatComponent } from '../../chat/chat.component';
 import { ToastrService } from 'ngx-toastr';
+import { isMobile } from 'mobile-device-detect';
+import { EsMobileService } from 'src/app/_services/es-mobile.service';
 
 @Component({
   selector: 'app-messages',
@@ -23,7 +25,7 @@ export class MessagesComponent implements OnInit {
   private userEncontrado: boolean;
   @ViewChild('buscarNombre') inputBuscarNombre: ElementRef;
 
-  constructor(private messagesService: MessagesService, private modalService: NgbModal, private aviso: ToastrService) {
+  constructor(private messagesService: MessagesService, private modalService: NgbModal, private aviso: ToastrService, public EMS : EsMobileService) {
     this.messages = messagesService.getMessages();
     this.meetings = messagesService.getMeetings();
     this.usuariosOn = messagesService.getUsuarios();
@@ -34,7 +36,7 @@ export class MessagesComponent implements OnInit {
 
   ngOnInit() {
     jQuery('#messagesTabs, #messagesTabs-input').on('click', '.nav-item a', function () {
-      setTimeout(() => jQuery(this).closest('.dropdown').addClass('show'));
+      setTimeout(() => jQuery(this).closest('.dropdown, .drop-mobile').addClass('show'));
     })
   }
 
@@ -42,7 +44,8 @@ export class MessagesComponent implements OnInit {
 
     if (!idSession) return
 
-    let modalChat = this.modalService.open(ChatComponent, { size: 'lg', centered: true });
+    let modalChat = this.modalService.open(ChatComponent, { size: 'lg', centered: true,  });
+
     modalChat.componentInstance.idSession = idSession;
     modalChat.componentInstance.nombre = this.getNombreChatByIdSession(idSession);
     modalChat.componentInstance.messages = this.messages;

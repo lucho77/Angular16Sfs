@@ -9,6 +9,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import { inicializarFinder } from '../pages/genericFinder/utilFinder';
 import { isMobile, isTablet } from 'mobile-device-detect';
+import { EsMobileService } from '../_services/es-mobile.service';
 
 
 @Component({
@@ -26,13 +27,13 @@ export class AutocompleteComponent {
     @Output()spinner = new EventEmitter<any>();
     results: any[];
     name: string;
-    mobile: boolean = isMobile;
-    tablet: boolean = screen.width > 600;
+
     get isValid() { return this.form.controls[this.field.name].valid; }
     get isDirty() { return this.form.controls[this.field.name].dirty; }
     constructor(
         private abmservice: AbmService,  public toastrService: ToastrService,
-        private  router: Router) {
+        private  router: Router,
+        public esMobileService : EsMobileService) {
     }
     public buscar(event) {
 

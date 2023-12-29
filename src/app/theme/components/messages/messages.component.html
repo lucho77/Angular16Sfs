@@ -1,9 +1,9 @@
-<div id="messagesDropDown" class="dropdown d-inline-block">
+<div id="messagesDropDown" [ngClass]="(EMS.esMobileNoTablet()) ? 'drop-mobile d-inline-block' : 'dropdown d-inline-block'">
     <a class="dropdown-toggle no-caret pl-2 pr-2" id="messages" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <i class="fa fa-commenting-o" aria-hidden="true"></i>
     </a>
 
-    <div class="dropdown-menu dropdown-menu-right rounded-0 p-0 mt-3 box-shadow" aria-labelledby="messages">    
+    <div  [ngClass]="(EMS.esMobileNoTablet()) ? 'dropdown-menu drop-mobile dropdown-menu-mobile rounded-0 p-0 box-shadow':'dropdown-menu dropdown-menu-right rounded-0 p-0 mt-3 box-shadow'" aria-labelledby="messages">    
         <div class="clearfix">            
             <ul id="messagesTabs" class="nav nav-tabs nav-justified border-0">
                 <li class="nav-item">

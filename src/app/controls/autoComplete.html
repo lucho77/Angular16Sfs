@@ -1,5 +1,5 @@
 <div [formGroup]="form">
-    <div *ngIf="!mobile || tablet">
+    <div *ngIf="esMobileService.esEscritorioOTablet()">
         <div class="ig">
             <label class="d-flex flex-nowrap col-xs-2 col-sm-2 col-md-4 col-lg-2 col-xl-1 tm-f-bugt pl-0">{{field.label}}:
                 <strong class=" text-danger " *ngIf="field.require ">*</strong>
@@ -10,7 +10,7 @@
         </div>
     </div>
     <div class="ig">
-        <div *ngIf="mobile && !tablet">
+        <div *ngIf="esMobileService.esMobileNoTablet()">
         <label class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-1 tm-f-bugt pl-0">{{field.label}}:
             <strong class=" text-danger " *ngIf="field.require ">*</strong>
         </label>

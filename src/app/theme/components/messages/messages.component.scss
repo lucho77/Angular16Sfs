@@ -2,6 +2,13 @@
     .dropdown-menu {
         width: 312px;
     }
+    .dropdown-menu-mobile{
+        right: 0;
+        left: 0;
+        margin: auto;
+        width: 90vw;
+        height: fit-content;
+    }
     .nav-link {
         color: #a6a6a6;
         border: 0;

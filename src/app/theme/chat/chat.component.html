@@ -1,7 +1,7 @@
 <div class="contenedor">
     <div class="header">
         <div class="head">
-            <h2>Chat con {{nombre}}</h2> <div class="options-square"><span (click)="abrirMenuChat()"><i class="fa fa-gear"></i></span><span (click)="cerrarChat()"><i class="fa fa-times"></i></span></div>
+            <h2><i style="margin-right: 5px;" class="fa fa-user"></i>{{nombre}}</h2> <div class="options-square"><span (click)="abrirMenuChat()"><i class="fa fa-gear"></i></span><span (click)="cerrarChat()"><i class="fa fa-times"></i></span></div>
         </div>
         <div class="opcionesMenu" [class.show-menu-chat]="toggleMenuChat">
             <ul>
@@ -12,7 +12,7 @@
         </div>
     </div>
 
-    <div class="contenedorHistorial" (click)="cerrarMenuChat()">
+    <div ngbAutofocus class="contenedorHistorial" (click)="cerrarMenuChat()">
         <ng-container *ngFor="let mensajes of messages | sortByNum:'time'">
 
             <div class="mensRecibido" *ngIf="mensajes.idSession === idSession && !mensajes.enviado">

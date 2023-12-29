@@ -26,6 +26,7 @@ export class ChatComponent {
     this.toggleMenuChat = false;
   }
   enviarMsj(msj: string): void {
+    if (!msj) return
     if (msj.trim()) {
       this.messages.unshift({
 

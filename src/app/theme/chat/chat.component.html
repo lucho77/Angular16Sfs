@@ -5,7 +5,7 @@
         </div>
         <div class="opcionesMenu" [class.show-menu-chat]="toggleMenuChat">
             <ul>
-                <li>Eliminar historial</li>
+                <li (click)="eliminarHistorialChat()">Eliminar historial</li>
                 <li>Enviar archivo ¿?</li>
                 <li>Otras opciones</li>
             </ul>
@@ -13,7 +13,7 @@
     </div>
 
     <div class="contenedorHistorial" (click)="cerrarMenuChat()">
-        <ng-container *ngFor="let mensajes of messages | sortByTime">
+        <ng-container *ngFor="let mensajes of messages | sortByNum:'time'">
 
             <div class="mensRecibido" *ngIf="mensajes.idSession === idSession && !mensajes.enviado">
                 <!-- <h3>{{mensajes.name}}</h3> -->
@@ -28,7 +28,7 @@
         </ng-container>
     </div>
     <div class="chatEnviar" (click)="cerrarMenuChat()">
-        <input type="text">
-        <button><i class="fa fa-send"></i>Enviar</button>
+        <input type="text" [(ngModel)]="msj" (keydown.enter)="enviarMsj(msj)">
+        <button (click)="enviarMsj(msj)"><i class="fa fa-send"></i>Enviar</button>
     </div>
 </div>

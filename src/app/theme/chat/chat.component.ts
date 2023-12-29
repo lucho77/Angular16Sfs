@@ -10,20 +10,36 @@ export class ChatComponent {
   @Input() idSession: Number;
   @Input() nombre: Number;
   @Input() messages: any;
-  @Input() msjsEnviados: any;
+  public msj: string;
   public toggleMenuChat: boolean = false;
 
-  
-  constructor(private activeModal: NgbActiveModal){}
+
+  constructor(private activeModal: NgbActiveModal) { }
 
   cerrarChat(): void {
     this.activeModal.close();
   }
-  abrirMenuChat(): void{
+  abrirMenuChat(): void {
     this.toggleMenuChat = !this.toggleMenuChat;
   }
-  cerrarMenuChat():void {
+  cerrarMenuChat(): void {
     this.toggleMenuChat = false;
   }
+  enviarMsj(msj: string): void {
+    if (msj.trim()) {
+      this.messages.unshift({
 
+        'name': 'Bruno',
+        'text': msj,
+        'time': 0,
+        'enviado': true,
+        'idSession': this.idSession
+
+      });
+      this.msj = '';
+    }
+  }
+  eliminarHistorialChat(): void {
+    this.messages = this.messages.filter((msj) => { msj.idSession != this.idSession });
+  }
 }

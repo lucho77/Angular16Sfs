@@ -33,7 +33,7 @@ export class MessagesService {
             idSession: 1116
         },
         {
-            name: 'Michael',
+            name: 'Augusto',
             idSession: 1117
         },
         {
@@ -143,7 +143,7 @@ export class MessagesService {
             idSession: 1116
         },
         {
-            name: 'Michael',
+            name: 'Augusto',
             text: 'Wrap the dropdown\'s trigger and the dropdown menu within .dropdown, or...',
             time: 9,
             enviado:false,
@@ -193,7 +193,7 @@ export class MessagesService {
         },
         {
             name: 'Emiliano',
-            text: 'Si, re gay',
+            text: 'Si',
             time: 1,
             enviado:false,
             idSession: 1122

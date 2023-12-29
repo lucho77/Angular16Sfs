@@ -15,13 +15,12 @@ export class MessagesComponent implements OnInit {
   public messages: Array<any>;
   public files: Array<any>;
   public meetings: Array<any>;
-  public msjsEnviados: Array<any>;
   public usuariosOn: Array<any>;
   private usuariosArr: Array<any>;
   public userSearch: string;
   public toggleClassInput: boolean = false;
   public usersFiltrados: Array<any> = [];
-  private userEncontrado : boolean;
+  private userEncontrado: boolean;
   @ViewChild('buscarNombre') inputBuscarNombre: ElementRef;
 
   constructor(private messagesService: MessagesService, private modalService: NgbModal, private aviso: ToastrService) {
@@ -52,18 +51,16 @@ export class MessagesComponent implements OnInit {
     modalChat.componentInstance.idSession = idSession;
     modalChat.componentInstance.nombre = this.getNombreChatByIdSession(idSession);
     modalChat.componentInstance.messages = this.messages;
-    modalChat.componentInstance.msjsEnviados = this.msjsEnviados;
-
 
     return modalChat;
 
   }
   getNombreChatByIdSession(idSession: number): any {
     for (const user of this.usuariosOn) {
-      if (user.idSession === idSession) return user.name
+      if (user.idSession === idSession) return user.name;
     }
     this.aviso.error(`No se a encontrado ningun chat`);
-    return null
+    return null;
   }
 
   getIdSessionByName(nombre: string): number {
@@ -71,12 +68,11 @@ export class MessagesComponent implements OnInit {
     let nombreFiltrado = this.buscaUsers(nombre);
     let nom: string;
 
-    if (nombreFiltrado != null) {
+    if (nombreFiltrado) {
       nom = nombreFiltrado.toUpperCase();
     }
     for (const user of this.usuariosArr) {
-      let nomU = user.name.toUpperCase();
-      if (nomU == nom) return user.idSession;
+      if (user.name.toUpperCase() == nom) return user.idSession;
     }
     if (!this.userEncontrado) this.aviso.error(`No se encontró ningun chat con ${nombre}`);
     return null;
@@ -106,7 +102,6 @@ export class MessagesComponent implements OnInit {
     if (!nombre) {
       this.setListaUsuariosOriginal();
       this.userEncontrado = true;
-      return
     } else {
       let nom = nombre.toUpperCase();
       this.usuariosArr.forEach(user => {
@@ -126,15 +121,13 @@ export class MessagesComponent implements OnInit {
         this.usuariosOn = this.usersFiltrados;
         this.usersFiltrados = [];
         this.userEncontrado = true;
-        return
       }
       else {
         this.userEncontrado = false;
-        return
       }
     }
   }
-  setListaUsuariosOriginal():void{
+  setListaUsuariosOriginal(): void {
     this.usuariosOn = this.usuariosArr;
   }
 }

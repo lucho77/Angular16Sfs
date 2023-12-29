@@ -6,6 +6,7 @@ import { ChatPersonSearchPipe } from './search/chat-person-search.pipe';
 import { UserSearchPipe } from './search/user-search.pipe';
 import { TruncatePipe } from './truncate/truncate.pipe';
 import { SortByTimePipe } from './sort/sort-by-time.pipe';
+import { SortByAbecedarioPipe } from './sort/sort-by-abecedario.pipe';
 
 @NgModule({
     imports: [ 
@@ -17,6 +18,7 @@ import { SortByTimePipe } from './sort/sort-by-time.pipe';
         UserSearchPipe,
         TruncatePipe,
         SortByTimePipe,
+        SortByAbecedarioPipe,
     ],
     exports: [
         ProfilePicturePipe,
@@ -24,6 +26,7 @@ import { SortByTimePipe } from './sort/sort-by-time.pipe';
         UserSearchPipe,
         TruncatePipe,
         SortByTimePipe,
+        SortByAbecedarioPipe,
     ]
 })
 export class PipesModule { }

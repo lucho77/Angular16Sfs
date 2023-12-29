@@ -95,6 +95,7 @@ $padd: 0.5vw 1vw;
             display: flex;
             position: relative;
             flex-direction: column;
+            min-width: 5vw;
             max-width: 85%;
             padding: 0.5vw;
             margin: 0 0.5vw;
@@ -124,6 +125,7 @@ $padd: 0.5vw 1vw;
             -moz-border-radius-topleft: 0;
             border-radius: 15px;
             border-top-left-radius: 0;
+            align-self: flex-start;
         }
         .mensEnviado {
             @include mens();

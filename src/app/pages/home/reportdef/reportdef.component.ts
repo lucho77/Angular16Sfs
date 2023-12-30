@@ -42,6 +42,7 @@ import { ToastrService } from 'ngx-toastr';
 import { buscarParametro, buscarParametrosEnHistoricos, consultarParametroByClase, crearParametro, inicializarHistorico, prepararParametrosApasar } from 'src/app/util/reportdefUtil';
 import { ConfirmationDialogService } from '../../confirmDialog/confirmDialog.service';
 import { AppSettings } from 'src/app/app.settings';
+import { SocketService } from 'src/app/_services/socketService';
 
 declare function applicacionContext(): any;
 declare function downloadFile(mime: string, url: string): any;
@@ -120,7 +121,8 @@ export class ReportdefComponent  implements OnInit {
     private confirmationDialogService: ConfirmationDialogService,
     private changeDetector: ChangeDetectorRef,
     private exitService: ExitService,
-    public appSetting: AppSettings
+    public appSetting: AppSettings,
+    private socketService: SocketService
   ) {
 
    }
@@ -166,7 +168,11 @@ export class ReportdefComponent  implements OnInit {
 
   ngOnInit() {
 
-
+     this.socketService.connectServer();
+     this.socketService.connect().subscribe({
+      next: (mensaje:any) =>(console.log(mensaje)),
+      error: (error:any)=>(console.log(error))}
+     ) 
      this.exitService.exitChanged$.subscribe(() => {
       this.disconnect();
     });

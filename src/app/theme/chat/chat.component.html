@@ -14,17 +14,12 @@
 
     <div ngbAutofocus class="contenedorHistorial" (click)="cerrarMenuChat()">
         <ng-container *ngFor="let mensajes of messages | sortByNumAndBoolean:{campo:'time'}">
-
-            <div class="mensRecibido" *ngIf="mensajes.idSession === idSession && !mensajes.enviado">
+            <div [ngClass]="mensajes.enviado ? 'mensEnviado' : 'mensRecibido'" *ngIf="mensajes.idSession === idSession">
                 <!-- <h3>{{mensajes.name}}</h3> -->
                 <p>{{mensajes.text}}</p>
-                <span>Hace {{mensajes.time}} min</span>
+                <span [class.span-mobile]="EMS.esMobileNoTablet()">Hace {{mensajes.time}} min</span>
             </div>
-            <div class="mensEnviado" *ngIf="mensajes.idSession === idSession && mensajes.enviado">
-                <!-- <h3>{{mensajes.name}}</h3> -->
-                <p>{{mensajes.text}}</p>
-                <span>Hace {{mensajes.time}} min</span>
-            </div>
+            
         </ng-container>
     </div>
     <div class="chatEnviar" (click)="cerrarMenuChat()">

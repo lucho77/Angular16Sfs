@@ -20,14 +20,14 @@ $padd: 0.5vw 1vw;
             background-color: $sidebar-bg-color;
             color: #fff;
             text-align: center;
-            h2{
+            h2 {
                 user-select: none;
             }
             span {
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                font-size: 15px;
+                font-size: 25px;
                 z-index: 999999;
                 &:hover {
                     cursor: pointer;
@@ -37,11 +37,11 @@ $padd: 0.5vw 1vw;
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                gap: 5px;
+                gap: 15px;
                 height: 100%;
                 i {
                     // padding-top: 3px;
-                    font-size: 15px;
+                    font-size: 25px;
                 }
             }
         }
@@ -50,13 +50,13 @@ $padd: 0.5vw 1vw;
             display: flex;
             position: absolute;
             background-color: #505050;
-            width: 10vw;
+            width: 170px;
             max-height: 0;
             opacity: 0;
             visibility: hidden;
             border-radius: 10px 0 10px 10px;
-            right: 3.5vw;
-            top: 2vw;
+            right: 70px;
+            top: 30px;
             z-index: 999999999;
             transition: all 0.3s ease-out;
             overflow: hidden;
@@ -67,13 +67,13 @@ $padd: 0.5vw 1vw;
                     list-style: none;
                     width: 100%;
                     color: #fff;
-                    padding: 0.5vw;
+                    padding: 15px;
                     &:hover {
                         background-color: #8a8989;
                         cursor: pointer;
                     }
-                    &:active{
-                        scale: .99;
+                    &:active {
+                        scale: 0.99;
                     }
                 }
             }
@@ -97,23 +97,26 @@ $padd: 0.5vw 1vw;
             flex-direction: column;
             min-width: 5vw;
             max-width: 85%;
-            padding: 0.5vw;
-            margin: 0 0.5vw;
-            padding-bottom: 1.2vw;
+            padding: 15px;
+            margin: 0 15px;
+            // padding-bottom: 1.2vw;
+            margin-bottom: 15px;
             color: #333;
             h3 {
                 width: auto;
                 font-size: 1vw;
             }
             p {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-between;
                 margin: 0 1vw;
             }
             span {
-                font-size: 0.7vw;
+                font-size: 10px;
                 color: #666666;
                 position: absolute;
-                right: 5px;
-                bottom: 5px;
+                top: 65%;
             }
         }
         .mensRecibido {
@@ -126,6 +129,14 @@ $padd: 0.5vw 1vw;
             border-radius: 15px;
             border-top-left-radius: 0;
             align-self: flex-start;
+
+            span {
+                right: -60px;
+            }
+            .span-mobile {
+                top: 101%;
+                right: 0;
+            }
         }
         .mensEnviado {
             @include mens();
@@ -137,6 +148,14 @@ $padd: 0.5vw 1vw;
             border-radius: 15px;
             border-bottom-right-radius: 0;
             align-self: flex-end;
+
+            span {
+                left: -60px;
+            }
+            .span-mobile {
+                top: 101%;
+                left: 0;
+            }
         }
     }
     .chatEnviar {
@@ -181,7 +200,7 @@ $padd: 0.5vw 1vw;
                 border: none;
                 outline: none;
             }
-            &:active{
+            &:active {
                 font-size: 14px;
             }
         }

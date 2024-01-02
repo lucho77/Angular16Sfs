@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { EsMobileService } from 'src/app/_services/es-mobile.service';
 
 @Component({
   selector: 'app-chat',
@@ -15,7 +16,7 @@ export class ChatComponent {
   public toggleMenuChat: boolean = false;
 
 
-  constructor(private activeModal: NgbActiveModal) { }
+  constructor(private activeModal: NgbActiveModal, public EMS: EsMobileService) { }
 
   cerrarChat(): void {
     this.activeModal.close();

@@ -1,6 +1,6 @@
 <div id="messagesDropDown" [ngClass]="(EMS.esMobileNoTablet()) ? 'drop-mobile d-inline-block' : 'dropdown d-inline-block'">
-    <a class="dropdown-toggle no-caret pl-2 pr-2" id="messages" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <i class="fa fa-commenting-o" aria-hidden="true"></i><span [class.leido]="notiLeido" class="notifica-head">{{notificas.length+getNmMensajesNoLeidos()}}</span>
+    <a class="dropdown-toggle a-head no-caret pl-2 pr-2" id="messages" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <i class="fa fa-commenting-o" aria-hidden="true"><span [class.leido]="notiLeido" class="notifica-head">{{notificas.length+getNmMensajesNoLeidos()}}</span></i>
     </a>
 
     <div  [ngClass]="(EMS.esMobileNoTablet()) ? 'dropdown-menu drop-mobile dropdown-menu-mobile rounded-0 p-0 box-shadow':'dropdown-menu dropdown-menu-right rounded-0 p-0 mt-3 box-shadow'" aria-labelledby="messages">    
@@ -17,12 +17,20 @@
                 </li>                                          
             </ul>
         </div>
-        <ng-scrollbar pointerEventsMethod="scrollbar" style="height: 250px"> 
+        <ng-scrollbar pointerEventsMethod="scrollbar" [ngStyle]="EMS.esMobileNoTablet() ? {'height':'70vh'}:{'height':'250px'}"> 
             <div class="tab-content">
                 <div class="tab-pane active" id="comments">
                     <div class="list">
-                        <ng-container *ngFor="let mens of messages | sortByNumAndBoolean : {campo:'time',boolean:'leido'}">
-                            <a (click)="abrirChat(mens.idSession)" [class.msj-no-leidos]="!mens.leido" class="transition" *ngIf="!mens.enviado">
+                        <ng-container *ngFor="let mens of messages | sortByNumAndBoolean : {campo:'time'}">
+                            <a (click)="abrirChat(mens.idSession)" class="transition msj-no-leidos" *ngIf="!mens.enviado && !mens.leido">
+                                <div class="list-content">
+                                    <h2>{{mens.name}} <span><i class="fa fa-clock-o"></i> Recibido hace {{mens.time}} min</span></h2>
+                                    <p>{{acortarText(mens.text)}}</p>
+                                </div>
+                            </a>
+                        </ng-container>
+                        <ng-container *ngFor="let mens of messages | sortByNumAndBoolean : {campo:'time'}">
+                            <a (click)="abrirChat(mens.idSession)" class="transition" *ngIf="!mens.enviado && mens.leido">
                                 <div class="list-content">
                                     <h2>{{mens.name}} <span><i class="fa fa-clock-o"></i> Recibido hace {{mens.time}} min</span></h2>
                                     <p>{{acortarText(mens.text)}}</p>

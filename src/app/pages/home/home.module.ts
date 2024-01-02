@@ -1,4 +1,4 @@
-import { CUSTOM_ELEMENTS_SCHEMA, LOCALE_ID, NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HomeComponent } from './home.component';
 import { routing } from './home.routing';
@@ -6,7 +6,7 @@ import { DirectivesModule } from '../../theme/directives/directives.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
-import { NgbModule, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {TextFieldModule} from '@angular/cdk/text-field';
 // Calendarios y fechas
 
@@ -15,7 +15,6 @@ import { ErrorInterceptor } from '../../_helpers/error.interceptor';
 import { ToastrModule } from 'ngx-toastr';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 import { AutocompleteComponent } from 'src/app/controls/autoComplete';
-import { BusquedaGenericaComponent } from 'src/app/controls/busquedaGenerica';
 import { BusquedaGenericaTextComponent } from 'src/app/controls/busquedaGenericaText';
 import { ButtonComponent } from 'src/app/controls/button';
 import { ButtonCancelComponent } from 'src/app/controls/buttonCancel';
@@ -42,7 +41,6 @@ import { MessagesModule } from 'primeng/messages';
 import { FieldBuilderComponent } from './reportdef/formulario/fieldBuilder';
 import { InfoAreaComponent } from './areaInfo/infoArea.component';
 import { InfoNotificationComponent } from './infoNotification/infoNotification.component';
-import { ConfirmDialogComponent } from '../confirmDialog/confirmDialog.component';
 import { ReportdefComponent } from './reportdef/reportdef.component';
 import { GenericFinderService } from '../genericFinder/genericFinder.service';
 import { ToolbarModule} from 'primeng/toolbar';

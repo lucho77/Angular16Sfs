@@ -44,7 +44,7 @@ export class MessagesComponent implements OnInit {
 
     if (!idSession) return
 
-    let modalChat = this.modalService.open(ChatComponent, { size: 'lg', centered: true, });
+    let modalChat = this.modalService.open(ChatComponent, { size: 'lg', centered: true});
 
     modalChat.componentInstance.idSession = idSession;
     modalChat.componentInstance.nombre = this.getNombreChatByIdSession(idSession);

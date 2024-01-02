@@ -10,7 +10,6 @@ import { RedirectGuard } from './routing/redirectGuard';
 import { MenuErrorComponent } from './pages/errors/menu/menu-error.component';
 import { TokenComponent } from './pages/errors/token/token.component';
 import { ExternalLoginErrorComponent } from './pages/errors/externalLogin/externalLoginError.component';
-import { PagesModule } from './pages/pages.module';
 import { AuthGuard } from './_guards';
 
 export const routes: Routes = [

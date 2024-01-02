@@ -9,14 +9,10 @@ export class HomeComponent implements OnInit {
 
     ngOnInit() {
         this.prueba = false;
-        console.log('hOME iNICIALIZADO');
         const reporte = localStorage.getItem('reporte');
         localStorage.removeItem('reporte');
-        console.log(reporte);
         const url = '/pages/home/reportdef';
         if (reporte && reporte!=='null' && reporte!=='undefined' ) {
-            // console.log('entro a la opcion de ' + menuItem.ejecutar);
-            // console.log('Router URL ' + this.router.url);
             this.router.navigate([url, reporte]);
         } else {
             this.router.navigate([url, 'nothing']);

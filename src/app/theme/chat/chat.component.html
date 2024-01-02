@@ -13,7 +13,7 @@
     </div>
 
     <div ngbAutofocus class="contenedorHistorial" (click)="cerrarMenuChat()">
-        <ng-container *ngFor="let mensajes of messages | sortByNum:'time'">
+        <ng-container *ngFor="let mensajes of messages | sortByNumAndBoolean:{campo:'time'}">
 
             <div class="mensRecibido" *ngIf="mensajes.idSession === idSession && !mensajes.enviado">
                 <!-- <h3>{{mensajes.name}}</h3> -->

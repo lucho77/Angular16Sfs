@@ -1,19 +1,19 @@
 <div id="messagesDropDown" [ngClass]="(EMS.esMobileNoTablet()) ? 'drop-mobile d-inline-block' : 'dropdown d-inline-block'">
     <a class="dropdown-toggle no-caret pl-2 pr-2" id="messages" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <i class="fa fa-commenting-o" aria-hidden="true"></i>
+        <i class="fa fa-commenting-o" aria-hidden="true"></i><span [class.leido]="notiLeido" class="notifica-head">{{notificas.length+getNmMensajesNoLeidos()}}</span>
     </a>
 
     <div  [ngClass]="(EMS.esMobileNoTablet()) ? 'dropdown-menu drop-mobile dropdown-menu-mobile rounded-0 p-0 box-shadow':'dropdown-menu dropdown-menu-right rounded-0 p-0 mt-3 box-shadow'" aria-labelledby="messages">    
         <div class="clearfix">            
             <ul id="messagesTabs" class="nav nav-tabs nav-justified border-0">
                 <li class="nav-item">
-                    <a class="nav-link active transition" data-toggle="tab" href="#comments"><i class="fa fa-comment-o" aria-hidden="true"></i></a>
+                    <a class="nav-link active transition" (click)="setListaUsuariosOriginal()" data-toggle="tab" href="#comments">{{getNmMensajesNoLeidos()}} <i class="fa fa-comment-o" aria-hidden="true"></i></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link transition" data-toggle="tab" href="#meetings"><i class="fa fa-bell-o" aria-hidden="true"></i></a>
+                    <a class="nav-link transition" (click)="notiLeido = true; setListaUsuariosOriginal()" data-toggle="tab" href="#meetings">{{notificas.length}} <i class="fa fa-bell-o" aria-hidden="true"></i></a>
                 </li>       
                 <li class="nav-item">
-                    <a class="nav-link transition" data-toggle="tab" href="#userOnline">{{usuariosOn.length}} <i class="fa fa-user-o" aria-hidden="true"></i></a>
+                    <a class="nav-link transition" (click)="setListaUsuariosOriginal()" data-toggle="tab" href="#userOnline">{{usuariosOn.length}} <i class="fa fa-user-o" aria-hidden="true"></i></a>
                 </li>                                          
             </ul>
         </div>
@@ -21,27 +21,21 @@
             <div class="tab-content">
                 <div class="tab-pane active" id="comments">
                     <div class="list">
-                        <ng-container *ngFor="let mens of messages | sortByNum : 'time'">
-                            <a (click)="abrirChat(mens.idSession)" class="transition" *ngIf="!mens.enviado">
+                        <ng-container *ngFor="let mens of messages | sortByNumAndBoolean : {campo:'time',boolean:'leido'}">
+                            <a (click)="abrirChat(mens.idSession)" [class.msj-no-leidos]="!mens.leido" class="transition" *ngIf="!mens.enviado">
                                 <div class="list-content">
-                                    <h2>{{mens.name}} </h2>
+                                    <h2>{{mens.name}} <span><i class="fa fa-clock-o"></i> Recibido hace {{mens.time}} min</span></h2>
                                     <p>{{acortarText(mens.text)}}</p>
-                                    <span><i class="fa fa-clock-o"></i> Recibido hace {{mens.time}} min</span>
                                 </div>
                             </a>
                         </ng-container>
-                        
                     </div> 
                 </div>
                 <div class="tab-pane" id="meetings">
                     <div class="list">
-                        <a *ngFor="let meeting of meetings" href="javascript:void(0);" class="transition">
-                            <!-- <div class="meeting-day bg-{{meeting.color}} pull-left">
-                                <span>{{meeting.day}}</span>
-                                <span>{{meeting.month}}</span>
-                            </div>                    -->
+                        <a *ngFor="let meeting of notificas | sortByNumAndBoolean : {campo:'time'}" href="javascript:void(0);" class="transition">
                             <div class="list-content">
-                                <h2>{{meeting.title}}</h2>
+                                <h2>{{meeting.title}} <span><i class="fa fa-clock-o"></i> Recibido hace {{meeting.time}} min</span></h2>
                                 <p>{{meeting.text}}</p>
                             </div>
                         </a>

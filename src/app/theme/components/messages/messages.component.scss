@@ -9,6 +9,27 @@
         width: 90vw;
         height: fit-content;
     }
+    .notifica-head{
+        display: flex;
+        position: absolute;
+        margin-left: 5px;
+        color: #fff;
+        justify-content: center;
+        align-items: center;
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        font-size: 12px;
+        top: -2px;
+        right: -2px;
+        background: rgba(255, 0, 0, 0.521);
+    }
+    .leido{
+        background: transparent;
+    }
+    .msj-no-leidos{
+        background: rgba(8, 43, 77, 0.082);
+    }
     .nav-link {
         color: #a6a6a6;
         border: 0;
@@ -66,6 +87,10 @@
                 }
                 .list-content {
                     width: 100%;
+                    h2{
+                        display: flex;
+                        justify-content: space-between;
+                    }
                 }
                 img {
                     float: left;

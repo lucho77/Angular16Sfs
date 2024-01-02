@@ -16,18 +16,19 @@ import { EsMobileService } from 'src/app/_services/es-mobile.service';
 export class MessagesComponent implements OnInit {
   public messages: Array<any>;
   public files: Array<any>;
-  public meetings: Array<any>;
+  public notificas: Array<any>;
   public usuariosOn: Array<any>;
   public usuariosArr: Array<any>;
   public userSearch: string;
   public toggleClassInput: boolean = false;
   public usersFiltrados: Array<any> = [];
   private userEncontrado: boolean;
+  public notiLeido: boolean;
   @ViewChild('buscarNombre') inputBuscarNombre: ElementRef;
 
-  constructor(private messagesService: MessagesService, private modalService: NgbModal, private aviso: ToastrService, public EMS : EsMobileService) {
+  constructor(private messagesService: MessagesService, private modalService: NgbModal, private aviso: ToastrService, public EMS: EsMobileService) {
     this.messages = messagesService.getMessages();
-    this.meetings = messagesService.getMeetings();
+    this.notificas = messagesService.getMeetings();
     this.usuariosOn = messagesService.getUsuarios();
     this.usuariosArr = messagesService.getUsuarios();
 
@@ -44,7 +45,7 @@ export class MessagesComponent implements OnInit {
 
     if (!idSession) return
 
-    let modalChat = this.modalService.open(ChatComponent, { size: 'lg', centered: true,  });
+    let modalChat = this.modalService.open(ChatComponent, { size: 'lg', centered: true, });
 
     modalChat.componentInstance.idSession = idSession;
     modalChat.componentInstance.nombre = this.getNombreChatByIdSession(idSession);
@@ -72,13 +73,14 @@ export class MessagesComponent implements OnInit {
     for (const user of this.usuariosArr) {
       if (user.name.toUpperCase() == nom) return user.idSession;
     }
-    if (!this.userEncontrado) this.aviso.error(`No se encontró ningun chat con ${nombre}`);
+    if (!this.userEncontrado) this.aviso.error(`No se encontró a ${nombre}`,'Chat no encontrado');
     return null;
   }
 
   acortarText(texto: string): string {
-    if (texto.length > 50) {
-      return texto.slice(0, 51) + '...';
+    let maxCaracteres: number = 100;
+    if (texto.length > maxCaracteres) {
+      return texto.slice(0, maxCaracteres + 1) + '...';
     }
     return texto;
   }
@@ -125,5 +127,9 @@ export class MessagesComponent implements OnInit {
 
   setListaUsuariosOriginal(): void {
     this.usuariosOn = this.usuariosArr;
+  }
+
+  getNmMensajesNoLeidos(): number {
+    return this.messages.filter(m => !m.leido && !m.enviado).length;
   }
 }

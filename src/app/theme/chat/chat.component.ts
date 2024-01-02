@@ -9,7 +9,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 export class ChatComponent {
   @Input() idSession: Number;
   @Input() nombre: Number;
-  @Input() messages: any;
+  @Input() messages: Array<any>;
   public msj: string;
   public toggleMenuChat: boolean = false;
 
@@ -34,7 +34,8 @@ export class ChatComponent {
         'text': msj,
         'time': 0,
         'enviado': true,
-        'idSession': this.idSession
+        'idSession': this.idSession,
+        'leido': true
 
       });
       this.msj = '';

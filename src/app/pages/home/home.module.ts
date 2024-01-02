@@ -67,7 +67,9 @@ export const MY_MOMENT_FORMATS = {
     CommonModule,routing, FormsModule,ToolbarModule,ButtonModule,
    DirectivesModule, NgbModule, ReactiveFormsModule,BusquedaGenericaModule,
     NgScrollbarModule,AngularEditorModule,DialogModule,MessagesModule,EditorModule,AutoCompleteModule,TextFieldModule,
-    ToastrModule.forRoot(),
+    ToastrModule.forRoot({
+      progressBar:true
+    }),
 
   ],
   declarations: [

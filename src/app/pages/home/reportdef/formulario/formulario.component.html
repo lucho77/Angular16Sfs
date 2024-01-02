@@ -42,7 +42,7 @@
                                     [elindex]=camposAgrupaEnteroDescompuesto[i]></app-field-builder>
                             </div>
                     </form>
-                    <div [ngClass]="mobile && !tablet ? 'btn-list-row' : 'row buttons'">
+                    <div [ngClass]="EMS.esMobileNoTablet() ? 'btn-list-row' : 'row buttons'">
                         <div *ngFor="let field of data.list">
                             <app-button *ngIf="field.buttom && !field.buttomDTO.bottonVolver" [field]="field"
                                 [form]="form" (acciones)="processActions($event,false)"></app-button>
@@ -78,7 +78,7 @@
                             (accionesDina)="processMethodDina($event)" [field]="field" 
                             [form]="form"></app-field-builder>
                     </div>
-                    <div [ngClass]="mobile && !tablet ? 'btn-list-row' : 'row'">
+                    <div [ngClass]="EMS.esMobileNoTablet() ? 'btn-list-row' : 'row'">
                         <div *ngFor="let field of data.list">
                             <app-button
                                 *ngIf="field.buttom && !field.buttomDTO.bottonVolver && !field.buttomDTO.bottonVolverHistorico"
@@ -124,7 +124,7 @@
                             </div>
                         </p-tabPanel>
                     </p-tabView>
-                    <div [ngClass]="mobile && !tablet ? 'btn-list-row' : 'row'">
+                    <div [ngClass]="EMS.esMobileNoTablet() ? 'btn-list-row' : 'row'">
                         <div *ngFor="let field of data.list">
                             <app-button *ngIf="field.buttom && !field.buttomDTO.bottonVolver" [field]="field"
                                 [form]="form" (acciones)="processActions($event,false)"></app-button>
@@ -192,7 +192,7 @@
                         <app-field-builder *ngIf="!fieldHijo.buttom" [dataForm]="formRepordefHijos.list"
                             [field]="fieldHijo" [form]="formHijo"></app-field-builder>
                     </div>
-                    <div [ngClass]="mobile && !tablet ? 'btn-list-row' : 'row'">
+                    <div [ngClass]="EMS.esMobileNoTablet() ? 'btn-list-row' : 'row'">
                         <div *ngFor="let fieldHijo of formRepordefHijos.list">
                             <app-button *ngIf="fieldHijo.buttom && !fieldHijo.buttomDTO.bottonVolver"
                                 [field]="fieldHijo" [form]="formHijo"

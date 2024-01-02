@@ -5,16 +5,14 @@ import { GenericFinderComponent } from './genericFinder.component';
 import { HeaderDTO } from 'src/app/_models/headerDTO';
 import { FinderParamsDTO } from '../../_models/finderParamsDTO';
 import { getData } from './utilFinder';
-import { isMobile } from 'mobile-device-detect';
 import { ListboxComponent } from '../listbox/listbox.component';
+import { EsMobileService } from 'src/app/_services/es-mobile.service';
 
 
 @Injectable()
 export class GenericFinderService {
 
-  mobile: boolean = isMobile;
-  tablet: boolean = screen.width > 600;
-  constructor(private modalService: NgbModal) { }
+  constructor(private modalService: NgbModal,private EMS:EsMobileService) { }
 
   settings: any;
   data: any;
@@ -57,7 +55,7 @@ export class GenericFinderService {
 
     this.data = getData(data.data, data.columns);
 
-    if (this.mobile && !this.tablet) {
+    if (this.EMS.esMobileNoTablet()) {
       return this.openModal(ListboxComponent, dialogSize, title, column, entidad, vista, finder, combofinder, findByEqual, value);
     } else {
       return this.openModal(GenericFinderComponent, dialogSize, title, column, entidad, vista, finder, combofinder, findByEqual, value);

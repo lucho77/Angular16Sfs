@@ -10,7 +10,7 @@
                     <a class="nav-link active transition" (click)="setListaUsuariosOriginal()" data-toggle="tab" href="#comments">{{getNmMensajesNoLeidos()}} <i class="fa fa-comment-o" aria-hidden="true"></i></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link transition" (click)="notiLeido = true; setListaUsuariosOriginal()" data-toggle="tab" href="#meetings">{{notificas.length}} <i class="fa fa-bell-o" aria-hidden="true"></i></a>
+                    <a class="nav-link transition" (click)="notiLeido = true; setListaUsuariosOriginal()" data-toggle="tab" href="#notificaciones">{{notificas.length}} <i class="fa fa-bell-o" aria-hidden="true"></i></a>
                 </li>       
                 <li class="nav-item">
                     <a class="nav-link transition" (click)="setListaUsuariosOriginal()" data-toggle="tab" href="#userOnline">{{usuariosOn.length}} <i class="fa fa-user-o" aria-hidden="true"></i></a>
@@ -31,7 +31,7 @@
                         </ng-container>
                     </div> 
                 </div>
-                <div class="tab-pane" id="meetings">
+                <div class="tab-pane" id="notificaciones">
                     <div class="list">
                         <a *ngFor="let meeting of notificas | sortByNumAndBoolean : {campo:'time'}" href="javascript:void(0);" class="transition">
                             <div class="list-content">

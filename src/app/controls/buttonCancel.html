@@ -1,3 +1,3 @@
-<div [ngClass]="mobile && !tablet ? 'btn-wrapper-mobile' : 'btn-wrapper'">
+<div [ngClass]="EMS.esMobileNoTablet() ? 'btn-wrapper-mobile' : 'btn-wrapper'">
     <button type="button" (click)="executeAction()" class="btn btn-primary btn-xs btn-sm btn-md btn-lg">{{field.buttomDTO.metodoDTO.labelButtom}}</button>
 </div>

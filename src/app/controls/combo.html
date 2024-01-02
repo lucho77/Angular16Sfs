@@ -6,7 +6,7 @@
                 <label class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-1 tm-f-bugt pl-0">{{field.label}}:
                     <strong class="text-danger" *ngIf="field.require">*</strong>
                 </label>
-                <select [class.mobile]="mobile && !tablet" class="combo tm-f-bugt" (change)="onChange($event)" [id]="field.name" [formControlName]="field.name">
+                <select [class.mobile]="EMS.esMobileNoTablet()" class="combo tm-f-bugt" (change)="onChange($event)" [id]="field.name" [formControlName]="field.name">
                     <option value="" disabled selected hidden>Seleccione una opción</option> 
                     <option *ngFor="let opt of field.comboDTO.comboBoxDTO" [value]="opt.id">{{opt.value}}</option>
                 </select>

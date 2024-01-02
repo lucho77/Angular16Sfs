@@ -12,7 +12,7 @@ import { ChatDTO } from 'src/app/_models/chatDTO';
 import { MetodoService } from 'src/app/_services/metodoService';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
-import { isMobile } from 'mobile-device-detect';
+import { EsMobileService } from 'src/app/_services/es-mobile.service';
 
 @Component({
   selector: 'app-header',
@@ -38,14 +38,12 @@ export class HeaderComponent implements OnInit {
   usuarioMesa = false;
   submitted = false;
   usuario = JSON.parse(localStorage.getItem('currentUser'));
-  mobile: boolean = isMobile;
-  tablet: boolean = screen.width > 600;
 
   consultaForm: FormGroup;
 
   constructor(private appSettings: AppSettings,  private router: Router,private formBuilder: FormBuilder,
     private authenticationService: AuthenticationService,  private exitService: ExitService,
-    private metodoService: MetodoService, private toastService: ToastrService) {
+    private metodoService: MetodoService, private toastService: ToastrService, public EMS:EsMobileService) {
       this.settings = this.appSettings.settings;
     }
 

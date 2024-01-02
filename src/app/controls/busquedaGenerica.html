@@ -1,15 +1,15 @@
 <div [formGroup]="form">
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pr-0">
-            <div [ngClass]="mobile && !tablet ? 'ig ig-mobile':'ig alternativo'">
+            <div [ngClass]="EMS.esMobileNoTablet() ? 'ig ig-mobile':'ig alternativo'">
                 <label class="d-flex flex-nowrap input-group col-xs-2 col-sm-2 col-md-4 col-lg-2 col-xl-1 lab tm-f-bugt pl-0">{{field.label}}:<strong class="text-danger " *ngIf="field.require ">*</strong></label>
-                <input *ngIf="!this.form.controls[this.field.nameRes].value || !mobile && tablet" type="text" class="input-1" [id]="field.name" [name]="field.name" [formControlName]="field.name " (keydown.enter)="buscar($event) ">
-                <button *ngIf="!this.form.controls[this.field.nameRes].value || !mobile && tablet" class="btn btn-info btn-1 d-flex" style="border-radius: 0 4px 4px 0;" (click)="buscar($event) ">
-                    <span *ngIf="!loader"><i class="fa fa-search "></i> <span *ngIf="!mobile || tablet">Buscar</span></span><span disabled *ngIf="loader" class="loader"></span>
+                <input *ngIf="!this.form.controls[this.field.nameRes].value || EMS.esEscritorioOTablet()" type="text" class="input-1" [id]="field.name" [name]="field.name" [formControlName]="field.name " (keydown.enter)="buscar($event) ">
+                <button *ngIf="!this.form.controls[this.field.nameRes].value || EMS.esEscritorioOTablet()" class="btn btn-info btn-1 d-flex" style="border-radius: 0 4px 4px 0;" (click)="buscar($event) ">
+                    <span *ngIf="!loader"><i class="fa fa-search "></i> <span *ngIf="EMS.esEscritorioOTablet()">Buscar</span></span><span disabled *ngIf="loader" class="loader"></span>
                 </button>
                 <input *ngIf="this.form.controls[this.field.nameRes].value" type="text" class="input-2" id="field.nameRes " [formControlName]="field.nameRes ">
                 <button *ngIf="this.form.controls[this.field.nameRes].value" class="btn btn-outline-secondary btn-2 d-flex" style="border-radius: 0 4px 4px 0;" type="button " (click)="borrar($event) ">
-                    <i class="fa fa-eraser"></i> <span *ngIf="!mobile || tablet">Borrar</span>
+                    <i class="fa fa-eraser"></i> <span *ngIf="EMS.esEscritorioOTablet()">Borrar</span>
                 </button>
             </div>
         </div>

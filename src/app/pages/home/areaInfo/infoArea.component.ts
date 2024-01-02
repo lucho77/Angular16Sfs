@@ -3,7 +3,6 @@ import { Subscription } from 'rxjs';
 import { NameGlobalService } from '../../../_services/nameGlobalService';
 import { FormdataReportdef } from '../../../_models/formdata';
 import { DomSanitizer } from '@angular/platform-browser';
-import { isMobile } from 'mobile-device-detect';
 import { Router } from '@angular/router';
 
 @Component({
@@ -12,8 +11,6 @@ import { Router } from '@angular/router';
 })
 export class InfoAreaComponent   {
   imgBase64 = null;
-  mobile: boolean = isMobile;
-  tablet: boolean = screen.width > 600;
 
   public data: DataUsuario = {
     name: 'Sin Seleccion',

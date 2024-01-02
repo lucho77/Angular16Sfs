@@ -1,6 +1,6 @@
 
 <!-- --------------- card si NO es mobile-----------------  -->
-<div *ngIf="!mobile || tablet" widget class="card border-0 box-shadow">
+<div *ngIf="EMS.esEscritorioOTablet()" widget class="card border-0 box-shadow">
     <div class="card-header transparent border-0 text-muted">
 
         <div class="widget-controls">
@@ -168,7 +168,7 @@
 </div>
 
 <!-- --------------- card si ES mobile--------------------  -->
-<div *ngIf="mobile && !tablet"  widget class="card border-0 box-shadow">
+<div *ngIf="EMS.esMobileNoTablet()"  widget class="card border-0 box-shadow">
     <div class="card-header transparent border-0 text-muted">
 
         <div class="widget-controls">

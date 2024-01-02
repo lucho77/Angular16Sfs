@@ -9,8 +9,6 @@ import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AvisaSeteoService } from 'src/app/_services/avisaSeteoService';
 import { ToastrService } from 'ngx-toastr';
-import { Pagination } from 'src/app/_models/pagination';
-import { isMobile } from 'mobile-device-detect';
 import { getData } from '../genericFinder/utilFinder';
 
 @Component({
@@ -31,8 +29,6 @@ export class ListboxComponent {
   @Input('findByEqual') findByEqual: boolean;
   @ViewChild('find') find: ElementRef;
   dataSeleccionada: any;
-  mobile: boolean = isMobile;
-  tablet: boolean = screen.width > 600;
   finderTabular = {
     busqueda: '',
     campoBusqueda: null,

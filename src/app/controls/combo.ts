@@ -10,7 +10,7 @@ import { ParametrosExecuteMethodRequestDTO } from '../_models/parametrosExecuteM
 import * as moment from 'moment'; // add this 1 of 4
 import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
 import { toInteger } from '../util/datePicker/util';
-import { isMobile } from 'mobile-device-detect';
+import { EsMobileService } from '../_services/es-mobile.service';
 
 
 @Component({
@@ -23,9 +23,7 @@ export class ComboComponent {
     @Input() form: FormGroup;
     @Input() elindex: any;
     @Input() dataForm: FormdataReportdef[];
-    mobile: boolean = isMobile;
-    tablet: boolean = screen.width > 600;
-    constructor(private abmService: AbmService) {
+    constructor(private abmService: AbmService, public EMS:EsMobileService) {
     }
 
     // tslint:disable-next-line:use-life-cycle-interface

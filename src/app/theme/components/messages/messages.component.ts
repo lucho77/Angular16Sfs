@@ -3,7 +3,6 @@ import { MessagesService } from './messages.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ChatComponent } from '../../chat/chat.component';
 import { ToastrService } from 'ngx-toastr';
-import { isMobile } from 'mobile-device-detect';
 import { EsMobileService } from 'src/app/_services/es-mobile.service';
 
 @Component({

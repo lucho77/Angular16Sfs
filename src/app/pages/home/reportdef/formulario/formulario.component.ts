@@ -32,8 +32,8 @@ import { isNumber, toInteger } from 'src/app/util/datePicker/util';
 import { consultarParametroByParam, crearParametro, ejecutarMetodo, seteoParamGlobal } from 'src/app/util/reportdefUtil';
 import { Message } from 'primeng/api';
 import { CommonModule } from '@angular/common';
-import { isMobile, isTablet } from 'mobile-device-detect';
 import { AppSettings } from 'src/app/app.settings';
+import { EsMobileService } from 'src/app/_services/es-mobile.service';
 declare function mapa(usuario: string, latitud: number, longitud: number, info: string): any;
 
 @Component({
@@ -57,8 +57,6 @@ export class FormularioComponent  implements OnInit {
   @Output()backHistory = new EventEmitter<any>();
   @Input('settings') settings: any;
   @Input('tipoReporte') tipoReporte: ReportdefData;
-  mobile: boolean = isMobile;
-  tablet: boolean = screen.width > 600;
 
   firma = false;
   tieneHijos = {
@@ -91,7 +89,7 @@ export class FormularioComponent  implements OnInit {
   hijoAux:boolean;
   formRepordefAux: FormdataReportdef;
 
-  constructor(private confirmationDialogService: ConfirmationDialogService,
+  constructor(public EMS:EsMobileService,private confirmationDialogService: ConfirmationDialogService,
     private abmservice: AbmService, public toastrService: ToastrService, private reportdefService: ReportdefService,
     private nameService: NameGlobalService, private nameAvisoSeteo: AvisaSeteoService, private paramService: ParamDataHijoService,
     private router: Router,

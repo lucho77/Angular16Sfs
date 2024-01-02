@@ -32,8 +32,8 @@ import { AccionColumna } from '../../../../_models/accionColumna';
 import { PreMethodDTO } from '../../../../_models/preMethodDTO';
 import { crearParametro, ejecutarMetodo, seteoParamGlobal } from 'src/app/util/reportdefUtil';
 import { ToastrService } from 'ngx-toastr';
-import { isMobile, isTablet } from 'mobile-device-detect';
 import { AppSettings } from 'src/app/app.settings';
+import { EsMobileService } from 'src/app/_services/es-mobile.service';
 
 @Component({
   selector: 'app-tabular',
@@ -77,8 +77,6 @@ export class TabularComponent implements OnInit, OnChanges {
   private nameRef: Subscription = null;
   menovillan: any;
   descripcion = false;
-  mobile: boolean = isMobile;
-  tablet: boolean = screen.width > 600;
   loader: boolean = false;
   popup: boolean = false;
 
@@ -90,7 +88,7 @@ export class TabularComponent implements OnInit, OnChanges {
     private reportdefService: ReportdefService, private nameService: NameGlobalService,
     private descriptionService: DescriptionService,
     private nameAvisoSeteo: AvisaSeteoService, private sanitizer: DomSanitizer,
-    public appSettings: AppSettings) {
+    public appSettings: AppSettings,public EMS:EsMobileService) {
     // this.safeSrc =  this.sanitizer.bypassSecurityTrustResourceUrl("https://www.youtube.com/embed/c9F5kMUfFKk");
     // this.safeSrc =  this.sanitizer.bypassSecurityTrustResourceUrl(this.laurl);
   }
@@ -172,7 +170,7 @@ export class TabularComponent implements OnInit, OnChanges {
 
     let verAll = document.querySelectorAll('.ver')
     let loadAll = document.querySelectorAll('.load')
-    if (this.mobile && !this.tablet) {
+    if (this.EMS.esMobileNoTablet()) {
       this.dataContainerMobile.nativeElement.innerHTML = descrip;
       this.popup = true;
       verAll.forEach(element => {

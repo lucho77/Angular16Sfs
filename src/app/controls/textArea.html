@@ -7,7 +7,7 @@
              </label>
                 <textarea   cdkTextareaAutosize
                             #autosize="cdkTextareaAutosize"
-                            [class.mobile]="mobile && !tablet" 
+                            [class.mobile]="EMS.esMobileNoTablet()" 
                             [formControlName]="field.name" 
                             [id]="field.name">
                 </textarea>

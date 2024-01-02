@@ -11,7 +11,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { AvisaSeteoService } from 'src/app/_services/avisaSeteoService';
 import { ToastrService } from 'ngx-toastr';
 import { Pagination } from 'src/app/_models/pagination';
-import { isMobile } from 'mobile-device-detect';
+import { EsMobileService } from 'src/app/_services/es-mobile.service';
 
 
 @Component({
@@ -34,8 +34,6 @@ export class GenericFinderComponent implements OnInit {
   @ViewChild('find') find: ElementRef;
   pagination: Pagination;
   dataSeleccionada: any;
-  mobile: boolean = isMobile;
-  tablet: boolean = screen.width > 600;
 
   se_expande = true;
   se_colapsa = false;
@@ -49,7 +47,7 @@ export class GenericFinderComponent implements OnInit {
   };
   lastClickTime = 0;
   rowSelected: any;
-  constructor(private activeModal: NgbActiveModal, private renderer: Renderer2, private avisaSeteo: AvisaSeteoService,
+  constructor(public EMS:EsMobileService,private activeModal: NgbActiveModal, private renderer: Renderer2, private avisaSeteo: AvisaSeteoService,
     private abmservice: AbmService, public toastrService: ToastrService, private router: Router
     ) { }
 
@@ -80,7 +78,7 @@ export class GenericFinderComponent implements OnInit {
       // console.log(this.finder);
 
       
-      if (!this.finder.typeMethodFinder && !this.mobile || this.tablet) {
+      if (!this.finder.typeMethodFinder && this.EMS.esEscritorioOTablet()) {
         this.renderer.selectRootElement(this.find.nativeElement).focus();
       }
       // this.find.nativeElement.focus();

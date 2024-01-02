@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -10,6 +10,7 @@ export class ChatComponent {
   @Input() idSession: Number;
   @Input() nombre: Number;
   @Input() messages: Array<any>;
+  mensSort: Array<any>;
   public msj: string;
   public toggleMenuChat: boolean = false;
 

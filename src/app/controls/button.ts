@@ -2,9 +2,7 @@ import { Component, Input, EventEmitter, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { AvisaSeteoService } from '../_services/avisaSeteoService';
 import { Subscription } from 'rxjs';
-import { isMobile, isTablet } from 'mobile-device-detect';
-import { BusquedaGenericaComponent } from './busquedaGenerica';
-import { BusquedaGenericaModule } from '../busquedaGenericaModule';
+import { EsMobileService } from '../_services/es-mobile.service';
 
 @Component({
     selector: 'app-button',
@@ -19,8 +17,6 @@ export class ButtonComponent {
 
     @Input() flecha = false;
     private suscRef: Subscription = null;
-    mobile: boolean = isMobile;
-    tablet: boolean = screen.width > 600;
     visible: boolean;
 
     public data: DatoVisible = {
@@ -28,7 +24,7 @@ export class ButtonComponent {
         cantidadBotones : 0
       };
 
-    constructor(private avisoSeweteo: AvisaSeteoService) {
+    constructor(private avisoSeweteo: AvisaSeteoService,public EMS:EsMobileService) {
         this.data.flechaBotonSetear = false;
         this.data.cantidadBotones = 0;
     }

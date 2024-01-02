@@ -10,7 +10,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { ParametrosExecuteMethodRequestDTO } from '../_models/parametrosExecuteMethodRequestDTO';
 import { ToastrService } from 'ngx-toastr';
-import { isMobile, isTablet } from 'mobile-device-detect';
+import { EsMobileService } from '../_services/es-mobile.service';
 
 @Component({
     selector: 'app-busquedagenerica',
@@ -23,15 +23,14 @@ export class BusquedaGenericaComponent {
     @Input() form: FormGroup;
     @Input() elindex: any;
     @Input() dataForm: FormdataReportdef[];
-    mobile: boolean = isMobile;
-    tablet: boolean = screen.width > 600;
     loader: boolean = false;
 
     get isValid() { return this.form.controls[this.field.name].valid; }
     get isDirty() { return this.form.controls[this.field.name].dirty; }
     constructor(
         private abmservice: AbmService,  public toastrService: ToastrService,
-        private genericFinderService: GenericFinderService, private router: Router
+        private genericFinderService: GenericFinderService, private router: Router,
+        public EMS: EsMobileService
         ) {
     }
     public buscar(event) {

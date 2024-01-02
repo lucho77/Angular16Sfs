@@ -5,7 +5,7 @@
                 <label class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-1 tm-f-bugt pl-0">{{field.label}}: 
                         <strong class="text-danger" *ngIf="field.require">*</strong>
                 </label>
-                <input type="text" [ngClass]="mobile && !tablet ? 'textBox mobile' : 'textBox'" [id]="field.name" [name]="field.name" [formControlName]="field.name">
+                <input type="text" [ngClass]="EMS.esMobileNoTablet() ? 'textBox mobile' : 'textBox'" [id]="field.name" [name]="field.name" [formControlName]="field.name">
             </div>
         </div>
     </div>

@@ -2,7 +2,7 @@ import { Component, OnInit, ViewEncapsulation, HostListener } from '@angular/cor
 import { Router } from '@angular/router';
 import { AppSettings } from '../app.settings';
 import { Settings } from '../app.settings.model';
-import { isMobile } from 'mobile-device-detect';
+import { EsMobileService } from '../_services/es-mobile.service';
 
 
 @Component({
@@ -18,11 +18,9 @@ export class PagesComponent implements OnInit {
     public menuOption:string;
     public menuTypes = ['default', 'compact', 'mini'];
     public menuTypeOption:string;
-    mobile: boolean = isMobile;
-    tablet: boolean = screen.width > 600;
     
     public settings: Settings;
-    constructor(public appSettings:AppSettings, public router:Router){        
+    constructor(public appSettings:AppSettings, public router:Router, public EMS:EsMobileService){        
         this.settings = this.appSettings.settings; 
         if(sessionStorage["skin"]) {
             this.settings.theme.skin = sessionStorage["skin"];
@@ -71,7 +69,7 @@ export class PagesComponent implements OnInit {
         }
     }
     cerrarMenu(){
-        if (this.mobile && !this.tablet) {
+        if (this.EMS.esMobileNoTablet()) {
             this.settings.theme.showMenu = false;
         }
     }

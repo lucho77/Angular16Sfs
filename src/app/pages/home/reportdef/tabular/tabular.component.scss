@@ -125,64 +125,6 @@
     }
 }
 
-.popupContainer {
-    display: flex;
-    flex-direction: column;
-    position: fixed;
-    top: 20%;
-    padding: 5vw;
-    padding-top: 10vw;
-    background: #fff;
-    border-radius: 4px;
-    border: 1px solid rgba(0, 0, 0, 0.125);
-    width: calc(100% - 50px);
-    max-height: 65vh;
-    box-shadow: 0px 0px 9px 1px rgba(0, 0, 0, 0.5);
-    -webkit-box-shadow: 0px 0px 9px 1px rgba(0, 0, 0, 0.5);
-    -moz-box-shadow: 0px 0px 9px 1px rgba(0, 0, 0, 0.5);
-    opacity: 0;
-    // visibility: hidden;
-    scale: 0;
-    transition: opacity .4s ease-out, scale .4s ease-out;
-    .headerPopup{
-        display: flex;
-        position: absolute;
-        width: calc(100% - 40px);
-        border-bottom: 1px solid #33333331;
-        top: 5px;
-        left: 15px;
-        color: #7c7c7c;
-        font-size: 20px;
-    }
-    label {
-        display: flex;
-        position: absolute;
-        top: 0px;
-        right: 8px;
-        color: #7c7c7c;
-        font-size: 20px;
-        &:active{
-            scale: 0.95;
-        }
-    }
-
-    .popup {
-        overflow: auto;
-        padding-top: 10px;
-        -webkit-scrollbar {
-            width: 1px;
-        }
-    }
-}
-
-.popupShow {
-    opacity: 1;
-    scale: 1;
-    // visibility: visible;
-    z-index: 9999;
-    transition: opacity .4s ease-out, scale .4s ease-out;
-}
-
 // .cl-d-pag-tab {}
 
 .pagination {

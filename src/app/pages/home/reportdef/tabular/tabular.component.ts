@@ -936,7 +936,7 @@ export class TabularComponent implements OnInit, OnChanges {
 
   }
   exitoSetParamGlobal() {
-    this.toastrService.success('parametro global seteado exitosamente');
+    this.toastrService.success('Parametro global seteado exitosamente');
   }
 
   // Metodo para mostrar la cantidad de filas por página  en el Mostrar del Select desplegable

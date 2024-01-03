@@ -1,3 +1,16 @@
+
+
+@media screen and (max-width:600px){
+    .dropup,
+    .dropright,
+    .dropdown,
+    .dropleft {
+      position: static;
+    }
+}
+.dropdown.show .dropdown-menu {
+    max-height: 70vh !important;
+}
 #messagesDropDown {
     .a-head{
         display: flex;
@@ -11,7 +24,6 @@
         left: 0;
         margin: auto;
         width: 90vw;
-        height: fit-content;
     }
     .notifica-head{
         display: flex;
@@ -142,11 +154,11 @@
                         align-items: center;
                         justify-content: center;
                         background-color: #26a69a;
-                        font-size: 1vw;
+                        font-size: 13px;
                         font-weight: 500;
                         gap: 5px;
                         i {
-                            font-size: 1vw;
+                            font-size: 13px;
                         }
 
                         &:focus,

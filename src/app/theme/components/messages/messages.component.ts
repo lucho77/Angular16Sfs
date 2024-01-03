@@ -36,7 +36,7 @@ export class MessagesComponent implements OnInit {
 
   ngOnInit() {
     jQuery('#messagesTabs, #messagesTabs-input').on('click', '.nav-item a', function () {
-      setTimeout(() => jQuery(this).closest('.dropdown, .drop-mobile').addClass('show'));
+      setTimeout(() => jQuery(this).closest('.dropdown').addClass('show'));
     })
   }
 
@@ -130,5 +130,5 @@ export class MessagesComponent implements OnInit {
 
   getNmMensajesNoLeidos(): number {
     return this.messages.filter(m => !m.leido && !m.enviado).length;
-  }
+  } 
 }

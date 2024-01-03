@@ -11,7 +11,6 @@ export class ChatComponent {
   @Input() idSession: Number;
   @Input() nombre: Number;
   @Input() messages: Array<any>;
-  mensSort: Array<any>;
   public msj: string;
   public toggleMenuChat: boolean = false;
 

@@ -718,7 +718,7 @@ continuaProcess(hijo: boolean, event: FormdataReportdef){
 
 exitoSetParamGlobal() {
 
-  this.toastrService.success('parametro global seteado exitosamente');
+  this.toastrService.success('Parametro global seteado exitosamente');
 }
 private chequeaCamposForm(data: FormdataReportdef[], form: FormGroup, hijo: boolean) {
   // limpio los errores

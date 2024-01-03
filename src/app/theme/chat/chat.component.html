@@ -24,6 +24,6 @@
     </div>
     <div class="chatEnviar" (click)="cerrarMenuChat()">
         <input type="text" [(ngModel)]="msj" (keydown.enter)="enviarMsj(msj)">
-        <button (click)="enviarMsj(msj)"><i class="fa fa-send"></i>Enviar</button>
+        <button (click)="enviarMsj(msj)"><i class="fa fa-send"></i><span *ngIf="!EMS.esMobileNoTablet()">Enviar</span></button>
     </div>
 </div>

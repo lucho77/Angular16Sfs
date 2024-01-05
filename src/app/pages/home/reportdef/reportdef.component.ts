@@ -707,9 +707,8 @@ callForm(user: any, menu: boolean, m: FormReportdef, metadata: MetodoDTO, listRe
      } else {
       this.reportdefService.getObtenerForm(user, metadata.methodName, formdataGlobales, listRequest).subscribe
       ((m: any) => {
-        
-     this.appSetting.settings.theme.loadscreen=false;
         this.callForm(user, menu, m, metadata, listRequest);
+        this.appSetting.settings.theme.loadscreen=false;
       },
         (err: HttpErrorResponse) => {
           this.checkError(err);
@@ -731,6 +730,7 @@ callForm(user: any, menu: boolean, m: FormReportdef, metadata: MetodoDTO, listRe
       this.formRepordef = formR;
         this.dataReportdefAux.form = true;
         this.reloadTree();
+        this.appSetting.settings.theme.loadscreen=false;
 //      if (this.stack.length > 1 && !backHistorico) {
  //       this.actualizarDatosHistoricos(this.formRepordef.list);
   //    }

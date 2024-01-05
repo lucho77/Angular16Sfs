@@ -53,8 +53,8 @@
                                 </label>&nbsp;&nbsp;&nbsp;
 
                     </div>
-                    <div class='table-cont' id='table-cont' (scroll)="desplazaScrollVertical($event)" [ngStyle]="{ 'height.px': altoVentana/2.5,'position':'relative'}">
-                        <table class="table table-responsive table-striped table-hover" [ngStyle]="this.pagination.listaPaginacion.length == 0 ? {'display':'inline-table'}:{'display':''}">
+                    <div class='table-cont' id='table-cont' [ngStyle]="{ 'height.px': altoVentana/2.5,'position':'relative'}">
+                        <table class="table table-striped table-hover" [ngStyle]="this.pagination.listaPaginacion.length == 0 ? {'display':'inline-table'}:{'display':''}">
                             <thead id="idTh1">
                                 <tr [ngStyle]="{'background-color':'#f3f3f3','color':'black'}">
                                     <button *ngIf="tabularABM===true && tabular.permisoDTO.nueva" pButton type="button" title="Nuevo" icon="fa fa-plus" class="mt-6 dl6deanpx ui-button-" (click)="nuevoAbm()"></button>
@@ -220,6 +220,9 @@
                                 <span class="separador"></span>
 
                                 <div class="contenedor-text">
+                                    <ng-container *ngIf="tabular.seleccionMultiple">
+                                        <input type="checkbox" name="chbTodo" id="chbTodo" (click)=chequeaFila(fil,false) [checked]="fil.chequeado" [ngStyle]="{'cursor':'pointer'}"> <span style="font-weight: 600;margin-left: 5px;">Seleccionar</span>
+                                    </ng-container>
                                     <ng-container *ngFor="let col of header; let io = index">
                                         <div *ngIf="col.visibleMovil && (fil[col.name] != null) && (fil[col.name] != ' ') && col.peso != 10 && col.download == false && !col.fontAwesoneIcono && !col.linkOtherTab" >
                                             <span style="font-weight: 600;">{{col.title}}: </span> <span>{{fil[col.name]}}</span>

@@ -44,12 +44,12 @@ export class MessagesComponent implements OnInit {
 
     if (!idSession) return
 
-    let modalChat = this.modalService.open(ChatComponent, { size: 'lg', centered: true});
+    let modalChat = this.modalService.open(ChatComponent, { size: 'lg', centered: true });
 
     modalChat.componentInstance.idSession = idSession;
     modalChat.componentInstance.nombre = this.getNombreChatByIdSession(idSession);
-    modalChat.componentInstance.messages = this.messages;
-
+    modalChat.componentInstance.messages = this.messages.filter(m => m.idSession === idSession);
+    
     return modalChat;
 
   }
@@ -72,16 +72,13 @@ export class MessagesComponent implements OnInit {
     for (const user of this.usuariosArr) {
       if (user.name.toUpperCase() == nom) return user.idSession;
     }
-    if (!this.userEncontrado) this.aviso.error(`No se encontró a ${nombre}`,'Chat no encontrado');
+    if (!this.userEncontrado) this.aviso.error(`No se encontró a ${nombre}`, 'Chat no encontrado');
     return null;
   }
 
   acortarText(texto: string): string {
     let maxCaracteres: number = 100;
-    if (texto.length > maxCaracteres) {
-      return texto.slice(0, maxCaracteres + 1) + '...';
-    }
-    return texto;
+    return (texto.length > maxCaracteres) ? texto.slice(0, maxCaracteres + 1) + '...' : texto;
   }
 
 
@@ -101,7 +98,6 @@ export class MessagesComponent implements OnInit {
   }
 
   buscaUsers(nombre: string): string {
-    this.usersFiltrados = [];
     if (!nombre) {
       this.setListaUsuariosOriginal();
       this.userEncontrado = true;
@@ -130,5 +126,5 @@ export class MessagesComponent implements OnInit {
 
   getNmMensajesNoLeidos(): number {
     return this.messages.filter(m => !m.leido && !m.enviado).length;
-  } 
+  }
 }

@@ -1,5 +1,6 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Component({templateUrl: 'home.component.html'})
 
@@ -19,7 +20,7 @@ export class HomeComponent implements OnInit {
             // console.log('Router URL ' + this.router.url);
             this.router.navigate([url, reporte]);
         } else {
-            this.router.navigate([url, 'nothing']);
+            this.router.navigate([url, environment.reporteInicio]);
 
         }
     }

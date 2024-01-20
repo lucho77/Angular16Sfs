@@ -106,5 +106,6 @@ preMethodDTO: PreMethodDTO;
 accionParam: FormdataReportdef;
 buttonVolverYguardar: boolean;
 recargarSiempre: boolean;
+returnCallUrl:boolean;
 }
 

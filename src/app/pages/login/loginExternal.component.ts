@@ -5,6 +5,7 @@ import { AuthenticationService } from '../../_services/authentication.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ReportdefService } from '../../_services/reportdef.service';
 import { ejecutarMetodoArea } from './loginUtil';
+import { environment } from 'src/environments/environment';
 
 
 @Component({templateUrl: 'loginExternal.component.html'})
@@ -52,6 +53,10 @@ export class LoginExternalComponent implements OnInit, AfterViewInit {
       localStorage.setItem('userMenu', JSON.stringify(user.menueViejo));
       localStorage.setItem('reporte', user.reporteInicio);
 
+      if (user.sharedDTO && user.sharedDTO.reporte) {
+            localStorage.setItem('reporte', user.sharedDTO.reporte);
+      }
+
       if (user['metodo'] !== null && user['metodo'] !== undefined) {
        await ejecutarMetodoArea(user, user.listGlobales, this.reportdefService);
       }
@@ -68,7 +73,7 @@ export class LoginExternalComponent implements OnInit, AfterViewInit {
       return new Promise(resolve => {
 
 
-        this.authenticationService.loginExternal(null).subscribe
+        this.authenticationService.loginExternal(environment.idSession).subscribe
         (user => {
                 // login successful if there's a jwt token in the response
                      if (user.errorBusiness) {

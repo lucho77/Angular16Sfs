@@ -26,6 +26,7 @@ import { ReportMethodResponseDTO } from '../_models/reportMethodResponseDTO';
 import { FormReportdef } from '../_models/form';
 import { devolverProyecto } from '../util/reportdefUtil';
 import { AppSettings } from '../app.settings';
+import { environment } from 'src/environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class ReportdefService {
@@ -39,6 +40,13 @@ export class ReportdefService {
   //  @Path("/dina/obtenerForm/{username}/{datasource}/{idUsuarioUra}/{packageAplication}/{webService}/{reportdef}")
 
     getObtenerForm(user: User, reportdef: String, global: any, paramForm: any) {
+        for (const f of global) {
+            if(f.name==='P_IDCOMPARTIR'){
+                f.valueNew = user.sharedDTO?user.sharedDTO.idCompartir:environment.idCompartir;
+                f.value = user.sharedDTO?user.sharedDTO.idCompartir:environment.idCompartir;
+                break; 
+            }    
+        }
         const datos = {
             username: user.username,
             dataSource: user.datasource,
@@ -50,6 +58,7 @@ export class ReportdefService {
             idSessionUser: null,
             global: global,
             list: paramForm,
+            idCompartir:user.sharedDTO?user.sharedDTO.idCompartir:environment.idCompartir
         };
         return this.http.post(`${devolverProyecto()}/obtenerForm/`, datos)
         .pipe(map(result => result));

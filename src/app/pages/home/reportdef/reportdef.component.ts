@@ -1483,6 +1483,10 @@ const hola = 'hola';
           this.toastrService.success('Accion ejecuta exitosamente');
         }
 
+        if(metadata.returnCallUrl){
+          window.location.href=result.valor;
+          return; 
+        }
         if ( metadata.tipoMetodo ===  FrontEndConstants.SETEXTERNALPARAMGLOBAL) {
           // seteo el parametro global
           const formdataGlobales = <FormdataReportdef[]>JSON.parse(localStorage.getItem('paramGlobal'));

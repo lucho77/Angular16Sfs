@@ -970,7 +970,7 @@ ubicaListaSelectaFicha (arr1: any, arr2: any) {
 
 private checkNullvalue(value: any) {
   // console.log('este es el valor del campo');
-  if (value === null || value === undefined || (value instanceof String && value.trim() === '') || (value.trim() === '')) {
+  if (value === null || value === undefined || (value instanceof String && value.trim() === '')) {
       return true;
   }
   return false;

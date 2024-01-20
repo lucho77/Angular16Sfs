@@ -7,9 +7,9 @@ import { ParametrosExecuteMethodRequestDTO } from '../../_models/parametrosExecu
 import { ReportdefService } from '../../_services/reportdef.service';
 import { configurarParamnetrosGlobales, extenderToken, persistirTokenCel, configurarMenu } from './loginUtil';
 import { TokenCel } from '../../_models/tokenCel';
-declare function androidToken(): any;
-declare function androidUsername(): any;
-declare function applicacionContext(): any;
+//declare function androidToken(): any;
+//declare function androidUsername(): any;
+//declare function applicacionContext(): any;
 
 @Component({
     templateUrl: 'loginShared.component.html'
@@ -32,13 +32,6 @@ export class LoginSharedComponent implements OnInit, AfterViewInit {
 ) {}
 
 ngOnInit() {
-this.isMovil = false;
-  if (this.isAndroid()) {
-    console.log('ES es una nativeApp');
-    this.isMovil = true;
-    this.context = JSON.parse(applicacionContext());
-    //this.tokenAndroid = androidToken();
-  }
 
     // reset login status
 
@@ -54,6 +47,9 @@ this.isMovil = false;
     });
 
     console.log('estoy en el loginExternal External');  */
+    localStorage.removeItem('paramGlobal');
+    localStorage.removeItem('tabInformationName');
+    localStorage.removeItem('tabInformationBody');
 
     this.route.params.subscribe( params => {
       this.usuario = params['usuario'];
@@ -86,9 +82,7 @@ ngAfterViewInit() {
 
   await this.obtenerMenu(user);
   await this.ejecutarMetodoArea(user, g);
-  if (this.isMovil) {
-    await this.configurarAndroid();
-  }
+
   this.router.navigate(['/pages']);
 
   }
@@ -197,36 +191,8 @@ obtenerMenu(user: any) {
 
 
 }
-isAndroid() {
-  console.log(navigator.userAgent);
-  console.log(/MisTurnos\/[0-9\.]+$/.test(navigator.userAgent));
-    return /MisTurnos\/[0-9\.]+$/.test(navigator.userAgent);
-}
 
-async configurarAndroid() {
-  console.log('SI es una nativeApp');
-  const context = JSON.parse(applicacionContext());
-  this.tokenCel = androidToken();
-   // const context = JSON.parse(applicacionContext());
-  console.log('mobile context');
-   const user = JSON.parse(localStorage.getItem('currentUser')!);
-  this.isMovil = true;
-  console.log('*****************user********************');
-/**/
-  if (user && user.tokenCel !== null) {
-    this.getParamToken = true;
-    const paramToken = {} as TokenCel;
-    paramToken.username = context.username ;
-    paramToken.tokenCel = this.tokenCel;
-    paramToken.usernameProd = androidUsername();
-    localStorage.setItem('paramToken', JSON.stringify(paramToken));
-    if (user.tokenCel === this.tokenCel) {
-      console.log('user.tokenCel === this.tokenCel');
-      const u = await extenderToken(user, this.authenticationService);
-      console.log('extendiendo token');
-          await persistirTokenCel(paramToken.tokenCel, u, this.authenticationService);
-  }
 
-}
-}
+
+
 }

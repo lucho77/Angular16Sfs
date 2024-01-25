@@ -1460,6 +1460,7 @@ const hola = 'hola';
    });
     }
     private generarMethod(pdf: boolean, metadata: MetodoDTO, listRequest: FormdataReportdef[] ) {
+      this.appSetting.settings.theme.loadscreen= true;
       const data = {} as ParametrosExecuteMethodRequestDTO;
       // tslint:disable-next-line:prefer-const
       // this.loadSpinner.show();
@@ -1472,7 +1473,8 @@ const hola = 'hola';
       // console.log(data);
       this.reportdefService.postExecuteMethod(user, data).subscribe
       ((result: ReportMethodResponseDTO) => {
-        // this.loadSpinner.hide();
+       
+        this.appSetting.settings.theme.loadscreen= false;
 
         // console.log('result');
         // console.log(result);

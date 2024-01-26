@@ -4,8 +4,8 @@ import { Settings } from './app.settings.model';
 @Injectable()
 export class AppSettings {
     public settings = new Settings(
-        'StartNG',
-        'Angular Admin Template with Bootstrap 4',
+        'SFS',
+        'SFS',
         {
             menu: 'vertical', //horizontal , vertical
             menuType: 'default', //default, compact, mini

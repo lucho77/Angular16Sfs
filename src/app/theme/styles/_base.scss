@@ -1,7 +1,14 @@
+@import "./constantes";
 html,
 body {
     height: 100%;
-    font-size: 14px;
+    font-size: 16px;
+}
+@media screen and (max-width: $max-width-screen) {
+    html,
+    body {
+        font-size: 11px;
+    }
 }
 
 * {
@@ -196,14 +203,8 @@ input {
     }
 
     &.sidebar-fixed {
-        .main-content {
-            padding-left: $sidebar-width + 25px;
-        }
-
-        .app-footer {
-            padding-left: $sidebar-width + 25px;
-            z-index: 1;
-        }
+        
+        @include sidebarmarginwidh();
 
         .sidebar-outer {
             position: fixed;

@@ -1,4 +1,4 @@
-@import "../theme/styles/_variables.scss";
+@import "../theme/styles/_constantes.scss";
 .btn-wrapper {
     .btn {
         margin-left: 15px;
@@ -11,8 +11,6 @@
     width: 100%;
     .btn {
         width: 100%;
-        height: $field-height;
-        min-height: $field-height;
         text-align: center;
         align-items: center;
         margin-top: 3vw;
@@ -20,4 +18,5 @@
         border-radius: 4px;
         // padding: 3vw;
     }
+    @include fieldsize();
 }

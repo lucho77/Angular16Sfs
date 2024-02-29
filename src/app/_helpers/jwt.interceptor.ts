@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { UrlHandlingStrategy } from '@angular/router';
+import { FrontEndConstants } from '../constans/frontEndConstants';
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
@@ -8,7 +10,7 @@ export class JwtInterceptor implements HttpInterceptor {
         // add authorization header with jwt token if available
         console.log(request);
         const currentUser = JSON.parse(localStorage.getItem('currentUser')!);
-        if (currentUser && currentUser.token) {
+        if (currentUser && currentUser.token && !request.url.includes(FrontEndConstants.URL_REFRESHTOKEN)) {
             let url = request.url;
             url = url.replace('SFSFrameworkMobile/', '');
             request = request.clone({url: url,

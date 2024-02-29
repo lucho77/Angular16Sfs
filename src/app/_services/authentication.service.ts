@@ -7,6 +7,9 @@ import { DataToken } from '../_models/dataToken';
 import { User } from '../_models/user';
 import { SemillaDTO } from '../_models/semillaDTO';
 import { devolverProyecto } from '../util/reportdefUtil';
+import { RefreshToken } from '../_models/refreshToken';
+import { Observable } from 'rxjs';
+import { RefreshTokenResponse } from '../_models/refreshTokenResponse';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
@@ -16,14 +19,14 @@ export class AuthenticationService {
     loginExternal(idSession: string) {
         let params = new HttpParams();
         params = params.append('sessionID', idSession);
-        return this.http.get<any>(`./externalAcces`, {params: params
+        return this.http.get<any>(`../externalAcces`, {params: params
         });
     }
     loginShared(usuario: string, semilla: string) {
         let params = new HttpParams();
         params = params.append('usuario', usuario);
         params = params.append('semilla', semilla);
-        return this.http.get<any>(`./shared`, {params: params
+        return this.http.get<any>(`../shared`, {params: params
         });
     }
     loginSocket() {
@@ -115,4 +118,14 @@ export class AuthenticationService {
         return this.http.post(`${devolverProyecto()}/guardarTokenTelefono/`, datos)
         .pipe(map(result => result));
     }
+
+    refreshToken(user:any) : Observable<RefreshTokenResponse>{
+        let data = new RefreshToken; 
+        data.username = user.username;
+        data.tokenExpired = user.token;
+        data.refreshToken = user.refreshToken;
+        data.idUsuarioUra = user.idUsuarioUra;
+        return this.http.post<RefreshTokenResponse>(`${devolverProyecto()}/refreshToken/`,data);
+    }
+
 }

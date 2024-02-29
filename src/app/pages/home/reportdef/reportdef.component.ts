@@ -42,6 +42,8 @@ import { ToastrService } from 'ngx-toastr';
 import { buscarParametro, buscarParametrosEnHistoricos, consultarParametroByClase, crearParametro, inicializarHistorico, prepararParametrosApasar } from 'src/app/util/reportdefUtil';
 import { ConfirmationDialogService } from '../../confirmDialog/confirmDialog.service';
 import { AppSettings } from 'src/app/app.settings';
+import { SocketService } from 'src/app/_services/socketService';
+import { chatUser } from 'src/app/_models/chatUser';
 
 declare function applicacionContext(): any;
 declare function downloadFile(mime: string, url: string): any;
@@ -120,7 +122,7 @@ export class ReportdefComponent  implements OnInit {
     private confirmationDialogService: ConfirmationDialogService,
     private changeDetector: ChangeDetectorRef,
     private exitService: ExitService,
-    public appSetting: AppSettings
+    public appSetting: AppSettings,private socketService:SocketService
   ) {
 
    }
@@ -170,6 +172,19 @@ export class ReportdefComponent  implements OnInit {
      this.exitService.exitChanged$.subscribe(() => {
       this.disconnect();
     });
+    const user = <User>JSON.parse(localStorage.getItem('currentUser'));
+    const chatUser = {} as chatUser;
+    chatUser.username = user.username;
+    chatUser.datasource = user.datasource;
+    chatUser.datasource = user.datasource;
+    chatUser.idAplica = user.idAplica;
+    chatUser.idUsuarioUra = user.idUsuarioUra;
+    chatUser.packageModel = user.packageModel;
+    chatUser.token = user.token;
+    chatUser.aplicacion = user.aplicacion;
+    chatUser.usuarioMesa = user.usuarioMesa;
+    chatUser.webservice = user.webservice;
+    this.socketService.connect(chatUser);
     /*
     this.socketClientService.onMessage('/topic/deploy').subscribe(() => {
       // this.disconnect();

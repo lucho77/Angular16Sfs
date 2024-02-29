@@ -43,6 +43,7 @@ public static   P_TOKEN = 'P_TOKEN';
 public static   SHAREDPARAMETER = 'P_IDCOMPARTIR';
 public static   ESTADOLIBRE = 'LIBRE';
 public static   BUTTON_GUARDARYVOLVER = 'guardarYvolver';
+public static   URL_REFRESHTOKEN = 'refreshToken';
 
 
 }

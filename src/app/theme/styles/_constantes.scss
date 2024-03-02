@@ -1,0 +1,139 @@
+/**** General ****/
+//$font-family: 'Roboto', sans-serif;
+$logo-font: "MoonHouse";
+
+$top-navbar-height: 46px;
+
+$sidebar-width: 270px;
+$sidebar-compact-width: 160px;
+$sidebar-mini-width: 70px;
+$sidebar-width: 270px;
+$sidebar-width2: 200px; //tamaño sidebar para screen notebook
+
+$max-width-screen:1368px; // @medias para notebooks
+
+@mixin sidebarclassmargin($width) {
+  .main-content {
+    padding-left: $width + 25px;
+  }
+
+  .app-footer {
+    padding-left: $width + 25px;
+    z-index: 1;
+  }
+}
+@mixin sidebarmarginwidh() {
+  @include sidebarclassmargin($sidebar-width);
+  @media screen and (max-width: $max-width-screen) {
+    @include sidebarclassmargin($sidebar-width2);
+  }
+}
+
+@mixin sidebarclass($width) {
+  .navbar.app-header {
+    .top-navbar {
+      .logo {
+        width: $width - 30px;
+      }
+    }
+  }
+  .sidebar-outer {
+    width: $width;
+    .logo {
+      width: $width;
+    }
+  }
+}
+@mixin sidebarwidth() {
+  @include sidebarclass($sidebar-width);
+  @media screen and (max-width: $max-width-screen) {
+    @include sidebarclass($sidebar-width2);
+  }
+}
+
+$horizontal-menu-height: 38px;
+$horizontal-compact-menu-height: 52px;
+$horizontal-mini-menu-height: 46px;
+
+$chat-person-search-media-height: 32px;
+$chat-window-header-height: 30px;
+$chat-window-footer-height: 46px;
+
+$footer-height: 28px;
+
+$field-width: 24.3vw;
+$field-mobile-width: 100vw;
+
+$field-height: 35px;
+$field-height2: 29px; // field heigth para notebook
+
+@mixin fields($fieldHeigth) {
+  .input-1,
+  .input-2,
+  .btn-1,
+  .btn-2,
+  .btn,
+  .combo,
+  .inp-fecha,
+  .spn-fecha,
+  .textBox,
+  textarea,
+  .file-upload input,
+  .file-upload .btn-primary,
+  .file-upload .file-upload-btn {
+    height: $fieldHeigth;
+    min-height: $fieldHeigth;
+  }
+}
+
+@mixin fieldsize() {
+  @include fields($field-height);
+  @media screen and (max-width: $max-width-screen) {
+    @include fields($field-height2);
+  }
+}
+
+@mixin padArribaAbajo() {
+  padding: 10px;
+  padding-left: 0;
+}
+$field-margin-correct-left:0px; //-4vw
+
+@mixin loader(
+              $width : 15px, 
+              $height : 15px,
+              $border-bold: 2px,
+              $color:#fff
+              ){
+    .loader {
+        width: $width;
+        height: $height;
+        border-radius: 50%;
+        display: inline-block;
+        border-top: $border-bold solid $color;
+        border-right: $border-bold solid transparent;
+        box-sizing: border-box;
+        animation: rotation 1s linear infinite;
+      }
+      .loader::after {
+        content: '';  
+        box-sizing: border-box;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: $width;
+        height: $height;
+        border-radius: 50%;
+        border-left: $border-bold solid $color;
+        border-bottom: $border-bold solid transparent;
+        animation: rotation 0.5s linear infinite reverse;
+      }
+      @keyframes rotation {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      } 
+}

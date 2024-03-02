@@ -1,4 +1,4 @@
-@import "../theme/styles/variables";
+@import "../theme/styles/constantes";
 .row{
     @include padArribaAbajo;
 }
@@ -17,6 +17,7 @@ textarea{
         outline: none;
     }
 }
+@include fieldsize();
 .mobile{
     width: $field-mobile-width;
 }

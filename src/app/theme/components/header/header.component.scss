@@ -1,4 +1,4 @@
-@import "../../../theme/styles/variables";
+@import "../../../theme/styles/constantes";
 
 .navbar.app-header{
     padding: 0; 
@@ -10,7 +10,6 @@
         padding: 0 1rem; 
         height: $top-navbar-height;
         .logo{
-            width: $sidebar-width - 30px;
             -webkit-transform: translate3d(0,0,0);
             -moz-transform: translate3d(0,0,0);
             -ms-transform: translate3d(0,0,0);
@@ -23,6 +22,7 @@
     }
    
 }
+@include sidebarwidth();
 
 .top-navbar .app-search{
     position: relative;

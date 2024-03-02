@@ -1,4 +1,4 @@
-@import "../theme/styles/variables";
+@import "../theme/styles/constantes";
 
 @include loader();
 .breadcrumb {
@@ -29,7 +29,6 @@
         border-radius: 4px 0 0 4px;
         border: 1px solid #ced4da;
         padding: 10px;
-        height: $field-height;
         color: #333;
         // width: 20%;
         width: $field-width - 4.3vw;
@@ -59,6 +58,7 @@
             margin-right: 3px;
         }
     }
+    @include fieldsize();
 }
 .alternativo{
     .input-2{

@@ -1,15 +1,13 @@
-@import "../../../theme/styles/variables";
+@import "../../../theme/styles/constantes";
 
 .sidebar-outer{
-    height: 100%; 
-    width: $sidebar-width;
+    height: 100%;
     .logo{
         height: $top-navbar-height;
         padding: 0 14px;
-        width: $sidebar-width;
     }    
 }
-
+@include sidebarwidth();
 
 
 // @media (max-width: 768px){

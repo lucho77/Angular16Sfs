@@ -20,7 +20,7 @@ $icon-font-path: "../node_modules/bootstrap-sass/assets/fonts/bootstrap/";
     url('./assets/fonts/moonhouse.ttf') format('truetype');
 }
 
-@import "app/theme/styles/variables";
+@import "app/theme/styles/constantes";
 @import "app/theme/styles/mixins";
 @import "app/theme/styles/libs-override";
 @import "app/theme/styles/base";

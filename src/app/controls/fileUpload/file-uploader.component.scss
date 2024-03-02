@@ -1,11 +1,7 @@
-@import "../../theme/styles/variables";
+@import "../../theme/styles/constantes";
 .file-upload{
     .btn-primary{
         border-radius: 0 4px 4px 0;
-        height: 35px;
-    }
-    input{
-        height: 35px;
     }
     .upload-container:hover .file-upload-btn{
         cursor: pointer;
@@ -16,7 +12,6 @@
     .file-upload-btn{
         position: absolute;
         width: 100%;
-        height: 35px;
         z-index: 9;
         opacity: 0;
         cursor: pointer !important;
@@ -35,6 +30,7 @@
         visibility: visible;
     }
 }
+@include fieldsize();
 .fu-mobile{
     .upload-container{
         width: 76vw;

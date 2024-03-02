@@ -4,10 +4,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { GenericFinderComponent } from './pages/genericFinder/genericFinder.component';
+import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
     imports: [
-        CommonModule, FormsModule, ReactiveFormsModule
+        CommonModule, FormsModule, ReactiveFormsModule,NgbPaginationModule
     ],
     declarations: [
         BusquedaGenericaComponent, GenericFinderComponent,

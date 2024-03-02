@@ -84,15 +84,9 @@
                     </tr>
                 </tbody>
                 </table>
-                    <ngb-pagination [(page)]="pagination.page" *ngIf="pagination.activa" directionLinks="true"
+                    <ngb-pagination [(page)]="pagination.page"  directionLinks="true"
                     [pageSize]="pagination.cantidadRegistrosxPagina" [boundaryLinks]="false" [maxSize]="10"(pageChange)="loadPage($event)"
                     [collectionSize]="data.length"></ngb-pagination>
-                    <select name="noRegistroMostrar" id="noRegistroMostrar" class="custom-select" style="width: auto" (click)="muestraCantidadPorPaginayPagina(pagination.page,$event)" >
-                        <option value="10 ">10</option> 
-                        <option value="20 ">20</option> 
-                        <option value="25 ">25</option> 
-                        <option value="50 ">50</option> 
-                    </select>
     
 
 

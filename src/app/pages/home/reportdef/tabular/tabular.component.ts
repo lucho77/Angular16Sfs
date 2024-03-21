@@ -412,21 +412,37 @@ export class TabularComponent implements OnInit, OnChanges {
     this.ordenaYaColumna(tipoASDes, ePage);
   }
 
+  transformData(array: any[],campo:any): any[] {
+
+    if (!array || array.length === 0) return array;
+
+    return array.sort((n1 , n2)=>{
+
+      let val1 = n1[campo] == null ? '' : n1[campo].toString();
+      let val2 = n2[campo] == null ? '' : n2[campo].toString();
+
+      if (!isNaN(parseFloat(val1)) && !isNaN(parseFloat(val2))) {
+        return parseFloat(val2) - parseFloat(val1);
+      } 
+      else{
+        return val1.localeCompare(val2);
+      }
+
+    });
+
+  }
+
   ordenaYaColumna(tipoASDes, ePage) {
 
     const nombreColumnaBuscadoCol = localStorage.getItem('elembus');
-    //const resultOrder = this.order.transform(this.data, nombreColumnaBuscadoCol);
-    const resultOrder = null;
-
-    if (tipoASDes === true) {
+    const resultOrder = this.transformData(this.data, nombreColumnaBuscadoCol);
+    
+    if (tipoASDes) {
       resultOrder.reverse();
     }
 
-    /*Aca lo guardo en el arreglo original this.filas*/
     this.data = null;
     this.data = resultOrder;
-
-    /*Inicio de Aca tengo el arreglo ordenado por la Columna Seleccionada*/
 
     let arreNuevo: any[];
     let pivote = 0;

@@ -14,7 +14,6 @@ import { NameParamDTO } from "../_models/nameParamDTO";
 import { HttpErrorResponse } from "@angular/common/http";
 import { ReportMethodResponseDTO } from "../_models/reportMethodResponseDTO";
 import { ParamRequestDTO } from "../_models/paramRequestDTO";
-import { environment } from "src/environments/environment";
 
 export function inicializarHistorico(historico: Historico, metadata: MetodoDTO,
     repordef: ReportdefData, listRequest: FormdataReportdef[], listParamOwner: FormdataReportdef[], menu: boolean,
@@ -83,7 +82,29 @@ export function prepararParametrosApasar(repordefData: ReportdefData, metadata: 
                 // los que tienen actualizar true debo buscar su valor en el historico
                 if (listNew.length === 1) {
                   // si es un solo parametro lo devuelvo, se entiende que no debo buscarlo del historico
-                  return listNew;
+                  if(metadata.paramsPasar.size>1){
+
+                    for (const clave of Object.keys(metadata.paramsPasar)) {
+                      let estaEnListNew = false;
+                      for (const p of listNew) {
+                              if (p.name === clave) {
+                                  estaEnListNew = true;
+                                  break;
+                              }
+                      }
+                      if(!estaEnListNew){
+                        const paramAux: FormdataReportdef[] =  buscarParametro(clave, historicos, globales);
+                        listNew.push(paramAux[0]);
+                      }
+                    }
+
+                              return listNew;
+
+                  }else{
+                    return listNew;
+
+                  }
+                  
                 }
                 for (const p of listNew) {
                   if (p.actualizar) {
@@ -153,8 +174,9 @@ export function prepararParametrosApasar(repordefData: ReportdefData, metadata: 
     export function prepararRequestABMedit( metadata: MetodoDTO) {
     }
     export function devolverProyecto () {
-     
-      return environment.api;
+      //const api = 'api/framework/dina';
+      const api = '../api/framework/dina';
+      return api;
     }
 
     export function buscarParametro( parametro:  string, historicos: LinkedList<Historico>, globales: FormdataReportdef[] ) {

@@ -27,6 +27,8 @@ import { FormReportdef } from '../_models/form';
 import { devolverProyecto } from '../util/reportdefUtil';
 import { AppSettings } from '../app.settings';
 import { environment } from 'src/environments/environment';
+import { ObtenerMetodoRequestDto } from '../_models/obtenerMetodoRequestDto';
+import { MetodoDTO } from '../_models/metodoDTO';
 
 @Injectable({ providedIn: 'root' })
 export class ReportdefService {
@@ -234,6 +236,16 @@ export class ReportdefService {
         datos.modelPackage = user.packageModel;
         datos.idUsuarioUra = user.idUsuarioUra;
         return this.http.post(`${devolverProyecto()}/validateForm/`, datos)
+        .pipe(map(result => result));
+    }
+    getMethodByEtiqueta(dato: User, requestDto: ObtenerMetodoRequestDto ) {
+
+        requestDto.dataSource = dato.datasource;
+        requestDto.username = dato.username;
+        requestDto.webServicesAddress = dato.webservice;
+        requestDto.modelPackage = dato.packageModel;
+        requestDto.idUsuarioUra = dato.idUsuarioUra;
+        return this.http.post<MetodoDTO>(`${devolverProyecto()}/obtenerMetodoPorEtiqueta/`, requestDto)
         .pipe(map(result => result));
     }
 

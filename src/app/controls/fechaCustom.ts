@@ -3,6 +3,12 @@ import { FormGroup } from '@angular/forms';
 import { getData } from '../pages/genericFinder/utilFinder';
 import * as moment from 'moment';
 import { toInteger } from '../util/datePicker/util';
+import { ReportdefService } from '../_services/reportdef.service';
+import { ObtenerMetodoRequestDto } from '../_models/obtenerMetodoRequestDto';
+import { MetodoDTO } from '../_models/metodoDTO';
+import { ParamRequestDTO } from '../_models/paramRequestDTO';
+import { Observable, map, pipe } from 'rxjs';
+import { FormdataReportdef } from '../_models/formdata';
 
 
 @Component({
@@ -27,7 +33,7 @@ export class FechaCustomComponent {
     turnoSeleccionado: string;
     fechaCel: string;
 
-    constructor() {
+    constructor(private reportdefService:ReportdefService) {
 
     }
       // tslint:disable-next-line:use-life-cycle-interface
@@ -56,14 +62,39 @@ export class FechaCustomComponent {
             this.pintarDiasSel();
           }
     }
-    setearAccion(accion:any, columna:any){
-      //let listado = [];
-      let data = {data:columna};
-      this.onRowSelect(data);
-      accion.tipoReportdefParent = 'FORM';
-      accion.clickFilaTabular = false;
-      
-      this.acciones.emit(accion);
+    setearAccion(rowdata:any, columna:any){
+      //let listado = [];[
+        const user = JSON.parse(localStorage.getItem('currentUser'));
+      let id =    rowdata[columna.valueHeaderAccion];  
+      let accion = rowdata[columna.headerAccion];  
+      let paramAccion = columna.paramHeaderAccion;  
+      let request = {} as ObtenerMetodoRequestDto;
+      request.etiqueta=accion;
+      this.reportdefService.getMethodByEtiqueta(user,request).subscribe({
+        next: (value:MetodoDTO)=>{
+
+          this.obtenerParam(paramAccion,user).subscribe({
+            next:(p:FormdataReportdef)=>{
+              const listNew: FormdataReportdef[] = [];
+              p.valueNew = id;
+              listNew.push(p);
+              value.objetoEvento=listNew;
+              this.acciones.emit(value);
+
+            }
+          })
+
+
+        },error: error=>{
+
+        }
+    })
+      //this.acciones.emit(accion);
+    }
+      obtenerParam(param:string,user:any):Observable<FormdataReportdef>{
+        let p = {}as ParamRequestDTO;
+        p.nombre=param;
+     return  this.reportdefService.consultarParamByName(user,p);
     }
     changeMonth(event) {
         console.log(event);
@@ -159,49 +190,7 @@ export class FechaCustomComponent {
         this.setearprimerDiaMes(fecha);
       }
     }
-    /*
-    private getSettings(columns: HeaderDTO[]) {
-        // const p = JSON.parse(columns);
-        // console.log(columns);
-        // tslint:disable-next-line:prefer-const
-        let post = {};
-
-        for (let i = 0; i < columns.length; i++) {
-          post[columns[i].name] = {'title': columns[i].name };
-        }
-        console.log('el header es... Fecha');
-
-         console.log(post);
-        this.settings = {
-          selectMode: 'single',  // single|multi
-          mode: 'external',
-          hideHeader: false,
-          hideSubHeader: false,
-          actions: {
-            columnTitle: 'Acciones',
-            add: false,
-            edit: false,
-            delete: false,
-            custom: [],
-            position: 'right' // left|right
-          },
-          pager: {
-            perPage: 10
-          },
-          columns: post,
-          noDataMessage: 'no hay registros',
-          rowClassFunction: (row) => {
-            // console.log(row);
-            if (row.data.Estado.toUpperCase()  === FrontEndConstants.ESTADOLIBRE) {
-              return 'libre';
-            } else {
-              return 'other';
-            }
-        }
-
-      };
-    }
-*/
+   
 
     // tslint:disable-next-line:use-life-cycle-interface
     ngAfterViewInit() {
@@ -220,18 +209,19 @@ export class FechaCustomComponent {
   }
 
     pintarDiasSel() {
-      const elementos = document.querySelectorAll('.ui-datepicker-calendar-container a');
+
+      const elementos = document.querySelectorAll('.p-datepicker-calendar-container span');
       const canti = elementos.length;
 
       for (let i = 0; i < canti; i ++) {
-           if (elementos[i].hasAttribute('draggable') && elementos[i].classList.contains('ui-state-default') &&
-            !elementos[i].classList.contains('ui-state-active')) {
+           if (elementos[i].hasAttribute('draggable') && elementos[i].classList.contains('p-ripple') &&
+            !elementos[i].classList.contains('p-disabled')) {
             const elemo = <HTMLElement>elementos[i];
             elemo.style.backgroundColor = '#7ec481';
            }
         }
     }
-
+ 
     
 
 

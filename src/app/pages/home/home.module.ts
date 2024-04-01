@@ -50,6 +50,8 @@ import { BusquedaGenericaModule } from 'src/app/busquedaGenericaModule';
 import { ButtonModule } from 'primeng/button';
 import { EditorModule } from 'primeng/editor';
 import { AutoCompleteModule } from 'primeng/autocomplete';
+import { TableModule } from 'primeng/table';
+import { CalendarModule } from 'primeng/calendar';
 
 // Formatos customizados
 export const MY_MOMENT_FORMATS = {
@@ -66,7 +68,7 @@ export const MY_MOMENT_FORMATS = {
   imports: [
     CommonModule,routing, FormsModule,ToolbarModule,ButtonModule,
    DirectivesModule, NgbModule, ReactiveFormsModule,BusquedaGenericaModule,
-    NgScrollbarModule,AngularEditorModule,DialogModule,MessagesModule,EditorModule,AutoCompleteModule,TextFieldModule,
+    NgScrollbarModule,AngularEditorModule,DialogModule,TableModule,CalendarModule,MessagesModule,EditorModule,AutoCompleteModule,TextFieldModule,
     ToastrModule.forRoot(),
 
   ],

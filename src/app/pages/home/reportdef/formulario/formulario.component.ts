@@ -418,7 +418,7 @@ if (event.preMethodDTO !== null && event.preMethodDTO.metodo !== null ) {
 
 
 } else {
-
+  /*
   const p = {} as ParamRequestDTO;
   p.nombre = event.retasigparam;
   consultarParametroByParam(p, this.reportdefService).
@@ -427,7 +427,9 @@ if (event.preMethodDTO !== null && event.preMethodDTO.metodo !== null ) {
     event.accionParam = resp;
     this.accionesDina.emit(event);
   }).catch( error =>  this.checkError(error));
-
+ */
+event.clickFilaTabular=true;
+  this.accionesDina.emit(event);
 }
 
 }

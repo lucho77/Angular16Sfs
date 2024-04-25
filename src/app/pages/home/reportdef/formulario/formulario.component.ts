@@ -1147,9 +1147,9 @@ onEditHijo(event) {
   let i = 0;
   let id = 0;
 // tslint:disable-next-line:forin
-  for (const prop in event.data) {
+  for (const prop in event) {
     if ( i === pos) {
-      id = event.data[prop];
+      id = event[prop];
       break;
     }
     i++;
@@ -1166,9 +1166,9 @@ onDeleteHijo(event) {
     let i = 0;
     let id = 0;
     // tslint:disable-next-line:forin
-    for (const prop in event.data) {
+    for (const prop in event) {
         if ( i === pos) {
-        id = event.data[prop];
+        id = event[prop];
         break;
         }
         i++;
@@ -1268,6 +1268,8 @@ private getData(datos: any, columns: HeaderDTO[]) {
     post = {};
   }
    this.dataTabular = d;
+
+   
   }
   backHistorico() {
     this.backHistory.emit(event);

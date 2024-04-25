@@ -83,7 +83,7 @@ export class BusquedaGenericaComponent {
                         // busco en el dataFORM
                         let encontrado = false;
                         for (const p of  this.dataForm) {
-                            if (p.entity && !p.buttom &&  (s.toUpperCase() ===  p.name.toUpperCase()
+                            if (!p.buttom &&  (s.toUpperCase() ===  p.name.toUpperCase()
                              || s.toUpperCase() ===  p.attribute.toUpperCase()) ) {
                                 finder.finderGenericDTO.parametrosFinderMetodo.push(p);
                                 encontrado = true;

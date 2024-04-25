@@ -9,6 +9,7 @@ import { MetodoDTO } from '../_models/metodoDTO';
 import { ParamRequestDTO } from '../_models/paramRequestDTO';
 import { Observable, map, pipe } from 'rxjs';
 import { FormdataReportdef } from '../_models/formdata';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -32,8 +33,9 @@ export class FechaCustomComponent {
     filaCel: any;
     turnoSeleccionado: string;
     fechaCel: string;
+     fecha = null;
 
-    constructor(private reportdefService:ReportdefService) {
+    constructor(private reportdefService:ReportdefService,private toastrService: ToastrService) {
 
     }
       // tslint:disable-next-line:use-life-cycle-interface
@@ -64,7 +66,14 @@ export class FechaCustomComponent {
     }
     setearAccion(rowdata:any, columna:any){
       //let listado = [];[
-        const user = JSON.parse(localStorage.getItem('currentUser'));
+        const fhoy = moment();
+        fhoy.startOf("day");
+        const fClick = moment(rowdata.Fecha,"DD-MM-YYYY");
+        if(fClick.isBefore(fhoy)&& rowdata.Estado === 'NoElegible'){
+          this.toastrService.error("Lo sentimos, no puedes seleccionar fechas pasadas. Por favor, selecciona una fecha válida para tu turno ");
+          return; 
+        }  
+      const user = JSON.parse(localStorage.getItem('currentUser'));
       let id =    rowdata[columna.valueHeaderAccion];  
       let accion = rowdata[columna.headerAccion];  
       let paramAccion = columna.paramHeaderAccion;  
@@ -166,28 +175,36 @@ export class FechaCustomComponent {
       console.log(this.field.fechaCustomDTO.dataTableDTO.data);
        this.dataFecha = [];
       let f = null;
-      let fecha = null;
+       this.fecha = null;
       if (this.field.fechaCustomDTO.dataTableDTO.data.length > 0) {
         // me ubico en la primer fecha disponible
         if (fechaPass) {
-          fecha = fechaPass;
-          f = fecha.format('DD-MM-YYYY');
+          this.fecha = fechaPass;
+          f = this.fecha.format('DD-MM-YYYY');
         } else {
           f = this.field.fechaCustomDTO.dataTableDTO.data[0][0].value;
           console.log(f);
-          fecha = moment(f, 'DD-MM-YYYY'); // add this 2 of 4
+          this.fecha = moment(f, 'DD-MM-YYYY'); // add this 2 of 4
         }
-        this.form.get(this.field.name).setValue(fecha.toDate());
+        this.form.get(this.field.name).setValue(this.fecha.toDate());
         this.dataFecha = this.field.fechaCustomDTO.dataTableDTO.data.filter(item => item[0].value === f);
         this.data = getData(this.dataFecha, this.field.fechaCustomDTO.dataTableDTO.columns);
-        this.setearprimerDiaMes(fecha);
+        const fechaActual = moment(); 
+        fechaActual.startOf('day');
+
+        this.data.forEach(objeto => {
+        if (moment(objeto.Fecha,"DD-MM-YYYY").isBefore(fechaActual) && (objeto.Estado==='Libre' ||objeto.Estado==='NoElegible')) {
+          objeto.Estado = "NoElegible";
+        }
+});
+        this.setearprimerDiaMes(this.fecha);
         this.field.fechaCustomDTO.idSeleccionado = null;
         this.pintarDiasSel();
         this.fechaCel = f;
       } else {
-        fecha = moment(this.field.fechaCustomDTO.fechaDesde, 'DD-MM-YYYY'); // add this 2 of 4
-        this.form.get(this.field.name).setValue(fecha.toDate());
-        this.setearprimerDiaMes(fecha);
+        this.fecha = moment(this.field.fechaCustomDTO.fechaDesde, 'DD-MM-YYYY'); // add this 2 of 4
+        this.form.get(this.field.name).setValue(this.fecha.toDate());
+        this.setearprimerDiaMes(this.fecha);
       }
     }
    
@@ -212,14 +229,25 @@ export class FechaCustomComponent {
 
       const elementos = document.querySelectorAll('.p-datepicker-calendar-container span');
       const canti = elementos.length;
-
+      let fechaHoy = moment();
+      fechaHoy.startOf('day');
       for (let i = 0; i < canti; i ++) {
            if (elementos[i].hasAttribute('draggable') && elementos[i].classList.contains('p-ripple') &&
             !elementos[i].classList.contains('p-disabled')) {
             const elemo = <HTMLElement>elementos[i];
-            elemo.style.backgroundColor = '#7ec481';
+            let day = parseInt(elemo.firstChild.textContent); 
+            const fAlmanaque = moment();
+            fAlmanaque.set('year', this.fecha.get('year'));
+            fAlmanaque.set('month', this.fecha.get('month'));
+            fAlmanaque.set('date', day);
+            fAlmanaque.startOf('day');
+            if (fechaHoy.isBefore(fAlmanaque)) {
+              elemo.style.backgroundColor = '#7ec481';
+           }else{
+            elemo.style.backgroundColor = '#d1d1d1';
            }
         }
+      }
     }
  
     

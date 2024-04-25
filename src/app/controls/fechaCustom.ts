@@ -197,6 +197,7 @@ export class FechaCustomComponent {
           objeto.Estado = "NoElegible";
         }
 });
+        this.data.sort(this.compararPorHora);
         this.setearprimerDiaMes(this.fecha);
         this.field.fechaCustomDTO.idSeleccionado = null;
         this.pintarDiasSel();
@@ -208,7 +209,21 @@ export class FechaCustomComponent {
       }
     }
    
-
+    private compararPorHora(a, b) {
+      const [horaA, minutoA] = a.Hora.split(':');
+      const [horaB, minutoB] = b.Hora.split(':');
+  
+      const horaNumA = parseInt(horaA, 10);
+      const minutoNumA = parseInt(minutoA, 10);
+      const horaNumB = parseInt(horaB, 10);
+      const minutoNumB = parseInt(minutoB, 10);
+  
+      if (horaNumA === horaNumB) {
+          return minutoNumA - minutoNumB;
+      } else {
+          return horaNumA - horaNumB;
+      }
+  }
     // tslint:disable-next-line:use-life-cycle-interface
     ngAfterViewInit() {
       if (this.field.fechaCustomDTO.dataTableDTO.data.length > 0) {

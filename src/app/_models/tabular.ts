@@ -6,11 +6,11 @@ import { AccionColumna } from './accionColumna';
 import { PermisoDTO } from './permisoABM';
 export interface Tabular {
 
- finderDTOs: FinderDTO[];
- rowLabel: string;
- etiqueta: string;
- headerArchivo: string;
- nameColumnaId: string;
+finderDTOs: FinderDTO[];
+rowLabel: string;
+etiqueta: string;
+headerArchivo: string;
+nameColumnaId: string;
 pkColIndex: number;
 totalRows: number;
 fromRow: number;
@@ -32,7 +32,7 @@ tabularDescriptivo: boolean;
 campoDescriptivo: string;
 onlyOwner: boolean;
 onlyOwnerField: string;
- onlOwnerDayField: string;
+onlOwnerDayField: string;
 onlyOwnerDay: boolean;
 onlyOwnerParamGlobal: string;
 labelcabeceraABM: string;
@@ -44,6 +44,7 @@ actualizar: boolean;
 allFieldMobile: boolean;
 showRow: number;
 duplicarRegistro:boolean;
+mobile: boolean;
 }
 
 

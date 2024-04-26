@@ -11,6 +11,7 @@ $sidebar-width: 270px;
 $sidebar-width2: 200px; //tamaño sidebar para screen notebook
 
 $max-width-screen:1368px; // @medias para notebooks
+$max-width-screen-mobile:500px; // @medias para mobile
 
 @mixin sidebarclassmargin($width) {
   .main-content {
@@ -26,6 +27,9 @@ $max-width-screen:1368px; // @medias para notebooks
   @include sidebarclassmargin($sidebar-width);
   @media screen and (max-width: $max-width-screen) {
     @include sidebarclassmargin($sidebar-width2);
+  }
+  @media screen and (max-width: $max-width-screen-mobile) {
+    @include sidebarclass($sidebar-width);
   }
 }
 
@@ -48,6 +52,9 @@ $max-width-screen:1368px; // @medias para notebooks
   @include sidebarclass($sidebar-width);
   @media screen and (max-width: $max-width-screen) {
     @include sidebarclass($sidebar-width2);
+  }
+  @media screen and (max-width: $max-width-screen-mobile) {
+    @include sidebarclass($sidebar-width);
   }
 }
 

@@ -77,7 +77,7 @@ export class TabularComponent implements OnInit, OnChanges {
   private nameRef: Subscription = null;
   menovillan: any;
   descripcion = false;
-  mobile: boolean = isMobile;
+  mobile: boolean;
   tablet: boolean = screen.width > 600;
   loader: boolean = false;
   popup: boolean = false;
@@ -141,6 +141,7 @@ export class TabularComponent implements OnInit, OnChanges {
     if (this.sinpaginar === true) {
       this.muestraCantidadPorPaginayPagina(1, $event);
     }
+    this.mobile = this.tabular.mobile ? isMobile : false;
   }
 
   ngOnChanges(): void {

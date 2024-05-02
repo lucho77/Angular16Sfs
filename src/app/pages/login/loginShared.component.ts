@@ -48,8 +48,8 @@ ngOnInit() {
 
     console.log('estoy en el loginExternal External');  */
     localStorage.removeItem('paramGlobal');
-    localStorage.removeItem('tabInformationName');
-    localStorage.removeItem('tabInformationBody');
+    sessionStorage.removeItem('tabInformationName');
+    sessionStorage.removeItem('tabInformationBody');
 
     this.route.params.subscribe( params => {
       this.usuario = params['usuario'];
@@ -119,7 +119,7 @@ ngAfterViewInit() {
   dataMetodo.metodo = metodo;
    this.reportdefService.postExecuteMethod(user, dataMetodo).subscribe(
       (mensaje: any) => {
-        localStorage.setItem('tabInformationBody', mensaje.valor);
+        sessionStorage.setItem('tabInformationBody', mensaje.valor);
         resolve();
       }
    );

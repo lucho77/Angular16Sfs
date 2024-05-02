@@ -91,8 +91,8 @@ export class LoginComponent implements OnInit, AfterViewInit {
             return;
         }
         localStorage.removeItem('paramGlobal');
-        localStorage.removeItem('tabInformationName');
-        localStorage.removeItem('tabInformationBody');
+        sessionStorage.removeItem('tabInformationName');
+        sessionStorage.removeItem('tabInformationBody');
 
         this.loading = true;
         const user  = await this.login();
@@ -104,7 +104,8 @@ export class LoginComponent implements OnInit, AfterViewInit {
       return new Promise(resolve => {
       this.authenticationService.login(this.f.username.value, this.f.password.value).subscribe
       (user => {
-              console.log(user);
+              
+                  console.log('USUARIOLOGUEANDO',user);
 
                    if (user.errorBusiness) {
                        // es un error

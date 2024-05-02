@@ -472,7 +472,7 @@ export function prepararParametrosApasar(repordefData: ReportdefData, metadata: 
               dataDetalle.metodo = event.metodoDTO.methodName;
               reportdefService.postExecuteMethod(user, dataDetalle).subscribe(
                 (resultDetalle: any) => {
-                  localStorage.setItem('tabInformationBody', resultDetalle.valor);
+                  sessionStorage.setItem('tabInformationBody', resultDetalle.valor);
                   nameService.setearNameGlobal(String(null), resultDetalle.valor);
                   resolve(true);
             }
@@ -494,7 +494,7 @@ export function prepararParametrosApasar(repordefData: ReportdefData, metadata: 
         const name =  actualizaDatosGlobales(data, parametroGlobalInfo);
         console.log('Nombre');
         console.log(name);
-        localStorage.setItem('tabInformationName', name);
+        sessionStorage.setItem('tabInformationName', name);
         nameService.setearNameGlobal(name, String(null));
 
       }

@@ -7,7 +7,7 @@ import { ReportdefService } from '../_services/reportdef.service';
 import { ObtenerMetodoRequestDto } from '../_models/obtenerMetodoRequestDto';
 import { MetodoDTO } from '../_models/metodoDTO';
 import { ParamRequestDTO } from '../_models/paramRequestDTO';
-import { Observable, map, pipe } from 'rxjs';
+import { Observable } from 'rxjs';
 import { FormdataReportdef } from '../_models/formdata';
 import { ToastrService } from 'ngx-toastr';
 
@@ -31,9 +31,10 @@ export class FechaCustomComponent {
     data: any;
     dataFecha: any;
     filaCel: any;
-    turnoSeleccionado: string;
+    turnoSeleccionado: any;
     fechaCel: string;
-     fecha = null;
+    col: any;
+    fecha = null;
 
     constructor(private reportdefService:ReportdefService,private toastrService: ToastrService) {
 
@@ -41,6 +42,7 @@ export class FechaCustomComponent {
       // tslint:disable-next-line:use-life-cycle-interface
       ngOnInit() {
         console.log('me he inicializado');
+        this.col = this.field.fechaCustomDTO.dataTableDTO.columns
         this.en = {
             firstDayOfWeek: 0,
             dayNames: ['Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado'],
@@ -125,17 +127,21 @@ export class FechaCustomComponent {
         this.setearCalendar(fecha);
     }
     onRowSelect(event) {
-        console.log(event);
         this.filaCel = event.data;
-        this.turnoSeleccionado = ' ';
-        // tslint:disable-next-line:forin
+        this.turnoSeleccionado = [];
+        
         for (const key in this.filaCel) {
-            if(key ==='ID'){
-              this.field.fechaCustomDTO.idSeleccionado = this.filaCel[key];
-            }
-            this.turnoSeleccionado += ' ' + key + ' ' + this.filaCel[key];
+          let colSelected = this.col.filter((c)=> c.name == key)
+          let obj = {
+            key: key,
+            value: this.filaCel[key],
+            visible: colSelected[0].visible
+          }
+          if (obj.value != "" && obj.value !=null) {
+            this.turnoSeleccionado.push(obj);
+          }
+            
         }
-        this.turnoSeleccionado = 'ha seleccionado el turno el dia:' +  this.turnoSeleccionado;
     }
 
     private setearprimerDiaMes(fecha: any) {

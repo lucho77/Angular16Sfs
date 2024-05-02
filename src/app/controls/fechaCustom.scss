@@ -21,36 +21,133 @@
     display: none;
 }
 
-.Libre {
-    background-color: rgba(86, 241, 86, 0.5)!important;
+$colors:(
+    // El color original se pone con una opacidad 0.8 y el active es el mismo pero con opacidad 1
+    Libre: rgba(58, 156, 66, 0.8),
+    LibreActive: rgba(58, 156, 66, 1),
+
+    Asignado: rgb(254, 154, 46, 0.8),
+    AsignadoActive:rgb(254, 154, 46, 1),
+
+    NoElegible: rgba(233, 233, 233, 0.8),
+    NoElegibleActive: rgb(233, 233, 233, 1),
+
+    Cancelado: rgb(255, 118, 118, 0.8),
+    CanceladoActive:rgb(255, 118, 118, 1),
+
+    Reservado: rgb(140, 140, 179, 0.8),
+    ReservadoActive:rgb(140, 140, 179, 1),
+
+    Ausente: rgb(255, 119, 131, 0.8),
+    AusenteActive:rgb(255, 119, 131, 1),
+
+    SalaEspera: rgba(206, 206, 15, 0.8),
+    SalaEsperaActive: rgb(255, 255, 0, 1),
+
+    Atendido: rgb(255, 118, 118, 0.8),
+    AtendidoActive: rgb(255, 118, 118, 1),
+
+    Usado: rgb(255, 73, 128, 0.8),
+    UsadoActive: rgb(255, 73, 128, 1),
+);
+
+
+$borderSize: 2px;
+
+@mixin bgTable($color){
+    background: map-get($colors, #{$color} );
+    &:hover{
+        background: map-get($colors, #{$color + 'Active'}) !important;
+    }
+    &:focus{
+        background: map-get($colors, #{$color + 'Active'}) !important;
+    }
+}
+@mixin fontCard($color,$BSize){
+    // color: map-get($colors, #{$color});
+    border: $BSize solid map-get($colors, #{$color + 'Active'});
+}
+@mixin estado($bgBoolean) {
+    .Libre {
+        @if $bgBoolean == "true" {
+            @include bgTable('Libre');
+        } @else {
+            @include fontCard('Libre',$borderSize);
+        }
+    }
+
+    .Asignado {
+        @if $bgBoolean == "true" {
+            @include bgTable('Asignado');
+        } @else {
+            @include fontCard('Asignado',$borderSize);
+        }
+    }
+
+    .NoElegible{
+        @if $bgBoolean == "true" {
+            @include bgTable('NoElegible');
+        } @else {
+            @include fontCard('NoElegible',$borderSize);
+        }
+    }
+
+    .Cancelado {
+        @if $bgBoolean == "true" {
+            @include bgTable('Cancelado');
+        } @else {
+            @include fontCard('Cancelado',$borderSize);
+        }
+    }
+
+    .Reservado {
+        @if $bgBoolean == "true" {
+            @include bgTable('Reservado');
+        } @else {
+            @include fontCard('Reservado',$borderSize);
+        }
+    }
+
+    .Ausente {
+        @if $bgBoolean == "true" {
+            @include bgTable('Ausente');
+        } @else {
+            @include fontCard('Ausente',$borderSize);
+        }
+    }
+
+    .SalaEspera {
+        @if $bgBoolean == "true" {
+            @include bgTable('SalaEspera');
+        } @else {
+            @include fontCard('SalaEspera',$borderSize);
+        }
+    }
+
+    .Atendido {
+        @if $bgBoolean == "true" {
+            @include bgTable('Atendido');
+        } @else {
+            @include fontCard('Atendido',$borderSize);
+        }
+    }
+
+    .Usado {
+        @if $bgBoolean == "true" {
+            @include bgTable('Usado');
+        } @else {
+            @include fontCard('Usado',$borderSize);
+        }
+    }
 }
 
-.Asignado {
-    background-color: #FE9A2E!important;
-}.NoElegible {
-    background-color: #a19f9d!important;
+.table-responsive{
+    @include estado('true');
+}
+.card-selected{
+    @include estado('false');
 }
 
-.Cancelado {
-    background-color: #FF7676 !important;
-}
-
-.Reservado {
-    background-color: #8c8cb3 !important;
-}
-
-.Ausente {
-    background-color: #FF7783 !important;
-}
-
-.SalaEspera {
-    background-color: #FFFF00 !important;
-}
-
-.Atendido {
-    background-color: #FF7676 !important;
-}
-
-.Usado {
-    background-color: #FF4980 !important;
+.text-center {
+    font-family: "FontAwesome", "Helvetica" !important;
 }

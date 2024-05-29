@@ -13,26 +13,35 @@
     <div class="card-body widget-body">
 
         <p-toolbar>
-            <div class="ui-toolbar-group-left mr-2">
-                <h5 class="mb-0 tm-f-16">
-                    {{tituloReporte}}
-                </h5>
-            </div>
-            <div class="ui-toolbar-group-right">
-                <p-button icon="pi pi-file-pdf" (click)="exportPDF($event)" styleClass="p-button-danger p-button-sm"></p-button>
-                <p-button icon="pi pi-file-excel"  (click)="exportExcel($event)" styleClass="p-button-success p-button-sm"></p-button>
-                <p-button icon="pi pi-refresh" title="Refrescar" (click)="refrescar($event)" styleClass="p-button-warning p-button-sm"></p-button>
-                <p-button *ngIf="menu===false" title="ver los filtros del Tabular" icon="pi pi-filter" title="Refrescar" (click)="verFiltros()" styleClass="p-button-help p-button-sm"></p-button>
-                <p-button *ngIf="menu===false" icon="pi pi-chevron-left" title="volver pantalla anterior" (click)="backHistorico()" styleClass="p-button-danger p-button-sm"></p-button>
-            </div>
-
-            <div class="ui-toolbar-group-right">
-                <div *ngIf="tabular.botones" class="card-body pt-0 widget-body">
-                    <div class="row d-blockA">
-                        <div *ngFor="let field of tabular.botones">
-                            <app-button [field]="field" (acciones)="processActions($event)"></app-button>
+            <div class="contaienrtoolbar">
+                <div class="ui-toolbar-group-left mr-2">
+                    <h5 class="mb-0 tm-f-16">
+                        {{tituloReporte}}
+                    </h5>
+                </div>
+                <div class="ui-toolbar-group-right" style="display: flex;gap: 5px;">
+                    <p-button title="Exportar PDF" (click)="exportPDF($event)" styleClass="p-button-danger p-button-sm"><i class="pi pi-file-pdf iconos"></i></p-button>
+                    <p-button title="Exportar Excel" (click)="exportExcel($event)" styleClass="p-button-success p-button-sm"><i class="pi pi-file-excel iconos"></i></p-button>
+                    <p-button title="Refrescar" (click)="refrescar($event)" styleClass="p-button-warning p-button-sm"><i class="pi pi-refresh iconos"></i></p-button>
+                    <p-button *ngIf="menu===false" title="Ver los filtros del Tabular" (click)="verFiltros()" styleClass="p-button-help p-button-sm"><i class="pi pi-filter iconos"></i></p-button>
+                    <p-button *ngIf="menu===false" title="Volver pantalla anterior" (click)="backHistorico()" styleClass="p-button-danger p-button-sm"><i class="pi pi-chevron-left iconos"><span class="spanIcon"></span></i></p-button>
+                </div>
+                <div class="ui-toolbar-group-right">
+                    <div *ngIf="tabular.botones" class="card-body pt-0 widget-body">
+                        <div class="row d-blockA">
+                            <div *ngFor="let field of tabular.botones">
+                                <app-button [field]="field" (acciones)="processActions($event)"></app-button>
+                            </div>
                         </div>
                     </div>
+                </div>
+                <div *ngIf="filtros" class="filtros">
+                        <ng-container *ngFor="let param of listRequest">
+                            <h5>{{param.label}}: {{param.check ? getBooleanString(param.valueNew) : param.valueNew}} 
+                                <span *ngIf="param.busquedaGenerica">- {{param.busquedaGenericaDTO.mostrarToStringLupa}}</span>
+                                <span *ngIf="param.combo">{{getObjDTOFilter(param.comboDTO.comboBoxDTO, param.valueNew)}}</span>
+                            </h5>
+                        </ng-container>
                 </div>
             </div>
         </p-toolbar>

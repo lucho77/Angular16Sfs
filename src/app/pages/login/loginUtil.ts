@@ -58,7 +58,7 @@ export function configurarParamnetrosGlobales(user: any, authenticationService: 
                 g.valueNew =   user.sharedDTO.idAfiliado;
                 g.value =   user.sharedDTO.idAfiliado;
                 g.busquedaGenericaDTO.mostrarToStringLupa = user.sharedDTO.nameAfil;
-                  localStorage.setItem('tabInformationName', user.sharedDTO.nameAfil);
+                  sessionStorage.setItem('tabInformationName', user.sharedDTO.nameAfil);
                   // this.nameService.setearNameGlobal(user.sharedDTO.nameAfil, null);
                 }
             if ( g.name === FrontEndConstants.SHAREDPARAMETER ) {
@@ -181,11 +181,11 @@ export function configurarMenu(user: any, authenticationService: AuthenticationS
      dataMetodo.metodo = metodo;
       reportdefService.postExecuteMethod(user, dataMetodo).subscribe(
          (mensaje: any) => {
-           localStorage.setItem('tabInformationBody', mensaje.valor);
+           sessionStorage.setItem('tabInformationBody', mensaje.valor);
 
            for ( const g of m.list) {
             if (g.name === 'P_IDAFILIADO4') {
-                localStorage.setItem('tabInformationName', g.busquedaGenericaDTO.mostrarToStringLupa);
+                sessionStorage.setItem('tabInformationName', g.busquedaGenericaDTO.mostrarToStringLupa);
                 break;
             }
           }

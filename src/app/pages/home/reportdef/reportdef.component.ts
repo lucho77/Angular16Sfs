@@ -1611,7 +1611,7 @@ const hola = 'hola';
              dataMetodo.metodo = metodo;
               this.reportdefService.postExecuteMethod(user, dataMetodo).subscribe(
                  (mensaje: any) => {
-                   localStorage.setItem('tabInformationBody', mensaje.valor);
+                   sessionStorage.setItem('tabInformationBody', mensaje.valor);
               });
          }
 

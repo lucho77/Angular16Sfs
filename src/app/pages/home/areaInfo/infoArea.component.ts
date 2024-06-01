@@ -39,8 +39,8 @@ export class InfoAreaComponent   {
 
     const formdataGlobales = <FormdataReportdef[]>JSON.parse(localStorage.getItem('paramGlobal'));
     console.log(formdataGlobales);
-    const name = localStorage.getItem('tabInformationName');
-    const body = localStorage.getItem('tabInformationBody');
+    const name = sessionStorage.getItem('tabInformationName');
+    const body = sessionStorage.getItem('tabInformationBody');
 
     console.log('name');
     console.log('body');

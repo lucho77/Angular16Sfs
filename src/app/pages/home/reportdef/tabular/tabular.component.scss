@@ -1,18 +1,17 @@
 @import "../../../../theme/styles/_constantes.scss";
 
-
 .contenedor {
     display: flex;
     flex-direction: column;
     position: relative;
     width: 100%;
 
-    .noReg{
+    .noReg {
         display: flex;
         align-items: center;
         justify-content: center;
         width: 100%;
-        span{
+        span {
             color: #7c7c7c;
         }
     }
@@ -40,7 +39,7 @@
             width: 80%;
             height: 0.6vw;
             border-radius: 0.5vw;
-            background: #B7D4FF;
+            background: #b7d4ff;
             margin-bottom: 5vw;
         }
 
@@ -69,29 +68,28 @@
             }
 
             .btn-extra {
-                border: 2px solid #5978E8;
-                color: #5978E8;
-                @include loader($width:10px,$height:10px,$border-bold:1px,$color:#5978E8);
+                border: 2px solid #5978e8;
+                color: #5978e8;
+                @include loader($width: 10px, $height: 10px, $border-bold: 1px, $color: #5978e8);
             }
 
             .btn-extra2 {
                 border: 2px solid #e78a55;
                 color: #e78a55;
-                grid-column: 1/4
+                grid-column: 1/4;
             }
 
             .btn-edit {
-                border: 2px solid #5EA545;
-                color: #5EA545;
+                border: 2px solid #5ea545;
+                color: #5ea545;
             }
 
             .btn-eliminar {
-                border: 2px solid #C81919;
-                background: #C81919;
+                border: 2px solid #c81919;
+                background: #c81919;
                 color: #fff;
             }
         }
-
     }
 
     .btn-agregar {
@@ -103,7 +101,7 @@
         justify-content: center;
         text-align: center;
         border-radius: 50%;
-        background: #5EA545;
+        background: #5ea545;
         border: none;
         width: 55px;
         height: 55px;
@@ -119,7 +117,7 @@
 
         &:hover,
         &:focus {
-            background: #5EA545;
+            background: #5ea545;
             border: none;
         }
     }
@@ -158,11 +156,11 @@
 }
 
 .cldib1 {
-    padding: 15px
+    padding: 15px;
 }
 
 .cldib2 {
-    padding: 15px
+    padding: 15px;
 }
 
 tbody {
@@ -255,4 +253,66 @@ tfoot {
 .grid-r-1fr {
     display: grid;
     grid-template-rows: 1fr;
+}
+
+.iconos {
+    display: flex;
+    flex-direction: column;
+    font-size: 22px; // icons size
+    position: relative;
+    font-weight: 500;
+}
+.contaienrtoolbar{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    width: 100%;
+    .filtros{
+        display: flex;
+        width: 100%;
+        margin-top: 55px;
+        flex-direction: column;
+        grid-column: 1/4;
+    }
+    .uno,.dos,.tres{
+        align-self: center;
+    }
+    .dos{
+        justify-self: center;
+    }
+    .tres{
+        justify-self: end;
+        .tres-b{
+            gap: 15px;
+        }
+        .btn-wrapper {
+            .btn {
+                margin-left: 0px;
+            }
+        }
+    }
+}
+@media (max-width: 768px) {
+    .mr-2{
+        margin-bottom: 10px !important;
+    }
+    .contaienrtoolbar{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        .filtros{
+            display: flex;
+            width: 100%;
+            margin-top: 55px;
+            flex-direction: column;
+        }
+        .tres{
+            .btn-wrapper-mobile {
+                .btn {
+                    height: 100% !important;
+                }
+            }
+        }
+    }
+
 }

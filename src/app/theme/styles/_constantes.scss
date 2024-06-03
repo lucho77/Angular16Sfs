@@ -144,3 +144,59 @@ $field-margin-correct-left:0px; //-4vw
         }
       } 
 }
+@mixin iconsStyle(){
+  .contaienrtoolbar{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    width: 100%;
+    .filtros{
+        display: flex;
+        width: 100%;
+        margin-top: 55px;
+        flex-direction: column;
+        grid-column: 1/4;
+    }
+    .uno,.dos,.tres{
+        align-self: center;
+    }
+    .dos{
+        justify-self: center;
+    }
+    .tres{
+        justify-self: end;
+        .tres-b{
+            gap: 15px;
+        }
+        .btn-wrapper {
+            .btn {
+                margin-left: 0px;
+            }
+        }
+    }
+}
+@media (max-width: 768px) {
+    .mr-2{
+        margin-bottom: 10px !important;
+    }
+    .contaienrtoolbar{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        .filtros{
+            display: flex;
+            width: 100%;
+            margin-top: 55px;
+            flex-direction: column;
+        }
+        .tres{
+            .btn-wrapper-mobile {
+                .btn {
+                    height: 100% !important;
+                }
+            }
+        }
+    }
+
+}
+}

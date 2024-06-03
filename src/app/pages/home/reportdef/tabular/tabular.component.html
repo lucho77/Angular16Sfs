@@ -33,14 +33,7 @@
                             </div>
                     </div>
                 </div>
-                <div *ngIf="filtros" class="filtros">
-                        <ng-container *ngFor="let param of listRequest">
-                            <p><b>{{param.label}}:</b> {{param.check ? getBooleanString(param.valueNew) : param.valueNew}} 
-                                <span *ngIf="param.busquedaGenerica">- {{param.busquedaGenericaDTO.mostrarToStringLupa}}</span>
-                                <span *ngIf="param.combo">{{getObjDTOFilter(param.comboDTO.comboBoxDTO, param.valueNew)}}</span>
-                            </p>
-                        </ng-container>
-                </div>
+                <app-filter class="filtros" [enable]="filtros" [listRequest]="listRequest"></app-filter>
             </div>
         </p-toolbar>
 

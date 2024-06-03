@@ -70,3 +70,5 @@
     display: grid;
     grid-template-columns: 1fr;
 }
+@import "../../../../theme/styles/_constantes.scss";
+@include iconsStyle();

@@ -52,6 +52,7 @@ export class FormularioComponent  implements OnInit {
   @Input('dataTabular') dataTabular: any;
   @Input('abmParams') abmParams: AbmParams;
   @Input('menu') menu: boolean;
+  @Input('listRequest') listRequest: FormdataReportdef[];
   @Output()acciones = new EventEmitter<any>();
   @Output()accionesDina = new EventEmitter<any>();
   @Output()backHistory = new EventEmitter<any>();
@@ -99,6 +100,8 @@ export class FormularioComponent  implements OnInit {
     // tslint:disable-next-line:use-life-cycle-interface
   ngOnInit() {
     // tslint:disable-next-line:prefer-const
+    console.log('listRequest', this.listRequest);
+    
     this.password='';
     console.log('formInic');
     const fieldsCtrls = {};
@@ -110,8 +113,7 @@ export class FormularioComponent  implements OnInit {
     }
 
     this.actualizarDesdeGlobales(this.data.list);
-    console.log('globales actualizados');
-    console.log(this.data.list);
+    console.log('globales actualizados',this.data.list);
     // aca lo que hay que hacer es traer los formdata globales
     this.createFormAngular(fieldsCtrls, this.data.list);
     this.form = new FormGroup(fieldsCtrls);
@@ -1277,7 +1279,7 @@ private getData(datos: any, columns: HeaderDTO[]) {
   }
 
   verFiltros() {
-    this.filtros = true;
+    this.filtros = !this.filtros;
 }
 
 }

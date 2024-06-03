@@ -1413,16 +1413,4 @@ export class TabularComponent implements OnInit, OnChanges {
     can = null;
     return ancho + '%';
   }
-
-  getObjDTOFilter(objs: any[], id: string): string{
-    for (let ob of objs) {
-      if (ob.id == Number.parseInt(id))
-        return ob.value;
-    }
-    return "";
-  }
-  getBooleanString(value) :string{
-    return value == 1 || value == 'true' ? 'Si' : 'No';
-  }
-  
 }

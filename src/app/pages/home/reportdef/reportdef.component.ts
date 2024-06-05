@@ -1861,6 +1861,7 @@ this.reportdefService.getNewEditAbm(user, abmEdit).subscribe
    this.formRepordef.tabs = m.tabs;
    this.formRepordef.fieldsTab = m.fieldsTab;
    this.formRepordef.givePasswordToSave = m.givePasswordToSave;
+   this.formRepordef.formDinamico = m.formDinamico
    this.formRepordef.list.concat( m.listBotones);
    console.log('formulario con Tabs');
    console.log(this.formRepordef);

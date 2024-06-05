@@ -59,6 +59,7 @@ export class FormularioComponent  implements OnInit {
   @Input('tipoReporte') tipoReporte: ReportdefData;
   mobile: boolean = isMobile;
   tablet: boolean = screen.width > 600;
+  configForm: boolean;
 
   firma = false;
   tieneHijos = {
@@ -98,6 +99,8 @@ export class FormularioComponent  implements OnInit {
     public appSettings: AppSettings ) {}
     // tslint:disable-next-line:use-life-cycle-interface
   ngOnInit() {
+
+    console.log('dataI',this.data.list);
     // tslint:disable-next-line:prefer-const
     this.password='';
     console.log('formInic');
@@ -1278,6 +1281,33 @@ private getData(datos: any, columns: HeaderDTO[]) {
 
   verFiltros() {
     this.filtros = true;
+}
+
+toggleConfigForm(){
+  this.configForm = !this.configForm;
+}
+check(event){
+(event.target.firstChild as HTMLInputElement).checked = !(event.target.firstChild as HTMLInputElement).checked;
+}
+
+setFieldsConfig(){
+  let inputs = document.querySelectorAll('.field input');
+  let fields = [];
+  inputs.forEach(element => {
+    let field = {} as FormdataReportdef;
+    let eleInput = element as HTMLInputElement;
+     if (!eleInput.checked) {
+      for( let fld of this.data.list) {
+          if (fld.name == eleInput.value) {
+            field = fld;
+            break;
+          }
+      }
+      fields.push(field);
+    }
+  });
+  console.log('field',fields);
+
 }
 
 }

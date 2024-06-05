@@ -60,6 +60,9 @@
                             {{labelForm}}
                         </h5>
                     </div>
+                    <ng-container *ngIf="data.formDinamico">
+                        <button class="btn btn-primary" (click)="toggleConfigForm()">Configurar Campos</button>
+                    </ng-container>
 
                     <div class="ui-toolbar-group-right">
                         <button *ngIf="menu===false" pButton type="button" type="button"
@@ -262,3 +265,23 @@
         </div>
     </div>
 </div>
+
+<ng-container *ngIf="configForm">
+    <div class="configContainer">
+        <div class="configHeader d-flex">
+            Configurá los campos que desees ver
+        </div>
+        <div class="configBody">
+            <ng-container *ngFor="let field of data.list">
+                <div class="d-flex field" *ngIf="!field.abm && !field.require" (click)="check($event)">
+                    <input checked="true" style="user-select:none;pointer-events: none;" type="checkbox" value="{{field.name}}">
+                    <span style="user-select:none;pointer-events: none;">{{field.label}}</span>
+                </div>
+            </ng-container>
+        </div>
+        <div class="d-flex configFooter">
+            <button (click)="toggleConfigForm()" class="btn btn-primary">Volver</button>
+            <button (click)="setFieldsConfig()" class="btn btn-success">Guardar</button>
+        </div>
+    </div>
+</ng-container>

@@ -13,5 +13,6 @@ export interface FormReportdef {
    parametro: FormdataReportdef;
    metodoDTOs: MetodoDTO[];
    dinamycForm: boolean;
+   formDinamico: boolean;
    givePasswordToSave:boolean;
 }

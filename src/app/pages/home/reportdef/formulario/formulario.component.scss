@@ -70,3 +70,52 @@
     display: grid;
     grid-template-columns: 1fr;
 }
+.configContainer{
+    display: flex;
+    flex-direction: column;
+    border-radius: 8px;
+    position: fixed;
+    max-width: 400px;
+    top: 25%;
+    left: 0;
+    right: 0;
+    margin: auto;
+    background-color: #fff;
+    z-index: 9999;
+    .configHeader{
+        padding: 10px 15px 10px 15px;
+        border: 1px solid #3333333a;
+        background-color: #333;
+        border-radius: 8px 8px 0 0;
+        color: #fff;
+
+    }
+    .configBody{
+        height: 50vh;
+        overflow: auto;
+        .field{
+            cursor: pointer;
+            align-items: center;
+            text-align: center;
+            border: 0.5px solid #3333333a;
+            gap: 10px;
+            font-size: 15px;
+            font-weight: 500;
+            height: 35px;
+            padding: 0 15px 0 15px;
+            &:hover{
+                 background-color: #bebebe18;
+                 border-color: #023cb98e;
+            }
+        }
+    }
+    .configFooter{
+        justify-content: end;
+        align-items: center;
+        gap: 10px;
+        border-radius: 0 0 8px 8px;
+        border: 1px solid #3333333a;
+        padding: 5px 15px 5px 15px;
+        background-color: #333;
+    }
+}

@@ -1377,6 +1377,18 @@ const hola = 'hola';
       this.persisteEntidad(alta, eventAction).
       then( (result) => {
         historico.containerABM.id = result.idClasePersistida;
+        let photos = JSON.parse(localStorage.getItem("photoAbmDef"));
+        if(photos){
+          for (const f of photos) {
+            if(f.photo){
+              f.value = result.idClasePersistida;
+              f.valueNew = result.idClasePersistida;
+              break;
+            }
+          }
+          localStorage.setItem("photoAbmDef",JSON.stringify(photos));
+        }
+
         if (historico.containerABM.tieneHijoAlta) {
           this.obtenerParametroClasePadre(result).then( (resp) =>
            console.log('exito'));
@@ -1995,6 +2007,12 @@ reloadTree() {
   // change detection should remove the component now
   // then we can enable it again to create a new instance
   this.dataReportdefAux.cargando = false;
+}
+editarOrAltaAbm(event:FormdataReportdef){
+  let alta = !event.valueNew || event.valueNew.toString().trim().length === 0? true:false;
+  let id =alta?null:event.valueNew;
+  const data = {alta: alta, id: id, reporte: event.busquedaGenericaDTO.reportdefEditable, vista: null};
+  this.editarABM(data,false);
 }
 
 }

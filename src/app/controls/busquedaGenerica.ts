@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FinderParamsDTO } from '../_models/finderParamsDTO';
 import { inicializarFinder } from '../pages/genericFinder/utilFinder';
@@ -23,6 +23,7 @@ export class BusquedaGenericaComponent {
     @Input() form: FormGroup;
     @Input() elindex: any;
     @Input() dataForm: FormdataReportdef[];
+    @Output() editarAbm = new EventEmitter<FormdataReportdef>();
     mobile: boolean = isMobile;
     tablet: boolean = screen.width > 600;
     loader: boolean = false;
@@ -335,6 +336,10 @@ export class BusquedaGenericaComponent {
 
         }
     }
+    public editar(event) {
+        this.editarAbm.emit(this.field);
+    }
+    
     private checkError(error: any ) {
        //  this.loadSpinner.hide();
 

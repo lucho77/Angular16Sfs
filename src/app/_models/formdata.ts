@@ -243,4 +243,6 @@ enviacomotexto: boolean;
 
 methodDina: boolean;
 minLength: number;
+editable:boolean;
+photo:boolean;
 }

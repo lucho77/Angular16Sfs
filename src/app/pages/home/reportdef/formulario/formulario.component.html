@@ -38,7 +38,7 @@
                     <form  class="form-horizontal pt-2" >
                             <div *ngFor="let field of data.list; let i = index">
                                 <app-field-builder *ngIf="!field.buttom" [dataForm]="data.list" [field]="field"
-                                    [form]="form"
+                                    [form]="form" (editAbm)="processEditarAbm($event)" 
                                     [elindex]=camposAgrupaEnteroDescompuesto[i]></app-field-builder>
                             </div>
                     </form>
@@ -75,7 +75,7 @@
 
                     <div *ngFor="let field of data.list">
                         <app-field-builder *ngIf="!field.buttom" [dataForm]="data.list"
-                            (accionesDina)="processMethodDina($event)" [field]="field" 
+                            (accionesDina)="processMethodDina($event)" (editAbm)="processEditarAbm($event)" [field]="field" 
                             [form]="form"></app-field-builder>
                     </div>
                     <div [ngClass]="mobile && !tablet ? 'btn-list-row' : 'row'">
@@ -119,6 +119,7 @@
                                 <div *ngFor="let field of data.list">
                                     <app-field-builder *ngIf="!field.buttom && (field.name === tabsContent.campo)"
                                         [dataForm]="data.list" [field]="field"
+                                        (editAbm)="processEditarAbm($event)"
                                         [form]="form"></app-field-builder>
                                 </div>
                             </div>

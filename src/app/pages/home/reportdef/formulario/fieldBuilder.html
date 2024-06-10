@@ -2,7 +2,7 @@
 <div>
     <app-textbox *ngIf="(!field.parametroNoVisible) && (field.text ||field.entero ||field.decimal)" [field]="field"   [form]="form" [elindex]="pintarClaseDiv(elindex)"></app-textbox>
     <app-busquedagenerica *ngIf="!field.autocomplete &&  !field.parametroNoVisible && field.busquedaGenerica && !field.combo && (!field.global ||field.value === null || field.superVisible ) && !field.soloLecturaGlobal   && !field.disable" (spinner)="processSpinner($event)"
-        [dataForm]="dataForm" [field]="field"   [form]="form" [elindex]="pintarClaseDiv(elindex)"></app-busquedagenerica>
+        [dataForm]="dataForm" [field]="field"   [form]="form" [elindex]="pintarClaseDiv(elindex)"(editarAbm)="editarAbm($event)"></app-busquedagenerica>
     <app-busquedagenericatext *ngIf="!field.parametroNoVisible && (!field.autocomplete &&   field.busquedaGenerica && (field.global || field.soloLecturaGlobal || field.disable)  && (field.value || field.soloLecturaGlobal  ) && !field.superVisible) " [field]="field"
           [form]="form" [elindex]="pintarClaseDiv(elindex)"></app-busquedagenericatext>
     <app-textarea *ngIf="field.textArea && !field.parametroNoVisible" [field]="field"   [form]="form" [elindex]="pintarClaseDiv(elindex)"></app-textarea>

@@ -14,6 +14,7 @@ export class FieldBuilderComponent implements OnInit {
   @Input() form: any;
   @Input() elindex: any;
   @Output()accionesDina = new EventEmitter<any>();
+  @Output()editAbm = new EventEmitter<FormdataReportdef>();
 
   @Input() dataForm: FormdataReportdef[];
   loading: boolean;
@@ -48,6 +49,10 @@ pintarClaseDiv(valor: number) {
       cadenaClase = 'col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 mb-4 cl-de-ancho-chi-mov-form';
 
       return cadenaClase;
+      }
+
+      editarAbm(event) {
+        this.editAbm.emit(event);
       }
 
 }

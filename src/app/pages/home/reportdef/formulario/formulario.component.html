@@ -37,9 +37,11 @@
 
                     <form  class="form-horizontal pt-2" >
                             <div *ngFor="let field of data.list; let i = index">
-                                <app-field-builder *ngIf="!field.buttom" [dataForm]="data.list" [field]="field"
+                                <app-field-builder *ngIf="!field.buttom" 
+                                    [dataForm]="data.list" [field]="field"
                                     [form]="form"
-                                    [elindex]=camposAgrupaEnteroDescompuesto[i]></app-field-builder>
+                                    [elindex]=camposAgrupaEnteroDescompuesto[i]>
+                                </app-field-builder>
                             </div>
                     </form>
                     <div [ngClass]="mobile && !tablet ? 'btn-list-row' : 'row buttons'">
@@ -77,9 +79,11 @@
                 <form [formGroup]="form" class="form-horizontal pt-2" (keydown.enter)="$event.preventDefault()">
 
                     <div *ngFor="let field of data.list">
-                        <app-field-builder *ngIf="!field.buttom" [dataForm]="data.list"
+                        <app-field-builder *ngIf="!field.buttom" [ngStyle]="{'display':mostrarField(field) || field.require ? '' : 'none'}"
+                            [dataForm]="data.list"
                             (accionesDina)="processMethodDina($event)" [field]="field" 
-                            [form]="form"></app-field-builder>
+                            [form]="form">
+                        </app-field-builder>
                     </div>
                     <div [ngClass]="mobile && !tablet ? 'btn-list-row' : 'row'">
                         <div *ngFor="let field of data.list">
@@ -268,20 +272,30 @@
 
 <ng-container *ngIf="configForm">
     <div class="configContainer">
-        <div class="configHeader d-flex">
+        <div class="configHeader d-flex" style="flex-direction: column;">
             Configurá los campos que desees ver
+            <div>
+                <button class="btn btn-primary btn-selectAll" (click)="selectAllConfig()">
+                    <span *ngIf="!selectAllConfigForm else dSelecAll">Seleccionar todo</span>
+                    <ng-template #dSelecAll>
+                        <span>Deseleccionar todo</span>
+                    </ng-template>
+                </button>
+            </div>
         </div>
+
         <div class="configBody">
             <ng-container *ngFor="let field of data.list">
                 <div class="d-flex field" *ngIf="!field.abm && !field.require" (click)="check($event)">
-                    <input checked="true" style="user-select:none;pointer-events: none;" type="checkbox" value="{{field.name}}">
-                    <span style="user-select:none;pointer-events: none;">{{field.label}}</span>
+                    <input class="fld-i" type="checkbox" value="{{field.name}}">
+                    <span class="fld-i">{{field.label}}</span>
                 </div>
             </ng-container>
         </div>
         <div class="d-flex configFooter">
-            <button (click)="toggleConfigForm()" class="btn btn-primary">Volver</button>
-            <button (click)="setFieldsConfig()" class="btn btn-success">Guardar</button>
+            <button (click)="backConfigForm()" class="btn btn-primary">Volver</button>
+            <button (click)="setFieldsConfig()" class="btn btn-primary">Previsualizar</button>
+            <button (click)="saveConfig()" class="btn btn-success">Guardar</button>
         </div>
     </div>
 </ng-container>

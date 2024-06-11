@@ -60,6 +60,8 @@ export class FormularioComponent  implements OnInit {
   mobile: boolean = isMobile;
   tablet: boolean = screen.width > 600;
   configForm: boolean;
+  selectAllConfigForm: boolean = false;
+  dataCopy: FormReportdef;
 
   firma = false;
   tieneHijos = {
@@ -100,7 +102,10 @@ export class FormularioComponent  implements OnInit {
     // tslint:disable-next-line:use-life-cycle-interface
   ngOnInit() {
 
-    console.log('dataI',this.data.list);
+    this.dataCopy = structuredClone(this.data);
+    console.log('this.data',this.data,this.reporte);
+    
+    
     // tslint:disable-next-line:prefer-const
     this.password='';
     console.log('formInic');
@@ -1290,13 +1295,18 @@ check(event){
 (event.target.firstChild as HTMLInputElement).checked = !(event.target.firstChild as HTMLInputElement).checked;
 }
 
+
+backConfigForm(){
+  this.toggleConfigForm();
+  this.dataCopy.list = this.data.list;
+}
 setFieldsConfig(){
   let inputs = document.querySelectorAll('.field input');
   let fields = [];
   inputs.forEach(element => {
     let field = {} as FormdataReportdef;
     let eleInput = element as HTMLInputElement;
-     if (!eleInput.checked) {
+     if (eleInput.checked) {
       for( let fld of this.data.list) {
           if (fld.name == eleInput.value) {
             field = fld;
@@ -1306,8 +1316,29 @@ setFieldsConfig(){
       fields.push(field);
     }
   });
-  console.log('field',fields);
+  console.log('fields',fields);
+  
+  this.dataCopy.list = fields;
 
+}
+saveConfig(){
+  this.setFieldsConfig();
+  this.toggleConfigForm();
+}
+mostrarField(field: any){
+  for (let f of this.dataCopy.list) {
+    if (f.name == field.name)
+      return true;
+  }
+  return false;
+}
+selectAllConfig(){
+  this.selectAllConfigForm = !this.selectAllConfigForm;
+  let inputs = document.querySelectorAll('.field input');
+    inputs.forEach(element => {
+      let eleInput = element as HTMLInputElement;
+      eleInput.checked = this.selectAllConfigForm;
+    });
 }
 
 }

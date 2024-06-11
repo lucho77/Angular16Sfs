@@ -88,6 +88,21 @@
         background-color: #333;
         border-radius: 8px 8px 0 0;
         color: #fff;
+        .btn-selectAll{
+            height: 20px;
+            font-size: 12px;
+            display: flex;
+            position: relative;
+            justify-content: center;
+            align-items: center;
+            span {
+                text-align: center;
+                display: flex;
+                position: relative;
+                top: -5px;
+                margin: auto;
+            }
+        }
 
     }
     .configBody{
@@ -103,6 +118,10 @@
             font-weight: 500;
             height: 35px;
             padding: 0 15px 0 15px;
+            .fld-i{
+                user-select: none;
+                pointer-events: none;
+            }
             &:hover{
                  background-color: #bebebe18;
                  border-color: #023cb98e;

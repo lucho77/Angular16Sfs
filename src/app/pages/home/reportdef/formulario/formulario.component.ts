@@ -564,7 +564,7 @@ export class FormularioComponent implements OnInit {
     if (!seguir) {
       return;
     }
-    const u = JSON.parse(localStorage.getItem('current'));
+    const u = JSON.parse(localStorage.getItem('currentUser'));
 
     if (this.data.givePasswordToSave && (u.certificadoDto && u.certificadoDto.certificado)) {
       this.firma = true;

@@ -29,6 +29,9 @@ import { AppSettings } from '../app.settings';
 import { environment } from 'src/environments/environment';
 import { ObtenerMetodoRequestDto } from '../_models/obtenerMetodoRequestDto';
 import { MetodoDTO } from '../_models/metodoDTO';
+import { usuConfigFormDTO } from '../_models/usuConfigFormDTO';
+import { usuConfigForm } from '../_models/usuConfigForm';
+import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class ReportdefService {
@@ -247,6 +250,16 @@ export class ReportdefService {
         requestDto.idUsuarioUra = dato.idUsuarioUra;
         return this.http.post<MetodoDTO>(`${devolverProyecto()}/obtenerMetodoPorEtiqueta/`, requestDto)
         .pipe(map(result => result));
+    }
+    configFormByUser(user: User, usuConfigForms: usuConfigForm[]): Observable<any> {
+        let ucfDTO = {} as usuConfigFormDTO
+        ucfDTO.username = user.username;
+        ucfDTO.dataSource = user.datasource;
+        ucfDTO.webservice = user.webservice;
+        ucfDTO.packageModel = user.packageModel;
+        ucfDTO.idUsuarioUra = user.idUsuarioUra;
+        ucfDTO.configsFormsByUser = usuConfigForms;
+        return this.http.post(`${devolverProyecto()}/configurarFormByUser/`,ucfDTO).pipe(map(result => result));
     }
 
 }

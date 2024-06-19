@@ -37,4 +37,5 @@ postPersist: string;
 fieldsTab: TabField[];
 tabs: boolean;
 givePasswordToSave:boolean;
+formDinamico: boolean;
 }

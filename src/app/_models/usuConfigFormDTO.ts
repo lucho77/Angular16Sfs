@@ -6,6 +6,7 @@ export interface usuConfigFormDTO {
     webservice: string;
     packageModel: string;
     idUsuarioUra: number;
+    alta: boolean;
     configsFormsByUser: usuConfigForm[];
 
 }

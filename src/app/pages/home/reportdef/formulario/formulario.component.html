@@ -20,7 +20,9 @@
                             {{labelForm}}
                         </h5>
                     </div>
-
+                    <ng-container *ngIf="data.formDinamico">
+                        <button class="btn btn-primary" (click)="toggleConfigForm()">Configurar Campos</button>
+                    </ng-container>
                     <div class="ui-toolbar-group-right">
 
                         <button *ngIf="menu===false" pButton type="button" type="button"
@@ -38,6 +40,7 @@
                     <form  class="form-horizontal pt-2" >
                             <div *ngFor="let field of data.list; let i = index">
                                 <app-field-builder *ngIf="!field.buttom" 
+                                    [ngStyle]="{'display':mostrarField(field) || field.require ? '' : 'none'}"
                                     [dataForm]="data.list" [field]="field"
                                     [form]="form"
                                     [elindex]=camposAgrupaEnteroDescompuesto[i]>
@@ -46,7 +49,7 @@
                     </form>
                     <div [ngClass]="mobile && !tablet ? 'btn-list-row' : 'row buttons'">
                         <div *ngFor="let field of data.list">
-                            <app-button *ngIf="field.buttom && !field.buttomDTO.bottonVolver" [field]="field"
+                            <app-button *ngIf="field.buttom && !field.buttomDTO.bottonVolver" [field]="field" 
                                 [form]="form" (acciones)="processActions($event,false)"></app-button>
                             <app-button-cancel *ngIf="field.buttomDTO.bottonVolver" [field]="field" [form]="form"
                                 (acciones)="processActions($event,false)"></app-button-cancel>
@@ -106,6 +109,9 @@
                             {{labelForm}}
                         </h5>
                     </div>
+                    <ng-container *ngIf="data.formDinamico">
+                        <button class="btn btn-primary" (click)="toggleConfigForm()">Configurar Campos</button>
+                    </ng-container>
 
                     <div class="ui-toolbar-group-right">
                         <button *ngIf="menu===false" pButton type="button" type="button"
@@ -125,6 +131,7 @@
                             <div *ngFor="let tabsContent of item.list">
                                 <div *ngFor="let field of data.list">
                                     <app-field-builder *ngIf="!field.buttom && (field.name === tabsContent.campo)"
+                                        [ngStyle]="{'display':mostrarField(field) || field.require ? '' : 'none'}"
                                         [dataForm]="data.list" [field]="field"
                                         [form]="form"></app-field-builder>
                                 </div>
@@ -286,8 +293,8 @@
 
         <div class="configBody">
             <ng-container *ngFor="let field of data.list">
-                <div class="d-flex field" *ngIf="!field.abm && !field.require" (click)="check($event)">
-                    <input class="fld-i" type="checkbox" value="{{field.name}}">
+                <div class="d-flex field" *ngIf="!field.abm && !field.require && !field.buttom" (click)="check($event)">
+                    <input class="fld-i" type="checkbox" checked="{{isCheck(field.name)?'true':''}}" value="{{field.name}}">
                     <span class="fld-i">{{field.label}}</span>
                 </div>
             </ng-container>

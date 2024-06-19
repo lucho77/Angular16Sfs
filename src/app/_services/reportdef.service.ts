@@ -251,13 +251,14 @@ export class ReportdefService {
         return this.http.post<MetodoDTO>(`${devolverProyecto()}/obtenerMetodoPorEtiqueta/`, requestDto)
         .pipe(map(result => result));
     }
-    configFormByUser(user: User, usuConfigForms: usuConfigForm[]): Observable<any> {
+    configFormByUser(user: User, usuConfigForms: usuConfigForm[],alta:boolean): Observable<any> {
         let ucfDTO = {} as usuConfigFormDTO
         ucfDTO.username = user.username;
         ucfDTO.dataSource = user.datasource;
         ucfDTO.webservice = user.webservice;
         ucfDTO.packageModel = user.packageModel;
         ucfDTO.idUsuarioUra = user.idUsuarioUra;
+        ucfDTO.alta = alta;
         ucfDTO.configsFormsByUser = usuConfigForms;
         return this.http.post(`${devolverProyecto()}/configurarFormByUser/`,ucfDTO).pipe(map(result => result));
     }

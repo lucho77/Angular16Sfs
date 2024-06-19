@@ -152,6 +152,9 @@ export class FormularioComponent  implements OnInit {
 
 
    }
+   if (this.data.formDinamico) {
+    this.getConfigFormByUser();
+  }
 
     this.camposAgrupaEntero = bRes;
     this.camposAgrupaEnteroDescompuesto = bResDescompuesto;
@@ -1320,23 +1323,31 @@ private getData(datos: any, columns: HeaderDTO[]) {
     }
   }
 
+  isCheck(fieldName: string){
+    if (this.fieldsConfig) {
+      for (let field of this.fieldsConfig) {
+        if (field.field == fieldName && field.flgDeshabilitado == 0)
+          return true;
+      }
+    }
+    return false;
+  }
+
   setFieldsConfig(previsualiza: boolean) {
     let inputs = document.querySelectorAll('.field input');
     let fields = [];
-
+    let copy = null;
+    let alta: boolean = true;
     if (!previsualiza) {
+      copy = structuredClone(this.fieldsConfig);
       this.fieldsConfig = [];
     }
 
     inputs.forEach(element => {
       let field = {} as FormdataReportdef;
       let eleInput = element as HTMLInputElement;
-      let usuConf = {} as usuConfigForm;
-      usuConf.field = eleInput.value;
-      usuConf.form = this.reporte;
-      let user = JSON.parse(localStorage.getItem("currentUser")) as User;
-      usuConf.idUsuario = user.idUsuarioUra
-      usuConf.flgDeshabilitado = 1;
+      let usuConf = this.newUsuConf(eleInput.value);
+      
       if (eleInput.checked) {
         for (let fld of this.data.list) {
           if (fld.name == eleInput.value) {
@@ -1348,25 +1359,57 @@ private getData(datos: any, columns: HeaderDTO[]) {
         fields.push(field);
       }
       if (!previsualiza) {
+        if (copy != null) {
+          let Ocopy = copy.filter((ob:usuConfigForm)=>{
+            if (ob.field == usuConf.field) {
+              return true;
+          }
+          return false;
+        })[0];
+         usuConf.idUsuformConf = Ocopy.idUsuformConf
+         alta = !(Ocopy.idUsuformConf != null || Ocopy.idUsuformConf != undefined);
+        }
         this.fieldsConfig.push(usuConf);
       }
     });
     this.dataCopy.list = fields;
+    return alta;
+  }
+
+  newUsuConf(field:string):usuConfigForm{
+    let usuConf = {} as usuConfigForm;
+    usuConf.field = field;
+    usuConf.form = this.reporte;
+    let user = JSON.parse(localStorage.getItem("currentUser")) as User;
+    usuConf.idUsuario = user.idUsuarioUra
+    usuConf.userName = user.username
+    usuConf.flgDeshabilitado = 1;
+    return usuConf;
   }
 
   saveConfig() {
-    this.setFieldsConfig(false);
+    this.appSettings.settings.theme.loadscreen=true;
+
+    let alta = this.setFieldsConfig(false);
     this.toggleConfigForm();
+    
     let user = JSON.parse(localStorage.getItem("currentUser")) as User;
-    this.reportdefService.configFormByUser(user, this.fieldsConfig).subscribe({
+    this.reportdefService.configFormByUser(user, this.fieldsConfig,alta).subscribe({
       next: (res) => {
-        console.log(res);
-        
-        this.toastrService.success('Configuración guardada');
+        if (res.respuestagenerica == 'ok') {
+          this.toastrService.success('Configuración guardada');
+          this.appSettings.settings.theme.loadscreen=false;
+
+        }
+        else
+          this.toastrService.error('Error al guardar configuración')
+          this.appSettings.settings.theme.loadscreen=false;
+
       },
       error: (err: HttpErrorResponse) => {
         console.log(err);
-        this.toastrService.error('Error al guardar configuración')
+        this.appSettings.settings.theme.loadscreen=false;
+        this.toastrService.error('Error inesperado')
       }
     });
     this.selectAllConfigForm = false;
@@ -1387,6 +1430,39 @@ private getData(datos: any, columns: HeaderDTO[]) {
       let eleInput = element as HTMLInputElement;
       eleInput.checked = this.selectAllConfigForm;
     });
+  }
+
+  getConfigFormByUser(){
+    let user = JSON.parse(localStorage.getItem("currentUser")) as User;
+    let dto = {} as ParametrosExecuteMethodRequestDTO;
+    let username = {} as FormdataReportdef;
+    let formname = {} as FormdataReportdef;
+    dto.list = [];
+
+    username.name = 'p_userName';
+    username.type = FrontEndConstants.JAVA_LANG_STRING;
+    username.valueNew = user.username;
+    username.text = true;
+    dto.list.push(username);
+
+    formname.name = 'p_formname';
+    formname.type = FrontEndConstants.JAVA_LANG_STRING;
+    formname.valueNew = this.reporte;
+    formname.text = true;
+    dto.list.push(formname);
+
+    dto.metodo = 'getConfigFormByUser';
+
+    this.reportdefService.postExecuteMethod(user,dto).subscribe({
+      next: res => {
+        this.fieldsConfig = JSON.parse(res.valor);
+        this.configurationForm();
+      },
+      error: err => {
+        console.log(err);
+        
+      }
+    })
   }
 
 }

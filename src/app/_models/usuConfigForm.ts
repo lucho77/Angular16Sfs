@@ -1,7 +1,8 @@
 export interface usuConfigForm{
-    idUsuConfigForm: number;
+    idUsuformConf: number;
     form: string;
     field: string;
+    userName:string;
     idUsuario:number;
     flgDeshabilitado: number;
 }

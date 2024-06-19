@@ -42,7 +42,7 @@
                                 <app-field-builder *ngIf="!field.buttom" 
                                     [ngStyle]="{'display':mostrarField(field) || field.require ? '' : 'none'}"
                                     [dataForm]="data.list" [field]="field"
-                                    [form]="form"
+                                    [form]="form" (editAbm)="processEditarAbm($event)"
                                     [elindex]=camposAgrupaEnteroDescompuesto[i]>
                                 </app-field-builder>
                             </div>
@@ -84,7 +84,7 @@
                     <div *ngFor="let field of data.list">
                         <app-field-builder *ngIf="!field.buttom" [ngStyle]="{'display':mostrarField(field) || field.require ? '' : 'none'}"
                             [dataForm]="data.list"
-                            (accionesDina)="processMethodDina($event)" [field]="field" 
+                            (accionesDina)="processMethodDina($event)" (editAbm)="processEditarAbm($event)" [field]="field" 
                             [form]="form">
                         </app-field-builder>
                     </div>
@@ -133,6 +133,7 @@
                                     <app-field-builder *ngIf="!field.buttom && (field.name === tabsContent.campo)"
                                         [ngStyle]="{'display':mostrarField(field) || field.require ? '' : 'none'}"
                                         [dataForm]="data.list" [field]="field"
+                                        (editAbm)="processEditarAbm($event)"
                                         [form]="form"></app-field-builder>
                                 </div>
                             </div>

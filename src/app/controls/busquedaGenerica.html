@@ -5,7 +5,10 @@
                 <label class="d-flex flex-nowrap input-group col-xs-2 col-sm-2 col-md-4 col-lg-2 col-xl-1 lab tm-f-bugt pl-0">{{field.label}}:<strong class="text-danger " *ngIf="field.require ">*</strong></label>
                 <input *ngIf="!this.form.controls[this.field.nameRes].value || !mobile && tablet" type="text" class="input-1" [id]="field.name" [name]="field.name" [formControlName]="field.name " (keydown.enter)="buscar($event) ">
                 <button *ngIf="!this.form.controls[this.field.nameRes].value || !mobile && tablet" class="btn btn-info btn-1 d-flex" style="border-radius: 0 4px 4px 0;" (click)="buscar($event) ">
-                    <span *ngIf="!loader"><i class="fa fa-search "></i> <span *ngIf="!mobile || tablet">Buscar</span></span><span disabled *ngIf="loader" class="loader"></span>
+                    <span *ngIf="!loader"><i class="fa fa-search"></i> <span *ngIf="!mobile || tablet">Buscar</span></span><span disabled *ngIf="loader" class="loader"></span>
+                </button>
+                <button *ngIf="this.field.editable" class="btn btn-secondary btn-1 d-flex" style="border-radius: 0 4px 4px 0;" (click)="editar($event) ">
+                    <span><i class="fa fa-pencil-square-o"></i> <span>editar</span></span><span disabled *ngIf="loader" class="loader"></span>
                 </button>
                 <input *ngIf="this.form.controls[this.field.nameRes].value" type="text" class="input-2" id="field.nameRes " [formControlName]="field.nameRes ">
                 <button *ngIf="this.form.controls[this.field.nameRes].value" class="btn btn-outline-secondary btn-2 d-flex" style="border-radius: 0 4px 4px 0;" type="button " (click)="borrar($event) ">

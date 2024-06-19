@@ -107,7 +107,7 @@ export class FormularioComponent implements OnInit {
     private router: Router,
     public appSettings: AppSettings ) {}
     // tslint:disable-next-line:use-life-cycle-interface
-  ngOnInit() {
+  async ngOnInit() {
 
     this.dataCopy = structuredClone(this.data);
     console.log('this.data',this.data,this.reporte);

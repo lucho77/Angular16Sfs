@@ -29,7 +29,7 @@ import { PreMethodDTO } from 'src/app/_models/preMethodDTO';
 import { ParamRequestDTO } from '../../../../_models/paramRequestDTO';
 import { ToastrService } from 'ngx-toastr';
 import { isNumber, toInteger } from 'src/app/util/datePicker/util';
-import { consultarParametroByParam, crearParametro, ejecutarMetodo, getThubmnail, seteoParamGlobal } from 'src/app/util/reportdefUtil';
+import { consultarParametroByParam, crearParametro, ejecutarMetodo, seteoParamGlobal } from 'src/app/util/reportdefUtil';
 import { Message } from 'primeng/api';
 import { CommonModule } from '@angular/common';
 import { isMobile, isTablet } from 'mobile-device-detect';
@@ -69,9 +69,10 @@ export class FormularioComponent implements OnInit {
   selectAllConfigForm: boolean = false;
   fieldsConfig: usuConfigForm[];
   dataCopy: FormReportdef;
-
-  firma = false;
+  mensajeErrorHijo: Message[] = [];
+  mensajeErrorPadre: Message[] = [];
   tumbnails = false;
+  firma = false;
   tieneHijos = {
     es: false,
     alta: false,
@@ -87,8 +88,6 @@ export class FormularioComponent implements OnInit {
   formRepordefHijos: FormReportdef;
   reporteHijos: string;
   idSeleccionado: number;
-  mensajeErrorHijo: Message[] = [];
-  mensajeErrorPadre: Message[] = [];
   imagesBase64: Array<{ value1: any, value2: any }> = [];
   imagesBase64Sel: Array<{ value1: any, value2: any }> = [];
   private nameRef: Subscription = null;
@@ -104,7 +103,6 @@ export class FormularioComponent implements OnInit {
   hijoAux: boolean;
   formRepordefAux: FormdataReportdef;
   fieldsCtrls = {};
-  id:any;
   constructor(private confirmationDialogService: ConfirmationDialogService,
     private abmservice: AbmService, public toastrService: ToastrService, private reportdefService: ReportdefService,
     private nameService: NameGlobalService, private nameAvisoSeteo: AvisaSeteoService, private paramService: ParamDataHijoService,
@@ -113,7 +111,7 @@ export class FormularioComponent implements OnInit {
     // tslint:disable-next-line:use-life-cycle-interface
   async ngOnInit() {
 
-    this.dataCopy = structuredClone(this.data);
+    //this.dataCopy = structuredClone(this.data);
     console.log('this.data',this.data,this.reporte);
 
     // tslint:disable-next-line:prefer-const
@@ -121,7 +119,7 @@ export class FormularioComponent implements OnInit {
     console.log('formInic');
     this.camposAgrupaEntero = [];
     this.camposAgrupaEnteroDescompuesto = [];
-    this.id = localStorage.getItem("idEntidad");
+
     if (this.dataHijos && this.dataHijos.etiqueta) {
       this.reporteHijos = this.dataHijos.etiqueta;
     }
@@ -526,6 +524,7 @@ export class FormularioComponent implements OnInit {
       );
     });
   }
+
   closeThumbnails(){
     this.tumbnails = false;
   }
@@ -549,9 +548,9 @@ export class FormularioComponent implements OnInit {
         i++;
       }
       imageControl.setValue(v);
+      this.tumbnails=false;
     }
   }
-
   processActions(event: FormdataReportdef, hijo: boolean) {
     // debo preguntar si es un boton volver
     // obtengo la lista de valores del form
@@ -560,28 +559,6 @@ export class FormularioComponent implements OnInit {
     if (event.buttomDTO.bottonVolverHistorico) {
       this.backHistory.emit(event);
       return;
-    }
-    if (event.buttomDTO.metodoDTO.tipoMetodo.toUpperCase() === FrontEndConstants.VISUALIZAR_THUMBNAIL.toUpperCase()) {
-      const listNew: FormdataReportdef[] = [];
-      if(this.imagesBase64.length>0){
-        this.tumbnails = true;
-        return;
-
-      }else{
-        let data = crearParametro("P_ID",FrontEndConstants.JAVA_LANG_LONG,this.id);
-        listNew.push(data);      
-          getThubmnail(event.buttomDTO.metodoDTO.methodName, false,listNew,this.reportdefService).then((resp)=>{
-            for (const g of resp['data']) {
-              this.imagesBase64.push({
-                value1: g[0].value,
-                value2: g[1].value
-              });
-            }
-            this.tumbnails = true;
-            return;
-          });
-    
-      }
     }
 
     if (event.buttomDTO.guardarYvolver) {
@@ -1625,9 +1602,12 @@ export class FormularioComponent implements OnInit {
   }
 
   mostrarField(field: any) {
-    for (let f of this.dataCopy.list) {
-      if (f.name == field.name)
-        return true;
+    if(this.dataCopy &&  this.dataCopy.list ){
+      for (let f of this.dataCopy.list) {
+        if (f.name == field.name)
+          return true;
+      }
+  
     }
     return false;
   }

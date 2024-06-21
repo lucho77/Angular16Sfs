@@ -532,6 +532,27 @@ export function prepararParametrosApasar(repordefData: ReportdefData, metadata: 
       }
       });
     }
+    export function getThubmnail( methodName: string, pdf: boolean, listParam: FormdataReportdef[],
+      reportdefService: ReportdefService ): Promise<ReportMethodResponseDTO> {
+      return new Promise<ReportMethodResponseDTO>( (resolve, reject) => {{
+
+        const dataMetodo = {} as ParametrosExecuteMethodRequestDTO;
+        // tslint:disable-next-line:prefer-const
+        dataMetodo.list = listParam;
+        dataMetodo.pdf = pdf;
+        dataMetodo.metodo = methodName;
+        const user = JSON.parse(localStorage.getItem('currentUser')!);
+
+        reportdefService.getThumbnail(user, dataMetodo).subscribe
+        ((result: any) => {
+          resolve(result);
+              },
+               (err: HttpErrorResponse) => {
+                reject(err);
+              });
+    }
+    });
+  }
 
     export function consultarParametroByClase( paramRequest: ParamRequestDTO,
       reportdefService: ReportdefService ): Promise<FormdataReportdef> {

@@ -29,7 +29,7 @@ import { PreMethodDTO } from 'src/app/_models/preMethodDTO';
 import { ParamRequestDTO } from '../../../../_models/paramRequestDTO';
 import { ToastrService } from 'ngx-toastr';
 import { isNumber, toInteger } from 'src/app/util/datePicker/util';
-import { consultarParametroByParam, crearParametro, ejecutarMetodo, seteoParamGlobal } from 'src/app/util/reportdefUtil';
+import { consultarParametroByParam, crearParametro, ejecutarMetodo, getThubmnail, seteoParamGlobal } from 'src/app/util/reportdefUtil';
 import { Message } from 'primeng/api';
 import { CommonModule } from '@angular/common';
 import { isMobile, isTablet } from 'mobile-device-detect';
@@ -64,6 +64,7 @@ export class FormularioComponent implements OnInit {
   tablet: boolean = screen.width > 600;
 
   firma = false;
+  tumbnails = false;
   tieneHijos = {
     es: false,
     alta: false,
@@ -81,6 +82,8 @@ export class FormularioComponent implements OnInit {
   idSeleccionado: number;
   mensajeErrorHijo: Message[] = [];
   mensajeErrorPadre: Message[] = [];
+  imagesBase64: Array<{ value1: any, value2: any }> = [];
+  imagesBase64Sel: Array<{ value1: any, value2: any }> = [];
   private nameRef: Subscription = null;
   private dataRef: Subscription = null;
   password: string;
@@ -94,6 +97,7 @@ export class FormularioComponent implements OnInit {
   hijoAux: boolean;
   formRepordefAux: FormdataReportdef;
   fieldsCtrls = {};
+  id:any;
   constructor(private confirmationDialogService: ConfirmationDialogService,
     private abmservice: AbmService, public toastrService: ToastrService, private reportdefService: ReportdefService,
     private nameService: NameGlobalService, private nameAvisoSeteo: AvisaSeteoService, private paramService: ParamDataHijoService,
@@ -106,7 +110,7 @@ export class FormularioComponent implements OnInit {
     console.log('formInic');
     this.camposAgrupaEntero = [];
     this.camposAgrupaEnteroDescompuesto = [];
-
+    this.id = localStorage.getItem("idEntidad");
     if (this.dataHijos && this.dataHijos.etiqueta) {
       this.reporteHijos = this.dataHijos.etiqueta;
     }
@@ -508,6 +512,31 @@ export class FormularioComponent implements OnInit {
       );
     });
   }
+  closeThumbnails(){
+    this.tumbnails = false;
+  }
+  addImage($event){
+    this.imagesBase64Sel = $event;
+  }
+  addThumbnails(){
+    let v = "";
+    const imageControl = this.form.get('P_IMAGENES');
+    imageControl.setValue(null);
+  if(this.imagesBase64Sel.length>0){
+      let i=0;
+      for(const g of this.imagesBase64Sel){
+        if(i==0){
+          v=g.value2;
+
+        }else{
+          v+=";";
+          v+=g.value2;
+        }
+        i++;
+      }
+      imageControl.setValue(v);
+    }
+  }
 
   processActions(event: FormdataReportdef, hijo: boolean) {
     // debo preguntar si es un boton volver
@@ -517,6 +546,28 @@ export class FormularioComponent implements OnInit {
     if (event.buttomDTO.bottonVolverHistorico) {
       this.backHistory.emit(event);
       return;
+    }
+    if (event.buttomDTO.metodoDTO.tipoMetodo.toUpperCase() === FrontEndConstants.VISUALIZAR_THUMBNAIL.toUpperCase()) {
+      const listNew: FormdataReportdef[] = [];
+      if(this.imagesBase64.length>0){
+        this.tumbnails = true;
+        return;
+
+      }else{
+        let data = crearParametro("P_ID",FrontEndConstants.JAVA_LANG_LONG,this.id);
+        listNew.push(data);      
+          getThubmnail(event.buttomDTO.metodoDTO.methodName, false,listNew,this.reportdefService).then((resp)=>{
+            for (const g of resp['data']) {
+              this.imagesBase64.push({
+                value1: g[0].value,
+                value2: g[1].value
+              });
+            }
+            this.tumbnails = true;
+            return;
+          });
+    
+      }
     }
 
     if (event.buttomDTO.guardarYvolver) {

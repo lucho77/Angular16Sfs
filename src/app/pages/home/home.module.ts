@@ -52,6 +52,7 @@ import { EditorModule } from 'primeng/editor';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { TableModule } from 'primeng/table';
 import { CalendarModule } from 'primeng/calendar';
+import { ThumbnailModalComponent } from 'src/app/controls/thumbnail/ThumbnailModalComponent';
 
 // Formatos customizados
 export const MY_MOMENT_FORMATS = {
@@ -76,7 +77,7 @@ export const MY_MOMENT_FORMATS = {
     HomeComponent,ReportdefComponent, AutocompleteComponent,BusquedaGenericaTextComponent,ButtonComponent,FieldBuilderComponent,
     ButtonCancelComponent,CardsComponent,CheckBoxComponent,ComboComponent,TabularABMFinderComponent,InfoAreaComponent,InfoNotificationComponent,
     FechaComponent,FechaHoraComponent,FechaCustomComponent,LabelComponent,LinkComponent,RadioComponent,
-    TextAreaComponent,TextBoxComponent,ClockComponent,EditorComponent,FileUploaderComponent,LinkComponent,TabularComponent,FormularioComponent
+    TextAreaComponent,TextBoxComponent,ClockComponent,EditorComponent,FileUploaderComponent,LinkComponent,TabularComponent,FormularioComponent,ThumbnailModalComponent
  
 
   ],

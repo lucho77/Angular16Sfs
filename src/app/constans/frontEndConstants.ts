@@ -44,6 +44,7 @@ public static   SHAREDPARAMETER = 'P_IDCOMPARTIR';
 public static   ESTADOLIBRE = 'LIBRE';
 public static   BUTTON_GUARDARYVOLVER = 'guardarYvolver';
 public static   URL_REFRESHTOKEN = 'refreshToken';
+public static   VISUALIZAR_THUMBNAIL = 'visualizarThumbnail';
 
 
 }

@@ -915,10 +915,11 @@ const hola = 'hola';
       this.backFirstHistoryAndRefresh();
      }
 
-      if (eventAction.tipoMetodo.toUpperCase()  === FrontEndConstants.ACCION_Y_VUELVE_TABULARABM.toUpperCase() ) {
-        this.backHistory();
+     if (eventAction.tipoMetodo.toUpperCase()  === FrontEndConstants.ACCION_Y_VUELVE_TABULARABM.toUpperCase() ) {
+      this.backHistory();
      }
-     if (eventAction.tipoMetodo.toUpperCase()  === FrontEndConstants.REFRESCAR_TABULAR.toUpperCase() ) {
+
+   if (eventAction.tipoMetodo.toUpperCase()  === FrontEndConstants.REFRESCAR_TABULAR.toUpperCase() ) {
        if (eventAction.tipoReportdefParent.toUpperCase()  === FrontEndConstants.TABULAR_ABM.toUpperCase() ) {
            this.generarTabularAbm(historico.menu, historico.metadata, null, false, false, false);
           return;
@@ -1853,7 +1854,7 @@ const hola = 'hola';
  this.idEntidad = data.id;
  abmEdit.reportName = data.reporte;
  abmEdit.viewName = data.vista;
-
+localStorage.setItem("idEntidad",data.id);
  abmEdit.onlyOwner = data.onlyOwner;
  abmEdit.idOnlyOwner = data.idOwner;
  abmEdit.onlyOwnerDay = data.onlyOwnerDay;

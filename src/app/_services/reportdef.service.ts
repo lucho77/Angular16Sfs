@@ -109,6 +109,15 @@ export class ReportdefService {
         return this.http.post<ReportMethodResponseDTO>(`${devolverProyecto()}/ejecutarMetodo/`, datos)
         .pipe(map(result => result));
     }
+    getThumbnail(user: User, datos: ParametrosExecuteMethodRequestDTO) {
+        datos.username = user.username;
+        datos.dataSource = user.datasource;
+        datos.webServicesAddress = user.webservice;
+        datos.modelPackage = user.packageModel;
+        datos.idUsuarioUra = user.idUsuarioUra;
+        return this.http.post<ReportMethodResponseDTO>(`${devolverProyecto()}/obtenerImagenesThumbnail/`, datos)
+        .pipe(map(result => result));
+    }
     postExecuteMethodForm(user: User, datos: ParametrosExecuteMethodRequestDTO) {
         datos.username = user.username;
         datos.dataSource = user.datasource;

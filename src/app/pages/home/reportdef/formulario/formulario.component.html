@@ -236,7 +236,21 @@
     </p-footer>
 </p-dialog>
 
+<p-dialog [(visible)]="tumbnails" header="seleccione las imagenes a anexar al documento" [modal]="true" [responsive]="true" [maximizable]="true" [baseZIndex]="10000">
+    <div class="col-xl-12">
+        <div class="card">
+            <div class="card-body">
+                <app-thumbnail-modal [base64Images]="imagesBase64" (selectionChange)="addImage($event)"></app-thumbnail-modal>
+            </div>
+        </div>
+    </div>
 
+    <ng-template pTemplate="footer">
+        <button type="button" class="btn btn-outline-primary w-100p mb-1 mr-1" (click)="addThumbnails()">Aceptar</button>
+        <button type="button" class="btn btn-outline-secondary w-100p mb-1 mr-1" (click)="closeThumbnails()">Cerrar</button>
+    </ng-template>
+
+</p-dialog>
 
 
 

@@ -1,0 +1,9 @@
+
+<div class="thumbnails">
+    <div *ngFor="let image of base64Images; let i = index" class="thumbnail-item">
+      <img [src]="'data:image/jpeg;base64,' + image.value1" alt="Thumbnail" class="thumbnail-image">
+      <div class="checkbox-container">
+        <input type="checkbox" [checked]="selectedImages[i]" (change)="toggleSelection(i)">
+      </div>
+    </div>
+  </div>

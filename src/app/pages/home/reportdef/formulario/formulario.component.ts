@@ -34,6 +34,9 @@ import { Message } from 'primeng/api';
 import { CommonModule } from '@angular/common';
 import { isMobile, isTablet } from 'mobile-device-detect';
 import { AppSettings } from 'src/app/app.settings';
+import { usuConfigForm } from 'src/app/_models/usuConfigForm';
+import { User } from 'src/app/_models';
+import { MetodoService } from 'src/app/_services/metodoService';
 import { ObtenerToStringRequestDTO } from 'src/app/_models/obtenerToStringEntidad';
 import { DescripcionEntidadDTO } from 'src/app/_models/nameParamRequestDTO';
 declare function mapa(usuario: string, latitud: number, longitud: number, info: string): any;
@@ -62,6 +65,10 @@ export class FormularioComponent implements OnInit {
   @Input('tipoReporte') tipoReporte: ReportdefData;
   mobile: boolean = isMobile;
   tablet: boolean = screen.width > 600;
+  configForm: boolean;
+  selectAllConfigForm: boolean = false;
+  fieldsConfig: usuConfigForm[];
+  dataCopy: FormReportdef;
 
   firma = false;
   tumbnails = false;
@@ -102,9 +109,13 @@ export class FormularioComponent implements OnInit {
     private abmservice: AbmService, public toastrService: ToastrService, private reportdefService: ReportdefService,
     private nameService: NameGlobalService, private nameAvisoSeteo: AvisaSeteoService, private paramService: ParamDataHijoService,
     private router: Router,
-    public appSettings: AppSettings) { }
-  // tslint:disable-next-line:use-life-cycle-interface
+    public appSettings: AppSettings ) {}
+    // tslint:disable-next-line:use-life-cycle-interface
   async ngOnInit() {
+
+    this.dataCopy = structuredClone(this.data);
+    console.log('this.data',this.data,this.reporte);
+
     // tslint:disable-next-line:prefer-const
     this.password = '';
     console.log('formInic');
@@ -163,7 +174,10 @@ export class FormularioComponent implements OnInit {
       });
 
 
-    }
+   }
+   if (this.data.formDinamico) {
+    this.getConfigFormByUser();
+  }
 
     this.camposAgrupaEntero = bRes;
     this.camposAgrupaEnteroDescompuesto = bResDescompuesto;
@@ -1422,8 +1436,6 @@ export class FormularioComponent implements OnInit {
               now = moment(value, 'DD-MM-YYYY');
               f.valueNew = now.format('DD-MM-YYYY');
             }
-
-
           }
         } else {
           f.valueNew = null;
@@ -1491,4 +1503,173 @@ export class FormularioComponent implements OnInit {
 
 });
 }
+ toggleConfigForm() {
+    this.configForm = !this.configForm;
+  }
+  check(event) {
+    (event.target.firstChild as HTMLInputElement).checked = !(event.target.firstChild as HTMLInputElement).checked;
+  }
+
+
+  backConfigForm() {
+    this.toggleConfigForm();
+    this.configurationForm()
+    this.selectAllConfigForm = false;
+  }
+
+  configurationForm(){
+    this.dataCopy.list = structuredClone(this.data.list);
+
+    if (this.fieldsConfig) {
+      this.dataCopy.list = this.dataCopy.list.filter((param) => {
+        for (let ele of this.fieldsConfig) {
+          if (param.name == ele.field && ele.flgDeshabilitado == 0)
+            return true;
+        }
+        return false;
+      })
+    }
+  }
+
+  isCheck(fieldName: string){
+    if (this.fieldsConfig) {
+      for (let field of this.fieldsConfig) {
+        if (field.field == fieldName && field.flgDeshabilitado == 0)
+          return true;
+      }
+    }
+    return false;
+  }
+
+  setFieldsConfig(previsualiza: boolean) {
+    let inputs = document.querySelectorAll('.field input');
+    let fields = [];
+    let copy = null;
+    let alta: boolean = true;
+    if (!previsualiza) {
+      copy = structuredClone(this.fieldsConfig);
+      this.fieldsConfig = [];
+    }
+
+    inputs.forEach(element => {
+      let field = {} as FormdataReportdef;
+      let eleInput = element as HTMLInputElement;
+      let usuConf = this.newUsuConf(eleInput.value);
+      
+      if (eleInput.checked) {
+        for (let fld of this.data.list) {
+          if (fld.name == eleInput.value) {
+            field = fld;
+            usuConf.flgDeshabilitado = 0;
+            break;
+          }
+        }
+        fields.push(field);
+      }
+      if (!previsualiza) {
+        if (copy != null) {
+          let Ocopy = copy.filter((ob:usuConfigForm)=>{
+            if (ob.field == usuConf.field) {
+              return true;
+          }
+          return false;
+        })[0];
+         usuConf.idUsuformConf = Ocopy.idUsuformConf
+         alta = !(Ocopy.idUsuformConf != null || Ocopy.idUsuformConf != undefined);
+        }
+        this.fieldsConfig.push(usuConf);
+      }
+    });
+    this.dataCopy.list = fields;
+    return alta;
+  }
+
+  newUsuConf(field:string):usuConfigForm{
+    let usuConf = {} as usuConfigForm;
+    usuConf.field = field;
+    usuConf.form = this.reporte;
+    let user = JSON.parse(localStorage.getItem("currentUser")) as User;
+    usuConf.idUsuario = user.idUsuarioUra
+    usuConf.userName = user.username
+    usuConf.flgDeshabilitado = 1;
+    return usuConf;
+  }
+
+  saveConfig() {
+    this.appSettings.settings.theme.loadscreen=true;
+
+    let alta = this.setFieldsConfig(false);
+    this.toggleConfigForm();
+    
+    let user = JSON.parse(localStorage.getItem("currentUser")) as User;
+    this.reportdefService.configFormByUser(user, this.fieldsConfig,alta).subscribe({
+      next: (res) => {
+        if (res.respuestagenerica == 'ok') {
+          this.toastrService.success('Configuración guardada');
+          this.appSettings.settings.theme.loadscreen=false;
+
+        }
+        else
+          this.toastrService.error('Error al guardar configuración')
+          this.appSettings.settings.theme.loadscreen=false;
+
+      },
+      error: (err: HttpErrorResponse) => {
+        console.log(err);
+        this.appSettings.settings.theme.loadscreen=false;
+        this.toastrService.error('Error inesperado')
+      }
+    });
+    this.selectAllConfigForm = false;
+
+  }
+
+  mostrarField(field: any) {
+    for (let f of this.dataCopy.list) {
+      if (f.name == field.name)
+        return true;
+    }
+    return false;
+  }
+  selectAllConfig() {
+    this.selectAllConfigForm = !this.selectAllConfigForm;
+    let inputs = document.querySelectorAll('.field input');
+    inputs.forEach(element => {
+      let eleInput = element as HTMLInputElement;
+      eleInput.checked = this.selectAllConfigForm;
+    });
+  }
+
+  getConfigFormByUser(){
+    let user = JSON.parse(localStorage.getItem("currentUser")) as User;
+    let dto = {} as ParametrosExecuteMethodRequestDTO;
+    let username = {} as FormdataReportdef;
+    let formname = {} as FormdataReportdef;
+    dto.list = [];
+
+    username.name = 'p_userName';
+    username.type = FrontEndConstants.JAVA_LANG_STRING;
+    username.valueNew = user.username;
+    username.text = true;
+    dto.list.push(username);
+
+    formname.name = 'p_formname';
+    formname.type = FrontEndConstants.JAVA_LANG_STRING;
+    formname.valueNew = this.reporte;
+    formname.text = true;
+    dto.list.push(formname);
+
+    dto.metodo = 'getConfigFormByUser';
+
+    this.reportdefService.postExecuteMethod(user,dto).subscribe({
+      next: res => {
+        this.fieldsConfig = JSON.parse(res.valor);
+        this.configurationForm();
+      },
+      error: err => {
+        console.log(err);
+        
+      }
+    })
+  }
 }

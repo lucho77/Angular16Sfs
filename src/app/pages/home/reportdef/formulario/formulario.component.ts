@@ -29,7 +29,7 @@ import { PreMethodDTO } from 'src/app/_models/preMethodDTO';
 import { ParamRequestDTO } from '../../../../_models/paramRequestDTO';
 import { ToastrService } from 'ngx-toastr';
 import { isNumber, toInteger } from 'src/app/util/datePicker/util';
-import { consultarParametroByParam, crearParametro, ejecutarMetodo, seteoParamGlobal } from 'src/app/util/reportdefUtil';
+import { consultarParametroByParam, crearParametro, ejecutarMetodo, getThubmnail, seteoParamGlobal } from 'src/app/util/reportdefUtil';
 import { Message } from 'primeng/api';
 import { CommonModule } from '@angular/common';
 import { isMobile, isTablet } from 'mobile-device-detect';
@@ -83,6 +83,7 @@ export class FormularioComponent implements OnInit {
     visible: false,
     detalle: '',
   };
+  id:any;
   form: FormGroup;
   formHijo: FormGroup;
   formRepordefHijos: FormReportdef;
@@ -113,7 +114,7 @@ export class FormularioComponent implements OnInit {
 
     //this.dataCopy = structuredClone(this.data);
     console.log('this.data',this.data,this.reporte);
-
+    this.id = localStorage.getItem("idEntidad");
     // tslint:disable-next-line:prefer-const
     this.password = '';
     console.log('formInic');
@@ -559,6 +560,29 @@ export class FormularioComponent implements OnInit {
     if (event.buttomDTO.bottonVolverHistorico) {
       this.backHistory.emit(event);
       return;
+    }
+
+    if (event.buttomDTO.metodoDTO.tipoMetodo.toUpperCase() === FrontEndConstants.VISUALIZAR_THUMBNAIL.toUpperCase()) {
+      const listNew: FormdataReportdef[] = [];
+      if(this.imagesBase64.length>0){
+        this.tumbnails = true;
+        return;
+
+      }else{
+        let data = crearParametro("P_ID",FrontEndConstants.JAVA_LANG_LONG,this.id);
+        listNew.push(data);      
+          getThubmnail(event.buttomDTO.metodoDTO.methodName, false,listNew,this.reportdefService).then((resp)=>{
+            for (const g of resp['data']) {
+              this.imagesBase64.push({
+                value1: g[0].value,
+                value2: g[1].value
+              });
+            }
+            this.tumbnails = true;
+            return;
+          });
+    
+      }
     }
 
     if (event.buttomDTO.guardarYvolver) {

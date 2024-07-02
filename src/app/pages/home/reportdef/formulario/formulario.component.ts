@@ -112,8 +112,8 @@ export class FormularioComponent implements OnInit {
     // tslint:disable-next-line:use-life-cycle-interface
   async ngOnInit() {
 
-    //this.dataCopy = structuredClone(this.data);
-    console.log('this.data',this.data,this.reporte);
+    this.dataCopy = structuredClone(this.data);
+
     this.id = localStorage.getItem("idEntidad");
     // tslint:disable-next-line:prefer-const
     this.password = '';
@@ -1626,13 +1626,15 @@ export class FormularioComponent implements OnInit {
   }
 
   mostrarField(field: any) {
-    if(this.dataCopy &&  this.dataCopy.list ){
+    if(!this.dataCopy && !this.dataCopy.list)
+      return true;
+
       for (let f of this.dataCopy.list) {
         if (f.name == field.name)
           return true;
       }
   
-    }
+    
     return false;
   }
   selectAllConfig() {

@@ -112,7 +112,7 @@ export class FormularioComponent implements OnInit {
     // tslint:disable-next-line:use-life-cycle-interface
   async ngOnInit() {
 
-    this.dataCopy = structuredClone(this.data);
+    this.dataCopy = this.copyObj(this.data);
 
     this.id = localStorage.getItem("idEntidad");
     // tslint:disable-next-line:prefer-const
@@ -200,6 +200,10 @@ export class FormularioComponent implements OnInit {
       this.nameAvisoSeteo.setCantidadBotones(0);
 
     }
+  }
+  copyObj(data: any): any {
+    let Scopy = JSON.stringify(data);
+    return JSON.parse(Scopy);
   }
 
   // tslint:disable-next-line:use-life-cycle-interface

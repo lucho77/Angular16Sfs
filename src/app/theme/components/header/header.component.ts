@@ -93,7 +93,15 @@ export class HeaderComponent implements OnInit {
       }
     }
   }
-
+  viewHelp(){
+    let urlHelp = localStorage.getItem('currentMenuClick');
+    if(urlHelp){
+      let url = JSON.parse(urlHelp);
+      if(url.ayuda){
+        window.open(url.ayuda, '_blank');
+      }
+    }
+  }
   @HostListener('window:resize')
   public onWindowResize():void {
      if(window.innerWidth <= 768){

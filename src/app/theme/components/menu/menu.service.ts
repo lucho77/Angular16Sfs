@@ -43,6 +43,7 @@ public setReportdef(reportdef: string) {
 
   public createMenu(menu: any, nativeElement, type) {
     // console.log('tipo de menu' + menu);
+    console.log(menu);
     const p = JSON.parse( menu );
 
     if (type === 'vertical') {

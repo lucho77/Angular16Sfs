@@ -93,7 +93,7 @@ public setReportdef(reportdef: string) {
           // this.router.navigate([menuItem.ejecutar]);
           this.setActiveLink(menu, link);
           // this.setReportdef(menuItem.ejecutar);
-          localStorage.setItem('currentMenuClick', menuItem );
+          localStorage.setItem('currentMenuClick', JSON.stringify(menuItem));
           // this.closeOtherSubMenus(div);
           const url = '/pages/home/reportdef';
           // console.log('entro a la opcion de ' + menuItem.ejecutar);

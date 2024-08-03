@@ -10,6 +10,9 @@ import { ParamRequestDTO } from '../_models/paramRequestDTO';
 import { Observable } from 'rxjs';
 import { FormdataReportdef } from '../_models/formdata';
 import { ToastrService } from 'ngx-toastr';
+import { ParamAllRequestDTO } from '../_models/paramAllRequestDTO';
+import { NameParamDTO } from '../_models/nameParamDTO';
+import { HttpErrorResponse } from '@angular/common/http';
 
 
 @Component({
@@ -35,6 +38,8 @@ export class FechaCustomComponent {
     fechaCel: string;
     col: any;
     fecha = null;
+    day = null;
+    st = false;
 
     constructor(private reportdefService:ReportdefService,private toastrService: ToastrService) {
 
@@ -119,6 +124,87 @@ export class FechaCustomComponent {
     doAction(event) {
       //alert('Action');
     }
+    executeSt() {
+      const user = JSON.parse(localStorage.getItem('currentUser'));
+      const paramRequest = {} as ParamAllRequestDTO;
+      paramRequest.list = [];
+
+    for (const clave of Object.keys(this.field.fechaCustomDTO.metodoStDTO.paramsPasar)) {
+      const paramName = {} as NameParamDTO;
+      paramName.name = clave;
+      paramRequest.list.push(paramName);
+    }
+    const formdataGlobales = <FormdataReportdef[]>JSON.parse(localStorage.getItem('paramGlobal'));
+    const duration = this.maxData();
+    const cd = duration['Hora'].split(":");
+
+    let hour = parseInt(cd[0], 10);
+    let minute = parseInt(cd[1], 10);
+ 
+
+      this.reportdefService.consultarAllParamByName(user, paramRequest).subscribe(
+        result => {
+          if (hour!==23 && minute !==59){
+
+            let newDate = moment(duration['Fecha'], 'DD-MM-YYYY');
+            newDate.hour(hour);  
+            newDate.minute(minute); 
+            newDate = newDate.add(1, 'minute');
+            hour = newDate.hour();
+            minute = newDate.minute();
+          }
+      
+          for (const f of result) {
+            if(f.name ==="P_FECHA"){
+              f.valueNew = this.fecha.format("DD-MM-YYYY");  
+              continue;
+            }
+            if(f.name ==="P_HORA_DESDE"){
+              f.valueNew = hour;  
+              continue;
+            }
+            if(f.name ==="P_MINUTO_DESDE"){
+              f.valueNew = minute;  
+              continue;
+            }
+            if(f.name ==="P_DURACION"){
+              f.valueNew = 10;  
+              continue;
+            }
+            for (const p of formdataGlobales ) {
+              if (p.name === f.name) {
+                f.valueNew = p.valueNew;
+                break;
+              }
+            }
+          }
+
+        }, (err: HttpErrorResponse) => {
+          //this.checkError(err);
+        });
+
+    }
+    maxData(){
+      let previousDate = null;
+      let dataReturn = null;
+      for (const data of this.field.fechaCustomDTO.dataTableDTO.data){
+        if(previousDate===null){
+          previousDate = data['Hora'];
+          dataReturn = data;
+        }else{
+          const pd =  previousDate.split(":");
+          const hour = parseInt(pd[0], 10);
+          const minute = parseInt(pd[1], 10);
+          const cd = data['Hora'].split(":");
+          const hourc = parseInt(cd[0], 10);
+          const minutec = parseInt(cd[1], 10);
+          if (hourc > hour || (hourc === hour && minutec > minute)) {
+            dataReturn = data;
+          }    
+        } 
+        return data; 
+      }
+    }
 
     select(event) {
         const fecha = moment(event);
@@ -177,6 +263,7 @@ export class FechaCustomComponent {
     }
 
     private setearCalendar(fechaPass: any) {
+      console.log(fechaPass);
      // this.getSettings(this.field.fechaCustomDTO.dataTableDTO.columns);
       console.log(this.field.fechaCustomDTO.dataTableDTO.data);
        this.dataFecha = [];
@@ -192,6 +279,13 @@ export class FechaCustomComponent {
           console.log(f);
           this.fecha = moment(f, 'DD-MM-YYYY'); // add this 2 of 4
         }
+        moment.locale('es');
+
+        this.day = this.fecha.format('dddd');
+        console.log("fecha: " +this.day);
+
+        this.st = this.field.fechaCustomDTO.dataTableStDTO.data.filter(item => item[1].value === this.day).length > 0;
+
         this.form.get(this.field.name).setValue(this.fecha.toDate());
         this.dataFecha = this.field.fechaCustomDTO.dataTableDTO.data.filter(item => item[0].value === f);
         this.data = getData(this.dataFecha, this.field.fechaCustomDTO.dataTableDTO.columns);
@@ -199,10 +293,10 @@ export class FechaCustomComponent {
         fechaActual.startOf('day');
 
         this.data.forEach(objeto => {
-        if (moment(objeto.Fecha,"DD-MM-YYYY").isBefore(fechaActual) && (objeto.Estado==='Libre' ||objeto.Estado==='NoElegible')) {
-          objeto.Estado = "NoElegible";
-        }
-});
+          if (moment(objeto.Fecha,"DD-MM-YYYY").isBefore(fechaActual) && (objeto.Estado==='Libre' ||objeto.Estado==='NoElegible')) {
+            objeto.Estado = "NoElegible";
+          }
+        });
         this.data.sort(this.compararPorHora);
         this.setearprimerDiaMes(this.fecha);
         this.field.fechaCustomDTO.idSeleccionado = null;

@@ -83,6 +83,7 @@ export class LoginExternalComponent implements OnInit, AfterViewInit {
 
                          return;
                      }
+                     
                      if (user && user.token) {
                       this.authenticationService.logout();
 

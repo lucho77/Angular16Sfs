@@ -11,6 +11,7 @@ import * as moment from 'moment'; // add this 1 of 4
 import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
 import { toInteger } from '../util/datePicker/util';
 import { isMobile } from 'mobile-device-detect';
+import { VoiceService } from '../_services/voice.service';
 
 
 @Component({
@@ -25,12 +26,19 @@ export class ComboComponent {
     @Input() dataForm: FormdataReportdef[];
     mobile: boolean = isMobile;
     tablet: boolean = screen.width > 600;
-    constructor(private abmService: AbmService) {
+    constructor(private abmService: AbmService, private voiceService: VoiceService) {
     }
 
     // tslint:disable-next-line:use-life-cycle-interface
     ngOnInit() {
         console.log('combo inicilializado');
+
+        // al cambiar de combo con el voice, activo el onChangue del combo para los presets
+        this.voiceService.combo$.subscribe({
+            next: (res)=> {
+                this.onChange(res)
+            }
+        });
     }
 
 
@@ -91,8 +99,15 @@ export class ComboComponent {
                                   this.form.controls[param.name].setValue(date);
 
                                 }else{
-                                    this.form.controls[param.name].setValue(param.value);
-
+                                    if (this.mobile) {
+                                        this.form.controls[param.name].setValue(param.value + ' <br>');
+                                        let textArea = document.getElementById(param.name) as HTMLTextAreaElement;
+                                        console.log(textArea);
+                                        
+                                        textArea.focus();
+                                    }
+                                    else 
+                                        this.form.controls[param.name].setValue(param.value);
                                 }
                                 break;
                             }

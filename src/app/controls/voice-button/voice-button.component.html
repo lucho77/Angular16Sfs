@@ -1,0 +1,12 @@
+<div class="voiceButton" [class.recordVoice]="voiceActive" *ngIf="(mobile || !tablet) && desarrollo" (click)="captureVoice()">
+    <div class="containerButt">
+       <span *ngIf="!voiceActive && !loader"><i class="fa fa-microphone"></i></span>
+       <span *ngIf="voiceActive && !loader"><i class="fa fa-stop"></i></span>
+       <span disabled *ngIf="loader" class="loader" style="margin-top: 5px;"></span>
+    </div>
+</div>
+<div class="mensajeContainer" [class.bubbleActive]="text">
+    <span>
+        {{text}}
+    </span>
+</div>

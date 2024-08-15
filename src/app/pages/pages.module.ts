@@ -23,6 +23,7 @@ import { DialogModule } from 'primeng/dialog';
 import { BusquedaGenericaModule } from '../busquedaGenericaModule';
 import { ListboxComponent } from './listbox/listbox.component';
 import { LoadscreenComponent } from '../theme/components/loadscreen/loadscreen.component';
+import { VoiceButtonComponent } from '../controls/voice-button/voice-button.component';
 
 @NgModule({
   imports: [
@@ -47,6 +48,7 @@ import { LoadscreenComponent } from '../theme/components/loadscreen/loadscreen.c
     MessagesComponent,
     FooterComponent,
     ListboxComponent,
+    VoiceButtonComponent
   ],
   providers: [
   ],

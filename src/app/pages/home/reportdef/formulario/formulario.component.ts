@@ -39,6 +39,7 @@ import { User } from 'src/app/_models';
 import { MetodoService } from 'src/app/_services/metodoService';
 import { ObtenerToStringRequestDTO } from 'src/app/_models/obtenerToStringEntidad';
 import { DescripcionEntidadDTO } from 'src/app/_models/nameParamRequestDTO';
+import { VoiceService } from 'src/app/_services/voice.service';
 declare function mapa(usuario: string, latitud: number, longitud: number, info: string): any;
 
 @Component({
@@ -108,11 +109,12 @@ export class FormularioComponent implements OnInit {
     private abmservice: AbmService, public toastrService: ToastrService, private reportdefService: ReportdefService,
     private nameService: NameGlobalService, private nameAvisoSeteo: AvisaSeteoService, private paramService: ParamDataHijoService,
     private router: Router,
-    public appSettings: AppSettings ) {}
+    public appSettings: AppSettings, private voiceService: VoiceService ) {}
     // tslint:disable-next-line:use-life-cycle-interface
   async ngOnInit() {
 
     this.dataCopy = this.copyObj(this.data);
+    this.voiceService.paramsForm = this.data.list;
 
     this.id = localStorage.getItem("idEntidad");
     // tslint:disable-next-line:prefer-const
@@ -139,7 +141,8 @@ export class FormularioComponent implements OnInit {
       }
     }
     this.actualizarDesdeGlobales(this.data.list);
-
+    this.voiceService.setCurrentReport(this.reporte);
+    
     if (photo) {
        await this.actualizarDesdePhoto(this.data.list,formAux);
     }
@@ -149,6 +152,7 @@ export class FormularioComponent implements OnInit {
       this.createFormAngular(this.fieldsCtrls, this.data.list);
       this.form = new FormGroup(this.fieldsCtrls);
       this.createValidators(this.data.list, this.form);
+      this.voiceService.form = this.form;
 
 
     // console.log(this.abmParams.tieneHijos);

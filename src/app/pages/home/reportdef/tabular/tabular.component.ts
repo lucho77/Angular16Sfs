@@ -34,6 +34,7 @@ import { crearParametro, ejecutarMetodo, seteoParamGlobal } from 'src/app/util/r
 import { ToastrService } from 'ngx-toastr';
 import { isMobile, isTablet } from 'mobile-device-detect';
 import { AppSettings } from 'src/app/app.settings';
+import { VoiceService } from 'src/app/_services/voice.service';
 
 @Component({
   selector: 'app-tabular',
@@ -90,7 +91,7 @@ export class TabularComponent implements OnInit, OnChanges {
     private reportdefService: ReportdefService, private nameService: NameGlobalService,
     private descriptionService: DescriptionService,
     private nameAvisoSeteo: AvisaSeteoService, private sanitizer: DomSanitizer,
-    public appSettings: AppSettings) {
+    public appSettings: AppSettings, private voiceService : VoiceService) {
     // this.safeSrc =  this.sanitizer.bypassSecurityTrustResourceUrl("https://www.youtube.com/embed/c9F5kMUfFKk");
     // this.safeSrc =  this.sanitizer.bypassSecurityTrustResourceUrl(this.laurl);
   }

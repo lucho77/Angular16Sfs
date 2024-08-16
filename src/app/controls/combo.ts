@@ -36,7 +36,10 @@ export class ComboComponent {
         // al cambiar de combo con el voice, activo el onChangue del combo para los presets
         this.voiceService.combo$.subscribe({
             next: (res)=> {
-                this.onChange(res)
+                if (this.voiceService.actualizarCampo) {
+                    this.onChange(res)
+                    this.voiceService.actualizarCampo = false;
+                }
             }
         });
     }
@@ -83,7 +86,7 @@ export class ComboComponent {
                 result  => {
                     // aca preseteo los campos que correspondan
                     console.log('preseteo campos');
-                    console.log(result);
+                    console.log(result,result['list']);
                     for (const param of result['list']) {
                         if (param.name === this.field.name) {
                             continue;
@@ -100,11 +103,10 @@ export class ComboComponent {
 
                                 }else{
                                     if (this.mobile) {
-                                        this.form.controls[param.name].setValue(param.value + ' <br>');
-                                        let textArea = document.getElementById(param.name) as HTMLTextAreaElement;
-                                        console.log(textArea);
-                                        
-                                        textArea.focus();
+                                        this.form.controls[param.name].setValue(param.value + '<p>&nbsp;</p>');
+                                        if (param.ckEditor) {
+                                            this.focusEditor(param.name);
+                                        }
                                     }
                                     else 
                                         this.form.controls[param.name].setValue(param.value);
@@ -124,6 +126,17 @@ export class ComboComponent {
     }
 
 
+    focusEditor(paramName: string) {
+        let editor = document.querySelectorAll('#' + paramName + ' .p-editor-container .p-editor-content p');
+        let pEdit = editor[editor.length - 1] as HTMLParagraphElement
+        pEdit.setAttribute("tabindex", "-1");
+        pEdit.focus();
+        let range = document.createRange();
+        let selection = window.getSelection();
+        range.selectNodeContents(pEdit);
+        selection?.removeAllRanges();
+        selection?.addRange(range);
+    }
 
     onChange(event) {
 

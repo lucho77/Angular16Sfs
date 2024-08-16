@@ -15,5 +15,6 @@ export class User {
     aplicacion: string;
     usuarioMesa: boolean;
     mail:string;
+    test:boolean;
     certificadoDto:CertificadoDto;
 }

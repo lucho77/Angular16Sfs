@@ -11,6 +11,7 @@ import * as moment from 'moment'; // add this 1 of 4
 import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
 import { toInteger } from '../util/datePicker/util';
 import { isMobile } from 'mobile-device-detect';
+import { VoiceService } from '../_services/voice.service';
 
 
 @Component({
@@ -25,12 +26,22 @@ export class ComboComponent {
     @Input() dataForm: FormdataReportdef[];
     mobile: boolean = isMobile;
     tablet: boolean = screen.width > 600;
-    constructor(private abmService: AbmService) {
+    constructor(private abmService: AbmService, private voiceService: VoiceService) {
     }
 
     // tslint:disable-next-line:use-life-cycle-interface
     ngOnInit() {
         console.log('combo inicilializado');
+
+        // al cambiar de combo con el voice, activo el onChangue del combo para los presets
+        this.voiceService.combo$.subscribe({
+            next: (res)=> {
+                if (this.voiceService.actualizarCampo) {
+                    this.voiceService.actualizarCampo = false;
+                    this.onChange(res)
+                }
+            }
+        });
     }
 
 
@@ -75,7 +86,7 @@ export class ComboComponent {
                 result  => {
                     // aca preseteo los campos que correspondan
                     console.log('preseteo campos');
-                    console.log(result);
+                    console.log(result,result['list']);
                     for (const param of result['list']) {
                         if (param.name === this.field.name) {
                             continue;
@@ -91,8 +102,14 @@ export class ComboComponent {
                                   this.form.controls[param.name].setValue(date);
 
                                 }else{
-                                    this.form.controls[param.name].setValue(param.value);
-
+                                    if (this.mobile) {
+                                        this.form.controls[param.name].setValue(param.value + '<p>&nbsp;</p>');
+                                        if (param.ckEditor) {
+                                            this.focusEditor(param.name);
+                                        }
+                                    }
+                                    else 
+                                        this.form.controls[param.name].setValue(param.value);
                                 }
                                 break;
                             }
@@ -109,6 +126,17 @@ export class ComboComponent {
     }
 
 
+    focusEditor(paramName: string) {
+        let editor = document.querySelectorAll('#' + paramName + ' .p-editor-container .p-editor-content p');
+        let pEdit = editor[editor.length - 1] as HTMLParagraphElement
+        pEdit.setAttribute("tabindex", "-1");
+        pEdit.focus();
+        let range = document.createRange();
+        let selection = window.getSelection();
+        range.selectNodeContents(pEdit);
+        selection?.removeAllRanges();
+        selection?.addRange(range);
+    }
 
     onChange(event) {
 

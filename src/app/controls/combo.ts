@@ -37,8 +37,8 @@ export class ComboComponent {
         this.voiceService.combo$.subscribe({
             next: (res)=> {
                 if (this.voiceService.actualizarCampo) {
-                    this.onChange(res)
                     this.voiceService.actualizarCampo = false;
+                    this.onChange(res)
                 }
             }
         });

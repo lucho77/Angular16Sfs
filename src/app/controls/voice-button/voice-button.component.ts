@@ -142,10 +142,11 @@ export class VoiceButtonComponent implements OnInit {
             this.loader = false;
             return;
           }
-          if (response.ejecutar && response.ejecutar != 'null' && response.redirecMenu) {
+          if (response.ejecutar && response.ejecutar != 'null' && response.redirecMenu && !response.dictado) {
             this.router.navigate([this.url, response.ejecutar]);
             let currentReport: boolean = this.report == response.ejecutar;
             if (response.dato && response.setea && !currentReport) {
+              // Se setean estos globales para que ejecutarAcciones se dispare al cambiar la variable de reporte
               this.responseIA = response;
               this.ejAcciones = true;
 
@@ -154,30 +155,32 @@ export class VoiceButtonComponent implements OnInit {
               this.ejecutarAcciones(response, this.getCleanParams());
 
           }
-          else if (response.dato && response.setea) {
+          else if ((response.dato && response.setea && !response.dictado) || response.accionBtn) {
             this.ejecutarAcciones(response, this.getCleanParams());
 
           }
+          else if (response.dictado) 
+            this.setDictado(response.dato);
+            
           this.loader = false;
         }
 
         else {
-
+          this.loader = false;
           this.toastrService.error('No se entendió la frase o no se encontró el menú');
         }
 
       },
       error: err => {
-
-        this.toastrService.error('Error inesperado');
+        this.loader = false;
+        this.toastrService.error('Error');
       }
     })
   }
 
   ejecutarAcciones(responseIA: ResponseIA, paramsLimpios: any[]): void {
-    console.log('ejecutarAcciones', this.ejAcciones);
     this.loader = true;
-    if (responseIA.setea) {
+    if (responseIA.setea || responseIA.accionBtn) {
       this.voiceService.postVoiceToAction(this.currentUser, null, null, JSON.stringify(paramsLimpios), responseIA.text).subscribe({
         next: (res) => {
           let response: ResponseIA = JSON.parse(res.valor);
@@ -194,6 +197,10 @@ export class VoiceButtonComponent implements OnInit {
                 param = p
                 break;
               }
+              else if (p.buttom && (p.buttomDTO.metodoDTO.labelButtom == response.nameField)) {
+                param = p
+                break;
+              }
             }
 
             if (param.combo) {
@@ -207,10 +214,16 @@ export class VoiceButtonComponent implements OnInit {
             if (nameResControl && nameResControl.value)
               nameResControl.setValue(null);
 
-            inputElem.setValue(datoToSet);
+            if (param.buttom) {
+              let button = document.getElementById('btn' +param.buttomDTO.metodoDTO.tipoMetodo) as HTMLButtonElement;
+              button.click();
+            }else
+              inputElem.setValue(datoToSet);
 
-            if (param.combo)
+            if (param.combo) {
+              this.voiceService.actualizarCampo = true;
               this.voiceService.setChangueCombo(param.id);
+            }
 
             if (param.busquedaGenerica) {
               setTimeout(() => {
@@ -236,6 +249,16 @@ export class VoiceButtonComponent implements OnInit {
     }
   }
 
+  setDictado(text: string) {
+    for (let param of this.voiceService.paramsForm) {
+      if (param.ckEditor) {
+        let editor = this.voiceService.form.controls[param.name];
+        editor.setValue(editor.value + '<p>' + text + '</p>');
+        break;
+      }
+    }
+  }
+
   blobToBase64(blob: Blob): Promise<string> {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
@@ -252,15 +275,21 @@ export class VoiceButtonComponent implements OnInit {
     let paramsLimpio = [];
     for (let p of this.paramsList) {
       let pa = {
-        name: p.name,
+        name: !p.buttom ? p.name : p.buttomDTO.metodoDTO.labelButtom,
         nameRes: p.nameRes,
         label: p.label,
         combo: p.combo,
-        comboBoxDTO: p.comboDTO.comboBoxDTO
+        comboBoxDTO: p.comboDTO.comboBoxDTO,
+        button: p.buttom
       }
       paramsLimpio.push(pa);
     }
     return paramsLimpio;
   }
+
+  // clickDeTest(){
+  //   console.log(this.voiceService.dataTabular);
+    
+  // }
 
 }

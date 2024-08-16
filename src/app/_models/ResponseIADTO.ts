@@ -7,4 +7,6 @@ export class ResponseIA {
     public noEncontrado: boolean = false;
     public redirecMenu: boolean = false;
     public setea: boolean = false;
+    public dictado: boolean = false;
+    public accionBtn: boolean = false;
 }

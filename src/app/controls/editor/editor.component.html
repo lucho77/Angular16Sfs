@@ -4,7 +4,7 @@
             <label for="inputPassword4" class="tm-f-bugt">{{field.label}}:
                   <strong class="text-danger" *ngIf="field.require">*</strong>
           </label>
-          <p-editor  [formControlName]="field.name" [style]="{'height':'320px'}"></p-editor>
+          <p-editor id="{{field.name}}"  [formControlName]="field.name" [style]="{'height':'320px'}"></p-editor>
         </div>
     </div>
 </div>

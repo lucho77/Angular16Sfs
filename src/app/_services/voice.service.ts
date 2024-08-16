@@ -2,12 +2,13 @@ import { Injectable } from "@angular/core";
 import { FormdataReportdef } from "../_models/formdata";
 import { FormGroup } from "@angular/forms";
 import { User } from "../_models";
-import { HttpClient, HttpParams, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { ParametrosExecuteMethodRequestDTO } from "../_models/parametrosExecuteMethodRequestDTO";
 import { ReportMethodResponseDTO } from "../_models/reportMethodResponseDTO";
 import { devolverProyecto } from "../util/reportdefUtil";
 import { BehaviorSubject, map } from "rxjs";
 import { FrontEndConstants } from "../constans/frontEndConstants";
+import { HeaderDTO } from "../_models/headerDTO";
 
 @Injectable({ providedIn: 'root' })
 
@@ -16,6 +17,7 @@ export class VoiceService {
     private changueCombo = new BehaviorSubject<string>('0');
     public report$ = this.currentReport.asObservable();
     public combo$ = this.changueCombo.asObservable();
+    public actualizarCampo: boolean = false;
     public paramsForm: FormdataReportdef[];
     public form: FormGroup;
 

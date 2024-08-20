@@ -14,7 +14,7 @@ import { HeaderDTO } from "../_models/headerDTO";
 
 export class VoiceService {
     private currentReport = new BehaviorSubject<string>('0');
-    private changueCombo = new BehaviorSubject<string>('0');
+    private changueCombo = new BehaviorSubject<FormdataReportdef>(null);
     public report$ = this.currentReport.asObservable();
     public combo$ = this.changueCombo.asObservable();
     public actualizarCampo: boolean = false;

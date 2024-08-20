@@ -205,8 +205,9 @@ export class VoiceButtonComponent implements OnInit {
 
             if (param.combo) {
               for (let c of param.comboDTO.comboBoxDTO) {
-                if (c.value.includes(response.dato)) {
+                if (c.value.toUpperCase().includes(response.dato.toUpperCase())) {
                   datoToSet = c.id;
+                  break;
                 }
               }
             }
@@ -220,9 +221,9 @@ export class VoiceButtonComponent implements OnInit {
             }else
               inputElem.setValue(datoToSet);
 
-            if (param.combo) {
+            if (param.combo && datoToSet) {
               this.voiceService.actualizarCampo = true;
-              this.voiceService.setChangueCombo(param.id);
+              this.voiceService.setChangueCombo(param);
             }
 
             if (param.busquedaGenerica) {

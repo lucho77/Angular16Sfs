@@ -38,7 +38,8 @@ export class ComboComponent {
             next: (res)=> {
                 if (this.voiceService.actualizarCampo) {
                     this.voiceService.actualizarCampo = false;
-                    this.onChange(res)
+                    this.dataForm = this.voiceService.paramsForm;
+                    this.preseteoCampos(res.busquedaGenericaDTO.metodoNombrePostFinder,res.busquedaGenericaDTO.parametrosLlamadaPostMetodo);
                 }
             }
         });
@@ -102,10 +103,12 @@ export class ComboComponent {
                                   this.form.controls[param.name].setValue(date);
 
                                 }else{
-                                    if (this.mobile) {
+                                    if (this.mobile) {           
                                         this.form.controls[param.name].setValue(param.value + '<p>&nbsp;</p>');
                                         if (param.ckEditor) {
+                                           setTimeout(() => {
                                             this.focusEditor(param.name);
+                                           }, 1000);
                                         }
                                     }
                                     else 

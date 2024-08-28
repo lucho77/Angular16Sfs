@@ -285,7 +285,9 @@ export class FechaCustomComponent {
         this.day = this.fecha.format('dddd');
         console.log("fecha: " +this.day);
 
-        this.st = this.field.fechaCustomDTO.dataTableStDTO.data.filter(item => item[1].value === this.day).length > 0;
+        if(this.field.fechaCustomDTO.dataTableStDTO){
+          this.st = this.field.fechaCustomDTO.dataTableStDTO.data.filter(item => item[1].value === this.day).length > 0;
+        }
 
         this.form.get(this.field.name).setValue(this.fecha.toDate());
         this.dataFecha = this.field.fechaCustomDTO.dataTableDTO.data.filter(item => item[0].value === f);

@@ -13,6 +13,16 @@ import { MetodoService } from 'src/app/_services/metodoService';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import { isMobile } from 'mobile-device-detect';
+import { ParametrosExecuteMethodRequestDTO } from 'src/app/_models/parametrosExecuteMethodRequestDTO';
+import { FormdataReportdef } from 'src/app/_models/formdata';
+import { FrontEndConstants } from 'src/app/constans/frontEndConstants';
+import { ReportdefService } from 'src/app/_services/reportdef.service';
+
+interface Pass{
+  actualPass: string | null
+  newPass: string | null
+  rNewPass: string | null
+}
 
 @Component({
   selector: 'app-header',
@@ -34,18 +44,26 @@ export class HeaderComponent implements OnInit {
   public showInfoContent = false;
   public settings: Settings;
   public menuItems: any;
+  public come : string;
+  public email : string;
   loading = false;
   usuarioMesa = false;
   submitted = false;
   usuario = JSON.parse(localStorage.getItem('currentUser'));
   mobile: boolean = isMobile;
   tablet: boolean = screen.width > 600;
+  public targetUser: boolean = false;
+  public popUp: boolean = false;
+  public overlay: boolean = false;
+  actualPass = '';
+  newPass = '';
+  rNewPass = '';
 
   consultaForm: FormGroup;
 
   constructor(private appSettings: AppSettings,  private router: Router,private formBuilder: FormBuilder,
     private authenticationService: AuthenticationService,  private exitService: ExitService,
-    private metodoService: MetodoService, private toastService: ToastrService) {
+    private metodoService: MetodoService, private toastService: ToastrService, private reportdefService:ReportdefService) {
       this.settings = this.appSettings.settings;
     }
 
@@ -63,6 +81,7 @@ export class HeaderComponent implements OnInit {
     const user = <User>JSON.parse(localStorage.getItem('currentUser'));
 
     this.usuarioMesa = user.usuarioMesa;
+    this.obtenerInfoUser();
 
    /*
     this.nameRef = this.nameGlobalService.nameChanged$.subscribe(() => {
@@ -75,6 +94,7 @@ export class HeaderComponent implements OnInit {
       console.log('this.info');
       console.log(this.data.info);
     }); */
+    
   }
 
 
@@ -140,6 +160,72 @@ export class HeaderComponent implements OnInit {
             this.toastService.error('no se ha podido enviar la consulta, intente más tarde');
           });
 
+    
+    
   }
-  
+
+  public obtenerInfoUser(){
+    let dto = {} as ParametrosExecuteMethodRequestDTO;
+    let username = {} as FormdataReportdef;
+    dto.list = [];
+
+    username.name = 'p_user';
+    username.type = FrontEndConstants.JAVA_LANG_STRING;
+    username.valueNew = this.usuario.username;
+    username.text = true;
+    dto.list.push(username);
+
+    dto.metodo = 'getUser';
+
+    this.reportdefService.postExecuteMethod(this.usuario,dto).subscribe({
+      next: res => {
+        console.log(res.valor);
+        let map = JSON.parse(res.valor);
+        this.email = map.email;
+        this.come = map.come;
+      },
+      error: err => {
+        console.log(err);
+        
+      }
+    })
+  }
+
+  public verificarNewPass(){
+    if(!this.newPass.includes(this.rNewPass)){
+      this.toastService.error('La contraseña nueva no coincide con la reingresada!');
+      this.popUp = true;
+      this.overlay = true;
+      this.resetFormularioPass();
+      return false;
+    }
+    return true;
+  }
+
+  public resetFormularioPass(){
+    this.actualPass = null;
+    this.newPass = null;
+    this.rNewPass = null;
+  }
+
+  public changePass(){
+    this.overlay = false;
+    if(this.verificarNewPass()){
+      this.reportdefService.cambiarContrasena(this.usuario, this.newPass, this.actualPass, this.usuario.idUsuarioUra, this.usuario.mail).subscribe({
+        next: res => {
+          this.toastService.success(res['mensaje']);
+          this.popUp = false;
+          this.resetFormularioPass();
+        },
+        error: err =>{
+          this.toastService.error(err.mensaje);
+          this.popUp = true;
+          this.overlay = true
+          this.resetFormularioPass();
+        }
+        
+      })
+    }
+  }
+
 }

@@ -72,7 +72,27 @@
                     <!-- <i class="fa fa-commenting-o" aria-hidden="true"></i> -->
                 </span> 
                 <span *ngIf="!settings.theme.showMenu || !mobile || tablet">
-                    <div style="color: #fff; margin: 0 10px 0 10px;"><i class="fa fa-user"></i> {{usuario.username}}</div>
+                    <div (click)="targetUser = !targetUser" style="color: #fff; margin: 0 10px 0 10px; cursor:pointer" title="Informacion del usuario"><i class="fa fa-user"></i> {{usuario.username}}</div>
+
+                    <!-- Tarjeta con información del Usuario-->
+
+                    <div class="contenedorTarjeta card" [class.mostrarTarjetaUser]="targetUser">
+                        <div class="infoUserText">
+                            <h3 style="font-size: 20px;">Informacion del usuario</h3>
+                        </div>
+                        <div class="tarjetaUsuario" [class.mostrarTarjetaUser]="targetUser">
+                            <span *ngIf="come">{{come}}</span>
+                            <span *ngIf="email">Email: {{email}}</span>
+                            <div class="botonCambiarContrasenia">
+                                <button class="btn btn-primary" (click)="popUp = !popUp" (click)="targetUser = false" [class.mostrarPupUp]="popUp" (click)="overlay = !overlay">Cambiar Contraseña</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ventana emergente con cambio de contraseña -->
+                    
+
+
                     <!-- <app-user-menu></app-user-menu> -->
                 </span> 
                 <span *ngIf="!settings.theme.showMenu || !mobile || tablet">
@@ -91,5 +111,36 @@
             <app-vertical-menu *ngIf="!showHorizontalMenu"  [menuItems]="menuItems"></app-vertical-menu>
         </div>
 
+        
     </div>
 </nav>
+<div class="overlay" [class.mostrarOverlay]="overlay">
+    <div class="popUp" [class.mostrarPopUp]="popUp">
+        <div (click)="popUp = false" class="cerrarBoton" title="Salir" (click)="overlay = !overlay">x</div>
+        <div class="elementoFormulario">
+            <label for="actualPass">
+                Contraseña actual:
+                <input [(ngModel)]="actualPass" (keydown.enter)="changePass()" type="password"
+                    placeholder="Ingrese su contraseña actual">
+            </label>
+        </div>
+        <div class="elementoFormulario">
+            <label for="newPass">
+                Contraseña nueva:
+                <input [(ngModel)]="newPass" (keydown.enter)="changePass()" type="password"
+                    placeholder="Ingrese su nueva contraseña">
+            </label>
+        </div>
+        <div class="elementoFormulario">
+            <label for="rNewPass">
+                Reingrese su nueva contraseña:
+                <input [(ngModel)]="rNewPass" (keydown.enter)="changePass()" type="password"
+                    placeholder="Reingrese su nueva contraseña">
+            </label>
+        </div>
+        <div class="botonCambiarContrasenia" button class="btn btn-primary" (click)="changePass()" 
+            title="Cambiar contraseña">
+            Cambiar Contraseña
+        </div>
+    </div>
+</div>

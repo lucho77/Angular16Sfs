@@ -103,6 +103,7 @@ export class ComboComponent {
                                   this.form.controls[param.name].setValue(date);
 
                                 }else{
+
                                     if (this.mobile) {           
                                         this.form.controls[param.name].setValue(param.value + '<p>&nbsp;</p>');
                                         if (param.ckEditor) {

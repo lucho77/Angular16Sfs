@@ -1,4 +1,4 @@
-<div class="voiceButton" [class.recordVoice]="voiceActive" *ngIf="(mobile || !tablet) && desarrollo" (click)="captureVoice()">
+<div class="voiceButton" [class.recordVoice]="voiceActive" *ngIf="(mobile || !tablet)" (click)="captureVoice()">
     <div class="containerButt">
        <span *ngIf="!voiceActive && !loader"><i class="fa fa-microphone"></i></span>
        <span *ngIf="voiceActive && !loader"><i class="fa fa-stop"></i></span>

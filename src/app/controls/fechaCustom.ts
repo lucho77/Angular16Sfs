@@ -136,17 +136,14 @@ export class FechaCustomComponent {
     }
     const formdataGlobales = <FormdataReportdef[]>JSON.parse(localStorage.getItem('paramGlobal'));
     const duration = this.maxData();
-    const cd = duration['Hora'].split(":");
-
+    const cd = duration[1].value.split(":");
     let hour = parseInt(cd[0], 10);
     let minute = parseInt(cd[1], 10);
- 
-
-      this.reportdefService.consultarAllParamByName(user, paramRequest).subscribe(
+    this.reportdefService.consultarAllParamByName(user, paramRequest).subscribe(
         result => {
           if (hour!==23 && minute !==59){
 
-            let newDate = moment(duration['Fecha'], 'DD-MM-YYYY');
+            let newDate = moment(duration[0].value, 'DD-MM-YYYY');
             newDate.hour(hour);  
             newDate.minute(minute); 
             newDate = newDate.add(1, 'minute');
@@ -178,6 +175,8 @@ export class FechaCustomComponent {
               }
             }
           }
+          this.field.fechaCustomDTO.metodoStDTO.objetoEvento = result; 
+          this.acciones.emit(this.field.fechaCustomDTO.metodoStDTO);
 
         }, (err: HttpErrorResponse) => {
           //this.checkError(err);
@@ -189,21 +188,23 @@ export class FechaCustomComponent {
       let dataReturn = null;
       for (const data of this.field.fechaCustomDTO.dataTableDTO.data){
         if(previousDate===null){
-          previousDate = data['Hora'];
+          previousDate = data[1].value;
           dataReturn = data;
         }else{
           const pd =  previousDate.split(":");
-          const hour = parseInt(pd[0], 10);
-          const minute = parseInt(pd[1], 10);
-          const cd = data['Hora'].split(":");
-          const hourc = parseInt(cd[0], 10);
-          const minutec = parseInt(cd[1], 10);
-          if (hourc > hour || (hourc === hour && minutec > minute)) {
+          const hourAnt = parseInt(pd[0], 10);
+          const minuteAnt = parseInt(pd[1], 10);
+          const cd = data[1].value.split(":");
+          const hourAc = parseInt(cd[0], 10);
+          const minuteAc = parseInt(cd[1], 10);
+          if (hourAc > hourAnt || (hourAnt === hourAc && minuteAc > minuteAnt)) {
             dataReturn = data;
+            previousDate = data[1].value;
           }    
         } 
-        return data; 
       }
+      return dataReturn; 
+
     }
 
     select(event) {
@@ -284,7 +285,9 @@ export class FechaCustomComponent {
         this.day = this.fecha.format('dddd');
         console.log("fecha: " +this.day);
 
-        this.st = this.field.fechaCustomDTO.dataTableStDTO.data.filter(item => item[1].value === this.day).length > 0;
+        if(this.field.fechaCustomDTO.dataTableStDTO){
+          this.st = this.field.fechaCustomDTO.dataTableStDTO.data.filter(item => item[1].value === this.day).length > 0;
+        }
 
         this.form.get(this.field.name).setValue(this.fecha.toDate());
         this.dataFecha = this.field.fechaCustomDTO.dataTableDTO.data.filter(item => item[0].value === f);

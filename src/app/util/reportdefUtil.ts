@@ -149,8 +149,20 @@ export function prepararParametrosApasar(repordefData: ReportdefData, metadata: 
 
             }
             if (!encontrado) {
-                paramNoEncontrados.push(clave.trim());
+                if(metadata.objetoEvento){
+                  for (const p of metadata.objetoEvento) {
+                    if (p.name === clave) {
+                      listNew.push(p);
+                      encontrado = true;
+                      break;
+                    }
+                  }
+                }      
             }
+            if(!encontrado){
+              paramNoEncontrados.push(clave.trim());
+            }
+            
         }
         if ( paramNoEncontrados.length > 0 ) {
               listAux = buscarParametros(paramNoEncontrados, historicos, globales);

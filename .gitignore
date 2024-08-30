@@ -4,3 +4,5 @@
 /updates
 .angular
 .dist
+/.dist
+.vscode

@@ -480,19 +480,19 @@ export class FormularioComponent implements OnInit {
       }
     }
   }
-  processMethodDina(event: MetodoDTO) {
+  async processMethodDina(event: MetodoDTO) {
     if (event.preMethodDTO !== null && event.preMethodDTO.metodo !== null) {
-      const list = [] as FormdataReportdef[];
-      const p = {} as ParamRequestDTO;
-      p.nombre = event.retasigparam;
-      consultarParametroByParam(p, this.reportdefService).
-        then(async (resp) => {
-          resp.valueNew = event.id;
-          event.accionParam = resp;
-          list.push(resp);
-          await this.ejecutarPremethod(event.preMethodDTO, list);
+      //const list = [] as FormdataReportdef[];
+      //const p = {} as ParamRequestDTO;
+      //p.nombre = event.retasigparam;
+      //consultarParametroByParam(p, this.reportdefService).
+        //then(async (resp) => {
+          //resp.valueNew = event.id;
+          //event.accionParam = resp;
+          //list.push(resp);
+          await this.ejecutarPremethod(event.preMethodDTO, event.objetoEvento);
           this.accionesDina.emit(event);
-        }).catch(error => this.checkError(error));
+       // }).catch(error => this.checkError(error));
 
 
 

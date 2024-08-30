@@ -45,7 +45,7 @@
                                 </tr>
                             </ng-template>
                         </p-table>
-                            <button type="submit" (click)="executeSt()" class="btn btn-outline-info btn-xs btn-sm btn-md btn-lg">{{field.fechaCustomDTO.metodoStDTO.labelButtom}}</button>
+                            <button  *ngIf="st" type="submit" (click)="executeSt()" class="btn btn-outline-info btn-xs btn-sm btn-md btn-lg">{{field.fechaCustomDTO.metodoStDTO.labelButtom}}</button>
                         
                     </div>
                 </div>

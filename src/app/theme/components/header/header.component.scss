@@ -256,6 +256,9 @@
         &:hover {
             color: #d4d4d4
         }
+        &:active {
+            scale: 0.95;
+        }
     }
 
     .elementoFormulario {

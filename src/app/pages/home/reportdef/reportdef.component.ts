@@ -764,7 +764,7 @@ callForm(user: any, menu: boolean, m: FormReportdef, metadata: MetodoDTO, listRe
           f.valueNew = param.valueNew;
           f.value = param.valueNew;
           f.valueOld = param.valueNew;
-          if (f.busquedaGenerica) {
+          if (f.busquedaGenerica && (f.busquedaGenericaDTO.mostrarToStringLupa ===null||f.busquedaGenericaDTO.mostrarToStringLupa ===undefined ||f.busquedaGenericaDTO.mostrarToStringLupa.trim()==='' )) {
             f.busquedaGenericaDTO.mostrarToStringLupa = param.busquedaGenericaDTO.mostrarToStringLupa ;
           }
         }
@@ -887,6 +887,16 @@ const hola = 'hola';
         const listParam: FormdataReportdef[] = prepararParametrosApasar(historico.repordef,
           eventAction, this.formRepordef['list'], this.stack, formdataGlobales);
         this.generarMethod( false, eventAction, listParam);
+        return;
+      }
+      if (eventAction.tipoMetodo.toUpperCase() === FrontEndConstants.PDF.toUpperCase()) {
+        const formdataGlobales = <FormdataReportdef[]>JSON.parse(localStorage.getItem('paramGlobal'));
+        // console.log('eventAction');
+        // console.log(eventAction);
+        const historico = this.stack.tail as Historico;
+        const listParam: FormdataReportdef[] = prepararParametrosApasar(historico.repordef,
+          eventAction, this.formRepordef['list'], this.stack, formdataGlobales);
+        this.generarMethod( true, eventAction, listParam);
         return;
       }
       if (eventAction.tipoMetodo.toUpperCase() === FrontEndConstants.FORM.toUpperCase()) {

@@ -81,6 +81,23 @@ export class FechaCustomComponent {
           return; 
         }  
       const user = JSON.parse(localStorage.getItem('currentUser'));
+      if(columna.metodoDTO){
+        let id =    rowdata['ID'];  
+        let paramAccion = columna.paramHeaderAccion;  
+        this.obtenerParam(paramAccion,user).subscribe({
+          next:(p:FormdataReportdef)=>{
+            const listNew: FormdataReportdef[] = [];
+            p.valueNew = id;
+            listNew.push(p);
+            columna.metodoDTO.objetoEvento=listNew;
+            this.acciones.emit(columna.metodoDTO);
+
+          }
+        })
+
+      }else{
+        
+      
       let id =    rowdata[columna.valueHeaderAccion];  
       let accion = rowdata[columna.headerAccion];  
       let paramAccion = columna.paramHeaderAccion;  
@@ -105,6 +122,7 @@ export class FechaCustomComponent {
 
         }
     })
+    }
       //this.acciones.emit(accion);
     }
       obtenerParam(param:string,user:any):Observable<FormdataReportdef>{

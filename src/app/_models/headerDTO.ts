@@ -1,3 +1,5 @@
+import { MetodoDTO } from "./metodoDTO";
+
 export interface HeaderDTO {
     name: string;
     field: string;
@@ -17,4 +19,5 @@ export interface HeaderDTO {
     paramHeaderAccion: string;
     valueHeaderAccion: string;
     comentario:string;
+    metodoDTO:MetodoDTO;
 }

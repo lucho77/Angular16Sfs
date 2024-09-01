@@ -270,6 +270,8 @@ export class ReportdefService {
         ucfDTO.alta = alta;
         ucfDTO.configsFormsByUser = usuConfigForms;
         return this.http.post(`${devolverProyecto()}/configurarFormByUser/`,ucfDTO).pipe(map(result => result));
+    }  
+    cambiarContrasena(user: User, password: string, passwordActual: string, idUsuario: number, mail: string){
+        return this.http.post(`${devolverProyecto()}/cambiarContrasena/${user.username}/${password}/${passwordActual}/${user.idUsuarioUra}/${user.mail}`, {});
     }
-
 }

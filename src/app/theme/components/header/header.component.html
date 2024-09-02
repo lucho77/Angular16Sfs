@@ -88,11 +88,7 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-- Ventana emergente con cambio de contraseña -->
-                    
-
-
+                 
                     <!-- <app-user-menu></app-user-menu> -->
                 </span> 
                 <span *ngIf="!settings.theme.showMenu || !mobile || tablet">
@@ -114,6 +110,7 @@
         
     </div>
 </nav>
+<!-- Ventana emergente con cambio de contraseña -->
 <div class="overlay" [class.mostrarOverlay]="overlay">
     <div class="popUp" [class.mostrarPopUp]="popUp">
         <div (click)="popUp = false" class="cerrarBoton" title="Salir" (click)="overlay = !overlay">x</div>

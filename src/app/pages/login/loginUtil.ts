@@ -5,6 +5,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { ParametrosExecuteMethodRequestDTO } from '../../_models/parametrosExecuteMethodRequestDTO';
 import { ReportdefService } from '../../_services/reportdef.service';
 import { DataToken } from 'src/app/_models/dataToken';
+import { NameGlobalService } from 'src/app/_services/nameGlobalService';
 
 export function configurarParamnetrosGlobales(user: any, authenticationService: AuthenticationService, context: any, isMovil: boolean,
      token: string ) {
@@ -150,8 +151,9 @@ export function configurarMenu(user: any, authenticationService: AuthenticationS
 
   }
 
-  export function ejecutarMetodoArea(user: any, m: any, reportdefService: ReportdefService) {
+  export function ejecutarMetodoArea(user: any, m: any, reportdefService: ReportdefService, nameGlobalService: NameGlobalService) {
     return new Promise<void>(resolve => {
+      
      const pos =  user.metodo.indexOf('(');
      const listAux = [];
      const metodo =  user.metodo.substring(0, pos);
@@ -183,9 +185,10 @@ export function configurarMenu(user: any, authenticationService: AuthenticationS
          (mensaje: any) => {
            sessionStorage.setItem('tabInformationBody', mensaje.valor);
 
-           for ( const g of m.list) {
+           for ( const g of m) {
             if (g.name === 'P_IDAFILIADO4') {
                 sessionStorage.setItem('tabInformationName', g.busquedaGenericaDTO.mostrarToStringLupa);
+                nameGlobalService.setNameInfoChangue(g.busquedaGenericaDTO.mostrarToStringLupa);
                 break;
             }
           }

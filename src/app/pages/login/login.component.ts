@@ -7,6 +7,7 @@ import { AuthenticationService } from '../../_services/authentication.service';
 import { ReportdefService } from '../../_services/reportdef.service';
 import { ejecutarMetodoArea, obtenerReporteInicio, configurarParamnetrosGlobales, configurarMenu,
   extenderToken, persistirTokenCel } from './loginUtil';
+import { NameGlobalService } from 'src/app/_services/nameGlobalService';
 
 
 @Component({
@@ -32,7 +33,8 @@ export class LoginComponent implements OnInit, AfterViewInit {
         private route: ActivatedRoute,
         private router: Router,
         private authenticationService: AuthenticationService,
-        private reportdefService: ReportdefService
+        private reportdefService: ReportdefService,
+        private nameGlobalService: NameGlobalService
     ) {}
 
     ngOnInit() {
@@ -135,7 +137,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
                    localStorage.setItem('userMenu', JSON.stringify(user.menueViejo));
                    localStorage.setItem('reporte', user.reporteInicio);
                    if (user['metodo'] !== null && user['metodo'] !== undefined) {
-                    ejecutarMetodoArea(user, user.listGlobales, this.reportdefService);
+                    ejecutarMetodoArea(user, user.listGlobales, this.reportdefService, this.nameGlobalService);
                   }
       
                    // this.cargarChat(user);

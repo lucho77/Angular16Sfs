@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ReportdefService } from '../../_services/reportdef.service';
 import { ejecutarMetodoArea } from './loginUtil';
 import { environment } from 'src/environments/environment';
+import { NameGlobalService } from 'src/app/_services/nameGlobalService';
 
 
 @Component({templateUrl: 'loginExternal.component.html'})
@@ -13,7 +14,7 @@ export class LoginExternalComponent implements OnInit, AfterViewInit {
 
     constructor(
         private authenticationService: AuthenticationService, private route: ActivatedRoute,
-        private router: Router, private reportdefService: ReportdefService
+        private router: Router, private reportdefService: ReportdefService,private nameGlobalService: NameGlobalService
 
     ) {}
 
@@ -85,7 +86,7 @@ export class LoginExternalComponent implements OnInit, AfterViewInit {
   }
 
       if (user['metodo'] !== null && user['metodo'] !== undefined) {
-       await ejecutarMetodoArea(user, user.listGlobales, this.reportdefService);
+       await ejecutarMetodoArea(user, user.listGlobales, this.reportdefService, this.nameGlobalService);
       }
  
      

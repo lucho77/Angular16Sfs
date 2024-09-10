@@ -165,30 +165,10 @@ export class HeaderComponent implements OnInit {
   }
 
   public obtenerInfoUser(){
-    let dto = {} as ParametrosExecuteMethodRequestDTO;
-    let username = {} as FormdataReportdef;
-    dto.list = [];
-
-    username.name = 'p_user';
-    username.type = FrontEndConstants.JAVA_LANG_STRING;
-    username.valueNew = this.usuario.username;
-    username.text = true;
-    dto.list.push(username);
-
-    dto.metodo = 'getUser';
-
-    this.reportdefService.postExecuteMethod(this.usuario,dto).subscribe({
-      next: res => {
-        console.log(res.valor);
-        let map = JSON.parse(res.valor);
-        this.email = map.email;
-        this.come = map.come;
-      },
-      error: err => {
-        console.log(err);
-        
-      }
-    })
+    console.log(this.usuario);
+    
+    this.email = this.usuario.email;
+    this.come = this.usuario.come;
   }
 
   public verificarNewPass(){

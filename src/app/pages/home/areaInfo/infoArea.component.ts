@@ -39,37 +39,42 @@ export class InfoAreaComponent   {
 
     const formdataGlobales = <FormdataReportdef[]>JSON.parse(localStorage.getItem('paramGlobal'));
     console.log(formdataGlobales);
-    const name = sessionStorage.getItem('tabInformationName');
-    const body = sessionStorage.getItem('tabInformationBody');
 
-    console.log('name');
-    console.log('body');
-    console.log(name);
-    console.log(body);
+    this.nameGlobalService.nameInfo$.subscribe({
+      next: ()=> {
+        const name = sessionStorage.getItem('tabInformationName');
+        const body = sessionStorage.getItem('tabInformationBody');
+        console.log('name', name);
+        console.log('body', body);
+        
+        
+        if (name && body) {
 
-    if (name && body) {
-      this.data.name = name;
-      this.data.info = body;
-      let posicion = body.indexOf('FOTO:');
-
-      if (posicion!==-1) {
-        console.log('La variable contiene el texto "fofo"');
-           const dataArray = body.split('FOTO:');
-           const sanitize = this.domSanitizer.bypassSecurityTrustResourceUrl('data:image/jpeg;base64,' +dataArray[1]); 
-          this.imgBase64 = sanitize;
-          this.data.info =  dataArray[0];
-          this.mostrarFoto = true;
-        } else {
-          this.mostrarFoto = false;
+          this.data.name = name;
           this.data.info = body;
-        console.log('La variable no contiene el texto "fofo"');
+          let posicion = body.indexOf('FOTO:');
+    
+          if (posicion!==-1) {
+            console.log('La variable contiene el texto "fofo"');
+               const dataArray = body.split('FOTO:');
+               const sanitize = this.domSanitizer.bypassSecurityTrustResourceUrl('data:image/jpeg;base64,' +dataArray[1]); 
+              this.imgBase64 = sanitize;
+              this.data.info =  dataArray[0];
+              this.mostrarFoto = true;
+            } else {
+              this.mostrarFoto = false;
+              this.data.info = body;
+            console.log('La variable no contiene el texto "fofo"');
+          }
+    
+          console.log('seteo el globalSerice');
+        } else {
+          this.data.name = 'SIN SELECCIÓN';
+          this.data.info = 'No hay informacion que mostrar';
+        }
       }
+    });
 
-      console.log('seteo el globalSerice');
-    } else {
-      this.data.name = 'SIN SELECCIÓN';
-      this.data.info = 'No hay informacion que mostrar';
-    }
 
     this.nameRef = this.nameGlobalService.nameChanged$.subscribe(() => {
       if(this.nameGlobalService.getName()!=="null"){

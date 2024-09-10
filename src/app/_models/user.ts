@@ -14,6 +14,7 @@ export class User {
     idAplica: number;
     aplicacion: string;
     usuarioMesa: boolean;
+    come:string;
     mail:string;
     test:boolean;
     certificadoDto:CertificadoDto;

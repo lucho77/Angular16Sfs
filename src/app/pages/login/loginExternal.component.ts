@@ -33,7 +33,7 @@ export class LoginExternalComponent implements OnInit, AfterViewInit {
 
         console.log('estoy en el loginExternal External');  */
         this.authenticationService.logout();
-        console.log('me voy a loguear');
+        console.log('me voy a loguear LoginExternal');
         this.onExternalLogin();
     }
 
@@ -42,20 +42,47 @@ export class LoginExternalComponent implements OnInit, AfterViewInit {
     }
 
     // convenience getter for easy access to form fields
-
+    loginShared(usuario: string, semilla: string) {
+      return new Promise(resolve => {
+        this.authenticationService.loginShared(usuario, semilla,"SI").subscribe
+        (shared => {
+          resolve(shared);
+        });
+      });
+    }
    async  onExternalLogin() {
-      console.log('logueando nuevo....');
+      console.log('method onExternalLogin');
 
      // const userExternal:any  = await this.obtenerUsuarioLoginExterno();
-      const user:any = await this.login();
+     const cache = localStorage.getItem("cache");
+     console.log('Cache:')
+     console.log(cache)
+     let shared:any;
+     if(cache){
+      const oCache = JSON.parse(cache);
+       shared = await this.loginShared(oCache.user,oCache.semilla);            
+     }
+     const user:any = await this.login();
+     if(shared){
+        user.shared = shared;
+     }
       localStorage.setItem('currentUser', JSON.stringify(user));
       localStorage.setItem('paramGlobal', JSON.stringify(user.listGlobales));
       localStorage.setItem('userMenu', JSON.stringify(user.menueViejo));
       localStorage.setItem('reporte', user.reporteInicio);
-
+      console.log('Objeto shared:')
+      console.log(user.sharedDTO)
+ 
       if (user.sharedDTO && user.sharedDTO.reporte) {
-            localStorage.setItem('reporte', user.sharedDTO.reporte);
+        localStorage.setItem('reporte', user.sharedDTO.reporte);
       }
+  if (user.sharedDTO && user.sharedDTO.cache) {
+    console.log('Guardando data Cache:')
+    console.log(user.sharedDTO.cache)
+    console.log(user.sharedDTO.semilla)
+   let data ={user:user.username,semilla:user.sharedDTO.semilla};
+    localStorage.setItem('cache', JSON.stringify(data));
+  }
 
       if (user['metodo'] !== null && user['metodo'] !== undefined) {
        await ejecutarMetodoArea(user, user.listGlobales, this.reportdefService);

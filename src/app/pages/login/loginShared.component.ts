@@ -62,7 +62,7 @@ ngOnInit() {
     });
 */
     this.authenticationService.logout();
-    console.log('me voy a loguear');
+    console.log('me voy a loguear loginShared');
     this.onExternalLogin();
 }
 
@@ -76,13 +76,28 @@ ngAfterViewInit() {
   console.log('login Shared....');
 
   const shared = await this.loginShared(this.usuario, this.semilla);
-  const user = await this.loginExternal(shared['idSession'], shared);
+  console.log('Objeto shared loginShared:')
+  console.log(shared)
+  let oCache = localStorage.getItem("cache"); 
+  if(oCache){
+    return;
+  }
+if(shared['cache']===true){
+      let data ={user:this.usuario,semilla:this.semilla};
+      localStorage.setItem('cache', JSON.stringify(data));
+
+    }else{
+      localStorage.removeItem('cache');
+
+    } 
+/*
+    const user = await this.loginExternal(shared['idSession'], shared);
   user['sharedDTO'] = shared;
   const g = await  configurarParamnetrosGlobales(user, this.authenticationService, null, false, null);
 
   await this.obtenerMenu(user);
   await this.ejecutarMetodoArea(user, g);
-
+*/
   this.router.navigate(['/pages']);
 
   }

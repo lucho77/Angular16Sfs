@@ -22,10 +22,13 @@ export class AuthenticationService {
         return this.http.get<any>(`../externalAcces`, {params: params
         });
     }
-    loginShared(usuario: string, semilla: string) {
+    loginShared(usuario: string, semilla: string,onlyData?:string) {
         let params = new HttpParams();
         params = params.append('usuario', usuario);
         params = params.append('semilla', semilla);
+        if(onlyData){
+            params = params.append('onlyData', "SI");
+        }
         return this.http.get<any>(`../shared`, {params: params
         });
     }

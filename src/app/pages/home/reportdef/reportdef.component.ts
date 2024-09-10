@@ -39,7 +39,7 @@ import { interval } from 'rxjs';
 import { ExitService } from '../../../_services/exitService';
 // import { SocketClientService } from '../../../_services/SocketClientService';
 import { ToastrService } from 'ngx-toastr';
-import { buscarParametro, buscarParametrosEnHistoricos, consultarParametroByClase, crearParametro, inicializarHistorico, prepararParametrosApasar } from 'src/app/util/reportdefUtil';
+import { buscarParametro, buscarParametrosEnHistoricos, consultarParametroByClase, crearParametro, inicializarHistorico, prepararParametrosApasar , ejecutarMetodo} from 'src/app/util/reportdefUtil';
 import { ConfirmationDialogService } from '../../confirmDialog/confirmDialog.service';
 import { AppSettings } from 'src/app/app.settings';
 import { SocketService } from 'src/app/_services/socketService';
@@ -1399,6 +1399,12 @@ const hola = 'hola';
           }
           localStorage.setItem("photoAbmDef",JSON.stringify(photos));
         }
+        if (historico.containerABM.postPersist) {
+          this.ejecutaPostPersist(historico.containerABM.postPersist, historico.listParamOwner)
+        }
+        if (historico.containerABM.postUpdate) {
+          this.ejecutaPostPersist(historico.containerABM.postUpdate, historico.listParamOwner)
+        }
 
         if (historico.containerABM.tieneHijoAlta) {
           this.obtenerParametroClasePadre(result).then( (resp) =>
@@ -2025,6 +2031,38 @@ editarOrAltaAbm(event:FormdataReportdef){
   let id =alta?null:event.valueNew;
   const data = {alta: alta, id: id, reporte: event.busquedaGenericaDTO.reportdefEditable, vista: null};
   this.editarABM(data,false);
+}
+
+ejecutaPostPersist(methodo: string, list : FormdataReportdef[]) {
+
+  const pos1 = methodo.indexOf('(');
+  const pos2 = methodo.indexOf(')');
+  const metodo = methodo.substring(0, pos1);
+  const params = methodo.substring(pos1 + 1, pos2).split(',');
+  const listAux = [];
+
+  for (let param of params) {
+    for (let dato of list) {
+      if (param.trim() == dato.name) {
+        listAux.push(dato);
+        break;
+      }
+    }
+  }
+
+  let req = {} as ParametrosExecuteMethodRequestDTO;
+  req.metodo = metodo;
+  req.list = listAux;
+  let user : User = JSON.parse(localStorage.getItem('currentUser'));
+  this.reportdefService.postExecuteMethod(user, req).subscribe({
+    next: (res)=> {
+      if (res.valor) {
+        sessionStorage.setItem('tabInformationBody', res.valor);
+        this.nameService.setNameInfoChangue(res.valor); // al setear en NameInfoChangue dispara la actualización de el infoArea
+      }
+    }
+  })
+
 }
 
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation, HostListener } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, HostListener, ViewChild, ElementRef } from '@angular/core';
 import { trigger,  state,  style, transition, animate } from '@angular/animations';
 import { AppSettings } from '../../../app.settings';
 import { Settings } from '../../../app.settings.model';
@@ -58,6 +58,9 @@ export class HeaderComponent implements OnInit {
   actualPass = '';
   newPass = '';
   rNewPass = '';
+  @ViewChild('textAreaConsulta') textAreaConsulta: ElementRef;
+  @ViewChild('selectPrioridad') selectPrioridad: ElementRef;
+  
 
   consultaForm: FormGroup;
 
@@ -70,10 +73,6 @@ export class HeaderComponent implements OnInit {
     // tslint:disable-next-line:use-life-cycle-interface
    
   ngOnInit() {
-    this.consultaForm = this.formBuilder.group({
-      consulta: ['', [Validators.required]],
-      prioridad: ['baja', [Validators.required]],
-    });
 
     if(window.innerWidth <= 768) 
     this.showHorizontalMenu = false;
@@ -131,81 +130,93 @@ export class HeaderComponent implements OnInit {
         this.showHorizontalMenu = true;
       }
   }
-  salir() {
+salir() {
     // this.wService.logoutWS();
     this.exitService.setearExitGlobal();
     this.authenticationService.logout();
     this.router.navigate(['/']);
-   }
-   get f() { return this.consultaForm.controls; }
+}
 
-   mandarMensaje() {
-    this.submitted = true;
-    if (this.consultaForm.invalid) {
-      return;
-    }
-    const user = JSON.parse(localStorage.getItem('currentUser'));
-    const  chatDTO = {} as ChatDTO;
-    chatDTO.msg = this.f.consulta.value;
-    chatDTO.prioridad = this.f.prioridad.value;
-    chatDTO.de = user.username;
-    chatDTO.idAplica = user.idAplica;
+get f() { return this.consultaForm.controls; }
 
-          // console.log(data.camposPersistirDTO);
-          this.metodoService.nuevoChat(user, chatDTO).subscribe
-          (result => {
-              this.toastService.success('mensaje enviado con exito');
-          },
-          (err: HttpErrorResponse) => {
-            this.toastService.error('no se ha podido enviar la consulta, intente más tarde');
-          });
+verificarConsulta(){
 
-    
-    
+  if(this.textAreaConsulta.nativeElement.value == '' && this.selectPrioridad.nativeElement.value == ''){
+    this.toastService.error("Por favor rellene los campos");
+    return false;
   }
 
-  public obtenerInfoUser(){
-    console.log(this.usuario);
-    
-    this.email = this.usuario.email;
-    this.come = this.usuario.come;
-  }
-
-  public verificarNewPass(){
-    if(!this.newPass.includes(this.rNewPass)){
-      this.toastService.error('La contraseña nueva no coincide con la reingresada!');
-      this.popUp = true;
-      this.overlay = true;
-      this.resetFormularioPass();
+  if(this.textAreaConsulta.nativeElement.value == ''){
+      this.toastService.error("No puede dejar el campo Consulta vacío!");
       return false;
-    }
+  }
+  
+  return true;
+}
+
+mandarMensaje() {
+  this.submitted = true;
+  const user = <User>JSON.parse(localStorage.getItem('currentUser'));
+  const  chatDTO = {} as ChatDTO;
+  chatDTO.msg = this.textAreaConsulta.nativeElement.value;
+  chatDTO.prioridad = this.selectPrioridad.nativeElement.value;
+  chatDTO.de = user.username;
+  chatDTO.idAplica = user.idAplica;
+
+  if(this.verificarConsulta()){
+    this.metodoService.nuevoChat(user, chatDTO).subscribe({
+      next: res => {
+        this.toastService.success("Mensaje enviado con éxito!");
+        this.textAreaConsulta.nativeElement.value = '';
+      },
+      error: err => {
+        this.toastService.error("No se ha podido enviar el mensaje, intente más tarde");
+      }
+    })
+  } 
+}
+
+public obtenerInfoUser(){
+    
+  this.email = this.usuario.email;
+  this.come = this.usuario.come;
+}
+
+public verificarNewPass(){
+  if(!this.newPass.includes(this.rNewPass)){
+    this.toastService.error('La contraseña nueva no coincide con la reingresada!');
+    this.popUp = true;
+    this.overlay = true;
+    this.resetFormularioPass();
+    return false;
+  }
     return true;
-  }
+}
 
-  public resetFormularioPass(){
-    this.actualPass = null;
-    this.newPass = null;
-    this.rNewPass = null;
-  }
+public resetFormularioPass(){
+  this.actualPass = null;
+  this.newPass = null;
+  this.rNewPass = null;
+}
 
-  public changePass(){
-    this.overlay = false;
-    if(this.verificarNewPass()){
-      this.reportdefService.cambiarContrasena(this.usuario, this.newPass, this.actualPass, this.usuario.idUsuarioUra, this.usuario.mail).subscribe({
-        next: res => {
-          this.toastService.success(res['mensaje']);
-          this.popUp = false;
-          this.resetFormularioPass();
-        },
-        error: err =>{
-          this.toastService.error(err.mensaje);
-          this.popUp = true;
-          this.overlay = true
-          this.resetFormularioPass();
-        }
+public changePass(){
+  this.overlay = false;
+  if(this.verificarNewPass()){
+    this.reportdefService.cambiarContrasena(this.usuario, this.newPass, this.actualPass, this.usuario.idUsuarioUra, this.usuario.mail).subscribe({
+      next: res => {
+        this.toastService.success(res['mensaje']);
+        this.popUp = false;
+        this.resetFormularioPass();
+      },
+      error: err =>{
+        this.toastService.error(err.mensaje);
+        this.popUp = true;
+        this.overlay = true
+        this.resetFormularioPass();
+      }
         
-      })
-    }
+    })
   }
+}
 
 }

@@ -3,6 +3,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
 import { AppSettings } from './app.settings';
 import { Settings } from './app.settings.model';
+import { PushNotificationService } from './_services/pushNotificationService';
 
 @Component({
   selector: 'app-root',
@@ -12,13 +13,20 @@ import { Settings } from './app.settings.model';
 })
 export class AppComponent {
     public settings: Settings;
-    constructor(public appSettings:AppSettings, public translate: TranslateService, private router:Router){
+    constructor(public appSettings:AppSettings, public translate: TranslateService, private router:Router,private sharedService: PushNotificationService){
         this.settings = this.appSettings.settings; 
         translate.addLangs(['en','de','fr','ru','tr']);
         translate.setDefaultLang('en'); 
         translate.use('en'); 
     }    
 
+    ngOnInit(): void {
+      this.sharedService.subscribeToNotifications();
+      this.sharedService.subscribeMessage();
+    }
+    ngOnDestroy() {
+      this.sharedService.unsubscribeFromPushNotifications();
+    }
 
     /* These following methods used for theme preview, you can remove this methods */
     

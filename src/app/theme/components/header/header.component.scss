@@ -322,3 +322,11 @@
     visibility: visible;
     transition: all 0.6s;
 }
+
+.row{
+    justify-content: center;
+}
+
+.app.dark #info-content .left-border{
+    border-left: 0;
+}

@@ -4,30 +4,25 @@
             <a class="close" data-toggle="collapse" href="#info-content" (click)="showInfoContent = !showInfoContent" [class.show]="showInfoContent">
                 <span aria-hidden="true">&times;</span>
             </a>
-            <div class="row align-items-center">
-                <div class="col-md-7">
-                    <div class="row py-4">                        
-                        <div class="col-lg-7 col-sm-8 col-12 left-border">
-                            <div class="info w-280p mx-auto text-center">
-                                <form>
-                                    <div class="form-group">
-                                        <label>Por favor, describa brevemente su consulta:</label>
-                                        <textarea #textAreaConsulta rows="7" class="form-control tm-f-bugt"></textarea>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Prioridad</label>
-                                        <select class="form-control tm-f-bugt" #selectPrioridad> 
-                                            <option  value="baja">Baja</option>
-                                            <option  value="media">Media</option>
-                                            <option  value="alta">Alta</option>
-                                        </select>
-            
-                                    </div>
-                                    <button type="submit" class="btn btn-sm btn-gray" (click)="mandarMensaje()">Enviar</button>
-                                </form>
-                            </div>                           
-                        </div>
-
+            <div class="row align-items-center bordeConsultaPadre">
+                <div class="col-lg-7 col-sm-8 col-12 left-border bordeConsulta">
+                    <div class="info w-280p mx-auto text-center">
+                        <form>
+                            <div class="form-group">
+                                <label>Por favor, describa brevemente su consulta:</label>
+                                <textarea #textAreaConsulta rows="7" class="form-control tm-f-bugt"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Prioridad</label>
+                                <select class="form-control tm-f-bugt" #selectPrioridad>
+                                    <option value="baja">Baja</option>
+                                    <option value="media">Media</option>
+                                    <option value="alta">Alta</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-sm btn-gray"
+                                (click)="mandarMensaje()">Enviar</button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -79,7 +74,7 @@
                         </div>
                         <div class="tarjetaUsuario" [class.mostrarTarjetaUser]="targetUser">
                             <span *ngIf="come">{{come}}</span>
-                            <span *ngIf="email">Email: {{email}}</span>
+                            <span *ngIf="mail">Email: {{mail}}</span>
                             <div class="botonCambiarContrasenia">
                                 <button class="btn btn-primary" (click)="popUp = !popUp" (click)="targetUser = false" [class.mostrarPupUp]="popUp" (click)="overlay = !overlay">Cambiar Contraseña</button>
                             </div>

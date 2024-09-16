@@ -45,7 +45,7 @@ export class HeaderComponent implements OnInit {
   public settings: Settings;
   public menuItems: any;
   public come : string;
-  public email : string;
+  public mail : string;
   loading = false;
   usuarioMesa = false;
   submitted = false;
@@ -178,7 +178,7 @@ mandarMensaje() {
 
 public obtenerInfoUser(){
     
-  this.email = this.usuario.email;
+  this.mail = this.usuario.mail;
   this.come = this.usuario.come;
 }
 

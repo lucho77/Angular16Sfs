@@ -1861,6 +1861,13 @@ const hola = 'hola';
 }
 }
  private getABM(data: any, listParam: FormdataReportdef[], backHistorico: boolean) {
+
+  let vista : string = data.vista;
+  if (data.alta && data.vistaAlta)
+    vista = data.vistaAlta;
+  if (!data.alta && data.vistaModificacion)
+    vista = data.vistaModificacion;
+
   const user = JSON.parse(localStorage.getItem('currentUser'));
   const abmEdit = {} as AltaEdicionABMDTO;
   abmEdit.alta = data.alta;
@@ -1869,7 +1876,7 @@ const hola = 'hola';
  abmEdit.id = data.id;
  this.idEntidad = data.id;
  abmEdit.reportName = data.reporte;
- abmEdit.viewName = data.vista;
+ abmEdit.viewName = vista;
 localStorage.setItem("idEntidad",data.id);
  abmEdit.onlyOwner = data.onlyOwner;
  abmEdit.idOnlyOwner = data.idOwner;

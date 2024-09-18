@@ -1103,7 +1103,8 @@ export class TabularComponent implements OnInit, OnChanges {
     const data = {
       alta: false, id: id, reporte: this.reporte, vista: this.tabular.vista,
       onlyOwner: this.tabular.onlyOwner, idOwner: idOwner, onlyOwnerDay: this.tabular.onlyOwnerDay,
-      onlyOwnerField: this.tabular.onlyOwnerField, onlyOwnerDayField: this.tabular.onlOwnerDayField
+      onlyOwnerField: this.tabular.onlyOwnerField, onlyOwnerDayField: this.tabular.onlOwnerDayField,
+      vistaModificacion : this.tabular.vistaModificacion
     };
     this.editaABM.emit(data);
   }
@@ -1327,7 +1328,7 @@ export class TabularComponent implements OnInit, OnChanges {
   nuevoAbm() {
 
     this.loader = true;
-    const data = { alta: true, id: this.idSeleccionado, reporte: this.reporte, vista: this.tabular.vista };
+    const data = { alta: true, id: this.idSeleccionado, reporte: this.reporte, vista: this.tabular.vista , vistaAlta : this.tabular.vistaAlta};
     // debo ver si hay algun agregarsi
     console.log('this.tabular.agregarSi');
     console.log(this.tabular.agregarSi);

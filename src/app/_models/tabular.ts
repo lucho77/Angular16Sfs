@@ -45,6 +45,8 @@ allFieldMobile: boolean;
 showRow: number;
 duplicarRegistro:boolean;
 mobile: boolean;
+vistaModificacion : string;
+vistaAlta : string;
 }
 
 

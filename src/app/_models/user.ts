@@ -18,4 +18,6 @@ export class User {
     mail:string;
     test:boolean;
     certificadoDto:CertificadoDto;
+    registration:string;
+
 }

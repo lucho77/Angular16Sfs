@@ -17,6 +17,7 @@ import { ParametrosExecuteMethodRequestDTO } from 'src/app/_models/parametrosExe
 import { FormdataReportdef } from 'src/app/_models/formdata';
 import { FrontEndConstants } from 'src/app/constans/frontEndConstants';
 import { ReportdefService } from 'src/app/_services/reportdef.service';
+import { WebauthnService } from 'src/app/_services/webauthnService';
 
 interface Pass{
   actualPass: string | null
@@ -66,7 +67,7 @@ export class HeaderComponent implements OnInit {
 
   constructor(private appSettings: AppSettings,  private router: Router,private formBuilder: FormBuilder,
     private authenticationService: AuthenticationService,  private exitService: ExitService,
-    private metodoService: MetodoService, private toastService: ToastrService, private reportdefService:ReportdefService) {
+    private metodoService: MetodoService, private toastService: ToastrService, private reportdefService:ReportdefService, private webAuthnService:WebauthnService) {
       this.settings = this.appSettings.settings;
     }
 
@@ -153,7 +154,19 @@ verificarConsulta(){
   
   return true;
 }
+  // Verifica si WebAuthn es soportado
+  isWebAuthnSupported(): boolean {
+    return !!window.PublicKeyCredential;
+  }
 
+registrarHuella(){
+  if (!this.isWebAuthnSupported()) {
+    this.toastService.error("WebAuthn no está soportado en este navegador");
+    throw new Error('WebAuthn no está soportado en este navegador');
+  }
+  this.webAuthnService.createCredential();
+
+}
 mandarMensaje() {
   this.submitted = true;
   const user = <User>JSON.parse(localStorage.getItem('currentUser'));

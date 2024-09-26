@@ -307,8 +307,9 @@ export class FormularioComponent implements OnInit {
           }
           if (f.fechaHora) {
             if (f.valueNew !== null) {
+              const time = new Date(f.valueNew);
               fieldsCtrls[f.name] = new FormControl({
-                value: f.valueNew,
+                value: time,
                 disabled: f.disable
               });
             } else {

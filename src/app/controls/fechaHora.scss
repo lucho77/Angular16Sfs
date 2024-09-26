@@ -1,0 +1,31 @@
+@import "../theme/styles/_constantes.scss";
+.popup {
+    z-index: 900;
+}
+
+.ui-datepicker-div {
+    z-index: 999;
+}
+
+.datepicker {
+    z-index: 999 !important;
+}
+.p-inputtext{
+    max-height: 35px;
+    border-radius: 4px;
+}
+.p-button-icon-only{
+    max-height: 35px;
+}
+.inp-fechaHora .ui-spinner {
+    display: none;
+}
+.spn-fecha{
+    button{
+        border-radius: 0 4px 4px 0;
+    }
+}
+@include fieldsize();
+.row{
+    @include padArribaAbajo;
+}

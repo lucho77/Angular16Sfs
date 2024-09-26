@@ -47,6 +47,7 @@ export class HeaderComponent implements OnInit {
   public menuItems: any;
   public come : string;
   public mail : string;
+  public emailNgModel: string;
   loading = false;
   usuarioMesa = false;
   submitted = false;
@@ -142,12 +143,12 @@ get f() { return this.consultaForm.controls; }
 
 verificarConsulta(){
 
-  if(this.textAreaConsulta.nativeElement.value == '' && this.selectPrioridad.nativeElement.value == ''){
+  if(!this.textAreaConsulta.nativeElement.value && !this.selectPrioridad.nativeElement.value){
     this.toastService.error("Por favor rellene los campos");
     return false;
   }
 
-  if(this.textAreaConsulta.nativeElement.value == ''){
+  if(!this.textAreaConsulta.nativeElement.value){
       this.toastService.error("No puede dejar el campo Consulta vacío!");
       return false;
   }
@@ -189,43 +190,64 @@ mandarMensaje() {
   } 
 }
 
-public obtenerInfoUser(){
-    
+public obtenerInfoUser(){  
   this.mail = this.usuario.mail;
   this.come = this.usuario.come;
 }
 
-public verificarNewPass(){
-  if(!this.newPass.includes(this.rNewPass)){
-    this.toastService.error('La contraseña nueva no coincide con la reingresada!');
-    this.popUp = true;
-    this.overlay = true;
-    this.resetFormularioPass();
-    return false;
-  }
+public verificarCampos(){
+
+  const validations = [
+    { condicion: !this.newPass.includes(this.rNewPass), mensaje: 'La contraseña reingresada no coincide con la nueva!' },
+    { condicion: this.actualPass && !this.newPass && !this.rNewPass, mensaje: 'Debe ingresar una nueva contraseña!' },
+    { condicion: this.newPass && !this.rNewPass, mensaje: 'Debe reingresar la nueva contraseña!' },
+    { condicion: !this.newPass && !this.rNewPass && !this.actualPass && !this.emailNgModel, mensaje: 'Debe completar los campos!' },
+    { condicion: this.emailNgModel && !this.actualPass, mensaje: 'Debe ingresar su contraseña actual para poder actualizar su email!' }
+  ];
+
+  if(this.emailNgModel && this.actualPass){
     return true;
+  }
+
+  for (const { condicion, mensaje } of validations) {
+    if (condicion) {
+      this.toastService.error(mensaje);
+      this.popUp = true;
+      this.overlay = true;
+      this.resetFormulario();
+      return false;
+    }
+  }
+  return true;
 }
 
-public resetFormularioPass(){
-  this.actualPass = null;
-  this.newPass = null;
-  this.rNewPass = null;
+public resetFormulario(){
+  this.actualPass = '';
+  this.newPass = '';
+  this.rNewPass = '';
+  this.emailNgModel = '';
 }
 
-public changePass(){
+public editarPerfil(){
   this.overlay = false;
-  if(this.verificarNewPass()){
-    this.reportdefService.cambiarContrasena(this.usuario, this.newPass, this.actualPass, this.usuario.idUsuarioUra, this.usuario.mail).subscribe({
+  if(this.verificarCampos()){
+    if(this.emailNgModel){
+      this.usuario.mail = this.emailNgModel;
+    }
+    if((this.actualPass && this.emailNgModel) && (!this.newPass && !this.rNewPass) || (this.newPass && !this.rNewPass)){
+      this.newPass = this.actualPass;
+    }
+    this.reportdefService.cambiarContrasena(this.usuario, this.newPass ? this.newPass : null, this.actualPass ? this.actualPass : null, this.usuario.idUsuarioUra, this.usuario.mail).subscribe({
       next: res => {
         this.toastService.success(res['mensaje']);
         this.popUp = false;
-        this.resetFormularioPass();
+        this.resetFormulario();
       },
       error: err =>{
         this.toastService.error(err.mensaje);
         this.popUp = true;
         this.overlay = true
-        this.resetFormularioPass();
+        this.resetFormulario();
       }
         
     })

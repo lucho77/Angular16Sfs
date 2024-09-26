@@ -33,6 +33,7 @@ export class WebauthnService {
     
     try {
       const credential = await navigator.credentials.create({ publicKey });
+
       console.log('Credencial creada:', credential);
       return credential;
     } catch (err) {
@@ -53,6 +54,19 @@ export class WebauthnService {
   
     return outputArray;
   }
+   uint8ArrayToBase64(uint8Array) {
+    // Crea una cadena binaria a partir del Uint8Array
+    let binaryString = '';
+    for (let i = 0; i < uint8Array.length; i++) {
+        binaryString += String.fromCharCode(uint8Array[i]);
+    }
+    // Codifica la cadena binaria a Base64
+    const base64String = window.btoa(binaryString)
+        .replace(/\+/g, '-') // Cambia '+' por '-'
+        .replace(/\//g, '_'); // Cambia '/' por '_'
+    
+    return base64String;
+}
   // Obtener la autenticación
   async getAssertion(): Promise<any> {
 

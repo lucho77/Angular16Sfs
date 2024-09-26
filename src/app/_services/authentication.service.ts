@@ -10,6 +10,7 @@ import { devolverProyecto } from '../util/reportdefUtil';
 import { RefreshToken } from '../_models/refreshToken';
 import { Observable } from 'rxjs';
 import { RefreshTokenResponse } from '../_models/refreshTokenResponse';
+import { RegisterCredentialsDto } from '../_models/registerCredentialRequest';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
@@ -130,5 +131,14 @@ export class AuthenticationService {
         data.idUsuarioUra = user.idUsuarioUra;
         return this.http.post<RefreshTokenResponse>(`${devolverProyecto()}/refreshToken/`,data);
     }
+    storeCredential(user: User, registerData:RegisterCredentialsDto): Observable<any> {
+        registerData.username = user.username;
+        registerData.dataSource = user.datasource;
+        registerData.webServicesAddress = user.webservice;
+        registerData.modelPackage = user.packageModel;
+        registerData.idUsuarioUra = user.idUsuarioUra;
+        return this.http.post(`${devolverProyecto()}/storeCredential/`,registerData).pipe(map(result => result));
+    }  
+
 
 }

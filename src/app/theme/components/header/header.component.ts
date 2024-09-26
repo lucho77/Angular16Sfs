@@ -164,7 +164,15 @@ registrarHuella(){
     this.toastService.error("WebAuthn no está soportado en este navegador");
     throw new Error('WebAuthn no está soportado en este navegador');
   }
-  this.webAuthnService.createCredential();
+  this.webAuthnService.createCredential().then((credential ) => { 
+    this.toastService.success("Huella registrada con éxito!");
+    const dataToSend = {
+      credentialId: credential.id,
+      publicKey: credential.publicKey, 
+      algorithm: credential.attestationObject.algorithm
+    };
+    });;
+
 
 }
 mandarMensaje() {

@@ -43,6 +43,9 @@ public setReportdef(reportdef: string) {
 
   public createMenu(menu: any, nativeElement, type) {
     // console.log('tipo de menu' + menu);
+    console.log("CARGA DE MENU");
+
+    console.log(menu);
     const p = JSON.parse( menu );
 
     if (type === 'vertical') {
@@ -92,7 +95,7 @@ public setReportdef(reportdef: string) {
           // this.router.navigate([menuItem.ejecutar]);
           this.setActiveLink(menu, link);
           // this.setReportdef(menuItem.ejecutar);
-          localStorage.setItem('currentMenuClick', JSON.stringify(menuItem));
+          localStorage.setItem('currentMenuClick', menuItem );
           // this.closeOtherSubMenus(div);
           const url = '/pages/home/reportdef';
           // console.log('entro a la opcion de ' + menuItem.ejecutar);

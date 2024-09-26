@@ -74,9 +74,9 @@
                         </div>
                         <div class="tarjetaUsuario" [class.mostrarTarjetaUser]="targetUser">
                             <span *ngIf="come">{{come}}</span>
-                            <span *ngIf="mail">Email: {{mail}}</span>
+                            <span *ngIf="mail">{{mail}}</span>
                             <div class="botonCambiarContrasenia">
-                                <button class="btn btn-primary" (click)="popUp = !popUp" (click)="targetUser = false" [class.mostrarPupUp]="popUp" (click)="overlay = !overlay">Cambiar Contraseña</button>
+                                <button class="btn btn-primary" (click)="popUp = !popUp" (click)="targetUser = false" [class.mostrarPupUp]="popUp" (click)="overlay = !overlay">Editar perfil</button>
                             </div>
                             <div class="botonCambiarContrasenia">
                                 <button class="btn btn-primary"    (click)="registrarHuella()">Registrar huella</button>
@@ -112,27 +112,34 @@
         <div class="elementoFormulario">
             <label for="actualPass">
                 Contraseña actual:
-                <input [(ngModel)]="actualPass" (keydown.enter)="changePass()" type="password"
+                <input [(ngModel)]="actualPass" (keydown.enter)="editarPerfil()" type="password"
                     placeholder="Ingrese su contraseña actual">
             </label>
         </div>
         <div class="elementoFormulario">
             <label for="newPass">
                 Contraseña nueva:
-                <input [(ngModel)]="newPass" (keydown.enter)="changePass()" type="password"
+                <input [(ngModel)]="newPass" (keydown.enter)="editarPerfil()" type="password"
                     placeholder="Ingrese su nueva contraseña">
             </label>
         </div>
         <div class="elementoFormulario">
             <label for="rNewPass">
                 Reingrese su nueva contraseña:
-                <input [(ngModel)]="rNewPass" (keydown.enter)="changePass()" type="password"
+                <input [(ngModel)]="rNewPass" (keydown.enter)="editarPerfil()" type="password"
                     placeholder="Reingrese su nueva contraseña">
             </label>
         </div>
-        <div class="botonCambiarContrasenia"  button class="btn btn-primary" (click)="changePass()" 
-            title="Cambiar contraseña">
-            Cambiar Contraseña
+        <div class="elementoFormulario" *ngIf="!mail">
+            <label for="emailNgModel">
+                No tiene mail? Ingrese uno:
+                <input [(ngModel)]="emailNgModel" (keydown.enter)="editarPerfil()" type="email"
+                    placeholder="Ingrese su nuevo email">
+            </label>
+        </div>
+        <div class="editarPerfil" button class="btn btn-primary" (click)="editarPerfil()" 
+            title="Editar perfil">
+            Editar
         </div>
     </div>
 </div>

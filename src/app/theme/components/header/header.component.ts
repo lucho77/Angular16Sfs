@@ -18,6 +18,7 @@ import { FormdataReportdef } from 'src/app/_models/formdata';
 import { FrontEndConstants } from 'src/app/constans/frontEndConstants';
 import { ReportdefService } from 'src/app/_services/reportdef.service';
 import { WebauthnService } from 'src/app/_services/webauthnService';
+import { RegisterCredentialsDto } from 'src/app/_models/registerCredentialRequest';
 
 interface Pass{
   actualPass: string | null
@@ -165,14 +166,19 @@ registrarHuella(){
     this.toastService.error("WebAuthn no está soportado en este navegador");
     throw new Error('WebAuthn no está soportado en este navegador');
   }
+
   this.webAuthnService.createCredential().then((credential ) => { 
+    let crede = {} as RegisterCredentialsDto;
+    crede.id = credential.id;
+    crede.rawId= credential.rawId;
+    crede.type = credential.type;
+    crede.response = credential.response;
     this.toastService.success("Huella registrada con éxito!");
-    const dataToSend = {
-      credentialId: credential.id,
-      publicKey: credential.publicKey, 
-      algorithm: credential.attestationObject.algorithm
-    };
-    });;
+    const user = <User>JSON.parse(localStorage.getItem('currentUser'));
+
+    this.authenticationService.storeCredential(user,crede);
+
+  });;
 
 
 }

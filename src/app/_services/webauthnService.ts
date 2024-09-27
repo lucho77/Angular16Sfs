@@ -32,10 +32,20 @@ export class WebauthnService {
 
     
     try {
-      const credential = await navigator.credentials.create({ publicKey });
+      const credential:any = await navigator.credentials.create({ publicKey });
 
       console.log('Credencial creada:', credential);
-      return credential;
+      const credentialJSON = {
+        id: credential.id,
+        rawId: this.uint8ArrayToBase64(credential.rawId),
+        type: credential.type,
+        response: {
+          attestationObject: this.uint8ArrayToBase64(credential.response.attestationObject),
+          clientDataJSON: this.uint8ArrayToBase64(credential.response.clientDataJSON),
+        },
+        clientExtensionResults: credential.getClientExtensionResults(),
+      };
+      return credentialJSON;
     } catch (err) {
       console .error('Error al crear la credencial:', err);
       throw err;

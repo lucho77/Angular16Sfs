@@ -244,55 +244,67 @@
     padding: 10px;
     opacity: 0;
 
-    .cerrarBoton {
-        font-size: 24px;
-        font-weight: bold;
-        width: 20px;
-        color: #ffffff;
-        position: relative;
-        right: 20px;
-        top: -10px;
-        right: -260px;
-        cursor: pointer;
-
-        &:hover {
-            color: #d4d4d4
-        }
-        &:active {
-            scale: 0.95;
-        }
+    .boton {
+        margin: 10px !important;
     }
-
-    .elementoFormulario {
-        margin-bottom: 15px;
-        font-size: 15px;
-        label {
-            color:#fafafa;
-            input {
-                width: 100%;
-                padding: 8px;
-                margin-top: 5px;
-                border: 1px solid #fff;
-                border-radius: 5px;
-                background-color: rgb(232, 240, 254);
-                color: #000;
-
-                &::placeholder {
-                    color: #c0c0c0;
-                }
-
-                &:focus {
-                    outline: none;
-                    border-color: #fff;
-                    box-shadow: 0 0 5px rgba(255, 26, 26, 0.5);
-                }
-            }
-        }
-    }
+    
 
 }
 
+.cerrarBoton {
+    font-size: 24px;
+    font-weight: bold;
+    width: 20px;
+    color: #ffffff;
+    position: relative;
+    right: 20px;
+    top: -10px;
+    right: -260px;
+    cursor: pointer;
+
+    &:hover {
+        color: #d4d4d4
+    }
+    &:active {
+        scale: 0.95;
+    }
+}
+
+.elementoFormulario {
+    margin-bottom: 15px;
+    font-size: 15px;
+    label {
+        color:#fafafa;
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #fff;
+            border-radius: 5px;
+            background-color: rgb(232, 240, 254);
+            color: #000;
+
+            &::placeholder {
+                color: #c0c0c0;
+            }
+
+            &:focus {
+                outline: none;
+                border-color: #fff;
+                box-shadow: 0 0 5px rgba(255, 26, 26, 0.5);
+            }
+        }
+    }
+}
+
 .mostrarPopUp {
+    height: auto;
+    top: 150px;
+    opacity: 1;
+    transition: all 0.6s;
+}
+
+.mostrarPopUpOpciones{
     height: auto;
     top: 150px;
     opacity: 1;
@@ -335,4 +347,15 @@
    align-items: center;
    justify-content: center;
    border-left: 0 !important;
+}
+
+.volver{
+    display: flex;
+    position: absolute;
+    top: 1000px;
+    left: 10px;
+    top: 10px;
+    &:hover{
+        cursor: pointer;
+    }
 }

@@ -2,7 +2,7 @@
     <div class="d-flex flex-column w-100">
         <div id="info-content" class="panel-collapse collapse"  >
             <a class="close" data-toggle="collapse" href="#info-content" (click)="showInfoContent = !showInfoContent" [class.show]="showInfoContent">
-                <span aria-hidden="true">&times;</span>
+                <span aria-hidden="true" (click)="overlay=!overlay">x</span>
             </a>
             <div class="row align-items-center bordeConsultaPadre">
                 <div class="col-lg-7 col-sm-8 col-12 left-border bordeConsulta">
@@ -43,7 +43,7 @@
             </span>
 
             <div class="ml-2 mr-2 d-none d-sm-block">
-                 <a id="info-content-icon" data-toggle="collapse" href="#info-content" (click)="showInfoContent = !showInfoContent" class="d-flex" [class.show]="showInfoContent">
+                 <a id="info-content-icon" data-toggle="collapse" href="#info-content" (click)="showInfoContent = !showInfoContent; overlay = !overlay" class="d-flex" [class.show]="showInfoContent">
                     <div [@showInfo]="showInfoContent" class="triangle"></div>
                 </a>
             </div>
@@ -75,12 +75,7 @@
                         <div class="tarjetaUsuario" [class.mostrarTarjetaUser]="targetUser">
                             <span *ngIf="come">{{come}}</span>
                             <span *ngIf="mail">{{mail}}</span>
-                            <div class="botonCambiarContrasenia">
-                                <button class="btn btn-primary" (click)="popUp = !popUp" (click)="targetUser = false" [class.mostrarPupUp]="popUp" (click)="overlay = !overlay">Editar perfil</button>
-                            </div>
-                            <div class="botonCambiarContrasenia">
-                                <button class="btn btn-primary"    (click)="registrarHuella()">Registrar huella</button>
-                            </div>
+                            <button class="btn btn-primary boton" (click)="popUpOpciones = !popUpOpciones; targetUser = false; overlay = true">Configuración del usuario</button>
                         </div>
                     </div>
                  
@@ -105,41 +100,62 @@
         
     </div>
 </nav>
+
+<!-- Ventana emergente con diferentes opciones de Configuracion -->
+
+<div class="popUp" [class.mostrarPopUp]="popUpOpciones">
+    <div (click)="popUpOpciones = false; overlay = false" class="cerrarBoton" title="Salir">x</div>
+    <button class="btn btn-primary boton" (click)="popUpOpciones = false; overlay= true; popUp = true">Editar contraseña</button>
+    <button class="btn btn-primary boton" (click)="popUpOpciones = false; overlay = true; popUpEmail = true" *ngIf="!mail">Ingresar email</button>
+    <button class="btn btn-primary boton" (click)="registrarHuella()">Registrar huella</button>
+</div>
+
+<!-- Ventana emergente con cambio de Email -->
+<div class="popUp" [class.mostrarPopUp]="popUpEmail">
+    <div class="cerrarBoton" title="Salir" (click)="popUpEmail = false; overlay = !overlay">x</div>
+    <div (click)="popUpEmail=false; popUpOpciones=true" class="volver"><i class="fa fa-arrow-left"></i></div>
+    <div class="elementoFormulario">
+        <label for="actualPass">Contraseña actual: 
+            <input [(ngModel)]="actualPass" (keydown.enter)="editarMail()" type="password" placeholder="Ingrese su contraseña actual">
+        </label>
+    </div>
+    <div class="elementoFormulario">
+        <label for="nuevoEmail">
+            Ingrese su nuevo email:
+            <input [(ngModel)]="nuevoEmail" (keydown.enter)="editarMail()" type="email"
+                placeholder="Ingrese su nuevo email">
+        </label>
+    </div>
+    <div class="editarPerfil" button class="btn btn-primary" (click)="editarMail(); overlay = false; popUpEmail = false" title="Editar perfil">Editar</div>
+</div>
+
+
 <!-- Ventana emergente con cambio de contraseña -->
 <div class="overlay" [class.mostrarOverlay]="overlay">
     <div class="popUp" [class.mostrarPopUp]="popUp">
-        <div (click)="popUp = false" class="cerrarBoton" title="Salir" (click)="overlay = !overlay">x</div>
+        <div class="cerrarBoton" title="Salir" (click)="popUp = false; overlay = !overlay">x</div>
+        <div (click)="popUp=false; popUpOpciones=true" class="volver"><i class="fa fa-arrow-left"></i></div>
         <div class="elementoFormulario">
             <label for="actualPass">
                 Contraseña actual:
-                <input [(ngModel)]="actualPass" (keydown.enter)="editarPerfil()" type="password"
+                <input [(ngModel)]="actualPass" (keydown.enter)="editarContrasena()" type="password"
                     placeholder="Ingrese su contraseña actual">
             </label>
         </div>
         <div class="elementoFormulario">
             <label for="newPass">
                 Contraseña nueva:
-                <input [(ngModel)]="newPass" (keydown.enter)="editarPerfil()" type="password"
+                <input [(ngModel)]="newPass" (keydown.enter)="editarContrasena()" type="password"
                     placeholder="Ingrese su nueva contraseña">
             </label>
         </div>
         <div class="elementoFormulario">
             <label for="rNewPass">
                 Reingrese su nueva contraseña:
-                <input [(ngModel)]="rNewPass" (keydown.enter)="editarPerfil()" type="password"
+                <input [(ngModel)]="rNewPass" (keydown.enter)="editarContrasena()" type="password"
                     placeholder="Reingrese su nueva contraseña">
             </label>
         </div>
-        <div class="elementoFormulario" *ngIf="!mail">
-            <label for="emailNgModel">
-                No tiene mail? Ingrese uno:
-                <input [(ngModel)]="emailNgModel" (keydown.enter)="editarPerfil()" type="email"
-                    placeholder="Ingrese su nuevo email">
-            </label>
-        </div>
-        <div class="editarPerfil" button class="btn btn-primary" (click)="editarPerfil()" 
-            title="Editar perfil">
-            Editar
-        </div>
+        <div class="editarPerfil" button class="btn btn-primary" (click)="editarContrasena(); overlay = true; popUp = true" title="Editar perfil">Editar</div>
     </div>
 </div>

@@ -57,10 +57,14 @@ export class HeaderComponent implements OnInit {
   tablet: boolean = screen.width > 600;
   public targetUser: boolean = false;
   public popUp: boolean = false;
+  public popUpOpciones: boolean = false;
+  public popUpEmail: boolean = false;
   public overlay: boolean = false;
+  public isOpen = true;
   actualPass = '';
   newPass = '';
   rNewPass = '';
+  nuevoEmail = '';
   @ViewChild('textAreaConsulta') textAreaConsulta: ElementRef;
   @ViewChild('selectPrioridad') selectPrioridad: ElementRef;
   
@@ -185,6 +189,7 @@ registrarHuella(){
 
 
 }
+
 mandarMensaje() {
   this.submitted = true;
   const user = <User>JSON.parse(localStorage.getItem('currentUser'));
@@ -214,24 +219,29 @@ public obtenerInfoUser(){
 
 public verificarCampos(){
 
-  const validations = [
-    { condicion: !this.newPass.includes(this.rNewPass), mensaje: 'La contraseña reingresada no coincide con la nueva!' },
-    { condicion: this.actualPass && !this.newPass && !this.rNewPass, mensaje: 'Debe ingresar una nueva contraseña!' },
-    { condicion: this.newPass && !this.rNewPass, mensaje: 'Debe reingresar la nueva contraseña!' },
-    { condicion: !this.newPass && !this.rNewPass && !this.actualPass && !this.emailNgModel, mensaje: 'Debe completar los campos!' },
-    { condicion: this.emailNgModel && !this.actualPass, mensaje: 'Debe ingresar su contraseña actual para poder actualizar su email!' }
+  const errores = [
+    { condicion: !this.actualPass, mensaje: 'Se necesita ingresar la contraseña actual' },
+    { condicion: !this.newPass, mensaje: 'Debe ingresar la nueva contraseña!' },
+    { condicion: !(this.newPass === this.rNewPass), mensaje: 'La contraseña nueva no coincide con la reingresada' }
   ];
 
-  if(this.emailNgModel && this.actualPass){
-    return true;
-  }
 
-  for (const { condicion, mensaje } of validations) {
+  return this.verify(errores);
+}
+
+public verificarMail(){
+  const error = [
+    { condicion: !this.actualPass, mensaje: 'Se necesita ingresar la contraseña actual' },
+    { condicion: !this.nuevoEmail, mensaje: 'Debe ingresar un mail válido' }
+  ];
+
+  return this.verify(error);
+}
+
+public verify(arr) {
+  for (const { condicion, mensaje } of arr) {
     if (condicion) {
       this.toastService.error(mensaje);
-      this.popUp = true;
-      this.overlay = true;
-      this.resetFormulario();
       return false;
     }
   }
@@ -242,21 +252,20 @@ public resetFormulario(){
   this.actualPass = '';
   this.newPass = '';
   this.rNewPass = '';
-  this.emailNgModel = '';
+  this.nuevoEmail = '';
 }
 
 public editarPerfil(){
-  this.overlay = false;
-  if(this.verificarCampos()){
-    if(this.emailNgModel){
-      this.usuario.mail = this.emailNgModel;
+    if(this.nuevoEmail){
+      this.usuario.mail = this.nuevoEmail;
     }
-    if((this.actualPass && this.emailNgModel) && (!this.newPass && !this.rNewPass) || (this.newPass && !this.rNewPass)){
+    if((this.actualPass && this.nuevoEmail) && (!this.newPass && !this.rNewPass) || (this.newPass && !this.rNewPass)){
       this.newPass = this.actualPass;
     }
     this.reportdefService.cambiarContrasena(this.usuario, this.newPass ? this.newPass : null, this.actualPass ? this.actualPass : null, this.usuario.idUsuarioUra, this.usuario.mail).subscribe({
       next: res => {
         this.toastService.success(res['mensaje']);
+        this.overlay = false;
         this.popUp = false;
         this.resetFormulario();
       },
@@ -268,7 +277,19 @@ public editarPerfil(){
       }
         
     })
+}
+
+public editarContrasena(){
+  if (this.verificarCampos()){
+    this.editarPerfil()
   }
 }
+
+public editarMail(){
+  if (this.verificarMail()){
+    this.editarPerfil();
+  }
+}
+
 
 }

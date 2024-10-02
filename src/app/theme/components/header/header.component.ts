@@ -175,8 +175,11 @@ registrarHuella(){
     crede.response = credential.response;
     this.toastService.success("Huella registrada con éxito!");
     const user = <User>JSON.parse(localStorage.getItem('currentUser'));
+    let publicKey = this.webAuthnService.createPublicKeyString();
 
-    this.authenticationService.storeCredential(user,crede);
+    this.authenticationService.storeCredential(user,crede,publicKey).subscribe(m=>{
+      console.log(m);
+    });
 
   });;
 

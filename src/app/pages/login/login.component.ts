@@ -8,6 +8,8 @@ import { ReportdefService } from '../../_services/reportdef.service';
 import { ejecutarMetodoArea, obtenerReporteInicio, configurarParamnetrosGlobales, configurarMenu,
   extenderToken, persistirTokenCel } from './loginUtil';
 import { NameGlobalService } from 'src/app/_services/nameGlobalService';
+import { WebauthnService } from 'src/app/_services/webauthnService';
+import { credentialFinishRequest } from 'src/app/_models/credentialFinishRequest';
 
 
 @Component({
@@ -34,7 +36,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
         private router: Router,
         private authenticationService: AuthenticationService,
         private reportdefService: ReportdefService,
-        private nameGlobalService: NameGlobalService
+        private nameGlobalService: NameGlobalService, private authService:WebauthnService
     ) {}
 
     ngOnInit() {
@@ -100,6 +102,36 @@ export class LoginComponent implements OnInit, AfterViewInit {
         const user  = await this.login();
         this.router.navigate(['/pages']);
         this.loadSpinner = false;
+
+    }
+    initBiometricAuth(){
+      this.authenticationService.initAuth().subscribe({
+        next:(data)=>{
+          this.authService.getAssertion(data.respuestagenerica).then(
+            (m)=>{
+              let finishAuth = {} as credentialFinishRequest;
+              finishAuth.request = data.respuestagenerica;
+              finishAuth.attestattion=m;
+              this.authenticationService.finishAuth(finishAuth).subscribe({
+                next:(data)=>{
+                    console.log(data);
+                },
+                error:(e)=>{console.log('error')}
+              }
+              )
+              console.log('login passkey success')
+            }
+          ).catch(
+            (e)=>{
+              console.log('login passkey error')
+            }
+          )
+        },
+        error:(e)=>{
+
+          this.errorLogin = true;
+          this.error = "se ha producido un error al intentar authenticarse via passkey";
+      }});
 
     }
     login() {

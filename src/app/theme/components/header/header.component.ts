@@ -225,6 +225,8 @@ public verificarCampos(){
     { condicion: !(this.newPass === this.rNewPass), mensaje: 'La contraseña nueva no coincide con la reingresada' }
   ];
 
+  this.overlay = true;
+  this.popUp = true;
 
   return this.verify(errores);
 }
@@ -234,6 +236,9 @@ public verificarMail(){
     { condicion: !this.actualPass, mensaje: 'Se necesita ingresar la contraseña actual' },
     { condicion: !this.nuevoEmail, mensaje: 'Debe ingresar un mail válido' }
   ];
+
+  this.overlay = true;
+  this.popUpEmail = true;
 
   return this.verify(error);
 }

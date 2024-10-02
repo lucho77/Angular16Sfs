@@ -2,9 +2,9 @@
     <div class="d-flex flex-column w-100">
         <div id="info-content" class="panel-collapse collapse"  >
             <a class="close" data-toggle="collapse" href="#info-content" (click)="showInfoContent = !showInfoContent" [class.show]="showInfoContent">
-                <span aria-hidden="true" (click)="overlay=!overlay">x</span>
+                <span aria-hidden="true">x</span>
             </a>
-            <div class="row align-items-center bordeConsultaPadre">
+            <div class="row align-items-center bordeConsultaPadre" >
                 <div class="col-lg-7 col-sm-8 col-12 left-border bordeConsulta">
                     <div class="info w-280p mx-auto text-center">
                         <form>
@@ -43,7 +43,7 @@
             </span>
 
             <div class="ml-2 mr-2 d-none d-sm-block">
-                 <a id="info-content-icon" data-toggle="collapse" href="#info-content" (click)="showInfoContent = !showInfoContent; overlay = !overlay" class="d-flex" [class.show]="showInfoContent">
+                 <a id="info-content-icon" data-toggle="collapse" href="#info-content" (click)="showInfoContent = !showInfoContent" class="d-flex" [class.show]="showInfoContent">
                     <div [@showInfo]="showInfoContent" class="triangle"></div>
                 </a>
             </div>
@@ -111,6 +111,7 @@
 </div>
 
 <!-- Ventana emergente con cambio de Email -->
+
 <div class="popUp" [class.mostrarPopUp]="popUpEmail">
     <div class="cerrarBoton" title="Salir" (click)="popUpEmail = false; overlay = !overlay">x</div>
     <div (click)="popUpEmail=false; popUpOpciones=true" class="volver"><i class="fa fa-arrow-left"></i></div>
@@ -126,36 +127,39 @@
                 placeholder="Ingrese su nuevo email">
         </label>
     </div>
-    <div class="editarPerfil" button class="btn btn-primary" (click)="editarMail(); overlay = false; popUpEmail = false" title="Editar perfil">Editar</div>
+    <div class="editarPerfil" button class="btn btn-primary" (click)="editarMail()" title="Editar perfil">Editar</div>
 </div>
 
 
-<!-- Ventana emergente con cambio de contraseña -->
-<div class="overlay" [class.mostrarOverlay]="overlay">
-    <div class="popUp" [class.mostrarPopUp]="popUp">
-        <div class="cerrarBoton" title="Salir" (click)="popUp = false; overlay = !overlay">x</div>
-        <div (click)="popUp=false; popUpOpciones=true" class="volver"><i class="fa fa-arrow-left"></i></div>
-        <div class="elementoFormulario">
-            <label for="actualPass">
-                Contraseña actual:
-                <input [(ngModel)]="actualPass" (keydown.enter)="editarContrasena()" type="password"
-                    placeholder="Ingrese su contraseña actual">
-            </label>
-        </div>
-        <div class="elementoFormulario">
-            <label for="newPass">
-                Contraseña nueva:
-                <input [(ngModel)]="newPass" (keydown.enter)="editarContrasena()" type="password"
-                    placeholder="Ingrese su nueva contraseña">
-            </label>
-        </div>
-        <div class="elementoFormulario">
-            <label for="rNewPass">
-                Reingrese su nueva contraseña:
-                <input [(ngModel)]="rNewPass" (keydown.enter)="editarContrasena()" type="password"
-                    placeholder="Reingrese su nueva contraseña">
-            </label>
-        </div>
-        <div class="editarPerfil" button class="btn btn-primary" (click)="editarContrasena(); overlay = true; popUp = true" title="Editar perfil">Editar</div>
+<!-- Div de Overlay -->
+ 
+<div class="overlay" [class.mostrarOverlay]="overlay" (click)="overlay = false; popUp = false; popUpEmail = false; popUpOpciones = false; showInfoContent = false"></div>
+
+<!-- Ventana emergente con cambio de Contraseña -->
+
+<div class="popUp" [class.mostrarPopUp]="popUp">
+    <div class="cerrarBoton" title="Salir" (click)="popUp = false; overlay = !overlay">x</div>
+    <div (click)="popUp=false; popUpOpciones=true" class="volver"><i class="fa fa-arrow-left"></i></div>
+    <div class="elementoFormulario">
+        <label for="actualPass">
+            Contraseña actual:
+            <input [(ngModel)]="actualPass" (keydown.enter)="editarContrasena()" type="password"
+                placeholder="Ingrese su contraseña actual">
+        </label>
     </div>
+    <div class="elementoFormulario">
+        <label for="newPass">
+            Contraseña nueva:
+            <input [(ngModel)]="newPass" (keydown.enter)="editarContrasena()" type="password"
+                placeholder="Ingrese su nueva contraseña">
+        </label>
+    </div>
+    <div class="elementoFormulario">
+        <label for="rNewPass">
+            Reingrese su nueva contraseña:
+            <input [(ngModel)]="rNewPass" (keydown.enter)="editarContrasena()" type="password"
+                placeholder="Reingrese su nueva contraseña">
+        </label>
+    </div>
+    <div class="editarPerfil" button class="btn btn-primary" (click)="editarContrasena(); overlay = true; popUp = true" title="Editar perfil">Editar</div>
 </div>

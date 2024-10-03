@@ -53,6 +53,7 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
 import { TableModule } from 'primeng/table';
 import { CalendarModule } from 'primeng/calendar';
 import { ThumbnailModalComponent } from 'src/app/controls/thumbnail/ThumbnailModalComponent';
+import { TabViewModule} from 'primeng/tabview';
 
 // Formatos customizados
 export const MY_MOMENT_FORMATS = {
@@ -67,7 +68,7 @@ export const MY_MOMENT_FORMATS = {
 
 @NgModule({
   imports: [
-    CommonModule,routing, FormsModule,ToolbarModule,ButtonModule,
+    CommonModule,routing, FormsModule,ToolbarModule,ButtonModule,TabViewModule,
    DirectivesModule, NgbModule, ReactiveFormsModule,BusquedaGenericaModule,
     NgScrollbarModule,AngularEditorModule,DialogModule,TableModule,CalendarModule,MessagesModule,EditorModule,AutoCompleteModule,TextFieldModule,
     ToastrModule.forRoot(),

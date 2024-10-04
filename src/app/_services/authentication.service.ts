@@ -147,6 +147,9 @@ export class AuthenticationService {
     initAuth(): Observable<any> {
         return this.http.get(`${devolverProyecto()}/initAuth/`).pipe(map(result => result));
     }  
+    initReg(username:string): Observable<any> {
+        return this.http.get(`${devolverProyecto()}/initRegistration/`+username).pipe(map(result => result));
+    }  
     finishAuth(finisRequet:credentialFinishRequest): Observable<any> {
         return this.http.post(`${devolverProyecto()}/finishAuth/`,finisRequet).pipe(map(result => result));
     }  

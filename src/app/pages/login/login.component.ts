@@ -105,12 +105,15 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
     }
     initBiometricAuth(){
+
       this.authenticationService.initAuth().subscribe({
         next:(data)=>{
-          this.authService.getAssertion(data.respuestagenerica).then(
+          let dataJson = JSON.parse(data.respuestagenerica);
+          let requestKey:any ={publicKeyCredentialRequestOptions:{challenge:dataJson.publicKey.challenge, rpId:dataJson.publicKey.rpId,timeout: 360000,extensions:{}}}    
+          this.authService.getAssertion(dataJson).then(
             (m)=>{
               let finishAuth = {} as credentialFinishRequest;
-              finishAuth.request = data.respuestagenerica;
+              finishAuth.request = JSON.stringify(requestKey);
               finishAuth.attestattion=m;
               this.authenticationService.finishAuth(finishAuth).subscribe({
                 next:(data)=>{

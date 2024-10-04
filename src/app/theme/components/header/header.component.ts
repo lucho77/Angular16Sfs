@@ -170,22 +170,28 @@ registrarHuella(){
     this.toastService.error("WebAuthn no está soportado en este navegador");
     throw new Error('WebAuthn no está soportado en este navegador');
   }
+  const user = <User>JSON.parse(localStorage.getItem('currentUser'));
 
-  this.webAuthnService.createCredential().then((credential ) => { 
-    let crede = {} as RegisterCredentialsDto;
-    crede.id = credential.id;
-    crede.rawId= credential.rawId;
-    crede.type = credential.type;
-    crede.response = credential.response;
-    this.toastService.success("Huella registrada con éxito!");
-    const user = <User>JSON.parse(localStorage.getItem('currentUser'));
-    let publicKey = this.webAuthnService.createPublicKeyString();
+  this.authenticationService.initReg(user.username).subscribe(
+    m=>{
+      this.webAuthnService.createCredential(m.respuestagenerica).then((credential ) => { 
+        let crede = {} as RegisterCredentialsDto;
+        crede.id = credential.id;
+        crede.rawId= credential.rawId;
+        crede.type = credential.type;
+        crede.response = credential.response;
+        this.toastService.success("Huella registrada con éxito!");
+        let publicKey = this.webAuthnService.createPublicKeyString(m.respuestagenerica);
+    
+        this.authenticationService.storeCredential(user,crede,publicKey).subscribe(m=>{
+          console.log(m);
+        });
+    
+      });
+            
+    }
+  )
 
-    this.authenticationService.storeCredential(user,crede,publicKey).subscribe(m=>{
-      console.log(m);
-    });
-
-  });;
 
 
 }

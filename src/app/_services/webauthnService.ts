@@ -9,10 +9,10 @@ export class WebauthnService {
 
 
   // Crear credenciales
-  async createCredential(): Promise<any> {
+  async createCredential(m:string): Promise<any> {
 
 
-    let publicKey = this.createPublicKey();
+    let publicKey = this.createPublicKey(m);
     
     try {
       const credential:any = await navigator.credentials.create({ publicKey });
@@ -35,9 +35,8 @@ export class WebauthnService {
     }
   }
 
-  createPublicKey(){
-    let user =      JSON.parse(localStorage.getItem('currentUser'));
-    let data = JSON.parse(user.registration);
+  createPublicKey(m:any){
+    let data = JSON.parse(m);
 
     const publicKey: PublicKeyCredentialCreationOptions = {
       challenge: this.base64ToUint8Array(data.challenge),  // Convert base64 to Uint8Array
@@ -55,9 +54,8 @@ export class WebauthnService {
     };
     return publicKey;
   }
-  createPublicKeyString(){
-    let user =      JSON.parse(localStorage.getItem('currentUser'));
-    let data = JSON.parse(user.registration);
+  createPublicKeyString(m:string){
+    let data = JSON.parse(m);
 
     const publicKey = {
       challenge: data.challenge,  // Convert base64 to Uint8Array
@@ -106,14 +104,14 @@ export class WebauthnService {
  
 }
   // Obtener la autenticación
-  async getAssertion(data:string): Promise<any> {
+  async getAssertion(data:any): Promise<any> {
 
-    let dataJson = JSON.parse(data);
     const publicKey: PublicKeyCredentialRequestOptions = {
-      challenge: this.base64ToUint8Array(dataJson.publicKeyCredentialRequestOptions.challenge),  // Convert base64 to Uint8Array
+      challenge: this.base64ToUint8Array(data.publicKey.challenge),  // Convert base64 to Uint8Array
       timeout: 360000,
+      rpId:data.publicKey.rpId,
+      extensions:{}
     };
-
     try {
       const assertion:any = await navigator.credentials.get({ publicKey });
       const credentialJSON = {
@@ -123,6 +121,7 @@ export class WebauthnService {
           clientDataJSON: this.uint8ArrayToBase64(assertion.response.clientDataJSON),
           signature: this.uint8ArrayToBase64(assertion.response.signature),
         },
+        type:'public-key',
         clientExtensionResults: assertion.getClientExtensionResults(),
       };
 

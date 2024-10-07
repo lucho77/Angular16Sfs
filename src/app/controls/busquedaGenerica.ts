@@ -343,14 +343,15 @@ export class BusquedaGenericaComponent {
     private checkError(error: any ) {
        //  this.loadSpinner.hide();
 
-
         if (error !== undefined && error !== null) {
            if ((error.hasOwnProperty('tokenError') &&  error.tokenError) || (error.hasOwnProperty('tokenExpired') && error.tokenExpired)) {
               this.router.navigate(['/token']);
              return;
-           } else {
-             this.toastrService.error(' error inesperado');
-           }
-           }
- }
+            } else if (error.errorBusiness) {
+            this.toastrService.error(error.mensaje);
+            } else {
+            this.toastrService.error(' error inesperado');
+            }
+        }
+    }
 }

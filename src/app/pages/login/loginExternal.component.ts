@@ -4,9 +4,10 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { AuthenticationService } from '../../_services/authentication.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ReportdefService } from '../../_services/reportdef.service';
-import { ejecutarMetodoArea } from './loginUtil';
+import { ejecutarMetodoArea , setearLatitudyLongitudGlobal} from './loginUtil';
 import { environment } from 'src/environments/environment';
 import { NameGlobalService } from 'src/app/_services/nameGlobalService';
+import { GeolocationService } from 'src/app/_services/Geolocation.service';
 
 
 @Component({templateUrl: 'loginExternal.component.html'})
@@ -14,7 +15,7 @@ export class LoginExternalComponent implements OnInit, AfterViewInit {
 
     constructor(
         private authenticationService: AuthenticationService, private route: ActivatedRoute,
-        private router: Router, private reportdefService: ReportdefService,private nameGlobalService: NameGlobalService
+        private router: Router, private reportdefService: ReportdefService,private nameGlobalService: NameGlobalService, private geolocationService: GeolocationService
 
     ) {}
 
@@ -71,6 +72,7 @@ export class LoginExternalComponent implements OnInit, AfterViewInit {
       localStorage.setItem('paramGlobal', JSON.stringify(user.listGlobales));
       localStorage.setItem('userMenu', JSON.stringify(user.menueViejo));
       localStorage.setItem('reporte', user.reporteInicio);
+      await setearLatitudyLongitudGlobal(user.listGlobales, this.geolocationService);
       console.log('Objeto shared:')
       console.log(user.sharedDTO)
  

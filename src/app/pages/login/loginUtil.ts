@@ -6,6 +6,7 @@ import { ParametrosExecuteMethodRequestDTO } from '../../_models/parametrosExecu
 import { ReportdefService } from '../../_services/reportdef.service';
 import { DataToken } from 'src/app/_models/dataToken';
 import { NameGlobalService } from 'src/app/_services/nameGlobalService';
+import { GeolocationService } from 'src/app/_services/Geolocation.service';
 
 export function configurarParamnetrosGlobales(user: any, authenticationService: AuthenticationService, context: any, isMovil: boolean,
      token: string ) {
@@ -91,6 +92,36 @@ export function configurarParamnetrosGlobales(user: any, authenticationService: 
 });
 
 }
+
+export function setearLatitudyLongitudGlobal(listGlobales, geolocationService: GeolocationService) {
+  return new Promise(async resolve => {
+    let latitud = null;
+    let longitud = null;
+    await geolocationService.getCurrentLocation()
+      .then((coords) => {
+        latitud = coords.lat;
+        longitud = coords.lng;
+      })
+      .catch((error) => {
+        console.error('Error obteniendo la ubicación', error);
+      });
+
+    if (latitud && longitud) {
+      for (let p of listGlobales) {
+        if (p.name == 'P_LATITUD') {
+          p.valueNew = latitud;
+        }
+        if (p.name == 'P_LONGITUD') {
+          p.valueNew = longitud;
+        }
+      }
+      localStorage.setItem('paramGlobal', JSON.stringify(listGlobales));
+    }
+    resolve(listGlobales);
+  })
+
+}
+
 export function configurarMenu(user: any, authenticationService: AuthenticationService) {
     return new Promise(resolve => {
 

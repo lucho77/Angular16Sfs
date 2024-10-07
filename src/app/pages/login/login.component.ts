@@ -5,9 +5,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AuthenticationService } from '../../_services/authentication.service';
 import { ReportdefService } from '../../_services/reportdef.service';
-import { ejecutarMetodoArea, obtenerReporteInicio, configurarParamnetrosGlobales, configurarMenu,
-  extenderToken, persistirTokenCel } from './loginUtil';
+import { ejecutarMetodoArea, setearLatitudyLongitudGlobal } from './loginUtil';
 import { NameGlobalService } from 'src/app/_services/nameGlobalService';
+import { GeolocationService } from 'src/app/_services/Geolocation.service';
 
 
 @Component({
@@ -34,7 +34,8 @@ export class LoginComponent implements OnInit, AfterViewInit {
         private router: Router,
         private authenticationService: AuthenticationService,
         private reportdefService: ReportdefService,
-        private nameGlobalService: NameGlobalService
+        private nameGlobalService: NameGlobalService,
+        private geolocationService: GeolocationService
     ) {}
 
     ngOnInit() {
@@ -105,7 +106,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
     login() {
       return new Promise(resolve => {
       this.authenticationService.login(this.f.username.value, this.f.password.value).subscribe
-      (user => {
+      (async user => {
               
                   console.log('USUARIOLOGUEANDO',user);
 
@@ -136,6 +137,8 @@ export class LoginComponent implements OnInit, AfterViewInit {
                    localStorage.setItem('paramGlobal', JSON.stringify(user.listGlobales));
                    localStorage.setItem('userMenu', JSON.stringify(user.menueViejo));
                    localStorage.setItem('reporte', user.reporteInicio);
+                   await setearLatitudyLongitudGlobal(user.listGlobales, this.geolocationService);
+
                    if (user['metodo'] !== null && user['metodo'] !== undefined) {
                     ejecutarMetodoArea(user, user.listGlobales, this.reportdefService, this.nameGlobalService);
                   }

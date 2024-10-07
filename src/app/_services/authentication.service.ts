@@ -12,6 +12,7 @@ import { Observable } from 'rxjs';
 import { RefreshTokenResponse } from '../_models/refreshTokenResponse';
 import { RegisterCredentialsDto } from '../_models/registerCredentialRequest';
 import { CredentialRequest } from '../_models/credentialRequest';
+import { credentialFinishRequest } from '../_models/credentialFinishRequest';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
@@ -132,16 +133,25 @@ export class AuthenticationService {
         data.idUsuarioUra = user.idUsuarioUra;
         return this.http.post<RefreshTokenResponse>(`${devolverProyecto()}/refreshToken/`,data);
     }
-    storeCredential(user: User, registerData:any): Observable<any> {
+    storeCredential(user: User, registerData:any,credential:string): Observable<any> {
         let cred = {} as CredentialRequest;
         cred.username = user.username;
         cred.dataSource = user.datasource;
         cred.webServicesAddress = user.webservice;
         cred.modelPackage = user.packageModel;
         cred.idUsuarioUra = user.idUsuarioUra;
-        cred.registration = user.registration;
+        cred.registration = credential;
         cred.keysDTO =registerData;
-        return this.http.post(`${devolverProyecto()}/storeCredential/`,registerData).pipe(map(result => result));
+        return this.http.post(`${devolverProyecto()}/registerPassKeys/`,cred).pipe(map(result => result));
+    }  
+    initAuth(): Observable<any> {
+        return this.http.get(`${devolverProyecto()}/initAuth/`).pipe(map(result => result));
+    }  
+    initReg(username:string): Observable<any> {
+        return this.http.get(`${devolverProyecto()}/initRegistration/`+username).pipe(map(result => result));
+    }  
+    finishAuth(finisRequet:credentialFinishRequest): Observable<any> {
+        return this.http.post(`${devolverProyecto()}/finishAuth/`,finisRequet).pipe(map(result => result));
     }  
 
 

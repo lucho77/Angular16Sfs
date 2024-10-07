@@ -7,6 +7,7 @@
             <div class="card-body text-center pb-1">
                 <h2>SFS login</h2>
                 <a routerLink="/register" class="transition">No tiene una cuenta?, regístrese!</a>
+                <a href="#" (click)="initBiometricAuth()">passkey</a>
 
                 <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="text-left mt-4">
                     <div class="form-group">

@@ -1,4 +1,4 @@
-﻿﻿﻿﻿import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
@@ -8,6 +8,8 @@ import { ReportdefService } from '../../_services/reportdef.service';
 import { ejecutarMetodoArea, setearLatitudyLongitudGlobal } from './loginUtil';
 import { NameGlobalService } from 'src/app/_services/nameGlobalService';
 import { GeolocationService } from 'src/app/_services/Geolocation.service';
+import { WebauthnService } from 'src/app/_services/webauthnService';
+import { credentialFinishRequest } from 'src/app/_models/credentialFinishRequest';
 
 
 @Component({
@@ -34,8 +36,9 @@ export class LoginComponent implements OnInit, AfterViewInit {
         private router: Router,
         private authenticationService: AuthenticationService,
         private reportdefService: ReportdefService,
-        private nameGlobalService: NameGlobalService,
-        private geolocationService: GeolocationService
+        private geolocationService: GeolocationService,
+        private nameGlobalService: NameGlobalService, 
+        private authService:WebauthnService
     ) {}
 
     ngOnInit() {
@@ -101,6 +104,39 @@ export class LoginComponent implements OnInit, AfterViewInit {
         const user  = await this.login();
         this.router.navigate(['/pages']);
         this.loadSpinner = false;
+
+    }
+    initBiometricAuth(){
+
+      this.authenticationService.initAuth().subscribe({
+        next:(data)=>{
+          let dataJson = JSON.parse(data.respuestagenerica);
+          let requestKey:any ={publicKeyCredentialRequestOptions:{challenge:dataJson.publicKey.challenge, rpId:dataJson.publicKey.rpId,timeout: 360000,extensions:{}}}    
+          this.authService.getAssertion(dataJson).then(
+            (m)=>{
+              let finishAuth = {} as credentialFinishRequest;
+              finishAuth.request = JSON.stringify(requestKey);
+              finishAuth.attestattion=m;
+              this.authenticationService.finishAuth(finishAuth).subscribe({
+                next:(data)=>{
+                    console.log(data);
+                },
+                error:(e)=>{console.log('error')}
+              }
+              )
+              console.log('login passkey success')
+            }
+          ).catch(
+            (e)=>{
+              console.log('login passkey error')
+            }
+          )
+        },
+        error:(e)=>{
+
+          this.errorLogin = true;
+          this.error = "se ha producido un error al intentar authenticarse via passkey";
+      }});
 
     }
     login() {

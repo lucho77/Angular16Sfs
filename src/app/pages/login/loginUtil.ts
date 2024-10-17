@@ -218,7 +218,11 @@ export function configurarMenu(user: any, authenticationService: AuthenticationS
 
            for ( const g of m) {
             if (g.name === 'P_IDAFILIADO4') {
-                sessionStorage.setItem('tabInformationName', g.busquedaGenericaDTO.mostrarToStringLupa);
+                let nameAfi = g.busquedaGenericaDTO.mostrarToStringLupa;
+                if (!nameAfi)
+                  nameAfi = getCookie('nameAfi')
+                
+                sessionStorage.setItem('tabInformationName', nameAfi);
                 nameGlobalService.setNameInfoChangue(g.busquedaGenericaDTO.mostrarToStringLupa);
                 break;
             }
@@ -296,4 +300,23 @@ export function configurarMenu(user: any, authenticationService: AuthenticationS
     });
   });
 
+  }
+
+  export function getCookie(name: string): string | null {
+    const nameEQ = name + "=";
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+      let cookie = cookies[i].trim();
+      if (cookie.indexOf(nameEQ) === 0) {
+        let value = decodeURIComponent(cookie.substring(nameEQ.length, cookie.length));
+
+        if (value.startsWith('"'))
+          value = value.substring(1,value.length);
+        if (value.endsWith('"'))
+          value = value.substring(0,value.length - 1);
+
+        return value;
+      }
+    }
+    return null;
   }

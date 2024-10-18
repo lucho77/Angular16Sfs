@@ -152,6 +152,7 @@ export class ComboComponent {
         if (this.field.dependenciaComboDTO && this.field.dependenciaComboDTO.nombreParam) {
             // si es asi debo llamar al metodo que hace cambiar al combo relacionado
             const listParam: FormdataReportdef[] = [];
+            let listParamGlobal: FormdataReportdef[] = JSON.parse(localStorage.getItem("paramGlobal"));
             for (const p of this.field.dependenciaComboDTO.parametrosLlamadaMetodo) {
                 for (const param of this.dataForm) {
                    if (p === param.name) {
@@ -163,6 +164,15 @@ export class ComboComponent {
                             listParam.push(param);
                         }
                    }
+                }
+                if (listParamGlobal) {
+                    for (const paramGlobal of listParamGlobal) {
+                        let existeParam = listParam.some(pa => pa.name === paramGlobal.name);
+                        if (paramGlobal.name === p && !existeParam) {
+                            listParam.push(paramGlobal);
+                            continue;
+                        }
+                     }
                 }
             }
             const user = JSON.parse(localStorage.getItem('currentUser'));

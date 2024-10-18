@@ -154,5 +154,9 @@ export class AuthenticationService {
         return this.http.post(`${devolverProyecto()}/finishAuth/`,finisRequet).pipe(map(result => result));
     }  
 
+    borrarCookie(nombreCookie: string) {
+        document.cookie = nombreCookie + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+    }
+
 
 }

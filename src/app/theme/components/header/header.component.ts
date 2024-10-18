@@ -141,6 +141,9 @@ salir() {
     // this.wService.logoutWS();
     this.exitService.setearExitGlobal();
     this.authenticationService.logout();
+    this.authenticationService.borrarCookie('paramsCompartir');
+    this.authenticationService.borrarCookie('metodoCompartir');
+    this.authenticationService.borrarCookie('nameAfi');
     this.router.navigate(['/']);
 }
 

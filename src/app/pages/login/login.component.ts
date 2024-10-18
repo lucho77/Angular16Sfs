@@ -5,7 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AuthenticationService } from '../../_services/authentication.service';
 import { ReportdefService } from '../../_services/reportdef.service';
-import { ejecutarMetodoArea, setearLatitudyLongitudGlobal } from './loginUtil';
+import { ejecutarMetodoArea, setearLatitudyLongitudGlobal, getCookie, extraerParamsShared } from './loginUtil';
 import { NameGlobalService } from 'src/app/_services/nameGlobalService';
 import { GeolocationService } from 'src/app/_services/Geolocation.service';
 import { WebauthnService } from 'src/app/_services/webauthnService';
@@ -30,6 +30,9 @@ export class LoginComponent implements OnInit, AfterViewInit {
     tokenCel = '';
     context: any;
     tokenAndroid: string;
+    paramsCoockie: string;
+    metodoCoockie: string;
+    relaodInfo: boolean = false;
     constructor(
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
@@ -38,7 +41,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
         private reportdefService: ReportdefService,
         private geolocationService: GeolocationService,
         private nameGlobalService: NameGlobalService, 
-        private authService:WebauthnService
+        private authService:WebauthnService,
     ) {}
 
     ngOnInit() {
@@ -58,9 +61,13 @@ export class LoginComponent implements OnInit, AfterViewInit {
         const eExt = params.get('ext');
         console.log('EL parametro 1A login es : ' + eExt);
 
-      const lalocJSESSIONID = document.cookie;
-      console.log('Las cookies en el login son : ' + lalocJSESSIONID);
-      console.log(lalocJSESSIONID);
+      let sParams = getCookie('paramsCompartir');
+      let sMetodo = getCookie('metodoCompartir');
+      console.log(sParams, sMetodo);
+      
+      this.paramsCoockie = sParams;
+      this.metodoCoockie = sMetodo;
+      
       });
 
     // reset login status
@@ -169,6 +176,16 @@ export class LoginComponent implements OnInit, AfterViewInit {
                   this.authenticationService.logout();
                   // this.loadSpinner = false;
                    }
+                   if (!user.sharedDTO && this.paramsCoockie) {
+                    user.metodo = this.metodoCoockie;
+                    let listParam = extraerParamsShared(this.paramsCoockie);
+                    for (let g of user.listGlobales) {
+                      for (let gs of listParam) {
+                        if (g.name === gs.name && !g.valueNew)
+                          g.valueNew = gs.value;
+                      }
+                    }
+                   }
                    localStorage.setItem('currentUser', JSON.stringify(user));
                    localStorage.setItem('paramGlobal', JSON.stringify(user.listGlobales));
                    localStorage.setItem('userMenu', JSON.stringify(user.menueViejo));
@@ -204,4 +221,5 @@ export class LoginComponent implements OnInit, AfterViewInit {
       );
     });
     }
+
   }

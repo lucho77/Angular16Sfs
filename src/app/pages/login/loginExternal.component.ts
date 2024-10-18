@@ -4,7 +4,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { AuthenticationService } from '../../_services/authentication.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ReportdefService } from '../../_services/reportdef.service';
-import { ejecutarMetodoArea , setearLatitudyLongitudGlobal} from './loginUtil';
+import { ejecutarMetodoArea , setearLatitudyLongitudGlobal, getCookie, extraerParamsShared} from './loginUtil';
 import { environment } from 'src/environments/environment';
 import { NameGlobalService } from 'src/app/_services/nameGlobalService';
 import { GeolocationService } from 'src/app/_services/Geolocation.service';
@@ -13,6 +13,8 @@ import { GeolocationService } from 'src/app/_services/Geolocation.service';
 @Component({templateUrl: 'loginExternal.component.html'})
 export class LoginExternalComponent implements OnInit, AfterViewInit {
 
+  private paramsCoockie: string;
+  private metodoCoockie: string;
     constructor(
         private authenticationService: AuthenticationService, private route: ActivatedRoute,
         private router: Router, private reportdefService: ReportdefService,private nameGlobalService: NameGlobalService, private geolocationService: GeolocationService
@@ -34,7 +36,17 @@ export class LoginExternalComponent implements OnInit, AfterViewInit {
         });
 
         console.log('estoy en el loginExternal External');  */
-        this.authenticationService.logout();
+
+        let sParams = getCookie('paramsCompartir');
+        let sMetodo = getCookie('metodoCompartir');
+        
+        this.paramsCoockie = sParams;
+        this.metodoCoockie = sMetodo;
+
+        if (!this.paramsCoockie) {
+          this.authenticationService.logout();
+        }
+
         console.log('me voy a loguear LoginExternal');
         this.onExternalLogin();
     }
@@ -83,7 +95,7 @@ export class LoginExternalComponent implements OnInit, AfterViewInit {
     console.log('Guardando data Cache:')
     console.log(user.sharedDTO.cache)
     console.log(user.sharedDTO.semilla)
-   let data ={user:user.username,semilla:user.sharedDTO.semilla};
+    let data ={user:user.username,semilla:user.sharedDTO.semilla};
     localStorage.setItem('cache', JSON.stringify(data));
   }
 
@@ -107,9 +119,29 @@ export class LoginExternalComponent implements OnInit, AfterViewInit {
         (user => {
                 // login successful if there's a jwt token in the response
                      if (user.errorBusiness) {
-                         // es un error
-                         this.router.navigate(['/login']);
-                         //reject();
+
+                        if (this.paramsCoockie) {
+                          user = JSON.parse(localStorage.getItem('currentUser'));
+                          if (user) {
+                            user.metodo = this.metodoCoockie;
+                            let listParam = extraerParamsShared(this.paramsCoockie);
+                            let listNew = [];
+                            for (let g of user.listGlobales) {
+                              for (let gs of listParam) {
+                                if (g.name === gs.name)
+                                  g.valueNew = gs.value;
+                              }
+                              listNew.push(g);
+                            }
+                            // actualizo los globales con los parametros de las cookies
+                            localStorage.setItem('paramGlobal', JSON.stringify(listNew));
+                            this.nameGlobalService.reloadInfo = true;
+                            this.router.navigate(['/pages']);
+                          } else
+                            this.router.navigate(['/login']);
+                        }
+                        else 
+                          this.router.navigate(['/login']);
 
                          return;
                      }

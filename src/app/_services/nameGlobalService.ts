@@ -9,6 +9,7 @@ export class NameGlobalService {
     public nameChanged$ = this.nameChangedSource.asObservable();
     private name: string;
     private detalle: string;
+    public reloadInfo: boolean = false;
 
     setNameInfoChangue(name: string) {
       console.log('nameinfo',name);

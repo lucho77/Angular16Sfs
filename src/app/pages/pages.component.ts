@@ -3,6 +3,9 @@ import { Router } from '@angular/router';
 import { AppSettings } from '../app.settings';
 import { Settings } from '../app.settings.model';
 import { isMobile } from 'mobile-device-detect';
+import { NameGlobalService } from '../_services/nameGlobalService';
+import { ReportdefService } from '../_services/reportdef.service';
+import { ejecutarMetodoArea, } from './login/loginUtil';
 
 
 @Component({
@@ -22,14 +25,14 @@ export class PagesComponent implements OnInit {
     tablet: boolean = screen.width > 600;
     
     public settings: Settings;
-    constructor(public appSettings:AppSettings, public router:Router){        
+    constructor(public appSettings:AppSettings, public router:Router,private nameGlobalService: NameGlobalService, private reportdefService: ReportdefService){        
         this.settings = this.appSettings.settings; 
         if(sessionStorage["skin"]) {
             this.settings.theme.skin = sessionStorage["skin"];
         }     
     }
 
-    ngOnInit() {        
+    async ngOnInit() {        
         if(window.innerWidth <= 768){
             this.settings.theme.showMenu = false;
             this.settings.theme.sideChatIsHoverable = false;
@@ -37,6 +40,17 @@ export class PagesComponent implements OnInit {
         this.showMenu = this.settings.theme.showMenu;
         this.menuOption = this.settings.theme.menu;
         this.menuTypeOption = this.settings.theme.menuType;
+
+        if (this.nameGlobalService.reloadInfo) {
+            let user = JSON.parse(localStorage.getItem('currentUser'));
+            let listGlobals = JSON.parse(localStorage.getItem('paramGlobal'));
+            if (user['metodo'] !== null && user['metodo'] !== undefined) {
+                await ejecutarMetodoArea(user, listGlobals, this.reportdefService, this.nameGlobalService);
+            }
+            this.nameGlobalService.reloadInfo = false;
+        }
+
+
     }
 
     public chooseMenu(menu: string){

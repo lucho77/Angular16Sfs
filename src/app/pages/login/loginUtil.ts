@@ -221,7 +221,7 @@ export function configurarMenu(user: any, authenticationService: AuthenticationS
                 let nameAfi = g.busquedaGenericaDTO.mostrarToStringLupa;
                 if (!nameAfi)
                   nameAfi = getCookie('nameAfi')
-                
+
                 sessionStorage.setItem('tabInformationName', nameAfi);
                 nameGlobalService.setNameInfoChangue(g.busquedaGenericaDTO.mostrarToStringLupa);
                 break;
@@ -319,4 +319,17 @@ export function configurarMenu(user: any, authenticationService: AuthenticationS
       }
     }
     return null;
+  }
+
+  export function extraerParamsShared(params: string) {
+    let paramShared = params.split(/[;,]/);
+    const listParam = [];
+    for (let p of paramShared) {
+      let sp = p.split('=');
+      let param = {name: "",value: ""};
+      param.name = sp[0];
+      param.value = sp[1];
+      listParam.push(param);
+    }
+    return listParam;
   }

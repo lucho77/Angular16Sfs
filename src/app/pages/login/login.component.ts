@@ -5,13 +5,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AuthenticationService } from '../../_services/authentication.service';
 import { ReportdefService } from '../../_services/reportdef.service';
-import { ejecutarMetodoArea, setearLatitudyLongitudGlobal, getCookie } from './loginUtil';
+import { ejecutarMetodoArea, setearLatitudyLongitudGlobal, getCookie, extraerParamsShared } from './loginUtil';
 import { NameGlobalService } from 'src/app/_services/nameGlobalService';
 import { GeolocationService } from 'src/app/_services/Geolocation.service';
 import { WebauthnService } from 'src/app/_services/webauthnService';
 import { credentialFinishRequest } from 'src/app/_models/credentialFinishRequest';
-import { share } from 'rxjs';
-import { FormdataReportdef } from 'src/app/_models/formdata';
 
 
 @Component({
@@ -34,6 +32,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
     tokenAndroid: string;
     paramsCoockie: string;
     metodoCoockie: string;
+    relaodInfo: boolean = false;
     constructor(
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
@@ -179,7 +178,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
                    }
                    if (!user.sharedDTO && this.paramsCoockie) {
                     user.metodo = this.metodoCoockie;
-                    let listParam = this.extraerParamsShared(this.paramsCoockie);
+                    let listParam = extraerParamsShared(this.paramsCoockie);
                     for (let g of user.listGlobales) {
                       for (let gs of listParam) {
                         if (g.name === gs.name && !g.valueNew)
@@ -223,16 +222,4 @@ export class LoginComponent implements OnInit, AfterViewInit {
     });
     }
 
-    extraerParamsShared(params: string) {
-      let paramShared = params.split(/[;,]/);
-      const listParam = [];
-      for (let p of paramShared) {
-        let sp = p.split('=');
-        let param = {name: "",value: ""};
-        param.name = sp[0];
-        param.value = sp[1];
-        listParam.push(param);
-      }
-      return listParam;
-    }
   }
